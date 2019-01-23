@@ -9,21 +9,26 @@
 #4. Plot Surface valve
 #5. Compare magic data to DO + temp data at 1, 5, and 9m
 
+#packages need
+library(lubridate)
+
 #loading in data
 setwd('./MagicData')
 
-###putting in met merge script as place holder
-magicrawfiles<-list.files(path=getwd())
-
 #create list with files after cleaning protocol
 magicfiles<-list.files(path=".", pattern = "810*")
+#this isn't working how I want. Will fix by limiting time for now
+fp.files <- magicfiles[grep(".FP", magicfiles, fixed=T)] #takes above list and keeps only FP file
 
-obs<-read.csv(file=metfiles[1],skip=4,header=FALSE) #read in first file
+#alternative loading. loads in all FP files. still limit by time after agg
+#magicFPfiles<-list.files(magicfiles, pattern = ".FP")
+
+###putting in met merge script as place holder
+obs<-read.table(file=fp.files[1],skip=1,header=TRUE, row.names = NULL) #read in first file
 
 #paste in actual 
-names(obs) = c("TIMESTAMP","RECORD","BattV","PTemp_C","PAR_Den_Avg","PAR_Tot_Tot","BP_kPa_Avg","AirTC_Avg","RH","Rain_mm_Tot","WS_ms_Avg","WindDir","SR01Up_Avg","SR01Dn_Avg","IR01UpCo_Avg","IR01DnCo_Avg","Albedo_Avg")
-units = c("TS","RN","Volts","Deg C","umol/s/m^2","mmol/m^2","kPa","Deg C","%","mm","meters/second","degrees","W/m^2","W/m^2","W/m^2","W/m^2","W/m^2") #creates list of units, skipped in line above
-obs$TIMESTAMP = as.POSIXct(obs$TIMESTAMP)
+names(obs) = c("Date","Time","Status","200.00","202.50","205.00","207.50","210.00","212.50","215.00","217.50","220.00","222.50","225.00","227.50","230.00")
+
 
 for(i in 2:length(metfiles)){ #reads in all files within folder in Github
   temp<-read.csv(file=metfiles[i],skip=4,header=FALSE)
@@ -41,6 +46,8 @@ for(i in 2:length(obs$RECORD)){ #this identifies if there are any data gaps in t
     print(c(obs$TIMESTAMP[i-1],obs$TIMESTAMP[i]))
   }
 }
+
+#limit data to after Oct 19 16:30
 
 setwd("..") #goes up one directory so that metadata file is not written to /MetStationData
 
