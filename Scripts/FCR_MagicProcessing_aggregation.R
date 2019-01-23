@@ -24,28 +24,23 @@ fp.files <- magicfiles[grep(".FP", magicfiles, fixed=T)] #takes above list and k
 #magicFPfiles<-list.files(magicfiles, pattern = ".FP")
 
 ###putting in met merge script as place holder
-obs<-read.table(file=fp.files[1],skip=1,header=TRUE, row.names = NULL) #read in first file
+obs<-read.table(file=fp.files[1],skip=1,header=TRUE, row.names = NULL, sep = "\t") #read in first file
+obs$Date.Time=ymd_hms(obs$Date.Time, tz = "Etc/GMT+4")
 
-#paste in actual 
-names(obs) = c("Date","Time","Status","200.00","202.50","205.00","207.50","210.00","212.50","215.00","217.50","220.00","222.50","225.00","227.50","230.00")
-
-
-for(i in 2:length(metfiles)){ #reads in all files within folder in Github
-  temp<-read.csv(file=metfiles[i],skip=4,header=FALSE)
-  if(length(names(temp))>17){ #removes NR01TK_Avg column, which was downloaded on some but not all days
-    temp$V17<-NULL #remove extra column
-  }
-  names(temp) = c("TIMESTAMP","RECORD","BattV","PTemp_C","PAR_Den_Avg","PAR_Tot_Tot","BP_kPa_Avg","AirTC_Avg","RH","Rain_mm_Tot","WS_ms_Avg","WindDir","SR01Up_Avg","SR01Dn_Avg","IR01UpCo_Avg","IR01DnCo_Avg","Albedo_Avg")
-  temp$TIMESTAMP = as.POSIXct(temp$TIMESTAMP)
+for(i in 2:length(fp.files)){ #reads in all files within folder in Github
+  temp<-read.table(file=fp.files[i],skip=1,header=TRUE, row.names = NULL, sep = "\t")
+  temp$Date.Time=ymd_hms(temp$Date.Time, tz = "Etc/GMT+4")
   obs<-rbind(obs,temp)
   #print(i)
 }
 
-for(i in 2:length(obs$RECORD)){ #this identifies if there are any data gaps in the long-term record, and where they are by record number
-  if(obs$RECORD[i]-obs$RECORD[i-1]>1){
-    print(c(obs$TIMESTAMP[i-1],obs$TIMESTAMP[i]))
+for(i in 2:length(obs$Date.Time)){ #this identifies if there are any data gaps in the long-term record, and where they are by record number
+  if(obs$Date.Time[i]-obs$Date.Time[i-1]>4.5){
+    print(c(obs$Date.Time[i-1],obs$Date.Time[i]))
   }
 }
+#suspicious, lot of data separated by large time chunks. ~20-30 min
+
 
 #limit data to after Oct 19 16:30
 
