@@ -43,8 +43,26 @@ for(i in 2:length(obs$Date.Time)){ #this identifies if there are any data gaps i
 
 
 #limit data to after Oct 19 16:30
+#make sure all pumping was the same?
+Fall_magic=obs[obs$Date.Time> "2018-10-19 16:30:00",]
+Fall_magic=Fall_magic[order(Fall_magic$Date.Time),] #orders by time
+Fall_magic=unique(Fall_magic)
+
+#read in log files
+log_files=list.files(path = ".", pattern = "*LOG.TXT")
+logs<-read.table(file=log_files[1],header=F, row.names = NULL, sep = ",") #read in first file
+logs$Date.Time=ymd_hms(obs$Date.Time, tz = "Etc/GMT+4")
+
+for(i in 2:length(fp.files)){ #reads in all files within folder in Github
+  temp<-read.table(file=fp.files[i],skip=1,header=TRUE, row.names = NULL, sep = "\t")
+  temp$Date.Time=ymd_hms(temp$Date.Time, tz = "Etc/GMT+4")
+  obs<-rbind(obs,temp)
+  #print(i)
+}
 
 setwd("..") #goes up one directory so that metadata file is not written to /MetStationData
+
+
 
 #write.csv(obs,"AllRawMetData.csv", row.names = FALSE) #create csv with all raw appended data
 #this is the LEVEL_ZERO dataset: i.e., no QA/QC applied, complete dataset but has errors
