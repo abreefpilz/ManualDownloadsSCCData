@@ -1,0 +1,5 @@
+"TOA5","CR310_FCRWeir","CR300","5318","CR310.Std.08.01","CPU:CR310_20190415.CR300","62540","FCRWeir"
+"TIMESTAMP","RECORD","BattV","PTemp_C","AirTemp_C","Lvl_psi","wtr_weir"
+"TS","RN","Volts","Deg C","Deg C","psi","deg C"
+"","","Smp","Smp","Smp","Smp","Smp"
+"2019-04-15 14:00:00",0,12.69,12.85,11.96,0.43,13.07
