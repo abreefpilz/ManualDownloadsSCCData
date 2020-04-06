@@ -1,0 +1,49 @@
+Time, Valve, Pump Dir, Pump Time, Measure Time, Purge Time, Notes
+2020/4/4 11:56:10, 10, Reverse, 791, NA, NA, Manual - Start!
+2020/4/4 11:56:12, 10, Forward, 906, NA, NA, Manual
+2020/4/4 11:56:15, 10, Reverse, 3095, NA, NA, Manual
+2020/4/4 11:56:20, 10, Forward, 791, NA, NA, Manual
+2020/4/4 12:16:14, 10, Reverse, 2288, NA, NA, Manual - Start!
+2020/4/4 12:16:21, 10, Forward, 2058, NA, NA, Manual
+2020/4/4 12:16:25, 10, Reverse, 2980, NA, NA, Manual
+2020/4/4 12:16:30, 10, Forward, 561, NA, NA, Manual
+2020/4/4 12:16:37, 10, Forward, 1367, NA, NA, Manual
+2020/4/4 12:16:39, 10, Reverse, 1713, NA, NA, Manual
+2020/4/4 12:18:00, 10, Reverse, 791, NA, NA, Manual
+2020/4/4 12:18:02, 10, Forward, 907, NA, NA, Manual
+2020/4/4 12:18:45, 10, Forward, 792, NA, NA, Manual
+2020/4/4 12:18:47, 10, Reverse, 1367, NA, NA, Manual
+2020/4/4 13:34:28, 10, Forward, 15, 120, 15, Automatic - Start!
+2020/4/4 13:36:43, 10, Reverse, 15, 120, 15, Automatic
+2020/4/4 13:43:28, 1, Forward, 30, 120, 15, Automatic
+2020/4/4 13:45:58, 8, Reverse, 30, 120, 15, Automatic
+2020/4/4 13:49:48, 2, Forward, 2404, NA, NA, Manual
+2020/4/4 13:49:52, 2, Reverse, 4017, NA, NA, Manual
+2020/4/4 13:49:56, 2, Forward, 1137, NA, NA, Manual
+2020/4/4 13:49:59, 2, Reverse, 1367, NA, NA, Manual
+2020/4/4 13:50:06, 2, Forward, 1367, NA, NA, Manual
+2020/4/4 13:50:09, 2, Reverse, 1367, NA, NA, Manual
+2020/4/4 13:50:12, 2, Forward, 1598, NA, NA, Manual
+2020/4/4 13:50:15, 2, Reverse, 2174, NA, NA, Manual
+2020/4/4 13:52:28, 2, Forward, 35, 120, 15, Automatic
+2020/4/4 13:56:51, 10, Reverse, 1828, NA, NA, Manual - Start!
+2020/4/4 13:56:55, 10, Forward, 1943, NA, NA, Manual
+2020/4/4 13:57:00, 10, Reverse, 2289, NA, NA, Manual
+2020/4/4 13:57:03, 10, Forward, 1022, NA, NA, Manual
+2020/4/4 13:57:15, 10, Reverse, 1251, NA, NA, Manual
+2020/4/4 13:57:17, 10, Forward, 1136, NA, NA, Manual
+2020/4/4 14:51:05, 10, Reverse, 676, NA, NA, Manual - Start!
+2020/4/4 14:51:13, 10, Reverse, 2749, NA, NA, Manual
+2020/4/4 14:51:17, 10, Forward, 1597, NA, NA, Manual
+2020/4/4 14:51:20, 10, Reverse, 2404, NA, NA, Manual
+2020/4/4 14:51:23, 10, Forward, 1712, NA, NA, Manual
+2020/4/4 14:51:36, 10, Forward, 1252, NA, NA, Manual
+2020/4/4 14:51:38, 10, Reverse, 1828, NA, NA, Manual
+2020/4/4 15:25:44, 10, Forward, 561, NA, NA, Manual - Start!
+2020/4/4 15:25:50, 10, Reverse, 1022, NA, NA, Manual
+2020/4/4 15:25:52, 10, Forward, 676, NA, NA, Manual
+2020/4/4 15:25:53, 10, Reverse, 1022, NA, NA, Manual
+2020/4/4 15:25:55, 10, Forward, 906, NA, NA, Manual
+2020/4/4 15:25:57, 10, Reverse, 791, NA, NA, Manual
+2020/4/4 15:25:59, 10, Forward, 445, NA, NA, Manual
+2020/4/4 15:26:00, 10, Reverse, 2634, NA, NA, Manual
