@@ -1,2 +1,17 @@
+24MAR2020
+Data download.
+
+27MAR2020
+Data download.
+
+30MAR2020
+Data download.
+
+4APR2020
+Data download.
+
+7APR2020
+Data download.
+
 10APR2020
 Turned off system to move surface CO2 sensors. Sensors pulled up out of water at XX:XX. Left out until redeployed on same string as 1.6m sensors.
