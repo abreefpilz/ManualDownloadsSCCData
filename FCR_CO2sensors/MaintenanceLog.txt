@@ -1,11 +1,17 @@
-24MAR2020
+6MAR2020
+Deployed sensors at Falling Creek reservoir.
+
+16MAR2020
 Data download.
+
+24MAR2020
+Data download. Troubleshooting connection and DO sensor. Disconnected sensor on ports 32 and 31.
 
 27MAR2020
-Data download.
+Data download. Troubleshooting gateway connection and DO sensor. Advised to delete lines in config file for sensor on port 33.
 
 30MAR2020
-Data download.
+Data download. Deleted lines in config file for sensor port 33.
 
 4APR2020
 Data download.
