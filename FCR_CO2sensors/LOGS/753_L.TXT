@@ -1,0 +1,88 @@
+                      Node class initializing...
+                      Running software version: 1.6.3
+24-03-2020 20:54:01 - RTC has set the system time: 20:54:01 24 3 2020
+24-03-2020 20:54:01 - Bootcount = 753
+24-03-2020 20:54:01 - SD: card initialized.
+24-03-2020 20:54:01 - SD: Getting hardware version from config: 4
+24-03-2020 20:54:01 - SD: Getting interval info from config...
+24-03-2020 20:54:01 -     record_time_interval: 600 s
+24-03-2020 20:54:01 -     transmit_time_interval: 300 s
+24-03-2020 20:54:01 -     gps_time_interval: Not found, will use default.
+24-03-2020 20:54:01 - SD: Getting disabled info from config...
+24-03-2020 20:54:01 -     disable_power_save: false
+24-03-2020 20:54:01 -     disable_radio: false
+24-03-2020 20:54:01 -     disable_gps: true
+24-03-2020 20:54:01 - SD: Getting thermistor info from config: OFF
+24-03-2020 20:54:01 - SD: Getting config ID from config: 253
+24-03-2020 20:54:01 - SD: Getting connected sensor info from config...
+24-03-2020 20:54:01 - SD: From config: pin: 17, type: i2c - senseair, SN: 101
+24-03-2020 20:54:01 - SD: From config: pin: 33, type: UART - LuminOx, SN: 214
+24-03-2020 20:54:01 - SD: From config: pin: 38, type: i2c - senseair, SN: 100
+24-03-2020 20:54:01 - SD: From config: pin: 18, type: i2c - senseair, SN: 102
+24-03-2020 20:54:01 - Nothing connected on pins:  15 16 31 32 34 35 36 37 39 19 20 21 22 23
+24-03-2020 20:54:07 - SD: Getting debug info from config: OFF
+24-03-2020 20:54:07 - Read config: :753&1585083247-1.6.3-253&17:101&33:214&38:100&18:102
+24-03-2020 20:54:07 - Initializing radio...
+24-03-2020 20:54:07 - SD: Getting network info from config...
+24-03-2020 20:54:07 -     device_EUI: 00D1DC2F61DBF31D
+24-03-2020 20:54:07 -     application_EUI: 70B3D57ED001C671
+24-03-2020 20:54:07 -     app_key: 2558E7BD41A7C4065FBBD547278BAD4B
+24-03-2020 20:54:07 - radio initialized.
+24-03-2020 20:54:07 - Setting radio timer: 300 s
+24-03-2020 20:54:07 - Started watchdog timer at 900 s
+24-03-2020 20:54:07 - Setting data record timer: 15 s
+24-03-2020 20:54:07 - Initialization successful!
+24-03-2020 20:54:07 - 
+24-03-2020 20:54:07 - Power saving for 00:00:15
+24-03-2020 20:54:23 - Setting data record timer: 600 s
+24-03-2020 20:54:54 - Read data packet: &753&1585083263&17:830.000&33:0.0,0.0,0,0.00&38:507.000&18:10000.000
+24-03-2020 20:54:54 - Power saving for 00:04:13
+24-03-2020 20:59:08 - Encoding message: :753&1585083247-1.6.3-253&17:101&33:214&38:100&18:102
+24-03-2020 20:59:08 - length 53 -> 27
+24-03-2020 20:59:08 - LoRaRadio: Attempting to join LoRaWAN...
+24-03-2020 20:59:08 - LoRaRadio: Attempting to send message...
+24-03-2020 20:59:13 - LoRaRadio: LoRaWAN joined:
+24-03-2020 20:59:13 -    netid: 19
+24-03-2020 20:59:13 -    devaddr: 26022874
+24-03-2020 20:59:13 -    artKey: b83c4de58868ceccb2cadaec33133480
+24-03-2020 20:59:13 -    nwkKey: 2884a799fe8eaa62df246a8334c5a4
+24-03-2020 20:59:13 - LoRaRadio: Attempting to send message...
+24-03-2020 20:59:15 - LoRaRadio: transmission complete
+24-03-2020 20:59:15 - Successfully sent message ":753&1585083247-1.6.3-253&17:101&33:214&38:100&18:102"
+24-03-2020 20:59:15 - Setting radio timer: 300 s
+24-03-2020 20:59:15 - Power saving for 00:05:00
+24-03-2020 21:04:16 - Encoding message: &753&1585083263&17:830.000&33:0.0,0.0,0,0.00&38:507.000&18:10000.000
+24-03-2020 21:04:16 - length 68 -> 34
+24-03-2020 21:04:16 - LoRaRadio: Attempting to send message...
+24-03-2020 21:04:20 - LoRaRadio: transmission complete
+24-03-2020 21:04:20 - Successfully sent message "&753&1585083263&17:830.000&33:0.0,0.0,0,0.00&38:507.000&18:10000.000"
+24-03-2020 21:04:20 - Setting radio timer: 600 s
+24-03-2020 21:04:24 - Setting data record timer: 600 s
+24-03-2020 21:04:30 - Read data packet: &753&1585083864&17:833.000&33:243.9,10.5,1021,23.89&38:515.000&18:10000.000
+24-03-2020 21:04:30 - Power saving for 00:09:50
+24-03-2020 21:14:21 - Encoding message: &753&1585083864&17:833.000&33:243.9,10.5,1021,23.89&38:515.000&18:10000.000
+24-03-2020 21:14:21 - length 75 -> 38
+24-03-2020 21:14:21 - LoRaRadio: Attempting to send message...
+24-03-2020 21:14:26 - LoRaRadio: transmission complete
+24-03-2020 21:14:26 - Successfully sent message "&753&1585083864&17:833.000&33:243.9,10.5,1021,23.89&38:515.000&18:10000.000"
+24-03-2020 21:14:26 - Setting radio timer: 600 s
+24-03-2020 21:14:26 - Setting data record timer: 600 s
+24-03-2020 21:14:32 - Read data packet: &753&1585084466&17:821.000&33:242.3,10.7,1022,23.70&38:510.000&18:10000.000
+24-03-2020 21:14:32 - Power saving for 00:09:54
+24-03-2020 21:24:27 - Setting data record timer: 600 s
+24-03-2020 21:24:33 - Read data packet: &753&1585085067&17:820.000&33:242.6,10.7,1022,23.74&38:512.000&18:10000.000
+24-03-2020 21:24:33 - Encoding message: &753&1585085067&17:820.000&33:242.6,10.7,1022,23.74&38:512.000&18:10000.000
+24-03-2020 21:24:33 - length 75 -> 38
+24-03-2020 21:24:33 - LoRaRadio: Attempting to send message...
+24-03-2020 21:24:36 - LoRaRadio: transmission complete
+24-03-2020 21:24:36 - Successfully sent message "&753&1585085067&17:820.000&33:242.6,10.7,1022,23.74&38:512.000&18:10000.000"
+24-03-2020 21:24:36 - Setting radio timer: 300 s
+24-03-2020 21:24:36 - Power saving for 00:05:00
+24-03-2020 21:29:37 - Encoding message: &753&1585084466&17:821.000&33:242.3,10.7,1022,23.70&38:510.000&18:10000.000
+24-03-2020 21:29:37 - length 75 -> 38
+24-03-2020 21:29:37 - LoRaRadio: Attempting to send message...
+24-03-2020 21:29:40 - LoRaRadio: transmission complete
+24-03-2020 21:29:40 - Successfully sent message "&753&1585084466&17:821.000&33:242.3,10.7,1022,23.70&38:510.000&18:10000.000"
+24-03-2020 21:29:40 - Setting radio timer: 600 s
+24-03-2020 21:29:40 - Power saving for 00:04:47
+24-03-2020 21:34:28 - Setting data record timer: 600 s

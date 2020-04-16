@@ -1,0 +1,196 @@
+                      Node class initializing...
+                      Running software version: 1.6.3
+07-04-2020 18:05:29 - RTC has set the system time: 18:05:29 7 4 2020
+07-04-2020 18:05:29 - Bootcount = 771
+07-04-2020 18:05:29 - SD: card initialized.
+07-04-2020 18:05:29 - SD: Getting hardware version from config: 4
+07-04-2020 18:05:29 - SD: Getting interval info from config...
+07-04-2020 18:05:29 -     record_time_interval: 600 s
+07-04-2020 18:05:29 -     transmit_time_interval: 300 s
+07-04-2020 18:05:29 -     gps_time_interval: Not found, will use default.
+07-04-2020 18:05:29 - SD: Getting disabled info from config...
+07-04-2020 18:05:29 -     disable_power_save: false
+07-04-2020 18:05:29 -     disable_radio: false
+07-04-2020 18:05:29 -     disable_gps: true
+07-04-2020 18:05:29 - SD: Getting thermistor info from config: OFF
+07-04-2020 18:05:29 - SD: Getting config ID from config: 253
+07-04-2020 18:05:29 - SD: Getting connected sensor info from config...
+07-04-2020 18:05:29 - SD: From config: pin: 17, type: i2c - senseair, SN: 101
+07-04-2020 18:05:29 - SD: From config: pin: 38, type: i2c - senseair, SN: 100
+07-04-2020 18:05:29 - SD: From config: pin: 18, type: i2c - senseair, SN: 102
+07-04-2020 18:05:29 - Nothing connected on pins:  15 16 31 32 33 34 35 36 37 39 19 20 21 22 23
+07-04-2020 18:05:34 - SD: Getting debug info from config: OFF
+07-04-2020 18:05:34 - Read config: :771&1586282734-1.6.3-253&17:101&38:100&18:102
+07-04-2020 18:05:34 - Initializing radio...
+07-04-2020 18:05:34 - SD: Getting network info from config...
+07-04-2020 18:05:34 -     device_EUI: 00D1DC2F61DBF31D
+07-04-2020 18:05:34 -     application_EUI: 70B3D57ED001C671
+07-04-2020 18:05:34 -     app_key: 2558E7BD41A7C4065FBBD547278BAD4B
+07-04-2020 18:05:34 - radio initialized.
+07-04-2020 18:05:34 - Setting radio timer: 300 s
+07-04-2020 18:05:34 - Started watchdog timer at 900 s
+07-04-2020 18:05:34 - Setting data record timer: 15 s
+07-04-2020 18:05:34 - Initialization successful!
+07-04-2020 18:05:34 - 
+07-04-2020 18:05:34 - Power saving for 00:00:15
+07-04-2020 18:05:50 - Setting data record timer: 600 s
+07-04-2020 18:05:55 - Read data packet: &771&1586282750&17:2182.000&38:782.000&18:10000.000
+07-04-2020 18:05:55 - Power saving for 00:04:39
+07-04-2020 18:10:35 - Encoding message: :771&1586282734-1.6.3-253&17:101&38:100&18:102
+07-04-2020 18:10:35 - length 46 -> 23
+07-04-2020 18:10:35 - LoRaRadio: Attempting to join LoRaWAN...
+07-04-2020 18:10:35 - LoRaRadio: Attempting to send message...
+07-04-2020 18:10:40 - LoRaRadio: LoRaWAN joined:
+07-04-2020 18:10:40 -    netid: 19
+07-04-2020 18:10:40 -    devaddr: 26022ABF
+07-04-2020 18:10:40 -    artKey: 5bb34b454151d8ec845948aee6b9332c
+07-04-2020 18:10:40 -    nwkKey: edf47e0a51853c1f14743dbc2e
+07-04-2020 18:10:40 - LoRaRadio: Attempting to send message...
+07-04-2020 18:10:43 - LoRaRadio: transmission complete
+07-04-2020 18:10:43 - Successfully sent message ":771&1586282734-1.6.3-253&17:101&38:100&18:102"
+07-04-2020 18:10:43 - Setting radio timer: 300 s
+07-04-2020 18:10:43 - Power saving for 00:05:00
+07-04-2020 18:15:44 - Encoding message: &771&1586282750&17:2182.000&38:782.000&18:10000.000
+07-04-2020 18:15:44 - length 51 -> 26
+07-04-2020 18:15:44 - LoRaRadio: Attempting to send message...
+07-04-2020 18:15:48 - LoRaRadio: transmission complete
+07-04-2020 18:15:48 - Successfully sent message "&771&1586282750&17:2182.000&38:782.000&18:10000.000"
+07-04-2020 18:15:48 - Setting radio timer: 600 s
+07-04-2020 18:15:51 - Setting data record timer: 600 s
+07-04-2020 18:15:56 - Read data packet: &771&1586283351&17:2559.000&38:782.000&18:10000.000
+07-04-2020 18:15:56 - Power saving for 00:09:52
+07-04-2020 18:25:49 - Encoding message: &771&1586283351&17:2559.000&38:782.000&18:10000.000
+07-04-2020 18:25:49 - length 51 -> 26
+07-04-2020 18:25:49 - LoRaRadio: Attempting to send message...
+07-04-2020 18:25:52 - LoRaRadio: transmission complete
+07-04-2020 18:25:52 - Successfully sent message "&771&1586283351&17:2559.000&38:782.000&18:10000.000"
+07-04-2020 18:25:52 - Setting radio timer: 600 s
+07-04-2020 18:25:52 - Setting data record timer: 600 s
+07-04-2020 18:25:57 - Read data packet: &771&1586283952&17:2749.000&38:802.000&18:10000.000
+07-04-2020 18:25:57 - Power saving for 00:09:55
+07-04-2020 18:35:54 - Setting data record timer: 600 s
+07-04-2020 18:35:59 - Read data packet: &771&1586284554&17:2781.000&38:790.000&18:10000.000
+07-04-2020 18:35:59 - Encoding message: &771&1586284554&17:2781.000&38:790.000&18:10000.000
+07-04-2020 18:35:59 - length 51 -> 26
+07-04-2020 18:35:59 - LoRaRadio: Attempting to send message...
+07-04-2020 18:36:04 - LoRaRadio: transmission complete
+07-04-2020 18:36:04 - Successfully sent message "&771&1586284554&17:2781.000&38:790.000&18:10000.000"
+07-04-2020 18:36:04 - Setting radio timer: 300 s
+07-04-2020 18:36:04 - Power saving for 00:05:00
+07-04-2020 18:41:05 - Encoding message: &771&1586283952&17:2749.000&38:802.000&18:10000.000
+07-04-2020 18:41:05 - length 51 -> 26
+07-04-2020 18:41:05 - LoRaRadio: Attempting to send message...
+07-04-2020 18:41:09 - LoRaRadio: transmission complete
+07-04-2020 18:41:09 - Successfully sent message "&771&1586283952&17:2749.000&38:802.000&18:10000.000"
+07-04-2020 18:41:09 - Setting radio timer: 600 s
+07-04-2020 18:41:09 - Power saving for 00:04:45
+07-04-2020 18:45:55 - Setting data record timer: 600 s
+07-04-2020 18:46:00 - Read data packet: &771&1586285155&17:2912.000&38:785.000&18:10000.000
+07-04-2020 18:46:00 - Power saving for 00:05:09
+07-04-2020 18:51:10 - Encoding message: &771&1586285155&17:2912.000&38:785.000&18:10000.000
+07-04-2020 18:51:10 - length 51 -> 26
+07-04-2020 18:51:10 - LoRaRadio: Attempting to send message...
+07-04-2020 18:51:14 - LoRaRadio: transmission complete
+07-04-2020 18:51:14 - Successfully sent message "&771&1586285155&17:2912.000&38:785.000&18:10000.000"
+07-04-2020 18:51:14 - Setting radio timer: 600 s
+07-04-2020 18:51:14 - Power saving for 00:04:41
+07-04-2020 18:55:56 - Setting data record timer: 600 s
+07-04-2020 18:56:01 - Read data packet: &771&1586285756&17:2979.000&38:784.000&18:10000.000
+07-04-2020 18:56:01 - Power saving for 00:05:13
+07-04-2020 19:01:15 - Encoding message: &771&1586285756&17:2979.000&38:784.000&18:10000.000
+07-04-2020 19:01:15 - length 51 -> 26
+07-04-2020 19:01:15 - LoRaRadio: Attempting to send message...
+07-04-2020 19:01:20 - LoRaRadio: transmission complete
+07-04-2020 19:01:20 - Successfully sent message "&771&1586285756&17:2979.000&38:784.000&18:10000.000"
+07-04-2020 19:01:20 - Setting radio timer: 600 s
+07-04-2020 19:01:20 - Power saving for 00:04:36
+07-04-2020 19:05:57 - Setting data record timer: 600 s
+07-04-2020 19:06:02 - Read data packet: &771&1586286357&17:3078.000&38:792.000&18:10000.000
+07-04-2020 19:06:02 - Power saving for 00:05:18
+07-04-2020 19:11:21 - Encoding message: &771&1586286357&17:3078.000&38:792.000&18:10000.000
+07-04-2020 19:11:21 - length 51 -> 26
+07-04-2020 19:11:21 - LoRaRadio: Attempting to send message...
+07-04-2020 19:11:26 - LoRaRadio: transmission complete
+07-04-2020 19:11:26 - Successfully sent message "&771&1586286357&17:3078.000&38:792.000&18:10000.000"
+07-04-2020 19:11:26 - Setting radio timer: 600 s
+07-04-2020 19:11:26 - Power saving for 00:04:31
+07-04-2020 19:15:58 - Setting data record timer: 600 s
+07-04-2020 19:16:03 - Read data packet: &771&1586286958&17:3171.000&38:789.000&18:10000.000
+07-04-2020 19:16:03 - Power saving for 00:05:23
+07-04-2020 19:21:27 - Encoding message: &771&1586286958&17:3171.000&38:789.000&18:10000.000
+07-04-2020 19:21:27 - length 51 -> 26
+07-04-2020 19:21:27 - LoRaRadio: Attempting to send message...
+07-04-2020 19:21:32 - LoRaRadio: transmission complete
+07-04-2020 19:21:32 - Successfully sent message "&771&1586286958&17:3171.000&38:789.000&18:10000.000"
+07-04-2020 19:21:32 - Setting radio timer: 600 s
+07-04-2020 19:21:32 - Power saving for 00:04:26
+07-04-2020 19:25:59 - Setting data record timer: 600 s
+07-04-2020 19:26:04 - Read data packet: &771&1586287559&17:3365.000&38:800.000&18:10000.000
+07-04-2020 19:26:04 - Power saving for 00:05:28
+07-04-2020 19:31:33 - Encoding message: &771&1586287559&17:3365.000&38:800.000&18:10000.000
+07-04-2020 19:31:33 - length 51 -> 26
+07-04-2020 19:31:33 - LoRaRadio: Attempting to send message...
+07-04-2020 19:31:37 - LoRaRadio: transmission complete
+07-04-2020 19:31:37 - Successfully sent message "&771&1586287559&17:3365.000&38:800.000&18:10000.000"
+07-04-2020 19:31:37 - Setting radio timer: 600 s
+07-04-2020 19:31:37 - Power saving for 00:04:22
+07-04-2020 19:36:00 - Setting data record timer: 600 s
+07-04-2020 19:36:05 - Read data packet: &771&1586288160&17:3414.000&38:784.000&18:10000.000
+07-04-2020 19:36:05 - Power saving for 00:05:32
+07-04-2020 19:41:38 - Encoding message: &771&1586288160&17:3414.000&38:784.000&18:10000.000
+07-04-2020 19:41:38 - length 51 -> 26
+07-04-2020 19:41:38 - LoRaRadio: Attempting to send message...
+07-04-2020 19:41:42 - LoRaRadio: transmission complete
+07-04-2020 19:41:42 - Successfully sent message "&771&1586288160&17:3414.000&38:784.000&18:10000.000"
+07-04-2020 19:41:42 - Setting radio timer: 600 s
+07-04-2020 19:41:42 - Power saving for 00:04:18
+07-04-2020 19:46:02 - Setting data record timer: 600 s
+07-04-2020 19:46:07 - Read data packet: &771&1586288762&17:3336.000&38:786.000&18:10000.000
+07-04-2020 19:46:07 - Power saving for 00:05:35
+07-04-2020 19:51:43 - Encoding message: &771&1586288762&17:3336.000&38:786.000&18:10000.000
+07-04-2020 19:51:43 - length 51 -> 26
+07-04-2020 19:51:43 - LoRaRadio: Attempting to send message...
+07-04-2020 19:51:47 - LoRaRadio: transmission complete
+07-04-2020 19:51:47 - Successfully sent message "&771&1586288762&17:3336.000&38:786.000&18:10000.000"
+07-04-2020 19:51:47 - Setting radio timer: 600 s
+07-04-2020 19:51:47 - Power saving for 00:04:15
+07-04-2020 19:56:03 - Setting data record timer: 600 s
+07-04-2020 19:56:08 - Read data packet: &771&1586289363&17:3374.000&38:779.000&18:10000.000
+07-04-2020 19:56:08 - Power saving for 00:05:39
+07-04-2020 20:01:48 - Encoding message: &771&1586289363&17:3374.000&38:779.000&18:10000.000
+07-04-2020 20:01:48 - length 51 -> 26
+07-04-2020 20:01:48 - LoRaRadio: Attempting to send message...
+07-04-2020 20:01:53 - LoRaRadio: transmission complete
+07-04-2020 20:01:53 - Successfully sent message "&771&1586289363&17:3374.000&38:779.000&18:10000.000"
+07-04-2020 20:01:53 - Setting radio timer: 600 s
+07-04-2020 20:01:53 - Power saving for 00:04:10
+07-04-2020 20:06:04 - Setting data record timer: 600 s
+07-04-2020 20:06:09 - Read data packet: &771&1586289964&17:3551.000&38:785.000&18:10000.000
+07-04-2020 20:06:09 - Power saving for 00:05:44
+07-04-2020 20:11:54 - Encoding message: &771&1586289964&17:3551.000&38:785.000&18:10000.000
+07-04-2020 20:11:54 - length 51 -> 26
+07-04-2020 20:11:54 - LoRaRadio: Attempting to send message...
+07-04-2020 20:11:59 - LoRaRadio: transmission complete
+07-04-2020 20:11:59 - Successfully sent message "&771&1586289964&17:3551.000&38:785.000&18:10000.000"
+07-04-2020 20:11:59 - Setting radio timer: 600 s
+07-04-2020 20:11:59 - Power saving for 00:04:05
+07-04-2020 20:16:05 - Setting data record timer: 600 s
+07-04-2020 20:16:10 - Read data packet: &771&1586290565&17:3608.000&38:759.000&18:10000.000
+07-04-2020 20:16:10 - Power saving for 00:05:49
+07-04-2020 20:22:00 - Encoding message: &771&1586290565&17:3608.000&38:759.000&18:10000.000
+07-04-2020 20:22:00 - length 51 -> 26
+07-04-2020 20:22:00 - LoRaRadio: Attempting to send message...
+07-04-2020 20:22:04 - LoRaRadio: transmission complete
+07-04-2020 20:22:04 - Successfully sent message "&771&1586290565&17:3608.000&38:759.000&18:10000.000"
+07-04-2020 20:22:04 - Setting radio timer: 600 s
+07-04-2020 20:22:04 - Power saving for 00:04:01
+07-04-2020 20:26:07 - Setting data record timer: 600 s
+07-04-2020 20:26:12 - Read data packet: &771&1586291167&17:3592.000&38:762.000&18:10000.000
+07-04-2020 20:26:12 - Power saving for 00:05:52
+07-04-2020 20:32:05 - Encoding message: &771&1586291167&17:3592.000&38:762.000&18:10000.000
+07-04-2020 20:32:05 - length 51 -> 26
+07-04-2020 20:32:05 - LoRaRadio: Attempting to send message...
+07-04-2020 20:32:10 - LoRaRadio: transmission complete
+07-04-2020 20:32:10 - Successfully sent message "&771&1586291167&17:3592.000&38:762.000&18:10000.000"
+07-04-2020 20:32:10 - Setting radio timer: 600 s
+07-04-2020 20:32:10 - Power saving for 00:03:57

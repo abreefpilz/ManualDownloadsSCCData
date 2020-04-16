@@ -1,0 +1,31 @@
+                      Node class initializing...
+                      Running software version: 1.6.3
+26-03-2020 03:38:19 - RTC has set the system time: 3:38:19 26 3 2020
+26-03-2020 03:38:19 - Bootcount = 756
+26-03-2020 03:38:19 - SD: card initialized.
+26-03-2020 03:38:19 - SD: Getting hardware version from config: 4
+26-03-2020 03:38:19 - SD: Getting interval info from config...
+26-03-2020 03:38:19 -     record_time_interval: 600 s
+26-03-2020 03:38:19 -     transmit_time_interval: 300 s
+26-03-2020 03:38:19 -     gps_time_interval: Not found, will use default.
+26-03-2020 03:38:19 - SD: Getting disabled info from config...
+26-03-2020 03:38:19 -     disable_power_save: false
+26-03-2020 03:38:19 -     disable_radio: false
+26-03-2020 03:38:19 -     disable_gps: true
+26-03-2020 03:38:19 - SD: Getting thermistor info from config: OFF
+26-03-2020 03:38:19 - SD: Getting config ID from config: 253
+26-03-2020 03:38:19 - SD: Getting connected sensor info from config...
+26-03-2020 03:38:19 - SD: From config: pin: 17, type: i2c - senseair, SN: 101
+26-03-2020 03:38:19 - SD: From config: pin: 33, type: UART - LuminOx, SN: 214
+26-03-2020 03:38:19 - SD: From config: pin: 38, type: i2c - senseair, SN: 100
+26-03-2020 03:38:19 - SD: From config: pin: 18, type: i2c - senseair, SN: 102
+26-03-2020 03:38:19 - Nothing connected on pins:  15 16 31 32 34 35 36 37 39 19 20 21 22 23
+26-03-2020 03:38:25 - SD: Getting debug info from config: OFF
+26-03-2020 03:38:25 - Read config: :756&1585193905-1.6.3-253&17:101&33:214&38:100&18:102
+26-03-2020 03:38:25 - Initializing radio...
+26-03-2020 03:38:25 - SD: Getting network info from config...
+26-03-2020 03:38:25 -     device_EUI: 00D1DC2F61DBF31D
+26-03-2020 03:38:25 -     application_EUI: 70B3D57ED001C671
+26-03-2020 03:38:25 -     app_key: 2558E7BD41A7C4065FBBD547278BAD4B
+26-03-2020 03:38:25 - radio initialized.
+26-03-2020 03:38:25 - Setting radio timer: 300 s
