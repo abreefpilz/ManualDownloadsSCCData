@@ -11,7 +11,7 @@ Data download.
 Data download.
 
 7APR2020
-Data download.
+Data download. System offline for deployment of different sensors. Surface sensors pulled out of water and exposed to air for several hours. Deployed on same chain.
 
 10APR2020
-Turned off system to move surface CO2 sensors. Sensors pulled up out of water at XX:XX. Left out until redeployed on same string as 1.6m sensors.
+Turned off system to move surface CO2 sensors. Left exposed to air for several hours until redeployed on same string as 1.6m sensors. Disturbance to 1.6m sensors may have occured but were not out of the water.
