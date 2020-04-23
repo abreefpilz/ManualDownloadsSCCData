@@ -3,3 +3,6 @@ Deployed scan and mux at 4.5m. Downloaded 1.6m. Both sondes are on chain.
 
 13APR20
 Sensor downloads of scan at 1.6m and mux scan at 4.5m. Mux logs appear normal and to have reset properly everyday. Water level very high. 
+
+20APR2020
+Sensor downloads of scan at 1.6m and mux scan at 4.5m. Pulled scans out of water to clean 12:40-12:45 EDT. No major fouling detected on lenses though cleaning cloth looked slightly silty after cleaning outside.
