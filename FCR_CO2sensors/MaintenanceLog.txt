@@ -21,3 +21,9 @@ Data download. System offline for deployment of different sensors. Surface senso
 
 10APR2020
 Turned off system to move surface CO2 sensors. Left exposed to air for several hours until redeployed on same string as 1.6m sensors. Disturbance to 1.6m sensors may have occured but were not out of the water.
+
+20APR2020
+Data download. Continuous red light on.
+
+22APR2020
+Checked status, no light on.
