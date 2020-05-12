@@ -27,3 +27,12 @@ Data download. Continuous red light on.
 
 22APR2020
 Checked status, no light on.
+
+27APR2020
+Data download.
+
+4MAY2020
+Data download.
+
+11MAY2020
+Data download. Firmware updated successfully. Cleaned all sensors and replaced CO2 sensor copper mesh.
