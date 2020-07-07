@@ -15,13 +15,11 @@
 library(lubridate)
 
 #set working directory
-setwd('C:/Users/hammo/OneDrive/Documents/Magic Sensor PLSR/ManualDownloadsSCCData/MagicData/FP_2020')
+setwd('./MagicData/FP_2020')
 
 #create list with files from 1.6m SCAN ("^2020" retrieves all files with name that begins with 2020)
-magicfiles<-list.files(path="C:/Users/hammo/OneDrive/Documents/Magic Sensor PLSR/ManualDownloadsSCCData/MagicData/FP_2020", pattern = "^2020")
+magicfiles<-list.files(path=".", pattern = ".fp")
 
-#takes above list and keeps only FP file
-fp.files <- magicfiles[grep(".fp", magicfiles, fixed=T)] 
 
 ### Read in first file
 obs<-read.table(file=fp.files[1],skip=1,header=TRUE, row.names = NULL,
