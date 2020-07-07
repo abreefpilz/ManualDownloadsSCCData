@@ -69,7 +69,15 @@ for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
 }
 }
 
-log_files=list.files(path = ".", pattern = "*LOG.TXT")
-logs<-read.table(file=log_files[1],header=F, row.names = NULL, sep = ",") #read in first file
-logs$Date.Time=ymd_hms(obs$Date.Time, tz = "Etc/GMT+4")
+setwd("..")
+log_files=list.files(path = ".", pattern = glob2rx("20*MUX.TXT"))
+logs<-read.table(file=log_files[1],header=F, row.names = NULL, sep = ",", fill = TRUE) #read in first file
+logs$Date.Time=ymd_hms(obs$Date.Time)
+
+for(i in 2:length(log_files)){ #reads in all files within folder in Github
+  temp<-read.table(file=log_files[1],header=F, row.names = NULL, sep = ",")
+  temp$Date.Time=ymd_hms(temp$Date.Time)
+  logs<-rbind(logs,temp)
+  #print(i)
+}
 
