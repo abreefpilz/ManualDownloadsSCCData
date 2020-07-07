@@ -18,8 +18,7 @@ library(lubridate)
 setwd('./MagicData/FP_2020')
 
 #create list with files from 1.6m SCAN ("^2020" retrieves all files with name that begins with 2020)
-magicfiles<-list.files(path=".", pattern = ".fp")
-
+fp.files<-list.files(path=".", pattern = ".fp")
 
 ### Read in first file
 obs<-read.table(file=fp.files[1],skip=1,header=TRUE, row.names = NULL,
