@@ -78,7 +78,7 @@ lines(obs_trans$wavelength,obs_trans$`2020-07-01 12:00:12`, col="yellow")
 install.packages('gganimate')
 require(gganimate)
 
-p <- ggplot(obs_trans, aes(x = wavelength, y = 2020-04-01)) +
+p <- ggplot(obs_trans, aes(x = wavelength, y = '2020-04-01 11:56:59')) +
   geom_point()
 
 ###### MUX Load ######
