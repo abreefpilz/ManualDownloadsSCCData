@@ -91,7 +91,7 @@ log_files=list.files(path = ".", pattern = glob2rx("20*MUX.TXT"))
 logs<-read.table(file=log_files[1],header=T, row.names = NULL, sep = ",", fill = TRUE) #read in first file
 
 for(i in 2:length(log_files)){ #reads in all files within folder in Github
-  temp<-read.table(file=log_files[1], header=T, row.names = NULL, sep = ",",fill = TRUE)
+  temp<-read.table(file=log_files[i], header=T, row.names = NULL, sep = ",",fill = TRUE)
   logs<-rbind(logs,temp)
   #print(i)
 }
