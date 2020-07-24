@@ -38,13 +38,14 @@ for(i in 2:length(fp.files)){
 plot(obs$Date.Time,obs$X702.50)
 
 #check for data gaps
-gaps = matrix(NA,nrow=1,ncol=2)
+gaps = data.frame(rep(NA,nrow(obs)),rep(NA,nrow(obs)))
 for(i in 2:length(obs$Date.Time)){ #this identifies if there are any data gaps in the long-term record, and where they are by record number
-  if(difftime(obs$Date.Time[i],obs$Date.Time[i-1],units="hours") > 4.5){
+  if(difftime(obs$Date.Time[i-1],obs$Date.Time[i],units="hours") > 4.5){
     gaps[i,1]=obs$Date.Time[i-1]
     gaps[i,2]=obs$Date.Time[i]
   }
 }
+
 
 
 
