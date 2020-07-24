@@ -17,7 +17,7 @@ library(lubridate)
 #set working directory
 setwd('./MagicData/FP_2020')
 
-#create list with files from 1.6m SCAN ("^2020" retrieves all files with name that begins with 2020)
+#create list with files from 1.6m SCAN (".fp" retrieves all files from 1.6m SCAN bc they all have a lower case fp)
 fp.files<-list.files(path=".", pattern = ".fp")
 
 ### Read in first file
@@ -34,19 +34,30 @@ for(i in 2:length(fp.files)){
 }
 
 #plot some data from the combined file to check that all the data is there
-plot(obs$Date.Time,obs$X702.50)
+plot(obs$Date.Time,obs$X450.00)
+header = c("Date.Time","Status_0", seq(200.00, 750.00, 2.50))
+colnames(obs) <- header
 
-#check for data gaps
-gaps = data.frame(rep(NA,nrow(obs)),rep(NA,nrow(obs)))
-for(i in 2:length(obs$Date.Time)){ #this identifies if there are any data gaps in the long-term record, and where they are by record number
-  if(difftime(obs$Date.Time[i-1],obs$Date.Time[i],units="hours") > 4.5){
-    gaps[i,1]=obs$Date.Time[i-1]
-    gaps[i,2]=obs$Date.Time[i]
+
+#check for data gaps - this just prints the intervals that are > 10 min. 
+#Can add more code later to fill gaps with 0's or NA's
+for(i in 2:nrow(obs)){
+  time1 = obs$Date.Time[i-1]
+  time2 = obs$Date.Time[i]
+  int = interval(time1,time2)
+  if(int_length(int) > (10*60)){
+    print(int)
   }
 }
 
-
-
+#Plot wavelength vs. absorbance for discrete time points
+#First we have to rearrange the data so that each time point is a column and 
+# the rows are wavelengths
+obs_trans = t(obs)
+obs_trans = cbind(rownames(obs_trans), data.frame(obs_trans, row.names=NULL))
+times = obs_trans[1,]
+colnames(obs_trans) = times
+obs_trans = obs_trans[-c(1,2),]
 
 
 
