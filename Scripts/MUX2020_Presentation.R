@@ -53,7 +53,11 @@ for(i in 2:length(obs$Date.Time)){ #this identifies if there are any data gaps i
 #MUX Load
 muxfiles<-list.files(path=".", pattern = ".FP")
 
+# install.packages("tidyverse")
+# install.packages("magrittr")
 library(lubridate)
+library(tidyverse)
+library(magrittr)
 
 mux_colnames = c("DateTime", "Status", paste0(as.character(c(seq(200,750, by = 2.5))),"nm"), "Valve","Measurement time")
 obs2 <- as.data.frame(matrix(,0,length(mux_colnames)))
@@ -72,8 +76,8 @@ for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
 
 setwd("..")
 log_files=list.files(path = ".", pattern = glob2rx("20*MUX.TXT"))
-logs<-read.table(file=log_files[1],header=F, row.names = NULL, sep = ",", fill = TRUE) #read in first file
-logs$Date.Time=ymd_hms(obs$Date.Time)
+logs<-read.table(file=log_files[1],header=T, row.names = NULL, sep = ",", fill = TRUE) #read in first file
+logs$Time=ymd_hms(logs$Time)
 
 for(i in 2:length(log_files)){ #reads in all files within folder in Github
   temp<-read.table(file=log_files[1],header=F, row.names = NULL, sep = ",")
@@ -82,6 +86,11 @@ for(i in 2:length(log_files)){ #reads in all files within folder in Github
   #print(i)
 }
 
+logs <- logs %>%
+  filter(str_detect(Dir,"Forward"))
+
+logs <- logs %>%
+  filter(str_detect(Notes,"Automatic"))
 
 #Spectra plot examples and code dump
 install.packages('photobiologyWavebands')
