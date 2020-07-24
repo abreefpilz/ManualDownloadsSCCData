@@ -74,23 +74,33 @@ for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
 }
 }
 
+#pump log load
 setwd("..")
 log_files=list.files(path = ".", pattern = glob2rx("20*MUX.TXT"))
 logs<-read.table(file=log_files[1],header=T, row.names = NULL, sep = ",", fill = TRUE) #read in first file
-logs$Time=ymd_hms(logs$Time)
+
 
 for(i in 2:length(log_files)){ #reads in all files within folder in Github
-  temp<-read.table(file=log_files[1],header=F, row.names = NULL, sep = ",")
-  temp$Date.Time=ymd_hms(temp$Date.Time)
+  temp<-read.table(file=log_files[1], header=T, row.names = NULL, sep = ",",fill = TRUE)
   logs<-rbind(logs,temp)
   #print(i)
 }
 
-logs <- logs %>%
-  filter(str_detect(Dir,"Forward"))
+pumpCols <- c("Time", "Valve", "Dir", "PumpTime", "Measure","Purge", "Notes")
+colnames(logs) = pumpCols
+logs$Time=ymd_hms(logs$Time)
 
+#filter out unnecessary data
 logs <- logs %>%
-  filter(str_detect(Notes,"Automatic"))
+  filter(str_detect(Measure,"Manual", negate = TRUE)) %>%
+  filter(str_detect(Dir,"Forward")) %>%
+  filter(str_detect(Notes,"Manual", negate = TRUE))%>%
+  filter(str_detect(Notes,"Manual - Start!", negate = TRUE))
+
+#fix structure of data to numerical or date
+
+
+#create measurement time column
 
 #Spectra plot examples and code dump
 install.packages('photobiologyWavebands')
