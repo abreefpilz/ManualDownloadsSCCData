@@ -1,5 +1,5 @@
 #Magic Mux 2020 Data Presentation
-#Authors: Bethany Bookout, Nick Hammond
+#Authors: Bethany Bookout, Nick Hammond, Rachel Corrigan
 
 #Outline
 
@@ -103,4 +103,122 @@ plot(polyester.spct, UV_bands(), range = UV(),
      annotations = c("=", "segments", "labels"))
 
 
+#####Cleaning Script from Rachel######
 
+#Things we want to change
+#1.Filter by Automatic on $Notes
+#2.Add seconds of $PumpTime instead of paste to $Time
+#3.Change read in script to put all raw files together at beginning
+
+#Read in pump log files and filter to select Forward pump directions
+################################################################################
+#however you have the pump logs saved on your computer, this is just how they were saved on mine.
+#pumplogAug <- read.csv("2018pumpAug.csv")
+#pumplogSep <- read.csv("2018pumpSep.csv")
+#pumplogOct <- read.csv("2018pumpOct.csv")
+#pumplogNov <- read.csv("2018pumpNov.csv")
+
+pumpCols <- c("Time", "Valve", "Dir", "PumpTime", "Measure","Purge", "Notes")
+colnames(pumplogAug) = pumpCols
+colnames(pumplogSep) = pumpCols
+colnames(pumplogOct) = pumpCols
+colnames(pumplogNov) = pumpCols
+
+
+pumpAugF <- pumplogAug %>%
+  filter(str_detect(Dir,"Forward"))
+
+pumpSepF <- pumplogSep %>%
+  filter(str_detect(Dir,"Forward"))
+
+pumpOctF <- pumplogOct %>%
+  filter(str_detect(Dir,"Forward"))
+
+pumpNovF <- pumplogNov %>%
+  filter(str_detect(Dir,"Forward"))
+
+#combine
+PumpLogTime <- rbind(pumpAugF, pumpSepF, pumpOctF)
+
+############################################################
+#Formate and Create Time+Pump and Time+Pump+Measure Columns
+#This might not work for you, but maybe it's helpful.
+############################################################
+#format time and pump time
+PumpLogTime$Time <- as.POSIXct(strptime(PumpLogTime$Time, format= "%m/%d/%y %H:%M"))
+PumpLogTime$Time <- format(PumpLogTime$Time, "%Y-%m-%d %H:%M")
+PumpLogTime$PumpTime <- as.POSIXct(strptime(PumpLogTime$PumpTime, format = "%S"))
+PumpLogTime$PumpTime <- format(PumpLogTime$PumpTime, "%S")
+#assign 00 if no recording
+PumpLogTime$PumpTime[is.na(PumpLogTime$PumpTime)] <- 00
+
+#combine time and pump time
+PumpLogTime$Time_p_Pump <- paste(PumpLogTime$Time, PumpLogTime$PumpTime, sep = ":")
+PumpLogTime$Time_p_Pump <- as.POSIXct(PumpLogTime$Time_p_Pump, format = "%Y-%m-%d %H:%M:%S")
+
+#format to add pump time and measure time
+PumpLogTime$PumpTime <- as.numeric(as.character(PumpLogTime$PumpTime))
+PumpLogTime$Measure <- as.numeric(as.character(PumpLogTime$Measure))
+
+#add together
+PumpLogTime$Measure[is.na(PumpLogTime$Measure)] <- 00
+PumpLogTime$Pump_Meas <- as.duration(PumpLogTime$PumpTime + PumpLogTime$Measure)
+
+#reformat to time
+PumpLogTime$PumpTime <- as.POSIXct(strptime(PumpLogTime$PumpTime, format = "%S"))
+PumpLogTime$PumpTime <- format(PumpLogTime$PumpTime, "%S")
+PumpLogTime$Pump_Meas <- as.POSIXct(strptime(PumpLogTime$Pump_Meas, format = "%S"))
+PumpLogTime$Pump_Meas <- format(PumpLogTime$Pump_Meas, "%S")
+
+#add time and pump+measure time
+PumpLogTime$TimePumpMea <- paste(PumpLogTime$Time, PumpLogTime$Pump_Meas, sep=":")
+PumpLogTime$TimePumpMea <- as.POSIXct(PumpLogTime$TimePumpMea, format = "%Y-%m-%d %H:%M:%S")
+
+#Going to write this out as a csv and finish in Excel for now aaaah
+
+################################################################################
+#Read in FP file for calibration
+################################################################################
+
+dataCalFP <- read.csv("FP_18.csv")
+dataCalFP<-dataCalFP[,-216:-223] #Remove high wavelengths
+colnames(dataCalFP)<-c("DateTime","status",seq(200,730,2.5)) #Add column names
+dataCalFP$DateTime=ymd_hms(dataCalFP$DateTime, tz = "Etc/GMT+4")
+dataCalFP$Date=NA
+dataCalFP$Date=format(dataCalFP$DateTime, format ='%Y-%m-%d')
+dataCalFP$Date=as.POSIXct(dataCalFP$Date, format ='%Y-%m-%d')
+
+################################################################################
+#Merge FP and Pump log times, then set port numbers for FP rows
+################################################################################
+#read in full pump log for 2018 with pump+measure time column made 
+
+pumpAll <- read.csv("ALL_PUMP_TIME_2018.csv")
+pumpAll$DateTime = NA
+pumpAll$DateTime = pumpAll$TimePumpMea
+pumpAll$DateTime <- mdy_hms(pumpAll$DateTime, format="%Y-%m-%d %H:%M:%S")
+pumpAll$DateTime = as.POSIXct(pumpAll$TimePumpMea, format="%m/%d/%y %H:%M:%S")
+
+
+#merge FP and pump log
+all_pump_and_FP =merge(pumpAll, dataCalFP, by="DateTime", all=TRUE)
+
+#assign port numbers for FP rows
+for(i in 1:length(all_pump_and_FP$DateTime)){
+  if(is.na(all_pump_and_FP$Valve[i])){
+    all_pump_and_FP$Valve[i] = all_pump_and_FP$Valve[i-1]
+  }
+}
+
+FP_with_port = subset(all_pump_and_FP, status == "Ok")  #scan with port
+FP_with_port=FP_with_port[,-c(2,4:10, 225)]
+FP_with_port=FP_with_port[!FP_with_port$Valve==10,]
+FP_with_port$DateTime=ymd_hms(FP_with_port$DateTime, tz = "Etc/GMT+4")
+FP_with_port$Date=NA
+FP_with_port$Date=format(FP_with_port$DateTime, format ='%Y-%m-%d')
+FP_with_port$Date=as.POSIXct(FP_with_port$Date, format ='%Y-%m-%d')
+write.csv(FP_with_port, "All_FPwithPort_2018.csv")
+
+
+FP_sort = FP_with_port[order(FP_with_port$Valve),]
+FP_sort$DateTime = as.POSIXct(FP_sort$DateTime, format="%m/%d/%y %H:%M:S")
