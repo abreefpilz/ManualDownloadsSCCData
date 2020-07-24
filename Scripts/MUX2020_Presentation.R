@@ -64,7 +64,11 @@ obs_trans = obs_trans[-c(1,2),]
 #MUX Load
 muxfiles<-list.files(path=".", pattern = ".FP")
 
+# install.packages("tidyverse")
+# install.packages("magrittr")
 library(lubridate)
+library(tidyverse)
+library(magrittr)
 
 mux_colnames = c("DateTime", "Status", paste0(as.character(c(seq(200,750, by = 2.5))),"nm"), "Valve","Measurement time")
 obs2 <- as.data.frame(matrix(,0,length(mux_colnames)))
@@ -81,18 +85,37 @@ for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
 }
 }
 
+#pump log load
 setwd("..")
 log_files=list.files(path = ".", pattern = glob2rx("20*MUX.TXT"))
-logs<-read.table(file=log_files[1],header=F, row.names = NULL, sep = ",", fill = TRUE) #read in first file
-logs$Date.Time=ymd_hms(obs$Date.Time)
+logs<-read.table(file=log_files[1],header=T, row.names = NULL, sep = ",", fill = TRUE) #read in first file
+
 
 for(i in 2:length(log_files)){ #reads in all files within folder in Github
-  temp<-read.table(file=log_files[1],header=F, row.names = NULL, sep = ",")
-  temp$Date.Time=ymd_hms(temp$Date.Time)
+  temp<-read.table(file=log_files[1], header=T, row.names = NULL, sep = ",",fill = TRUE)
   logs<-rbind(logs,temp)
   #print(i)
 }
 
+pumpCols <- c("Time", "Valve", "Dir", "PumpTime", "Measure","Purge", "Notes")
+colnames(logs) = pumpCols
+
+logs=na.omit(logs)
+
+logs$Time=ymd_hms(logs$Time)
+
+#filter out unnecessary data
+logs <- logs %>%
+  filter(str_detect(Measure,"Manual", negate = TRUE)) %>%
+  filter(str_detect(Dir,"Forward")) %>%
+  filter(str_detect(Notes,"Manual", negate = TRUE))%>%
+  filter(str_detect(Notes,"Manual - Start!", negate = TRUE))
+
+#fix structure of data to numerical or date
+logs$PumpTime <- seconds(logs$PumpTime)
+
+#create measurement time column
+logs$Time_p_Pump <- paste(PumpLogTime$Time, PumpLogTime$PumpTime, sep = ":")
 
 #Spectra plot examples and code dump
 install.packages('photobiologyWavebands')
