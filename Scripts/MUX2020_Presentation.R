@@ -88,6 +88,9 @@ for(i in 2:length(log_files)){ #reads in all files within folder in Github
 
 pumpCols <- c("Time", "Valve", "Dir", "PumpTime", "Measure","Purge", "Notes")
 colnames(logs) = pumpCols
+
+logs=na.omit(logs)
+
 logs$Time=ymd_hms(logs$Time)
 
 #filter out unnecessary data
@@ -98,9 +101,10 @@ logs <- logs %>%
   filter(str_detect(Notes,"Manual - Start!", negate = TRUE))
 
 #fix structure of data to numerical or date
-
+logs$PumpTime <- seconds(logs$PumpTime)
 
 #create measurement time column
+logs$Time_p_Pump <- paste(PumpLogTime$Time, PumpLogTime$PumpTime, sep = ":")
 
 #Spectra plot examples and code dump
 install.packages('photobiologyWavebands')
