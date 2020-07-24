@@ -81,3 +81,26 @@ for(i in 2:length(log_files)){ #reads in all files within folder in Github
   #print(i)
 }
 
+
+#Spectra plot examples and code dump
+install.packages('photobiologyWavebands')
+library(spectrolab)
+spec  = as.spectra(spec_matrix_example, name_idx = 1)
+plot(spec, lwd = 1.2)
+
+matrix_obs=as.matrix(obs[,c(3:200)])
+
+library(photobiologyWavebands)
+library(ggplot2)
+ggplot(sun.spct) + geom_line() + stat_peaks(span = NULL)
+ggplot(sun.spct, aes(w.length, s.e.irrad)) + geom_line() +
+  stat_peaks(span = 21, geom = "point", colour = "red") +
+  stat_peaks(span = 51, geom = "text", colour = "red", vjust = -0.3,
+             label.fmt = "%3.0f nm")
+ggplot(polyester.spct, range = UV()) + geom_line()
+plot(sun.spct)
+plot(polyester.spct, UV_bands(), range = UV(),
+     annotations = c("=", "segments", "labels"))
+
+
+
