@@ -10,6 +10,7 @@
 #3. Mux 2020 data
 
 #### 1.6 m SCAN load ####
+# ! only u
 
 #packages need
 library(lubridate)
@@ -33,8 +34,16 @@ for(i in 2:length(fp.files)){
   obs<-rbind(obs,temp)
 }
 
+#create list of the first line of each .fp file to make sure SCAN ID is consistent
+id = list()
+for(i in 2:length(fp.files)){
+  abc = read.table(file=fp.files[i],nrows=1,header=FALSE, row.names = NULL,
+                  sep = "\t", fill = TRUE)
+  id = rbind(id, abc)
+}
+
 #plot some data from the combined file to check that all the data is there
-plot(obs$Date.Time,obs$X450.00)
+plot(obs$Date.Time,obs$'725')
 header = c("Date.Time","Status_0", seq(200.00, 750.00, 2.50))
 colnames(obs) <- header
 
@@ -57,11 +66,22 @@ obs_trans = t(obs)
 obs_trans = cbind(rownames(obs_trans), data.frame(obs_trans, row.names=NULL))
 times = obs_trans[1,]
 colnames(obs_trans) = times
+colnames(obs_trans)[1] = "wavelength"
 obs_trans = obs_trans[-c(1,2),]
 
+plot(obs_trans$wavelength,obs_trans$`2020-04-01 11:56:59`, type='l', ylim=c(0,30))
+lines(obs_trans$wavelength,obs_trans$`2020-05-01 12:02:38`, col="red")
+lines(obs_trans$wavelength,obs_trans$`2020-06-01 11:56:50`, col="green")
+lines(obs_trans$wavelength,obs_trans$`2020-07-01 12:00:12`, col="yellow")
 
+# Create animated GIF of wavelength vs. absorption over time
+install.packages('gganimate')
+require(gganimate)
 
-#MUX Load
+p <- ggplot(obs_trans, aes(x = wavelength, y = 2020-04-01)) +
+  geom_point()
+
+###### MUX Load ######
 muxfiles<-list.files(path=".", pattern = ".FP")
 
 # install.packages("tidyverse")
