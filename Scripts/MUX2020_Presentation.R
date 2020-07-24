@@ -6,7 +6,7 @@
 #1. 1.6 scan data
 #a. Load in data
 #b. Put all files tog
-#2. 1.6 scan maintenance log?
+#2. 1.6 scan maintenance log? When does dataset start?
 #3. Mux 2020 data
 
 #### 1.6 m SCAN load ####
@@ -90,7 +90,6 @@ setwd("..")
 log_files=list.files(path = ".", pattern = glob2rx("20*MUX.TXT"))
 logs<-read.table(file=log_files[1],header=T, row.names = NULL, sep = ",", fill = TRUE) #read in first file
 
-
 for(i in 2:length(log_files)){ #reads in all files within folder in Github
   temp<-read.table(file=log_files[1], header=T, row.names = NULL, sep = ",",fill = TRUE)
   logs<-rbind(logs,temp)
@@ -115,7 +114,7 @@ logs <- logs %>%
 logs$PumpTime <- seconds(logs$PumpTime)
 
 #create measurement time column
-logs$Time_p_Pump <- paste(PumpLogTime$Time, PumpLogTime$PumpTime, sep = ":")
+logs$Time_p_Pump <- logs$Time+logs$PumpTime
 
 #Spectra plot examples and code dump
 install.packages('photobiologyWavebands')
@@ -140,40 +139,6 @@ plot(polyester.spct, UV_bands(), range = UV(),
 
 #####Cleaning Script from Rachel######
 
-#Things we want to change
-#1.Filter by Automatic on $Notes
-#2.Add seconds of $PumpTime instead of paste to $Time
-#3.Change read in script to put all raw files together at beginning
-
-#Read in pump log files and filter to select Forward pump directions
-################################################################################
-#however you have the pump logs saved on your computer, this is just how they were saved on mine.
-#pumplogAug <- read.csv("2018pumpAug.csv")
-#pumplogSep <- read.csv("2018pumpSep.csv")
-#pumplogOct <- read.csv("2018pumpOct.csv")
-#pumplogNov <- read.csv("2018pumpNov.csv")
-
-pumpCols <- c("Time", "Valve", "Dir", "PumpTime", "Measure","Purge", "Notes")
-colnames(pumplogAug) = pumpCols
-colnames(pumplogSep) = pumpCols
-colnames(pumplogOct) = pumpCols
-colnames(pumplogNov) = pumpCols
-
-
-pumpAugF <- pumplogAug %>%
-  filter(str_detect(Dir,"Forward"))
-
-pumpSepF <- pumplogSep %>%
-  filter(str_detect(Dir,"Forward"))
-
-pumpOctF <- pumplogOct %>%
-  filter(str_detect(Dir,"Forward"))
-
-pumpNovF <- pumplogNov %>%
-  filter(str_detect(Dir,"Forward"))
-
-#combine
-PumpLogTime <- rbind(pumpAugF, pumpSepF, pumpOctF)
 
 ############################################################
 #Formate and Create Time+Pump and Time+Pump+Measure Columns
