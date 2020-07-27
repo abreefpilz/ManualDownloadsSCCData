@@ -20,6 +20,8 @@ library(tidyverse)
 library(magrittr)
 library(gganimate)
 library(gifski)
+require(transformr)
+
 
 #set working directory
 setwd('./MagicData/FP_2020')
@@ -86,17 +88,19 @@ lines(obs_trans$wavelength,obs_trans$`2020-07-01 12:00:12`, col="yellow")
 obs_animate = pivot_longer(obs, cols=3:223, names_to = "wavelength", values_to = "absorbance")
 
 #subset data to a smaller interval (one day)
-sub= interval(start=obs_animate$Date.Time[1], end=obs_animate$Date.Time[221*144])
+sub= interval(start="2020-04-10 15:19:53", end="2020-04-24 09:49:52")
 obs_animate_sub = obs_animate[obs_animate$Date.Time %within% sub,]
 
 # Create animated GIF of wavelength vs. absorption over time
 #install.packages('gganimate')
-require(gganimate)
-require(transformr)
+
 p <- ggplot(obs_animate_sub, aes(x = wavelength, y = absorbance)) +
   geom_line(aes(group=Date.Time))
-p + transition_time(Date.Time) 
-anim_save("animation_asorb.gif", animation = last_animation())
+a <- p + transition_time(Date.Time) +
+  labs(title = "Date.Time: {frame_time}") +
+  ease_aes('cubic-in-out')
+animate(a, nframes=300, fps=6)
+anim_save("1.6_Apr10_24_wvelng_abs.gif", animation = last_animation())
 
 
 
