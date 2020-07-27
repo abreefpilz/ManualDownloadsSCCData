@@ -102,7 +102,11 @@ a <- p + transition_time(Date.Time) +
 animate(a, nframes=300, fps=6)
 anim_save("1.6_Apr10_24_wvelng_abs.gif", animation = last_animation())
 
-
+#More plots (for powerpoint)
+dev.off()
+ggplot(obs_animate, aes(x=Date.Time,y=absorbance))+
+  geom_line(aes(colour=factor(wavelength))) +
+   theme(legend.position='none')
 
 
 ###### MUX Load ######
