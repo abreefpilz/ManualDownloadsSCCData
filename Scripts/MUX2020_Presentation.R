@@ -1,5 +1,5 @@
 #Magic Mux 2020 Data Presentation
-#Authors: Bethany Bookout, Nick Hammond, Rachel Corrigan
+#Authors: Bethany Bookout, Nick Hammond, Adrienne Breef-Pilz, Rachel Corrigan
 
 #Outline
 
@@ -147,40 +147,30 @@ logs <- logs %>%
 
 #fix structure of data to numerical or date
 logs$PumpTime <- seconds(logs$PumpTime)
+logs$Measure <- seconds(logs$Measure)
 
 #create measurement time column
 logs$Time_p_Pump <- logs$Time+logs$PumpTime
+logs$Time_meas <-logs$Time+logs$PumpTime+logs$Measure
 
 ##### Assign proper pump valve with fp data #####
 
 #assign valve by closest time in pump log
 for (k in nrow(obs2)) {
-  #obs2$correctedvalve[k]=logs$Valve[which(logs$Time)]
-  #logs$Time<obs2$Time<logs$Time_p_pump
+  #obs2$correctedvalve[k]=logs$Valve[]
+  #logs$Time<obs2$DateTime<logs$Time_p_pump
+  #logs$Valve[logs$Time_p_pump >= obs2$DateTime[k] & logs$Time <= obs2$DateTime]
 }
+
+logs$shorttime=round_date(logs$Time_p_Pump, unit= "minute")
+obs2$shorttime=round_date(obs2$DateTime, unit= "minute")
+logs$shorttime2=round_date(logs$Time_meas, unit= "minute")
+obs2$shorttime2=round_date(obs2$DateTime, unit= "minute")
+magic=merge(logs, obs2, by="shorttime")
+magicb=merge(logs, obs2, by="shorttime2")
 
 #4.5 m scan
 scan_45=obs2[obs2$Time>"2020-04-10 15:15:00"&obs2$Time<"2020-04-10 10:00:00"]
-
-#Spectra plot examples and code dump
-install.packages('photobiologyWavebands')
-library(spectrolab)
-spec  = as.spectra(spec_matrix_example, name_idx = 1)
-plot(spec, lwd = 1.2)
-
-matrix_obs=as.matrix(obs[,c(3:200)])
-
-library(photobiologyWavebands)
-library(ggplot2)
-ggplot(sun.spct) + geom_line() + stat_peaks(span = NULL)
-ggplot(sun.spct, aes(w.length, s.e.irrad)) + geom_line() +
-  stat_peaks(span = 21, geom = "point", colour = "red") +
-  stat_peaks(span = 51, geom = "text", colour = "red", vjust = -0.3,
-             label.fmt = "%3.0f nm")
-ggplot(polyester.spct, range = UV()) + geom_line()
-plot(sun.spct)
-plot(polyester.spct, UV_bands(), range = UV(),
-     annotations = c("=", "segments", "labels"))
 
 
 #####Cleaning Script from Rachel######
