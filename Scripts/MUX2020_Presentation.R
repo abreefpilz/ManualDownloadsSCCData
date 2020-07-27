@@ -102,11 +102,7 @@ a <- p + transition_time(Date.Time) +
 animate(a, nframes=300, fps=6)
 anim_save("1.6_Apr10_24_wvelng_abs.gif", animation = last_animation())
 
-#More plots (for powerpoint)
-dev.off()
-ggplot(obs_animate, aes(x=Date.Time,y=absorbance))+
-  geom_line(aes(colour=factor(wavelength))) +
-   theme(legend.position='none')
+
 
 
 ###### MUX Load ######
@@ -164,7 +160,7 @@ logs$Time_p_Pump <- logs$Time+logs$PumpTime
 
 ##### Assign proper pump valve with fp data #####
 
-#assign valve by closest time in pump log
+#assign valve by closest time in pump log, steps 2 program results in warning, need to fix maybe, only effects valve 9 on steps 2, code always chooses first valve listed
 for (k in 1:nrow(mux_only)) {
   temptime = interval(start = mux_only$DateTime[k]-minutes(2), end = mux_only$DateTime[k]+minutes(2) ) #trying something out with data
   mux_only$correctvalve_a[k]=logs$Valve[logs$Time %within% temptime]
@@ -173,7 +169,7 @@ for (k in 1:nrow(mux_only)) {
   mux_only$logtime_b[k]=logs$Time_p_Pump[logs$Time %within% temptime]
 }
 
-mux_only2=mux_only[,c(1,224,226,2:223,225)]
+mux_only2=mux_only[,c(1,224,226:229,2:223,225)]
 
 ##### 4.5 m scan #####
 deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00" )
