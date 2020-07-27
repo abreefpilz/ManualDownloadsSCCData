@@ -10,7 +10,9 @@
 #3. Mux 2020 data
 
 #### 1.6 m SCAN load ####
-# important dates: April 10 15:19:53 4.5m scan deployed; April 24 9:49:52 4.5m pulled up, mux deployed again, start all data on April 10 15:19
+# important dates: April 10 15:19:53 4.5m scan deployed; 
+# April 24 9:49:52 4.5m pulled up, mux deployed again, 
+# start all data on April 10 15:19
 
 #packages need
 library(lubridate)
@@ -161,11 +163,50 @@ for (k in nrow(obs2)) {
 
 
 
-#4.5 m scan
-scan_45=obs2[obs2$Time>"2020-04-10 15:15:00"&obs2$Time<"2020-04-10 10:00:00"]
+##### 4.5 m scan #####
+deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00" )
+scan_45=obs2[obs2$DateTime %within% deploy_time,]
+
+#plot some data to check that it's all there
+plot(scan_45$DateTime,scan_45$'252.5nm')
+
+#check for data gaps - this just prints the intervals that are > 10 min. 
+#Can add more code later to fill gaps with 0's or NA's
+for(i in 2:nrow(scan_45)){
+  time1 = scan_45$DateTime[i-1]
+  time2 = scan_45$DateTime[i]
+  int = interval(time1,time2)
+  if(int_length(int) > (10*60)){
+    print(int)
+  }
+}
+
+#Plot wavelength vs. absorbance for discrete time points
+#First we have to rearrange the data so that each time point is a column and 
+# the rows are wavelengths
+scan_45_trans = t(scan_45)
+scan_45_trans = cbind(rownames(scan_45_trans), data.frame(scan_45_trans, row.names=NULL))
+times = scan_45_trans[1,]
+colnames(scan_45_trans) = times
+colnames(scan_45_trans)[1] = "wavelength"
+scan_45_trans = scan_45_trans[-c(1,2),]
+
+plot(scan_45_trans$wavelength,scan_45_trans$`2020-04-10 15:27:45`, type='l', ylim=c(0,30))
+lines(scan_45_trans$wavelength,scan_45_trans$`2020-04-13 15:19:59`, col="red")
+lines(scan_45_trans$wavelength,scan_45_trans$`2020-04-17 15:20:01`, col="green")
+lines(scan_45_trans$wavelength,scan_45_trans$`2020-04-23 15:20:01`, col="yellow")
+
+# Create animated GIF of wavelength vs. absorption over time
+#To create animation- rearrange data so that there are three columns:
+#Date.Time, Wavelength, Absorbance
+scan_45_animate = pivot_longer(scan_45, cols=3:223, names_to = "wavelength", values_to = "absorbance")
+
+#subset data to a smaller interval (one day)
+sub= interval(start=scan_45_animate$Date.Time[1], end=scan_45_animate$Date.Time[221*144])
+scan_45_animate_sub = scan_45_animate[scan_45_animate$Date.Time %within% sub,]
 
 
-#Spectra plot examples and code dump
+##### Spectra plot examples and code dump ####
 install.packages('photobiologyWavebands')
 library(spectrolab)
 spec  = as.spectra(spec_matrix_example, name_idx = 1)
