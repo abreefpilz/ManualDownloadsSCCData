@@ -14,6 +14,7 @@
 
 #packages need
 library(lubridate)
+library(tidyr)
 
 #set working directory
 setwd('./MagicData/FP_2020')
@@ -74,14 +75,25 @@ lines(obs_trans$wavelength,obs_trans$`2020-05-01 12:02:38`, col="red")
 lines(obs_trans$wavelength,obs_trans$`2020-06-01 11:56:50`, col="green")
 lines(obs_trans$wavelength,obs_trans$`2020-07-01 12:00:12`, col="yellow")
 
+#To create animation- rearrange data so that there are three columns:
+#Date.Time, Wavelength, Absorbance
+obs_animate = pivot_longer(obs, cols=3:223, names_to = "wavelength", values_to = "absorbance")
+
+#subset data to a smaller interval (one day)
+sub= interval(start=obs_animate$Date.Time[1], end=obs_animate$Date.Time[221*144])
+obs_animate_sub = obs_animate[obs_animate$Date.Time %within% sub,]
+
 # Create animated GIF of wavelength vs. absorption over time
-install.packages('gganimate')
+#install.packages('gganimate')
 require(gganimate)
-
-p <- ggplot(obs_trans, aes(x = wavelength, y = '2020-04-01 11:56:59')) +
-  geom_point()
-
-
+require(transformr)
+p <- ggplot(obs_animate_sub, aes(x = wavelength, y = absorbance)) +
+  geom_line(aes(group=Date.Time))+ 
+  transition_time(Date.Time) +
+  labs(title = "Date.Time: {frame_time}")
+a <-  animate(p)+
+  save_animation()
+anim_save("1.6m_1day.gif",animation = a)
 
 
 ###### MUX Load ######
