@@ -6,7 +6,7 @@
 #1. 1.6 scan data
 #a. Load in data
 #b. Put all files tog
-#2. 1.6 scan maintenance log? When does dataset start?
+#2. 1.6 scan maintenance log? When does dataset start? April 10, disregard any data before then
 #3. Mux 2020 data
 
 #### 1.6 m SCAN load ####
@@ -120,13 +120,13 @@ for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
 }
 }
 
-#pump log load
+###### Pump log load ######
 setwd("..")
 log_files=list.files(path = ".", pattern = glob2rx("20*MUX.TXT"))
-logs<-read.table(file=log_files[1],header=T, row.names = NULL, sep = ",", fill = TRUE) #read in first file
+logs<-read.table(file=log_files[1],header=T, row.names = NULL, sep = ",", fill = TRUE, stringsAsFactors =F) #read in first file
 
 for(i in 2:length(log_files)){ #reads in all files within folder in Github
-  temp<-read.table(file=log_files[i], header=T, row.names = NULL, sep = ",",fill = TRUE)
+  temp<-read.table(file=log_files[i], header=T, row.names = NULL, sep = ",",fill = TRUE, stringsAsFactors =F)
   logs<-rbind(logs,temp)
   #print(i)
 }
@@ -150,6 +150,15 @@ logs$PumpTime <- seconds(logs$PumpTime)
 
 #create measurement time column
 logs$Time_p_Pump <- logs$Time+logs$PumpTime
+
+##### Assign proper pump valve with fp data #####
+
+#assign valve by closest time in pump log
+for (k in nrow(obs2)) {
+  #obs2$correctedvalve=logs$Valve[which(logs$)]
+}
+
+#4.5 m scan
 
 #Spectra plot examples and code dump
 install.packages('photobiologyWavebands')
