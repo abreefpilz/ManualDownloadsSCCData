@@ -81,6 +81,9 @@ require(gganimate)
 p <- ggplot(obs_trans, aes(x = wavelength, y = '2020-04-01 11:56:59')) +
   geom_point()
 
+
+
+
 ###### MUX Load ######
 muxfiles<-list.files(path=".", pattern = ".FP")
 
