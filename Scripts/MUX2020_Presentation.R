@@ -122,6 +122,9 @@ for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
 }
 }
 
+mux_only=obs2[obs2$DateTime>"2020-04-24 10:15:00",] #change to not default to UTC, should be 14:15 in GMT 5
+mux_only=mux_only[order(mux_only$DateTime),]
+
 ###### Pump log load ######
 setwd("..")
 log_files=list.files(path = ".", pattern = glob2rx("20*MUX.TXT"))
@@ -160,7 +163,6 @@ for (k in nrow(obs2)) {
   #obs2$correctedvalve[k]=logs$Valve[which(logs$Time)]
   #logs$Time<obs2$Time<logs$Time_p_pump
 }
-
 
 
 ##### 4.5 m scan #####
