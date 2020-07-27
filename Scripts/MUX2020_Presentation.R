@@ -10,7 +10,7 @@
 #3. Mux 2020 data
 
 #### 1.6 m SCAN load ####
-# ! only u
+# important dates: April 10 15:19:53 4.5m scan deployed; April 24 9:49:52 4.5m pulled up, mux deployed again, start all data on April 10 15:19
 
 #packages need
 library(lubridate)
@@ -159,10 +159,10 @@ for (k in nrow(obs2)) {
   #logs$Time<obs2$Time<logs$Time_p_pump
 }
 
-##### 4.5 m scan ####
 
 
-
+#4.5 m scan
+scan_45=obs2[obs2$Time>"2020-04-10 15:15:00"&obs2$Time<"2020-04-10 10:00:00"]
 
 
 #Spectra plot examples and code dump
