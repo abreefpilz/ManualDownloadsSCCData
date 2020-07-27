@@ -157,11 +157,13 @@ logs$Time_p_Pump <- logs$Time+logs$PumpTime
 ##### Assign proper pump valve with fp data #####
 
 #assign valve by closest time in pump log
-for (k in nrow(obs2)) {
+for (k in nrow(mux_only)) {
   #obs2$correctedvalve[k]=logs$Valve[which(logs$Time)]
   #logs$Time<obs2$Time<logs$Time_p_pump
 }
 
+# deploy_time = interval(start = mux_only[k]-min(2), end = "2020-04-24 10:00:00" ) #trying something out with data
+# scan_45=obs2[obs2$DateTime %within% deploy_time,]
 
 ##### 4.5 m scan #####
 deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00" )
