@@ -159,10 +159,13 @@ logs$Time_p_Pump <- logs$Time+logs$PumpTime
 #assign valve by closest time in pump log
 for (k in 1:nrow(mux_only)) {
   temptime = interval(start = mux_only$DateTime[k]-minutes(2), end = mux_only$DateTime[k]+minutes(2) ) #trying something out with data
-  mux_only$correctvalve[k]=logs$Valve[logs$Time %within% temptime]
+  mux_only$correctvalve_a[k]=logs$Valve[logs$Time %within% temptime]
+  mux_only$correctvalve_b[k]=logs$Valve[logs$Time_p_Pump %within% temptime]
+  mux_only$logtime_a[k]=logs$Time[logs$Time %within% temptime]
+  mux_only$logtime_b[k]=logs$Time_p_Pump[logs$Time %within% temptime]
 }
 
-
+mux_only2=mux_only[,c(1,224,226,2:223,225)]
 
 ##### 4.5 m scan #####
 deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00" )
