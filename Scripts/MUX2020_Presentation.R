@@ -17,6 +17,7 @@ library(lubridate)
 library(tidyverse)
 library(magrittr)
 library(gganimate)
+library(gifski)
 
 #set working directory
 setwd('./MagicData/FP_2020')
@@ -90,13 +91,14 @@ obs_animate_sub = obs_animate[obs_animate$Date.Time %within% sub,]
 #install.packages('gganimate')
 require(gganimate)
 require(transformr)
+
 p <- ggplot(obs_animate_sub, aes(x = wavelength, y = absorbance)) +
-  geom_line(aes(group=Date.Time))+ 
-  transition_time(Date.Time) +
-  labs(title = "Date.Time: {frame_time}")
-a <-  animate(p)+
-  save_animation()
-anim_save("1.6m_1day.gif",animation = a)
+  geom_line(aes(group=Date.Time))
+
+p + transition_time(Date.Time) 
+
+anim_save("animation_asorb.gif", animation = last_animation())
+
 
 
 
