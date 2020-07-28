@@ -51,10 +51,9 @@ for(i in 2:length(fp.files)){
 }
 
 #plot some data from the combined file to check that all the data is there
-plot(obs$Date.Time,obs$'725')
 header = c("Date.Time","Status_0", seq(200.00, 750.00, 2.50))
 colnames(obs) <- header
-
+plot(obs$Date.Time,obs$'725')
 
 #check for data gaps - this just prints the intervals that are > 10 min. 
 #Can add more code later to fill gaps with 0's or NA's
@@ -88,8 +87,9 @@ lines(obs_trans$wavelength,obs_trans$`2020-07-01 12:00:12`, col="yellow")
 obs_animate = pivot_longer(obs, cols=3:223, names_to = "wavelength", values_to = "absorbance")
 
 #subset data to a smaller interval (one day)
-sub= interval(start="2020-04-10 15:19:53", end="2020-04-24 09:49:52")
+sub= interval(start="2020-04-10 15:19:53", end="2020-04-24 9:49:52")
 obs_animate_sub = obs_animate[obs_animate$Date.Time %within% sub,]
+obs_animate_sub$wavelength = as.numeric(obs_animate_sub$wavelength)
 
 # Create animated GIF of wavelength vs. absorption over time
 #install.packages('gganimate')
@@ -98,9 +98,10 @@ p <- ggplot(obs_animate_sub, aes(x = wavelength, y = absorbance)) +
   geom_line(aes(group=Date.Time))
 a <- p + transition_time(Date.Time) +
   labs(title = "Date.Time: {frame_time}") +
+  scale_x_continuous(breaks = c(seq(200,750,100)), limits = c(200,750)) +
   ease_aes('cubic-in-out')
-animate(a, nframes=300, fps=6)
-anim_save("1.6_Apr10_24_wvelng_abs.gif", animation = last_animation())
+animate(a, nframes=150, fps=6)
+anim_save("1.6_Apr10_Apr24.gif", animation = last_animation())
 
 #More plots (for powerpoint)
 dev.off()
@@ -175,6 +176,7 @@ for (k in 1:nrow(mux_only)) {
 
 mux_only2=mux_only[,c(1,224,226:229,2:223,225)]
 
+
 ##### 4.5 m scan #####
 deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00" )
 scan_45=obs2[obs2$DateTime %within% deploy_time,]
@@ -216,6 +218,19 @@ scan_45_animate = pivot_longer(scan_45, cols=3:223, names_to = "wavelength", val
 #subset data to a smaller interval (one day)
 sub= interval(start=scan_45_animate$Date.Time[1], end=scan_45_animate$Date.Time[221*144])
 scan_45_animate_sub = scan_45_animate[scan_45_animate$Date.Time %within% sub,]
+scan_45_animate_sub$wavelength = as.numeric(scan_45_animate_sub$wavelength)
+
+# Create animated GIF of wavelength vs. absorption over time
+#install.packages('gganimate')
+
+p <- ggplot(scan_45_animate_sub, aes(x = wavelength, y = absorbance)) +
+  geom_line(aes(group=Date.Time))
+a <- p + transition_time(Date.Time) +
+  labs(title = "Date.Time: {frame_time}") +
+  scale_x_continuous(breaks = c(seq(200,750,100)), limits = c(200,750)) +
+  ease_aes('cubic-in-out')
+animate(a, nframes=150, fps=6)
+anim_save("4.5_Apr10_Apr24.gif", animation = last_animation())
 
 
 #####Cleaning Script from Rachel######
