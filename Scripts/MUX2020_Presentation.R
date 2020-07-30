@@ -170,6 +170,35 @@ for (k in 1:nrow(mux_only)) {
 
 mux_only2=mux_only[,c(1,224,226:229,2:223,225)]
 
+#####graphs of absorbance and wavelength for 2020 for each depth######
+
+#create a data frame of valve number and depth
+valve_depth <- data.frame(
+  Valve = c (1:12), 
+  Depth= c("0.1","1.6","3.8","5.0","6.2", "8.0", "9.0", "NA", "acid_r", "air","NA", "water_r"),
+  stringsAsFactors = FALSE
+)
+
+#put the data in long format and add valve depth
+
+mux_only_long = pivot_longer(mux_only, cols=3:223, names_to = "wavelength", values_to = "absorbance")%>%
+  left_join(valve_depth, by="Valve")
+
+
+#create graphs for each depth
+
+#create a data frame of species to run the for loop through
+uniq_species = unique(iris$Species)
+
+for(i in uniq_species){
+  #subset the data by species and set it equal to i
+  temp_plot = ggplot(data= subset(iris, Species == i)) + 
+    geom_point(size=3, aes(x=Petal.Length, y=Petal.Width, color=Species )) +
+    ggtitle(i)
+  print(temp_plot)
+  
+}
+
 
 ##### 4.5 m scan #####
 deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00" )
