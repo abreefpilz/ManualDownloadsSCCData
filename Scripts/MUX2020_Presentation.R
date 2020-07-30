@@ -1,13 +1,7 @@
 #Magic Mux 2020 Data Presentation
 #Authors: Bethany Bookout, Nick Hammond, Adrienne Breef-Pilz, Rachel Corrigan
 
-#Outline
-
-#1. 1.6 scan data
-#a. Load in data
-#b. Put all files tog
-#2. 1.6 scan maintenance log? When does dataset start? April 10, disregard any data before then
-#3. Mux 2020 data
+#MUX depth code for 2020, 1 = surface; 2 = 1.6m; 3= 3.8m; 4 = 5.0m; 5 = 6.2m; 6 = 8.0m; 7 = = 9.0m; 9 = acid rinse; 10 = air; 12 = water rinse (used surface and DI rinse at different points in 2020)
 
 #### 1.6 m SCAN load ####
 # important dates: April 10 15:19:53 4.5m scan deployed; 
