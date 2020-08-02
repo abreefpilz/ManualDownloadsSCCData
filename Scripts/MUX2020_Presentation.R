@@ -1,13 +1,7 @@
 #Magic Mux 2020 Data Presentation
 #Authors: Bethany Bookout, Nick Hammond, Adrienne Breef-Pilz, Rachel Corrigan
 
-#Outline
-
-#1. 1.6 scan data
-#a. Load in data
-#b. Put all files tog
-#2. 1.6 scan maintenance log? When does dataset start? April 10, disregard any data before then
-#3. Mux 2020 data
+#MUX depth code for 2020, 1 = surface; 2 = 1.6m; 3= 3.8m; 4 = 5.0m; 5 = 6.2m; 6 = 8.0m; 7 = = 9.0m; 9 = acid rinse; 10 = air; 12 = water rinse (used surface and DI rinse at different points in 2020)
 
 #### 1.6 m SCAN load ####
 # important dates: April 10 15:19:53 4.5m scan deployed; 
@@ -199,6 +193,30 @@ for (k in 1:nrow(mux_only)) {
 }
 
 mux_only2=mux_only[,c(1,224,226:229,2:223,225)]
+
+#####graphs of absorbance and wavelength for 2020 for each depth######
+
+#create a data frame of valve number and depth
+valve_depth <- data.frame(
+  Valve = c (1:12), 
+  Depth= c("0.1","1.6","3.8","5.0","6.2", "8.0", "9.0", "NA", "acid_r", "air","NA", "water_r"),
+  stringsAsFactors = FALSE
+)
+
+#put the data in long format and add valve depth
+
+mux_only_long=mux_only%>%
+  pivot_longer(cols=3:223, names_to = "wavelength", values_to = "absorbance")%>%
+  left_join(valve_depth, by="Valve")%>%
+  filter(wavelength %in% c("200nm", "300nm", "400nm", "500nm", "600nm", "700nm"))%>%
+  filter(Depth %in% c('0.1','1.6','3.8','5.0','6.2','8.0','9.0'))
+
+
+#create  a multipanel plot of absorbance over time separated by depth 
+
+ggplot(mux_only_long, aes(x=DateTime, y=absorbance, color=wavelength)) + 
+ geom_line() +
+   facet_grid(rows = vars(Depth))
 
 
 ##### 4.5 m scan #####
