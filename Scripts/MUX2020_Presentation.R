@@ -21,6 +21,7 @@ library(magrittr)
 library(gganimate)
 library(gifski)
 require(transformr)
+library(stringr)
 
 
 #set working directory
@@ -105,12 +106,35 @@ anim_save("1.6_Apr10_Apr24.gif", animation = last_animation())
 
 #More plots (for powerpoint)
 dev.off()
+# All wavelengths
 ggplot(obs_animate, aes(x=Date.Time,y=absorbance))+
   geom_line(aes(colour=factor(wavelength))) +
   theme(legend.position='none')
+# Select a few wavelengths
+obs_animate2 = filter(obs_animate, wavelength==200|wavelength==300|wavelength==400
+   |wavelength==500|wavelength==600|wavelength==700)
 
+png("1.6m_ts_2020.png",width = 7, height = 3, units = 'in', res = 300)
+ggplot(obs_animate2, aes(x=Date.Time,y=absorbance))+
+  geom_line(aes(colour=factor(wavelength)))
+dev.off()
+  #theme(legend.position='none')
 
 ###### MUX Load ######
+
+# Valve  # Depth
+#   1       0.1
+#   2       1.6
+#   3       3.8
+#   4       5.0
+#   5       6.2
+#   6       8.0
+#   7       9.0
+#   8       NA
+#   9       
+#   10 
+#   12 
+
 muxfiles<-list.files(path=".", pattern = ".FP")
 
 
@@ -216,22 +240,33 @@ lines(scan_45_trans$wavelength,scan_45_trans$`2020-04-23 15:20:01`, col="yellow"
 scan_45_animate = pivot_longer(scan_45, cols=3:223, names_to = "wavelength", values_to = "absorbance")
 
 #subset data to a smaller interval (one day)
-sub= interval(start=scan_45_animate$Date.Time[1], end=scan_45_animate$Date.Time[221*144])
-scan_45_animate_sub = scan_45_animate[scan_45_animate$Date.Time %within% sub,]
+sub_45 = interval(start="2020-04-10 15:19:53", end="2020-04-24 9:49:52")
+scan_45_animate_sub = scan_45_animate[scan_45_animate$DateTime %within% sub_45,]
+wvlng = str_split_fixed(scan_45_animate_sub$wavelength,pattern = "(nm)$", n=2)
+wvlng = wvlng[,1]
+scan_45_animate_sub$wavelength = wvlng
 scan_45_animate_sub$wavelength = as.numeric(scan_45_animate_sub$wavelength)
 
 # Create animated GIF of wavelength vs. absorption over time
 #install.packages('gganimate')
 
 p <- ggplot(scan_45_animate_sub, aes(x = wavelength, y = absorbance)) +
-  geom_line(aes(group=Date.Time))
-a <- p + transition_time(Date.Time) +
-  labs(title = "Date.Time: {frame_time}") +
+  geom_line(aes(group=DateTime))
+a <- p + transition_time(DateTime) +
+  labs(title = "DateTime: {frame_time}") +
   scale_x_continuous(breaks = c(seq(200,750,100)), limits = c(200,750)) +
   ease_aes('cubic-in-out')
 animate(a, nframes=150, fps=6)
 anim_save("4.5_Apr10_Apr24.gif", animation = last_animation())
 
+# More plots!
+scan_45_animate2 = filter(scan_45_animate, wavelength==200|wavelength==300|wavelength==400
+                      |wavelength==500|wavelength==600|wavelength==700)
+
+png("1.6m_ts_2020.png",width = 7, height = 3, units = 'in', res = 300)
+ggplot(scan_45_animate2, aes(x=Date.Time,y=absorbance))+
+  geom_line(aes(colour=factor(wavelength)))
+dev.off()
 
 #####Cleaning Script from Rachel######
 
