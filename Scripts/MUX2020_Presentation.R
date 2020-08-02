@@ -61,20 +61,22 @@ for(i in 2:nrow(obs)){
   }
 }
 
-#Plot wavelength vs. absorbance for discrete time points
-#First we have to rearrange the data so that each time point is a column and 
-# the rows are wavelengths
-obs_trans = t(obs)
-obs_trans = cbind(rownames(obs_trans), data.frame(obs_trans, row.names=NULL))
-times = obs_trans[1,]
-colnames(obs_trans) = times
-colnames(obs_trans)[1] = "wavelength"
-obs_trans = obs_trans[-c(1,2),]
+##old code!
+##Plot wavelength vs. absorbance for discrete time points
+##First we have to rearrange the data so that each time point is a column and 
+##the rows are wavelengths
 
-plot(obs_trans$wavelength,obs_trans$`2020-04-01 11:56:59`, type='l', ylim=c(0,30))
-lines(obs_trans$wavelength,obs_trans$`2020-05-01 12:02:38`, col="red")
-lines(obs_trans$wavelength,obs_trans$`2020-06-01 11:56:50`, col="green")
-lines(obs_trans$wavelength,obs_trans$`2020-07-01 12:00:12`, col="yellow")
+#obs_trans = t(obs)
+#obs_trans = cbind(rownames(obs_trans), data.frame(obs_trans, row.names=NULL))
+#times = obs_trans[1,]
+#colnames(obs_trans) = times
+#colnames(obs_trans)[1] = "wavelength"
+#obs_trans = obs_trans[-c(1,2),]
+
+#plot(obs_trans$wavelength,obs_trans$`2020-04-01 11:56:59`, type='l', ylim=c(0,30))
+#lines(obs_trans$wavelength,obs_trans$`2020-05-01 12:02:38`, col="red")
+#lines(obs_trans$wavelength,obs_trans$`2020-06-01 11:56:50`, col="green")
+#lines(obs_trans$wavelength,obs_trans$`2020-07-01 12:00:12`, col="yellow")
 
 # Create animated GIF of wavelength vs. absorption over time
 #To create animation- rearrange data so that there are three columns:
@@ -82,7 +84,7 @@ lines(obs_trans$wavelength,obs_trans$`2020-07-01 12:00:12`, col="yellow")
 obs_animate = pivot_longer(obs, cols=3:223, names_to = "wavelength", values_to = "absorbance")
 
 #subset data to a smaller interval (one day)
-sub= interval(start="2020-04-10 15:19:53", end="2020-04-24 9:49:52")
+sub= interval(start="2020-04-10 15:19:53", end="2020-04-24 9:49:52", tz="Etc/GMT+4")
 obs_animate_sub = obs_animate[obs_animate$Date.Time %within% sub,]
 obs_animate_sub$wavelength = as.numeric(obs_animate_sub$wavelength)
 
@@ -108,11 +110,30 @@ ggplot(obs_animate, aes(x=Date.Time,y=absorbance))+
 obs_animate2 = filter(obs_animate, wavelength==200|wavelength==300|wavelength==400
    |wavelength==500|wavelength==600|wavelength==700)
 
+# Add vertical lines for cleaning dates
+cleaning = as.POSIXct(c("2020-04-20 12:40", "2020-05-04 15:00", "2020-05-11 12:30",
+                        "2020-05-18 10:55", "2020-05-25 10:52", "2020-06-22 10:18",
+                        "2020-06-29 12:40", "2020-07-06 12:48", "2020-07-13 11:24",
+                        "2020-07-20 11:50"), tz="Etc/GMT+4")
+
 png("1.6m_ts_2020.png",width = 7, height = 3, units = 'in', res = 300)
 ggplot(obs_animate2, aes(x=Date.Time,y=absorbance))+
-  geom_line(aes(colour=factor(wavelength)))
+  geom_line(aes(colour=factor(wavelength)))+
+  geom_vline(xintercept = cleaning, linetype="dotted", 
+             color = "black", size=0.6)
 dev.off()
   #theme(legend.position='none')
+# Plot a Subset of same time period as 4.5m Scan
+obs_animate_sub2 = filter(obs_animate_sub, wavelength==200|wavelength==300|wavelength==400
+                      |wavelength==500|wavelength==600|wavelength==700)
+png("1.6m_ts_Apr10_24.png",width = 7, height = 3, units = 'in', res = 300)
+ggplot(obs_animate_sub2, aes(x=Date.Time,y=absorbance))+
+  geom_line(aes(colour=factor(wavelength)))
+dev.off()
+
+
+
+
 
 ###### MUX Load ######
 
@@ -125,23 +146,22 @@ dev.off()
 #   6       8.0
 #   7       9.0
 #   8       NA
-#   9       
-#   10 
-#   12 
+#   9       acid
+#   10      air
+#   12      DI
 
 muxfiles<-list.files(path=".", pattern = ".FP")
-
 
 mux_colnames = c("DateTime", "Status", paste0(as.character(c(seq(200,750, by = 2.5))),"nm"), "Valve","Measurement time")
 obs2 <- as.data.frame(matrix(,0,length(mux_colnames)))
 names(obs2) <- mux_colnames
-obs2$DateTime=ymd_hms(obs2$DateTime)
+obs2$DateTime=ymd_hms(obs2$DateTime, tz="Etc/GMT+4")
 
 for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
   if(file.size(muxfiles[i])>4000){
   temp<-read.table(file=muxfiles[i],skip=2,header=FALSE, row.names = NULL, sep = "\t")
   names(temp) <- mux_colnames
-  temp$DateTime=ymd_hms(temp$DateTime)
+  temp$DateTime=ymd_hms(temp$DateTime, tz="Etc/GMT+4")
   obs2<-rbind(obs2,temp)
   #print(i)
 }
@@ -166,7 +186,7 @@ colnames(logs) = pumpCols
 
 logs=na.omit(logs)
 
-logs$Time=ymd_hms(logs$Time)
+logs$Time=ymd_hms(logs$Time, tz="Etc/GMT+4")
 
 #filter out unnecessary data
 logs <- logs %>%
@@ -220,7 +240,7 @@ ggplot(mux_only_long, aes(x=DateTime, y=absorbance, color=wavelength)) +
 
 
 ##### 4.5 m scan #####
-deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00" )
+deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00", tz="Etc/GMT+4" )
 scan_45=obs2[obs2$DateTime %within% deploy_time,]
 
 #plot some data to check that it's all there
@@ -237,33 +257,35 @@ for(i in 2:nrow(scan_45)){
   }
 }
 
-#Plot wavelength vs. absorbance for discrete time points
-#First we have to rearrange the data so that each time point is a column and 
-# the rows are wavelengths
-scan_45_trans = t(scan_45)
-scan_45_trans = cbind(rownames(scan_45_trans), data.frame(scan_45_trans, row.names=NULL))
-times = scan_45_trans[1,]
-colnames(scan_45_trans) = times
-colnames(scan_45_trans)[1] = "wavelength"
-scan_45_trans = scan_45_trans[-c(1,2),]
+##old code!
+##Plot wavelength vs. absorbance for discrete time points
+##First we have to rearrange the data so that each time point is a column and 
+##the rows are wavelengths
+#scan_45_trans = t(scan_45)
+#scan_45_trans = cbind(rownames(scan_45_trans), data.frame(scan_45_trans, row.names=NULL))
+#times = scan_45_trans[1,]
+#colnames(scan_45_trans) = times
+#colnames(scan_45_trans)[1] = "wavelength"
+#scan_45_trans = scan_45_trans[-c(1,2),]
 
-plot(scan_45_trans$wavelength,scan_45_trans$`2020-04-10 15:27:45`, type='l', ylim=c(0,30))
-lines(scan_45_trans$wavelength,scan_45_trans$`2020-04-13 15:19:59`, col="red")
-lines(scan_45_trans$wavelength,scan_45_trans$`2020-04-17 15:20:01`, col="green")
-lines(scan_45_trans$wavelength,scan_45_trans$`2020-04-23 15:20:01`, col="yellow")
+#plot(scan_45_trans$wavelength,scan_45_trans$`2020-04-10 15:27:45`, type='l', ylim=c(0,30))
+#lines(scan_45_trans$wavelength,scan_45_trans$`2020-04-13 15:19:59`, col="red")
+#lines(scan_45_trans$wavelength,scan_45_trans$`2020-04-17 15:20:01`, col="green")
+#lines(scan_45_trans$wavelength,scan_45_trans$`2020-04-23 15:20:01`, col="yellow")
 
 # Create animated GIF of wavelength vs. absorption over time
 #To create animation- rearrange data so that there are three columns:
 #Date.Time, Wavelength, Absorbance
 scan_45_animate = pivot_longer(scan_45, cols=3:223, names_to = "wavelength", values_to = "absorbance")
+wvlng = str_split_fixed(scan_45_animate$wavelength,pattern = "(nm)$", n=2)
+wvlng = wvlng[,1]
+scan_45_animate$wavelength = wvlng
+scan_45_animate$wavelength = as.numeric(scan_45_animate$wavelength)
 
 #subset data to a smaller interval (one day)
-sub_45 = interval(start="2020-04-10 15:19:53", end="2020-04-24 9:49:52")
+sub_45 = interval(start="2020-04-10 15:19:53", end="2020-04-24 9:49:52", tz="Etc/GMT+4")
 scan_45_animate_sub = scan_45_animate[scan_45_animate$DateTime %within% sub_45,]
-wvlng = str_split_fixed(scan_45_animate_sub$wavelength,pattern = "(nm)$", n=2)
-wvlng = wvlng[,1]
-scan_45_animate_sub$wavelength = wvlng
-scan_45_animate_sub$wavelength = as.numeric(scan_45_animate_sub$wavelength)
+
 
 # Create animated GIF of wavelength vs. absorption over time
 #install.packages('gganimate')
@@ -281,8 +303,8 @@ anim_save("4.5_Apr10_Apr24.gif", animation = last_animation())
 scan_45_animate2 = filter(scan_45_animate, wavelength==200|wavelength==300|wavelength==400
                       |wavelength==500|wavelength==600|wavelength==700)
 
-png("1.6m_ts_2020.png",width = 7, height = 3, units = 'in', res = 300)
-ggplot(scan_45_animate2, aes(x=Date.Time,y=absorbance))+
+png("4.5m_ts_Apr10_24.png",width = 7, height = 3, units = 'in', res = 300)
+ggplot(scan_45_animate2, aes(x=DateTime,y=absorbance))+
   geom_line(aes(colour=factor(wavelength)))
 dev.off()
 
