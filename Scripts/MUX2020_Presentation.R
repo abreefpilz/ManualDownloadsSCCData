@@ -181,23 +181,18 @@ valve_depth <- data.frame(
 
 #put the data in long format and add valve depth
 
-mux_only_long = pivot_longer(mux_only, cols=3:223, names_to = "wavelength", values_to = "absorbance")%>%
-  left_join(valve_depth, by="Valve")
+mux_only_long=mux_only%>%
+  pivot_longer(cols=3:223, names_to = "wavelength", values_to = "absorbance")%>%
+  left_join(valve_depth, by="Valve")%>%
+  filter(wavelength %in% c("200nm", "300nm", "400nm", "500nm", "600nm", "700nm"))%>%
+  filter(Depth %in% c('0.1','1.6','3.8','5.0','6.2','8.0','9.0'))
 
 
-#create graphs for each depth
+#create  a multipanel plot of absorbance over time separated by depth 
 
-#create a data frame of species to run the for loop through
-uniq_species = unique(iris$Species)
-
-for(i in uniq_species){
-  #subset the data by species and set it equal to i
-  temp_plot = ggplot(data= subset(iris, Species == i)) + 
-    geom_point(size=3, aes(x=Petal.Length, y=Petal.Width, color=Species )) +
-    ggtitle(i)
-  print(temp_plot)
-  
-}
+ggplot(mux_only_long, aes(x=DateTime, y=absorbance, color=wavelength)) + 
+ geom_line() +
+   facet_grid(rows = vars(Depth))
 
 
 ##### 4.5 m scan #####
