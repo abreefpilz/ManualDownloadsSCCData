@@ -124,11 +124,15 @@ ggplot(obs_animate2, aes(x=Date.Time,y=absorbance))+
 dev.off()
   #theme(legend.position='none')
 # Plot a Subset of same time period as 4.5m Scan
+# Cleaning times
+cleaning_sub = as.POSIXct(c("2020-04-20 12:40"), tz="Etc/GMT+4")
 obs_animate_sub2 = filter(obs_animate_sub, wavelength==200|wavelength==300|wavelength==400
                       |wavelength==500|wavelength==600|wavelength==700)
 png("1.6m_ts_Apr10_24.png",width = 7, height = 3, units = 'in', res = 300)
 ggplot(obs_animate_sub2, aes(x=Date.Time,y=absorbance))+
-  geom_line(aes(colour=factor(wavelength)))
+  geom_line(aes(colour=factor(wavelength)))+
+  geom_vline(xintercept = cleaning_sub, linetype="dotted", 
+             color = "black", size=0.6)
 dev.off()
 
 
@@ -302,10 +306,14 @@ anim_save("4.5_Apr10_Apr24.gif", animation = last_animation())
 # More plots!
 scan_45_animate2 = filter(scan_45_animate, wavelength==200|wavelength==300|wavelength==400
                       |wavelength==500|wavelength==600|wavelength==700)
+#Cleaning times  
+cleaning_scan45 = as.POSIXct(c("2020-04-20 12:40"), tz="Etc/GMT+4")
 
 png("4.5m_ts_Apr10_24.png",width = 7, height = 3, units = 'in', res = 300)
 ggplot(scan_45_animate2, aes(x=DateTime,y=absorbance))+
-  geom_line(aes(colour=factor(wavelength)))
+  geom_line(aes(colour=factor(wavelength)))+
+  geom_vline(xintercept = cleaning_scan45, linetype="dotted", 
+             color = "black", size=0.6)
 dev.off()
 
 #####Cleaning Script from Rachel######
