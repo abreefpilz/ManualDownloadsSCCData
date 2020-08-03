@@ -174,7 +174,7 @@ for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
 }
 }
 
-mux_only=obs2[obs2$DateTime>"2020-04-24 10:15:00",] #change to not default to UTC, should be 14:15 in GMT 5
+mux_only=obs2[obs2$DateTime>"2020-04-24 14:15:00",] #change to not default to UTC, should be 14:15 in GMT 4
 mux_only=mux_only[order(mux_only$DateTime),]
 
 ###### Pump log load ######
@@ -251,8 +251,9 @@ ggplot(mux_only_long, aes(x=DateTime, y=absorbance, color=wavelength)) +
    facet_grid(rows = vars(Depth))
 dev.off()
   
-#compare 1.6m mux data with 1.6m scan
+####compare 1.6m mux data with 1.6m scan####
 mux_16 = filter(mux_only_long,Depth=='1.6')
+mux_v2 = filter(mux_only,Valve=='2')
 
 ##### 4.5 m scan #####
 deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00", tz="Etc/GMT+4" )
@@ -326,5 +327,41 @@ ggplot(scan_45_animate2, aes(x=DateTime,y=absorbance))+
   geom_vline(xintercept = cleaning_scan45, linetype="dotted", 
              color = "black", size=0.6)
 dev.off()
+
+####Catwalk Data####
+
+catheader<-read.csv("https://github.com/CareyLabVT/SCCData/raw/mia-data/Catwalk.csv", skip=1, as.is=T) #get header minus wonky Campbell rows
+catdata<-read.csv("https://github.com/CareyLabVT/SCCData/raw/mia-data/Catwalk.csv", skip=4, header=F) #get data minus wonky Campbell rows
+names(catdata)<-names(catheader) #combine the names to deal with Campbell logger formatting
+
+sub_cat= interval(start="2020-04-10 15:20:00", end="2020-07-31 10:00:00", tz="Etc/GMT+4")
+catdata$TIMESTAMP=ymd_hms(catdata$TIMESTAMP, tz="Etc/GMT+4")
+catdata_muxmatch = catdata[catdata$TIMESTAMP %within% sub_cat,]
+
+for(j in 5:39){
+  catdata_muxmatch[,j]<-as.numeric(levels(catdata_muxmatch[,j]))[catdata_muxmatch[,j]]#need to set all columns to numeric values
+}
+
+
+png("catwalk_2020_muxmatch.png",width = 8, height = 8, units = 'in', res = 300)
+par(mfrow=c(3,1))
+plot(catdata_muxmatch$TIMESTAMP,catdata_muxmatch$doobs_9, main="DO", xlab="Time", ylab="mg/L", type='l', col="medium sea green", lwd=1.5, ylim=c(-0.5,13))
+points(catdata_muxmatch$TIMESTAMP, catdata_muxmatch$doobs_5, col="black", type='l', lwd=1.5)
+points(catdata_muxmatch$TIMESTAMP, catdata_muxmatch$doobs_1, col="magenta", type='l', lwd=1.5)
+legend("topleft", c("1.6m", "5m", "9m"), text.col=c("magenta", "black", "medium sea green"), x.intersp=0.001)
+
+plot(catdata_muxmatch$TIMESTAMP,catdata_muxmatch$Cond_1, main="Cond, SpCond, TDS @ 1.6m", xlab="Time", ylab="uS/cm or mg/L", type='l', col="red", lwd=1.5, ylim=c(-0.5,60))
+points(catdata_muxmatch$TIMESTAMP, catdata_muxmatch$SpCond_1, col="black", type='l', lwd=1.5)
+points(catdata_muxmatch$TIMESTAMP, catdata_muxmatch$TDS_1, col="orange", type='l', lwd=1.5)
+legend("topleft", c("TDS", "SpCond", "Cond"), text.col=c("orange", "black","red"), x.intersp=0.001)
+
+#wavelength 435-445
+plot(catdata_muxmatch$TIMESTAMP,catdata_muxmatch$Chla_1, main="Chla, Phyco, fDOM", xlab="Time", ylab="ug/L or QSU", type='l', col="green", lwd=1.5, ylim=c(-0.5,35))
+points(catdata_muxmatch$TIMESTAMP, catdata_muxmatch$BGAPC_1, col="blue", type='l', lwd=1.5)
+points(catdata_muxmatch$TIMESTAMP, catdata_muxmatch$fDOM_QSU_1, col="firebrick4", type='l', lwd=1.5)
+legend("topleft", c("Chla", "Phyco", "fDOM"), text.col=c("green", "blue", "firebrick4"), x.intersp=0.001)
+
+dev.off()
+
 
 
