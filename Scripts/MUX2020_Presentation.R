@@ -4,9 +4,11 @@
 #MUX depth code for 2020, 1 = surface; 2 = 1.6m; 3= 3.8m; 4 = 5.0m; 5 = 6.2m; 6 = 8.0m; 7 = = 9.0m; 9 = acid rinse; 10 = air; 12 = water rinse (used surface and DI rinse at different points in 2020)
 
 #### 1.6 m SCAN load ####
-# important dates: April 10 15:19:53 4.5m scan deployed; 
+# important dates: April 7 15:44:54 1.6m scan deployed
+# April 10 15:19:53 4.5m scan deployed; 
 # April 24 9:49:52 4.5m pulled up, mux deployed again, 
-# start all data on April 10 15:19
+# start all data on April 10 15:19 (or start scan 1.6 on April 7)
+# scan_cleandates=c("2020-04-10","2020-04-20","2020-05-11","2020-05-25","2020-06-08","2020-06-29","2020-07-06","2020-07-10","2020-07-20","2020-07-31")
 
 #packages need
 library(lubridate)
@@ -149,7 +151,7 @@ dev.off()
 #   5       6.2
 #   6       8.0
 #   7       9.0
-#   8       NA
+#   8       purge
 #   9       acid
 #   10      air
 #   12      DI
