@@ -8,7 +8,8 @@
 # April 10 15:19:53 4.5m scan deployed; 
 # April 24 9:49:52 4.5m pulled up, mux deployed again, 
 # start all data on April 10 15:19 (or start scan 1.6 on April 7)
-# scan_cleandates=c("2020-04-10","2020-04-20","2020-05-11","2020-05-25","2020-06-08","2020-06-29","2020-07-06","2020-07-10","2020-07-20","2020-07-31")
+# scan_cleandates=c("2020-04-10","2020-04-20","2020-05-11","2020-05-25","2020-06-08","2020-06-29","2020-07-06","2020-07-10","2020-07-20","2020-07-31") #clean dates according to field sheets
+# mux_cleandates=c("2020-05-04","2020-06-08","2020-06-25","2020-07-10","2020-07-31")  #clean dates according to field sheets
 
 #packages need
 library(lubridate)
@@ -213,12 +214,12 @@ logs$Time_p_Pump <- logs$Time+logs$PumpTime
 for (k in 1:nrow(mux_only)) {
   temptime = interval(start = mux_only$DateTime[k]-minutes(2), end = mux_only$DateTime[k]+minutes(2) ) #trying something out with data
   mux_only$correctvalve_a[k]=logs$Valve[logs$Time %within% temptime]
-  mux_only$correctvalve_b[k]=logs$Valve[logs$Time_p_Pump %within% temptime]
+  #mux_only$correctvalve_b[k]=logs$Valve[logs$Time_p_Pump %within% temptime]
   mux_only$logtime_a[k]=logs$Time[logs$Time %within% temptime]
-  mux_only$logtime_b[k]=logs$Time_p_Pump[logs$Time %within% temptime]
+  #mux_only$logtime_b[k]=logs$Time_p_Pump[logs$Time %within% temptime]
 }
 
-mux_only2=mux_only[,c(1,224,226:229,2:223,225)]
+#mux_only2=mux_only[,c(1,224,226:229,2:223,225)]
 
 #####graphs of absorbance and wavelength for 2020 for each depth######
 
