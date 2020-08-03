@@ -363,5 +363,22 @@ legend("topleft", c("Chla", "Phyco", "fDOM"), text.col=c("green", "blue", "fireb
 
 dev.off()
 
+png("mux16_2020_muxmatch.png",width = 9, height = 6, units = 'in', res = 300)
 
+ggplot(obs_animate2, aes(x=Date.Time,y=absorbance))+
+  geom_line(aes(colour=factor(wavelength)))+
+  geom_vline(xintercept = cleaning, linetype="dotted", 
+             color = "black", size=0.6)
+
+dev.off()
+
+png("EXObio_2020_muxmatch.png",width = 9, height = 6, units = 'in', res = 300)
+
+#wavelength 435-445
+plot(catdata_muxmatch$TIMESTAMP,catdata_muxmatch$Chla_1, main="Chla, Phyco, fDOM", xlab="Time", ylab="ug/L or QSU", type='l', col="green", lwd=1.5, ylim=c(-0.5,35))
+points(catdata_muxmatch$TIMESTAMP, catdata_muxmatch$BGAPC_1, col="blue", type='l', lwd=1.5)
+points(catdata_muxmatch$TIMESTAMP, catdata_muxmatch$fDOM_QSU_1, col="firebrick4", type='l', lwd=1.5)
+legend("topleft", c("Chla", "Phyco", "fDOM"), text.col=c("green", "blue", "firebrick4"), x.intersp=0.001)
+
+dev.off()
 
