@@ -225,7 +225,7 @@ for (k in 1:nrow(mux_only)) {
 
 #create a data frame of valve number and depth
 valve_depth <- data.frame(
-  Valve = c (1:12), 
+  correctvalve_a = c (1:12), 
   Depth= c("0.1","1.6","3.8","5.0","6.2", "8.0", "9.0", "NA", "acid_r", "air","NA", "water_r"),
   stringsAsFactors = FALSE
 )
@@ -234,7 +234,7 @@ valve_depth <- data.frame(
 
 mux_only_long=mux_only%>%
   pivot_longer(cols=3:223, names_to = "wavelength", values_to = "absorbance")%>%
-  left_join(valve_depth, by="Valve")%>%
+  left_join(valve_depth, by="correctvalve_a")%>%
   filter(wavelength %in% c("200nm", "300nm", "400nm", "500nm", "600nm", "700nm"))%>%
   filter(Depth %in% c('0.1','1.6','3.8','5.0','6.2','8.0','9.0'))
 
@@ -248,7 +248,7 @@ ggplot(mux_only_long, aes(x=DateTime, y=absorbance, color=wavelength)) +
  geom_line() +
   geom_vline(xintercept = mux_cleaning, linetype="dotted", 
              color = "black", size=0.6)+
-   facet_grid(rows = vars(Depth))
+   facet_grid(rows = vars(correctvalve_a))
 dev.off()
   
 ####compare 1.6m mux data with 1.6m scan####
