@@ -225,7 +225,7 @@ for (k in 1:nrow(mux_only)) {
 
 #create a data frame of valve number and depth
 valve_depth <- data.frame(
-  Valve = c (1:12), 
+  correctvalve_a = c (1:12), 
   Depth= c("0.1","1.6","3.8","5.0","6.2", "8.0", "9.0", "NA", "acid_r", "air","NA", "water_r"),
   stringsAsFactors = FALSE
 )
@@ -234,7 +234,7 @@ valve_depth <- data.frame(
 
 mux_only_long=mux_only%>%
   pivot_longer(cols=3:223, names_to = "wavelength", values_to = "absorbance")%>%
-  left_join(valve_depth, by="Valve")%>%
+  left_join(valve_depth, by="correctvalve_a")%>%
   filter(wavelength %in% c("200nm", "300nm", "400nm", "500nm", "600nm", "700nm"))%>%
   filter(Depth %in% c('0.1','1.6','3.8','5.0','6.2','8.0','9.0'))
 
@@ -242,7 +242,8 @@ mux_only_long=mux_only%>%
 # mux_cleandates=c("2020-05-04","2020-06-08","2020-06-25","2020-07-10","2020-07-31")  
 #clean dates according to field sheets
 mux_cleaning = as.POSIXct(c("2020-05-04 15:00",
-  "2020-07-06 12:48", "2020-07-13 11:24"), tz="Etc/GMT+4")
+  "2020-07-06 12:48", "2020-07-13 11:24", "2020-06-08 11:50",
+  "2020-06-25 12:00", "2020-07-10 12:00", "2020-07-31 12:00"), tz="Etc/GMT+4")
 
 #create  a multipanel plot of absorbance over time separated by depth 
 png("mux_2020_raw_by_depth.png",width = 9, height = 4, units = 'in', res = 300)
