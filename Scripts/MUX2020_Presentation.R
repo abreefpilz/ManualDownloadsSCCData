@@ -243,7 +243,7 @@ mux_only_long=mux_only%>%
 #clean dates according to field sheets
 mux_cleaning = as.POSIXct(c("2020-05-04 15:00",
   "2020-07-06 12:48", "2020-07-13 11:24", "2020-06-08 11:50",
-  "2020-06-25 12:00", "2020-07-10 12:00", "2020-07-31 12:00"), tz="Etc/GMT+4")
+  "2020-06-25 12:00", "2020-07-31 12:00"), tz="Etc/GMT+4")
 
 #create  a multipanel plot of absorbance over time separated by depth 
 png("mux_2020_raw_by_depth.png",width = 9, height = 4, units = 'in', res = 300)
