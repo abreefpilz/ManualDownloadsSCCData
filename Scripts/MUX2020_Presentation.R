@@ -9,7 +9,7 @@
 # April 24 9:49:52 4.5m pulled up, mux deployed again, 
 # start all data on April 10 15:19 (or start scan 1.6 on April 7)
 # scan_cleandates=c("2020-04-10","2020-04-20","2020-05-11","2020-05-25","2020-06-08","2020-06-29","2020-07-06","2020-07-10","2020-07-20","2020-07-31") #clean dates according to field sheets
-# mux_cleandates=c("2020-05-04","2020-06-08","2020-06-25","2020-07-10","2020-07-31")  #clean dates according to field sheets
+# mux_cleandates=c("2020-05-04","2020-06-08","2020-06-25","2020-07-10","2020-07-31 12:00")  #clean dates according to field sheets
 
 #packages need
 library(lubridate)
@@ -114,8 +114,8 @@ obs_animate2 = filter(obs_animate, wavelength==200|wavelength==300|wavelength==4
    |wavelength==500|wavelength==600|wavelength==700)
 
 # Add vertical lines for cleaning dates
-cleaning = as.POSIXct(c("2020-04-20 12:40", "2020-05-04 15:00", "2020-05-11 12:30",
-                        "2020-05-18 10:55", "2020-05-25 10:52", "2020-06-22 10:18",
+cleaning = as.POSIXct(c("2020-04-10 12:00","2020-04-20 12:40", "2020-05-11 12:30",
+                         "2020-05-25 10:52","2020-06-08 13:30","2020-06-22 10:18",
                         "2020-06-29 12:40", "2020-07-06 12:48", "2020-07-13 11:24",
                         "2020-07-20 11:50"), tz="Etc/GMT+4")
 
@@ -239,6 +239,8 @@ mux_only_long=mux_only%>%
   filter(Depth %in% c('0.1','1.6','3.8','5.0','6.2','8.0','9.0'))
 
 #mux cleaning times
+# mux_cleandates=c("2020-05-04","2020-06-08","2020-06-25","2020-07-10","2020-07-31")  
+#clean dates according to field sheets
 mux_cleaning = as.POSIXct(c("2020-05-04 15:00",
   "2020-07-06 12:48", "2020-07-13 11:24", "2020-06-08 11:50",
   "2020-06-25 12:00", "2020-07-10 12:00", "2020-07-31 12:00"), tz="Etc/GMT+4")
