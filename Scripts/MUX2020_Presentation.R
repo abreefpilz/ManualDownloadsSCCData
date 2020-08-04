@@ -254,7 +254,30 @@ dev.off()
   
 ####compare 1.6m mux data with 1.6m scan####
 mux_16 = filter(mux_only_long,Depth=='1.6')
-mux_v2 = filter(mux_only,Valve=='2')
+mux_16$wavelength2=gsub('nm','',mux_16$wavelength)
+
+png("mux16_2020_raw_by_depth.png",width = 9, height = 4, units = 'in', res = 300)
+ggplot(mux_16, aes(x=DateTime, y=absorbance, color=wavelength)) + 
+  geom_line() +
+  geom_vline(xintercept = mux_cleaning, linetype="dotted", 
+             color = "black", size=0.6)+
+  facet_grid(rows = vars(Depth))
+dev.off()
+
+png("mux16_2020_muxmatch.png",width = 9, height = 4, units = 'in', res = 300)
+
+ggplot(obs_animate2, aes(x=Date.Time,y=absorbance))+
+  geom_line(aes(colour=factor(wavelength)))+
+  geom_vline(xintercept = cleaning, linetype="dotted", 
+             color = "black", size=0.6)
+
+dev.off()
+
+# for (l in 1:nrow(mux_v2)) { #struggling with this for loop, trying to get closest measurements together..
+#   temptime = interval(start = mux_16$DateTime[l]-minutes(4), end = mux_16$DateTime[l]+minutes(4) ) #trying something out with data
+#   mux_16$scan_abs[l]=obs_animate2$absorbance[obs_animate2$wavelength[obs_animate2$Date.Time %within% temptime]==mux_16$wavelength2[l]]
+#   mux_16$scantime[l]=obs_animate2$Date.Time[obs_animate2$Date.Time %within% temptime && obs_animate2$wavelength==mux_16$wavelength2[l]]
+# }
 
 ##### 4.5 m scan #####
 deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00", tz="Etc/GMT+4" )
