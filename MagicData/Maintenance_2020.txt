@@ -1,8 +1,35 @@
+24MAR20
+Mux deployed at FCR using surface water rinse. Noticed skips in program and measurement recording but not anything that should effect depths data.
+
+27MAR20
+Sensor field day troubleshooting mux. Autoreset did not work on 26MAR20. Skipping recording measurements for Valve 9 aka acid. Pumping slow or not working at all at certain depths. Flushed peristaltic tubing out in mux which seemed to work enough to leave the mux on.
+
+30MAR20
+Manual pumping tests. Slow pumping again tried flushing tubing. Still pumping enough to record data so mux left on.
+
+1APR20
+Mux pump is officially dead.
+
+4APR20
+Pump found completely dead but did not have supplies to troubleshoot reason. Mux left off.
+
+7APR20
+1.6m scan from mux deployed on chain in reservoir on spare con::nect. Pump checked again and was still dead.
+
 10APR20
-Deployed scan and mux at 4.5m. Downloaded 1.6m. Both sondes are on chain.
+Deployed new scan at 4.5m in the reservoir connected and logging data through the mux. Downloaded 1.6m scan. Both sondes are on chain. Presumed cleaning of both scans.
 
 13APR20
 Sensor downloads of scan at 1.6m and mux scan at 4.5m. Mux logs appear normal and to have reset properly everyday. Water level very high. 
 
 20APR2020
 Sensor downloads of scan at 1.6m and mux scan at 4.5m. Pulled scans out of water to clean 12:40-12:45 EDT. No major fouling detected on lenses though cleaning cloth looked slightly silty after cleaning outside.
+
+24APR20
+Mux pump arrived. Deployed mux and started at 14:15 EDT. Data downloaded from scans. 4.5m scan was moved up to mux.
+
+25APR20
+Strange manual pumping noticed in pump log. Did not autoreset properly.
+
+27APR20
+Data downloaded from 1.6m scan and mux. Tried resetting scan attached to mux to help with autoreset and line up time of autoreset to occur when mux was not busy.
