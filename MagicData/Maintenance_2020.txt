@@ -33,3 +33,24 @@ Strange manual pumping noticed in pump log. Did not autoreset properly.
 
 27APR20
 Data downloaded from 1.6m scan and mux. Tried resetting scan attached to mux to help with autoreset and line up time of autoreset to occur when mux was not busy.
+
+1MAY20
+Data downloaded.
+
+4MAY20
+Data downloaded. Mux cuvette cleaned.
+
+11MAY20
+Data downloaded. 1.6m scan cleaned.
+
+14MAY20
+Data downloaded.
+
+15MAY20
+Steps 2 program deployed on mux. Stopped skipping measurements and autorest worked as expected. Program resulted in the mux only measuring to 17:00 after autoresets due to previously unknown pump number limits.
+
+18MAY20
+Data downloaded. No notes on cleaning scan on that field day but it was likely. Mux did not autoreset on 19MAY20.
+
+25MAY20
+Data download. 1.6m scan cleaned at 10:52. Steps 1 program put back on mux. Autoreset working.
