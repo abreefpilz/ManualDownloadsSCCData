@@ -1,0 +1,83 @@
+                      Node class initializing...
+                      Running software version: 1.7.0
+05-08-2020 15:02:27 - RTC has set the system time: 15:02:27 5 8 2020
+05-08-2020 15:02:27 - Bootcount = 875
+05-08-2020 15:02:27 - SD: card initialized.
+05-08-2020 15:02:27 - SD: Getting hardware version from config: 4
+05-08-2020 15:02:27 - SD: Getting interval info from config...
+05-08-2020 15:02:27 -     record_time_interval: 600 s
+05-08-2020 15:02:27 -     transmit_time_interval: 300 s
+05-08-2020 15:02:27 -     gps_time_interval: Not found, will use default.
+05-08-2020 15:02:27 - SD: Getting disabled info from config...
+05-08-2020 15:02:27 -     disable_power_save: false
+05-08-2020 15:02:27 -     disable_radio: false
+05-08-2020 15:02:27 -     disable_gps: true
+05-08-2020 15:02:27 - SD: Getting thermistor info from config: OFF
+05-08-2020 15:02:27 - SD: Getting config ID from config: 253
+05-08-2020 15:02:27 - SD: Getting connected sensor info from config...
+05-08-2020 15:02:27 - SD: From config: pin: 17, type: i2c - senseair, SN: 101
+05-08-2020 15:02:27 - SD: From config: pin: 32, type: UART - LuminOx, SN: 195
+05-08-2020 15:02:27 - SD: From config: pin: 33, type: UART - LuminOx, SN: 214
+05-08-2020 15:02:27 - SD: From config: pin: 38, type: i2c - senseair, SN: 100
+05-08-2020 15:02:27 - SD: From config: pin: 18, type: i2c - senseair, SN: 102
+05-08-2020 15:02:28 - Nothing connected on pins:  15 16 31 34 35 36 37 39 19 20 21 22 23
+05-08-2020 15:02:35 - SD: Getting debug info from config: OFF
+05-08-2020 15:02:35 - Read config: :875&1596639755-1.7.0-253&17:101&32:195&33:214&38:100&18:102
+05-08-2020 15:02:35 - Initializing radio...
+05-08-2020 15:02:35 - SD: Getting network info from config...
+05-08-2020 15:02:35 -     device_EUI: 00D1DC2F61DBF31D
+05-08-2020 15:02:35 -     application_EUI: 70B3D57ED001C671
+05-08-2020 15:02:35 -     app_key: 2558E7BD41A7C4065FBBD547278BAD4B
+05-08-2020 15:02:35 - radio initialized.
+05-08-2020 15:02:35 - Setting radio timer: 300 s
+05-08-2020 15:02:35 - GPS Disabled. Ensuring pin is not being used...
+05-08-2020 15:02:35 - Set up snooze block to enable power save.
+05-08-2020 15:02:35 - Started watchdog timer at 900 s
+05-08-2020 15:02:35 - Setting data record timer: 15 s
+05-08-2020 15:02:35 - Initialization successful!
+05-08-2020 15:02:35 - 
+05-08-2020 15:02:35 - Power saving for 00:00:15
+05-08-2020 15:02:51 - Setting data record timer: 600 s
+05-08-2020 15:02:56 - Reading data from sensors...
+05-08-2020 15:03:00 - Error: Could not read Luminox O2 sensor.
+05-08-2020 15:03:05 - Got data, processing and parsing...
+05-08-2020 15:03:05 - Read data packet: &875&1596639771&17:0&32:-1.0,-1.0,-1,-1.00&33:77.5,77.5,78,77.50&38:3188&18:0
+05-08-2020 15:03:05 - Power saving for 00:04:30
+05-08-2020 15:07:36 - Encoding message: :875&1596639755-1.7.0-253&17:101&32:195&33:214&38:100&18:102
+05-08-2020 15:07:36 - length 60 -> 30
+05-08-2020 15:07:36 - LoRaRadio: Attempting to join LoRaWAN...
+05-08-2020 15:07:36 - LoRaRadio: Attempting to send message...
+05-08-2020 15:07:41 - LoRaRadio: LoRaWAN joined:
+05-08-2020 15:07:41 -    netid: 19
+05-08-2020 15:07:41 -    devaddr: 26022439
+05-08-2020 15:07:41 -    artKey: b56bb3ad5d14c34e5ea3bb7a8abc7a9
+05-08-2020 15:07:41 -    nwkKey: 138070952bad4f11eb41c7bf5eb9bc94
+05-08-2020 15:07:41 - LoRaRadio: Attempting to send message...
+05-08-2020 15:07:43 - LoRaRadio: transmission complete
+05-08-2020 15:07:43 - Successfully sent message ":875&1596639755-1.7.0-253&17:101&32:195&33:214&38:100&18:102"
+05-08-2020 15:07:43 - Setting radio timer: 300 s
+05-08-2020 15:07:43 - Power saving for 00:05:00
+05-08-2020 15:12:44 - Encoding message: &875&1596639771&17:0&32:-1.0,-1.0,-1,-1.00&33:77.5,77.5,78,77.50&38:3188&18:0
+05-08-2020 15:12:44 - length 77 -> 39
+05-08-2020 15:12:44 - LoRaRadio: Attempting to send message...
+05-08-2020 15:12:49 - LoRaRadio: transmission complete
+05-08-2020 15:12:49 - Successfully sent message "&875&1596639771&17:0&32:-1.0,-1.0,-1,-1.00&33:77.5,77.5,78,77.50&38:3188&18:0"
+05-08-2020 15:12:49 - Setting radio timer: 600 s
+05-08-2020 15:12:52 - Setting data record timer: 600 s
+05-08-2020 15:12:57 - Reading data from sensors...
+05-08-2020 15:13:01 - Error: Could not read Luminox O2 sensor.
+05-08-2020 15:13:06 - Got data, processing and parsing...
+05-08-2020 15:13:06 - Read data packet: &875&1596640372&17:0&32:-1.0,-1.0,-1,-1.00&33:77.8,77.8,78,77.80&38:3250&18:0
+05-08-2020 15:13:06 - Power saving for 00:09:43
+05-08-2020 15:22:50 - Encoding message: &875&1596640372&17:0&32:-1.0,-1.0,-1,-1.00&33:77.8,77.8,78,77.80&38:3250&18:0
+05-08-2020 15:22:50 - length 77 -> 39
+05-08-2020 15:22:50 - LoRaRadio: Attempting to send message...
+05-08-2020 15:22:54 - LoRaRadio: transmission complete
+05-08-2020 15:22:54 - Successfully sent message "&875&1596640372&17:0&32:-1.0,-1.0,-1,-1.00&33:77.8,77.8,78,77.80&38:3250&18:0"
+05-08-2020 15:22:54 - Setting radio timer: 600 s
+05-08-2020 15:22:54 - Setting data record timer: 600 s
+05-08-2020 15:22:59 - Reading data from sensors...
+05-08-2020 15:23:03 - Error: Could not read Luminox O2 sensor.
+05-08-2020 15:23:08 - Got data, processing and parsing...
+05-08-2020 15:23:08 - Read data packet: &875&1596640974&17:0&32:-1.0,-1.0,-1,-1.00&33:77.5,77.5,78,77.50&38:3254&18:0
+05-08-2020 15:23:08 - Power saving for 00:09:46
