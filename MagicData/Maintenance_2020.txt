@@ -54,3 +54,39 @@ Data downloaded. No notes on cleaning scan on that field day but it was likely. 
 
 25MAY20
 Data download. 1.6m scan cleaned at 10:52. Steps 1 program put back on mux. Autoreset working.
+
+08JUN20
+Data downloaded. 1.6m scan cleaned at 13:30. Mux cuvette cleaned at 11:50.
+
+12JUN20
+Data downloaded.
+
+22JUN20
+Data downloaded. 1.6m scan cleaned at 10:18.
+
+25JUN20
+Mux cuvette cleaned at 12:00.
+
+29JUN20
+Data downloaded. 1.6m scan unhooked and floating when arrived. 1.6m scan cleaned 13:23-13:45.
+
+06JUL20
+Data downloaded. 1.6m scan cleaned at 12:48. Mux cuvette cleaned at 12:48.
+
+13JUL20
+Data downloaded. 1.6m scan cleaned at 11:24.
+
+20JUL20
+Data downloaded. 1.6m scan cleaned at 11:50.
+
+27JUL20
+Data downloaded. 1.6m scan cleaned at 12:35.
+
+31JUL20
+Mux cuvetter cleaned at 12:00.
+
+03AUG20
+Data downloaded. 1.6m scan cleaned at 12:54.
+
+07AUG20
+Mux cuvette cleaned at 10:37-10:57.
