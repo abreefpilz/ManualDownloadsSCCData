@@ -1,0 +1,2284 @@
+                      Node class initializing...
+                      Running software version: 1.7.0
+18-08-2020 07:57:43 - RTC has set the system time: 7:57:43 18 8 2020
+18-08-2020 07:57:43 - Bootcount = 1638
+18-08-2020 07:57:43 - SD: card initialized.
+18-08-2020 07:57:43 - SD: Getting hardware version from config: 4
+18-08-2020 07:57:43 - SD: Getting interval info from config...
+18-08-2020 07:57:43 -     record_time_interval: 600 s
+18-08-2020 07:57:43 -     transmit_time_interval: 300 s
+18-08-2020 07:57:43 -     gps_time_interval: Not found, will use default.
+18-08-2020 07:57:43 - SD: Getting disabled info from config...
+18-08-2020 07:57:43 -     disable_power_save: false
+18-08-2020 07:57:43 -     disable_radio: false
+18-08-2020 07:57:43 -     disable_gps: true
+18-08-2020 07:57:43 - SD: Getting thermistor info from config: OFF
+18-08-2020 07:57:43 - SD: Getting config ID from config: 253
+18-08-2020 07:57:43 - SD: Getting connected sensor info from config...
+18-08-2020 07:57:43 - SD: From config: pin: 17, type: i2c - senseair, SN: 101
+18-08-2020 07:57:43 - SD: From config: pin: 32, type: UART - LuminOx, SN: 195
+18-08-2020 07:57:43 - SD: From config: pin: 33, type: UART - LuminOx, SN: 214
+18-08-2020 07:57:43 - SD: From config: pin: 38, type: i2c - senseair, SN: 100
+18-08-2020 07:57:43 - SD: From config: pin: 18, type: i2c - senseair, SN: 102
+18-08-2020 07:57:43 - Nothing connected on pins:  15 16 31 34 35 36 37 39 19 20 21 22 23
+18-08-2020 07:57:51 - SD: Getting debug info from config: OFF
+18-08-2020 07:57:51 - Read config: :1638&1597737471-1.7.0-253&17:101&32:195&33:214&38:100&18:102
+18-08-2020 07:57:51 - Initializing radio...
+18-08-2020 07:57:51 - SD: Getting network info from config...
+18-08-2020 07:57:51 -     device_EUI: 00D1DC2F61DBF31D
+18-08-2020 07:57:51 -     application_EUI: 70B3D57ED001C671
+18-08-2020 07:57:51 -     app_key: 2558E7BD41A7C4065FBBD547278BAD4B
+18-08-2020 07:57:51 - radio initialized.
+18-08-2020 07:57:51 - Setting radio timer: 300 s
+18-08-2020 07:57:51 - GPS Disabled. Ensuring pin is not being used...
+18-08-2020 07:57:51 - Set up snooze block to enable power save.
+18-08-2020 07:57:51 - Started watchdog timer at 900 s
+18-08-2020 07:57:51 - Setting data record timer: 15 s
+18-08-2020 07:57:51 - Initialization successful!
+18-08-2020 07:57:51 - 
+18-08-2020 07:57:51 - Power saving for 00:00:15
+18-08-2020 07:58:07 - Setting data record timer: 600 s
+18-08-2020 07:58:12 - Reading data from sensors...
+18-08-2020 07:58:16 - Error: Could not read Luminox O2 sensor.
+18-08-2020 07:58:21 - Got data, processing and parsing...
+18-08-2020 07:58:21 - Read data packet: &1638&1597737487&17:0&32:-1.0,-1.0,-1,-1.00&33:87.4,87.4,87,87.40&38:5608&18:65535
+18-08-2020 07:58:21 - Power saving for 00:04:30
+18-08-2020 08:02:52 - Encoding message: :1638&1597737471-1.7.0-253&17:101&32:195&33:214&38:100&18:102
+18-08-2020 08:02:52 - length 61 -> 31
+18-08-2020 08:02:52 - LoRaRadio: Attempting to join LoRaWAN...
+18-08-2020 08:02:52 - LoRaRadio: Attempting to send message...
+18-08-2020 08:02:57 - LoRaRadio: LoRaWAN joined:
+18-08-2020 08:02:57 -    netid: 19
+18-08-2020 08:02:57 -    devaddr: 26022362
+18-08-2020 08:02:57 -    artKey: 436aeeaed197d4ac5a5075604ea01e
+18-08-2020 08:02:57 -    nwkKey: aed019314b4c341c9d5a4db79d619a
+18-08-2020 08:02:57 - LoRaRadio: Attempting to send message...
+18-08-2020 08:02:59 - LoRaRadio: transmission complete
+18-08-2020 08:02:59 - Successfully sent message ":1638&1597737471-1.7.0-253&17:101&32:195&33:214&38:100&18:102"
+18-08-2020 08:02:59 - Setting radio timer: 300 s
+18-08-2020 08:02:59 - Power saving for 00:05:00
+18-08-2020 08:08:00 - Encoding message: &1638&1597737487&17:0&32:-1.0,-1.0,-1,-1.00&33:87.4,87.4,87,87.40&38:5608&18:65535
+18-08-2020 08:08:00 - length 82 -> 41
+18-08-2020 08:08:00 - LoRaRadio: Attempting to send message...
+18-08-2020 08:08:04 - LoRaRadio: transmission complete
+18-08-2020 08:08:04 - Successfully sent message "&1638&1597737487&17:0&32:-1.0,-1.0,-1,-1.00&33:87.4,87.4,87,87.40&38:5608&18:65535"
+18-08-2020 08:08:04 - Setting radio timer: 600 s
+18-08-2020 08:08:08 - Setting data record timer: 600 s
+18-08-2020 08:08:13 - Reading data from sensors...
+18-08-2020 08:08:17 - Error: Could not read Luminox O2 sensor.
+18-08-2020 08:08:22 - Got data, processing and parsing...
+18-08-2020 08:08:22 - Read data packet: &1638&1597738088&17:0&32:-1.0,-1.0,-1,-1.00&33:87.2,87.2,87,87.20&38:5637&18:65535
+18-08-2020 08:08:22 - Power saving for 00:09:42
+18-08-2020 08:18:05 - Encoding message: &1638&1597738088&17:0&32:-1.0,-1.0,-1,-1.00&33:87.2,87.2,87,87.20&38:5637&18:65535
+18-08-2020 08:18:05 - length 82 -> 41
+18-08-2020 08:18:05 - LoRaRadio: Attempting to send message...
+18-08-2020 08:18:10 - LoRaRadio: transmission complete
+18-08-2020 08:18:10 - Successfully sent message "&1638&1597738088&17:0&32:-1.0,-1.0,-1,-1.00&33:87.2,87.2,87,87.20&38:5637&18:65535"
+18-08-2020 08:18:10 - Setting radio timer: 600 s
+18-08-2020 08:18:10 - Setting data record timer: 600 s
+18-08-2020 08:18:15 - Reading data from sensors...
+18-08-2020 08:18:20 - Error: Could not read Luminox O2 sensor.
+18-08-2020 08:18:24 - Got data, processing and parsing...
+18-08-2020 08:18:24 - Read data packet: &1638&1597738690&17:0&32:-1.0,-1.0,-1,-1.00&33:87.1,87.1,87,87.20&38:5603&18:65535
+18-08-2020 08:18:24 - Power saving for 00:09:46
+18-08-2020 08:28:12 - Setting data record timer: 600 s
+18-08-2020 08:28:17 - Reading data from sensors...
+18-08-2020 08:28:21 - Error: Could not read Luminox O2 sensor.
+18-08-2020 08:28:26 - Got data, processing and parsing...
+18-08-2020 08:28:26 - Read data packet: &1638&1597739292&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.1,87,87.10&38:5609&18:65535
+18-08-2020 08:28:26 - Encoding message: &1638&1597739292&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.1,87,87.10&38:5609&18:65535
+18-08-2020 08:28:26 - length 82 -> 41
+18-08-2020 08:28:26 - LoRaRadio: Attempting to send message...
+18-08-2020 08:28:30 - LoRaRadio: transmission complete
+18-08-2020 08:28:30 - Successfully sent message "&1638&1597739292&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.1,87,87.10&38:5609&18:65535"
+18-08-2020 08:28:30 - Setting radio timer: 300 s
+18-08-2020 08:28:30 - Power saving for 00:05:00
+18-08-2020 08:33:32 - Encoding message: &1638&1597738690&17:0&32:-1.0,-1.0,-1,-1.00&33:87.1,87.1,87,87.20&38:5603&18:65535
+18-08-2020 08:33:32 - length 82 -> 41
+18-08-2020 08:33:32 - LoRaRadio: Attempting to send message...
+18-08-2020 08:33:36 - LoRaRadio: transmission complete
+18-08-2020 08:33:36 - Successfully sent message "&1638&1597738690&17:0&32:-1.0,-1.0,-1,-1.00&33:87.1,87.1,87,87.20&38:5603&18:65535"
+18-08-2020 08:33:36 - Setting radio timer: 600 s
+18-08-2020 08:33:36 - Power saving for 00:04:36
+18-08-2020 08:38:14 - Setting data record timer: 600 s
+18-08-2020 08:38:19 - Reading data from sensors...
+18-08-2020 08:38:23 - Error: Could not read Luminox O2 sensor.
+18-08-2020 08:38:28 - Got data, processing and parsing...
+18-08-2020 08:38:28 - Read data packet: &1638&1597739894&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.10&38:5737&18:65535
+18-08-2020 08:38:28 - Power saving for 00:05:08
+18-08-2020 08:43:37 - Encoding message: &1638&1597739894&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.10&38:5737&18:65535
+18-08-2020 08:43:37 - length 82 -> 41
+18-08-2020 08:43:37 - LoRaRadio: Attempting to send message...
+18-08-2020 08:43:41 - LoRaRadio: transmission complete
+18-08-2020 08:43:41 - Successfully sent message "&1638&1597739894&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.10&38:5737&18:65535"
+18-08-2020 08:43:41 - Setting radio timer: 600 s
+18-08-2020 08:43:41 - Power saving for 00:04:33
+18-08-2020 08:48:15 - Setting data record timer: 600 s
+18-08-2020 08:48:20 - Reading data from sensors...
+18-08-2020 08:48:24 - Error: Could not read Luminox O2 sensor.
+18-08-2020 08:48:29 - Got data, processing and parsing...
+18-08-2020 08:48:29 - Read data packet: &1638&1597740495&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.00&38:5605&18:65535
+18-08-2020 08:48:29 - Power saving for 00:05:12
+18-08-2020 08:53:42 - Encoding message: &1638&1597740495&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.00&38:5605&18:65535
+18-08-2020 08:53:42 - length 82 -> 41
+18-08-2020 08:53:42 - LoRaRadio: Attempting to send message...
+18-08-2020 08:53:46 - LoRaRadio: transmission complete
+18-08-2020 08:53:46 - Successfully sent message "&1638&1597740495&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.00&38:5605&18:65535"
+18-08-2020 08:53:47 - Setting radio timer: 600 s
+18-08-2020 08:53:47 - Power saving for 00:04:28
+18-08-2020 08:58:16 - Setting data record timer: 600 s
+18-08-2020 08:58:21 - Reading data from sensors...
+18-08-2020 08:58:25 - Error: Could not read Luminox O2 sensor.
+18-08-2020 08:58:30 - Got data, processing and parsing...
+18-08-2020 08:58:30 - Read data packet: &1638&1597741096&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.00&38:5575&18:65535
+18-08-2020 08:58:30 - Power saving for 00:05:17
+18-08-2020 09:03:48 - Encoding message: &1638&1597741096&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.00&38:5575&18:65535
+18-08-2020 09:03:48 - length 82 -> 41
+18-08-2020 09:03:48 - LoRaRadio: Attempting to send message...
+18-08-2020 09:03:53 - LoRaRadio: transmission complete
+18-08-2020 09:03:53 - Successfully sent message "&1638&1597741096&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.00&38:5575&18:65535"
+18-08-2020 09:03:53 - Setting radio timer: 600 s
+18-08-2020 09:03:53 - Power saving for 00:04:23
+18-08-2020 09:08:17 - Setting data record timer: 600 s
+18-08-2020 09:08:22 - Reading data from sensors...
+18-08-2020 09:08:26 - Error: Could not read Luminox O2 sensor.
+18-08-2020 09:08:31 - Got data, processing and parsing...
+18-08-2020 09:08:31 - Read data packet: &1638&1597741697&17:0&32:-1.0,-1.0,-1,-1.00&33:86.9,87.0,87,87.00&38:5616&18:65535
+18-08-2020 09:08:31 - Power saving for 00:05:22
+18-08-2020 09:13:54 - Encoding message: &1638&1597741697&17:0&32:-1.0,-1.0,-1,-1.00&33:86.9,87.0,87,87.00&38:5616&18:65535
+18-08-2020 09:13:54 - length 82 -> 41
+18-08-2020 09:13:54 - LoRaRadio: Attempting to send message...
+18-08-2020 09:13:58 - LoRaRadio: transmission complete
+18-08-2020 09:13:58 - Successfully sent message "&1638&1597741697&17:0&32:-1.0,-1.0,-1,-1.00&33:86.9,87.0,87,87.00&38:5616&18:65535"
+18-08-2020 09:13:58 - Setting radio timer: 600 s
+18-08-2020 09:13:58 - Power saving for 00:04:19
+18-08-2020 09:18:18 - Setting data record timer: 600 s
+18-08-2020 09:18:23 - Reading data from sensors...
+18-08-2020 09:18:27 - Error: Could not read Luminox O2 sensor.
+18-08-2020 09:18:32 - Got data, processing and parsing...
+18-08-2020 09:18:32 - Read data packet: &1638&1597742298&17:0&32:-1.0,-1.0,-1,-1.00&33:86.9,86.9,87,86.90&38:5626&18:65535
+18-08-2020 09:18:32 - Power saving for 00:05:26
+18-08-2020 09:23:59 - Encoding message: &1638&1597742298&17:0&32:-1.0,-1.0,-1,-1.00&33:86.9,86.9,87,86.90&38:5626&18:65535
+18-08-2020 09:23:59 - length 82 -> 41
+18-08-2020 09:23:59 - LoRaRadio: Attempting to send message...
+18-08-2020 09:24:03 - LoRaRadio: transmission complete
+18-08-2020 09:24:03 - Successfully sent message "&1638&1597742298&17:0&32:-1.0,-1.0,-1,-1.00&33:86.9,86.9,87,86.90&38:5626&18:65535"
+18-08-2020 09:24:03 - Setting radio timer: 600 s
+18-08-2020 09:24:03 - Power saving for 00:04:15
+18-08-2020 09:28:19 - Setting data record timer: 600 s
+18-08-2020 09:28:24 - Reading data from sensors...
+18-08-2020 09:28:28 - Error: Could not read Luminox O2 sensor.
+18-08-2020 09:28:33 - Got data, processing and parsing...
+18-08-2020 09:28:33 - Read data packet: &1638&1597742899&17:0&32:-1.0,-1.0,-1,-1.00&33:86.9,86.9,87,86.90&38:5597&18:65535
+18-08-2020 09:28:33 - Power saving for 00:05:30
+18-08-2020 09:34:04 - Encoding message: &1638&1597742899&17:0&32:-1.0,-1.0,-1,-1.00&33:86.9,86.9,87,86.90&38:5597&18:65535
+18-08-2020 09:34:04 - length 82 -> 41
+18-08-2020 09:34:04 - LoRaRadio: Attempting to send message...
+18-08-2020 09:34:09 - LoRaRadio: transmission complete
+18-08-2020 09:34:09 - Successfully sent message "&1638&1597742899&17:0&32:-1.0,-1.0,-1,-1.00&33:86.9,86.9,87,86.90&38:5597&18:65535"
+18-08-2020 09:34:09 - Setting radio timer: 600 s
+18-08-2020 09:34:09 - Power saving for 00:04:10
+18-08-2020 09:38:20 - Setting data record timer: 600 s
+18-08-2020 09:38:25 - Reading data from sensors...
+18-08-2020 09:38:29 - Error: Could not read Luminox O2 sensor.
+18-08-2020 09:38:34 - Got data, processing and parsing...
+18-08-2020 09:38:34 - Read data packet: &1638&1597743500&17:0&32:-1.0,-1.0,-1,-1.00&33:86.8,86.8,87,86.90&38:5573&18:65535
+18-08-2020 09:38:34 - Power saving for 00:05:35
+18-08-2020 09:44:10 - Encoding message: &1638&1597743500&17:0&32:-1.0,-1.0,-1,-1.00&33:86.8,86.8,87,86.90&38:5573&18:65535
+18-08-2020 09:44:10 - length 82 -> 41
+18-08-2020 09:44:10 - LoRaRadio: Attempting to send message...
+18-08-2020 09:44:15 - LoRaRadio: transmission complete
+18-08-2020 09:44:15 - Successfully sent message "&1638&1597743500&17:0&32:-1.0,-1.0,-1,-1.00&33:86.8,86.8,87,86.90&38:5573&18:65535"
+18-08-2020 09:44:15 - Setting radio timer: 600 s
+18-08-2020 09:44:15 - Power saving for 00:04:05
+18-08-2020 09:48:21 - Setting data record timer: 600 s
+18-08-2020 09:48:26 - Reading data from sensors...
+18-08-2020 09:48:30 - Error: Could not read Luminox O2 sensor.
+18-08-2020 09:48:35 - Got data, processing and parsing...
+18-08-2020 09:48:35 - Read data packet: &1638&1597744101&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.00&38:5636&18:65535
+18-08-2020 09:48:35 - Power saving for 00:05:40
+18-08-2020 09:54:16 - Encoding message: &1638&1597744101&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.00&38:5636&18:65535
+18-08-2020 09:54:16 - length 82 -> 41
+18-08-2020 09:54:16 - LoRaRadio: Attempting to send message...
+18-08-2020 09:54:21 - LoRaRadio: transmission complete
+18-08-2020 09:54:21 - Successfully sent message "&1638&1597744101&17:0&32:-1.0,-1.0,-1,-1.00&33:87.0,87.0,87,87.00&38:5636&18:65535"
+18-08-2020 09:54:21 - Setting radio timer: 600 s
+18-08-2020 09:54:21 - Power saving for 00:04:00
+18-08-2020 09:58:22 - Setting data record timer: 600 s
+18-08-2020 09:58:27 - Reading data from sensors...
+18-08-2020 09:58:31 - Error: Could not read Luminox O2 sensor.
+18-08-2020 09:58:36 - Got data, processing and parsing...
+18-08-2020 09:58:36 - Read data packet: &1638&1597744702&17:0&32:-1.0,-1.0,-1,-1.00&33:86.8,86.8,87,86.80&38:5640&18:65535
+18-08-2020 09:58:36 - Power saving for 00:05:45
+18-08-2020 10:04:22 - Encoding message: &1638&1597744702&17:0&32:-1.0,-1.0,-1,-1.00&33:86.8,86.8,87,86.80&38:5640&18:65535
+18-08-2020 10:04:22 - length 82 -> 41
+18-08-2020 10:04:22 - LoRaRadio: Attempting to send message...
+18-08-2020 10:04:27 - LoRaRadio: transmission complete
+18-08-2020 10:04:27 - Successfully sent message "&1638&1597744702&17:0&32:-1.0,-1.0,-1,-1.00&33:86.8,86.8,87,86.80&38:5640&18:65535"
+18-08-2020 10:04:27 - Setting radio timer: 600 s
+18-08-2020 10:04:27 - Power saving for 00:03:55
+18-08-2020 10:08:23 - Setting data record timer: 600 s
+18-08-2020 10:08:28 - Reading data from sensors...
+18-08-2020 10:08:32 - Error: Could not read Luminox O2 sensor.
+18-08-2020 10:08:37 - Got data, processing and parsing...
+18-08-2020 10:08:37 - Read data packet: &1638&1597745303&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.8,87,86.80&38:5635&18:65535
+18-08-2020 10:08:37 - Power saving for 00:05:50
+18-08-2020 10:14:28 - Encoding message: &1638&1597745303&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.8,87,86.80&38:5635&18:65535
+18-08-2020 10:14:28 - length 82 -> 41
+18-08-2020 10:14:28 - LoRaRadio: Attempting to send message...
+18-08-2020 10:14:32 - LoRaRadio: transmission complete
+18-08-2020 10:14:32 - Successfully sent message "&1638&1597745303&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.8,87,86.80&38:5635&18:65535"
+18-08-2020 10:14:33 - Setting radio timer: 600 s
+18-08-2020 10:14:33 - Power saving for 00:03:50
+18-08-2020 10:18:24 - Setting data record timer: 600 s
+18-08-2020 10:18:29 - Reading data from sensors...
+18-08-2020 10:18:33 - Error: Could not read Luminox O2 sensor.
+18-08-2020 10:18:38 - Got data, processing and parsing...
+18-08-2020 10:18:38 - Read data packet: &1638&1597745904&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.8,87,86.80&38:5508&18:65535
+18-08-2020 10:18:38 - Power saving for 00:05:55
+18-08-2020 10:24:34 - Encoding message: &1638&1597745904&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.8,87,86.80&38:5508&18:65535
+18-08-2020 10:24:34 - length 82 -> 41
+18-08-2020 10:24:34 - LoRaRadio: Attempting to send message...
+18-08-2020 10:24:37 - LoRaRadio: transmission complete
+18-08-2020 10:24:37 - Successfully sent message "&1638&1597745904&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.8,87,86.80&38:5508&18:65535"
+18-08-2020 10:24:37 - Setting radio timer: 600 s
+18-08-2020 10:24:37 - Power saving for 00:03:47
+18-08-2020 10:28:26 - Setting data record timer: 600 s
+18-08-2020 10:28:31 - Reading data from sensors...
+18-08-2020 10:28:35 - Error: Could not read Luminox O2 sensor.
+18-08-2020 10:28:40 - Got data, processing and parsing...
+18-08-2020 10:28:40 - Read data packet: &1638&1597746506&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.70&38:5634&18:65535
+18-08-2020 10:28:40 - Power saving for 00:05:57
+18-08-2020 10:34:38 - Encoding message: &1638&1597746506&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.70&38:5634&18:65535
+18-08-2020 10:34:38 - length 82 -> 41
+18-08-2020 10:34:38 - LoRaRadio: Attempting to send message...
+18-08-2020 10:34:42 - LoRaRadio: transmission complete
+18-08-2020 10:34:42 - Successfully sent message "&1638&1597746506&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.70&38:5634&18:65535"
+18-08-2020 10:34:42 - Setting radio timer: 600 s
+18-08-2020 10:34:42 - Power saving for 00:03:44
+18-08-2020 10:38:27 - Setting data record timer: 600 s
+18-08-2020 10:38:32 - Reading data from sensors...
+18-08-2020 10:38:36 - Error: Could not read Luminox O2 sensor.
+18-08-2020 10:38:41 - Got data, processing and parsing...
+18-08-2020 10:38:41 - Read data packet: &1638&1597747107&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.80&38:5575&18:65535
+18-08-2020 10:38:41 - Power saving for 00:06:01
+18-08-2020 10:44:43 - Encoding message: &1638&1597747107&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.80&38:5575&18:65535
+18-08-2020 10:44:43 - length 82 -> 41
+18-08-2020 10:44:43 - LoRaRadio: Attempting to send message...
+18-08-2020 10:44:47 - LoRaRadio: transmission complete
+18-08-2020 10:44:47 - Successfully sent message "&1638&1597747107&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.80&38:5575&18:65535"
+18-08-2020 10:44:47 - Setting radio timer: 600 s
+18-08-2020 10:44:47 - Power saving for 00:03:40
+18-08-2020 10:48:28 - Setting data record timer: 600 s
+18-08-2020 10:48:33 - Reading data from sensors...
+18-08-2020 10:48:37 - Error: Could not read Luminox O2 sensor.
+18-08-2020 10:48:42 - Got data, processing and parsing...
+18-08-2020 10:48:42 - Read data packet: &1638&1597747708&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.70&38:5633&18:65535
+18-08-2020 10:48:42 - Power saving for 00:06:05
+18-08-2020 10:54:48 - Encoding message: &1638&1597747708&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.70&38:5633&18:65535
+18-08-2020 10:54:48 - length 82 -> 41
+18-08-2020 10:54:48 - LoRaRadio: Attempting to send message...
+18-08-2020 10:54:52 - LoRaRadio: transmission complete
+18-08-2020 10:54:52 - Successfully sent message "&1638&1597747708&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.70&38:5633&18:65535"
+18-08-2020 10:54:52 - Setting radio timer: 600 s
+18-08-2020 10:54:52 - Power saving for 00:03:36
+18-08-2020 10:58:29 - Setting data record timer: 600 s
+18-08-2020 10:58:34 - Reading data from sensors...
+18-08-2020 10:58:38 - Error: Could not read Luminox O2 sensor.
+18-08-2020 10:58:43 - Got data, processing and parsing...
+18-08-2020 10:58:43 - Read data packet: &1638&1597748309&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.7,87,86.70&38:5621&18:65535
+18-08-2020 10:58:43 - Power saving for 00:06:09
+18-08-2020 11:04:53 - Encoding message: &1638&1597748309&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.7,87,86.70&38:5621&18:65535
+18-08-2020 11:04:53 - length 82 -> 41
+18-08-2020 11:04:53 - LoRaRadio: Attempting to send message...
+18-08-2020 11:04:58 - LoRaRadio: transmission complete
+18-08-2020 11:04:58 - Successfully sent message "&1638&1597748309&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.7,87,86.70&38:5621&18:65535"
+18-08-2020 11:04:58 - Setting radio timer: 600 s
+18-08-2020 11:04:58 - Power saving for 00:03:31
+18-08-2020 11:08:30 - Setting data record timer: 600 s
+18-08-2020 11:08:35 - Reading data from sensors...
+18-08-2020 11:08:39 - Error: Could not read Luminox O2 sensor.
+18-08-2020 11:08:44 - Got data, processing and parsing...
+18-08-2020 11:08:44 - Read data packet: &1638&1597748910&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.7,87,86.70&38:5704&18:65535
+18-08-2020 11:08:44 - Power saving for 00:06:14
+18-08-2020 11:14:59 - Encoding message: &1638&1597748910&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.7,87,86.70&38:5704&18:65535
+18-08-2020 11:14:59 - length 82 -> 41
+18-08-2020 11:14:59 - LoRaRadio: Attempting to send message...
+18-08-2020 11:15:03 - LoRaRadio: transmission complete
+18-08-2020 11:15:03 - Successfully sent message "&1638&1597748910&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.7,87,86.70&38:5704&18:65535"
+18-08-2020 11:15:03 - Setting radio timer: 600 s
+18-08-2020 11:15:03 - Power saving for 00:03:27
+18-08-2020 11:18:31 - Setting data record timer: 600 s
+18-08-2020 11:18:36 - Reading data from sensors...
+18-08-2020 11:18:40 - Error: Could not read Luminox O2 sensor.
+18-08-2020 11:18:45 - Got data, processing and parsing...
+18-08-2020 11:18:45 - Read data packet: &1638&1597749511&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.6,87,86.70&38:5687&18:65535
+18-08-2020 11:18:45 - Power saving for 00:06:18
+18-08-2020 11:25:04 - Encoding message: &1638&1597749511&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.6,87,86.70&38:5687&18:65535
+18-08-2020 11:25:04 - length 82 -> 41
+18-08-2020 11:25:04 - LoRaRadio: Attempting to send message...
+18-08-2020 11:25:08 - LoRaRadio: transmission complete
+18-08-2020 11:25:08 - Successfully sent message "&1638&1597749511&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.6,87,86.70&38:5687&18:65535"
+18-08-2020 11:25:08 - Setting radio timer: 600 s
+18-08-2020 11:25:08 - Power saving for 00:03:23
+18-08-2020 11:28:32 - Setting data record timer: 600 s
+18-08-2020 11:28:37 - Reading data from sensors...
+18-08-2020 11:28:41 - Error: Could not read Luminox O2 sensor.
+18-08-2020 11:28:46 - Got data, processing and parsing...
+18-08-2020 11:28:46 - Read data packet: &1638&1597750112&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.6,87,86.60&38:5732&18:65535
+18-08-2020 11:28:46 - Power saving for 00:06:22
+18-08-2020 11:35:09 - Encoding message: &1638&1597750112&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.6,87,86.60&38:5732&18:65535
+18-08-2020 11:35:09 - length 82 -> 41
+18-08-2020 11:35:09 - LoRaRadio: Attempting to send message...
+18-08-2020 11:35:13 - LoRaRadio: transmission complete
+18-08-2020 11:35:13 - Successfully sent message "&1638&1597750112&17:0&32:-1.0,-1.0,-1,-1.00&33:86.6,86.6,87,86.60&38:5732&18:65535"
+18-08-2020 11:35:13 - Setting radio timer: 600 s
+18-08-2020 11:35:13 - Power saving for 00:03:19
+18-08-2020 11:38:34 - Setting data record timer: 600 s
+18-08-2020 11:38:39 - Reading data from sensors...
+18-08-2020 11:38:43 - Error: Could not read Luminox O2 sensor.
+18-08-2020 11:38:48 - Got data, processing and parsing...
+18-08-2020 11:38:48 - Read data packet: &1638&1597750714&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5938&18:65535
+18-08-2020 11:38:48 - Power saving for 00:06:25
+18-08-2020 11:45:14 - Encoding message: &1638&1597750714&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5938&18:65535
+18-08-2020 11:45:14 - length 82 -> 41
+18-08-2020 11:45:14 - LoRaRadio: Attempting to send message...
+18-08-2020 11:45:18 - LoRaRadio: transmission complete
+18-08-2020 11:45:18 - Successfully sent message "&1638&1597750714&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5938&18:65535"
+18-08-2020 11:45:18 - Setting radio timer: 600 s
+18-08-2020 11:45:18 - Power saving for 00:03:16
+18-08-2020 11:48:36 - Setting data record timer: 600 s
+18-08-2020 11:48:41 - Reading data from sensors...
+18-08-2020 11:48:45 - Error: Could not read Luminox O2 sensor.
+18-08-2020 11:48:50 - Got data, processing and parsing...
+18-08-2020 11:48:50 - Read data packet: &1638&1597751316&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:6182&18:65535
+18-08-2020 11:48:50 - Power saving for 00:06:28
+18-08-2020 11:55:19 - Encoding message: &1638&1597751316&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:6182&18:65535
+18-08-2020 11:55:19 - length 82 -> 41
+18-08-2020 11:55:19 - LoRaRadio: Attempting to send message...
+18-08-2020 11:55:24 - LoRaRadio: transmission complete
+18-08-2020 11:55:24 - Successfully sent message "&1638&1597751316&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:6182&18:65535"
+18-08-2020 11:55:24 - Setting radio timer: 600 s
+18-08-2020 11:55:24 - Power saving for 00:03:12
+18-08-2020 11:58:37 - Setting data record timer: 600 s
+18-08-2020 11:58:42 - Reading data from sensors...
+18-08-2020 11:58:46 - Error: Could not read Luminox O2 sensor.
+18-08-2020 11:58:51 - Got data, processing and parsing...
+18-08-2020 11:58:51 - Read data packet: &1638&1597751917&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5701&18:65535
+18-08-2020 11:58:51 - Power saving for 00:06:33
+18-08-2020 12:05:25 - Encoding message: &1638&1597751917&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5701&18:65535
+18-08-2020 12:05:25 - length 82 -> 41
+18-08-2020 12:05:25 - LoRaRadio: Attempting to send message...
+18-08-2020 12:05:30 - LoRaRadio: transmission complete
+18-08-2020 12:05:30 - Successfully sent message "&1638&1597751917&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5701&18:65535"
+18-08-2020 12:05:30 - Setting radio timer: 600 s
+18-08-2020 12:05:30 - Power saving for 00:03:07
+18-08-2020 12:08:38 - Setting data record timer: 600 s
+18-08-2020 12:08:43 - Reading data from sensors...
+18-08-2020 12:08:47 - Error: Could not read Luminox O2 sensor.
+18-08-2020 12:08:52 - Got data, processing and parsing...
+18-08-2020 12:08:52 - Read data packet: &1638&1597752518&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5669&18:65535
+18-08-2020 12:08:52 - Power saving for 00:06:38
+18-08-2020 12:15:31 - Encoding message: &1638&1597752518&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5669&18:65535
+18-08-2020 12:15:31 - length 82 -> 41
+18-08-2020 12:15:31 - LoRaRadio: Attempting to send message...
+18-08-2020 12:15:36 - LoRaRadio: transmission complete
+18-08-2020 12:15:36 - Successfully sent message "&1638&1597752518&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5669&18:65535"
+18-08-2020 12:15:36 - Setting radio timer: 600 s
+18-08-2020 12:15:36 - Power saving for 00:03:02
+18-08-2020 12:18:39 - Setting data record timer: 600 s
+18-08-2020 12:18:44 - Reading data from sensors...
+18-08-2020 12:18:48 - Error: Could not read Luminox O2 sensor.
+18-08-2020 12:18:53 - Got data, processing and parsing...
+18-08-2020 12:18:53 - Read data packet: &1638&1597753119&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.30&38:5731&18:65535
+18-08-2020 12:18:53 - Power saving for 00:06:43
+18-08-2020 12:25:37 - Encoding message: &1638&1597753119&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.30&38:5731&18:65535
+18-08-2020 12:25:37 - length 82 -> 41
+18-08-2020 12:25:37 - LoRaRadio: Attempting to send message...
+18-08-2020 12:25:40 - LoRaRadio: transmission complete
+18-08-2020 12:25:40 - Successfully sent message "&1638&1597753119&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.30&38:5731&18:65535"
+18-08-2020 12:25:40 - Setting radio timer: 600 s
+18-08-2020 12:25:40 - Power saving for 00:02:59
+18-08-2020 12:28:41 - Setting data record timer: 600 s
+18-08-2020 12:28:46 - Reading data from sensors...
+18-08-2020 12:28:50 - Error: Could not read Luminox O2 sensor.
+18-08-2020 12:28:55 - Got data, processing and parsing...
+18-08-2020 12:28:55 - Read data packet: &1638&1597753721&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.30&38:5700&18:65535
+18-08-2020 12:28:55 - Power saving for 00:06:45
+18-08-2020 12:35:41 - Encoding message: &1638&1597753721&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.30&38:5700&18:65535
+18-08-2020 12:35:41 - length 82 -> 41
+18-08-2020 12:35:41 - LoRaRadio: Attempting to send message...
+18-08-2020 12:35:44 - LoRaRadio: transmission complete
+18-08-2020 12:35:44 - Successfully sent message "&1638&1597753721&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.30&38:5700&18:65535"
+18-08-2020 12:35:44 - Setting radio timer: 600 s
+18-08-2020 12:35:44 - Power saving for 00:02:57
+18-08-2020 12:38:43 - Setting data record timer: 600 s
+18-08-2020 12:38:48 - Reading data from sensors...
+18-08-2020 12:38:52 - Error: Could not read Luminox O2 sensor.
+18-08-2020 12:38:57 - Got data, processing and parsing...
+18-08-2020 12:38:57 - Read data packet: &1638&1597754323&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.20&38:5579&18:65535
+18-08-2020 12:38:57 - Power saving for 00:06:47
+18-08-2020 12:45:45 - Encoding message: &1638&1597754323&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.20&38:5579&18:65535
+18-08-2020 12:45:45 - length 82 -> 41
+18-08-2020 12:45:45 - LoRaRadio: Attempting to send message...
+18-08-2020 12:45:49 - LoRaRadio: transmission complete
+18-08-2020 12:45:49 - Successfully sent message "&1638&1597754323&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.20&38:5579&18:65535"
+18-08-2020 12:45:49 - Setting radio timer: 600 s
+18-08-2020 12:45:49 - Power saving for 00:02:54
+18-08-2020 12:48:45 - Setting data record timer: 600 s
+18-08-2020 12:48:50 - Reading data from sensors...
+18-08-2020 12:48:54 - Error: Could not read Luminox O2 sensor.
+18-08-2020 12:48:59 - Got data, processing and parsing...
+18-08-2020 12:48:59 - Read data packet: &1638&1597754925&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.20&38:5891&18:65535
+18-08-2020 12:48:59 - Power saving for 00:06:50
+18-08-2020 12:55:50 - Encoding message: &1638&1597754925&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.20&38:5891&18:65535
+18-08-2020 12:55:50 - length 82 -> 41
+18-08-2020 12:55:50 - LoRaRadio: Attempting to send message...
+18-08-2020 12:55:54 - LoRaRadio: transmission complete
+18-08-2020 12:55:54 - Successfully sent message "&1638&1597754925&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.20&38:5891&18:65535"
+18-08-2020 12:55:54 - Setting radio timer: 600 s
+18-08-2020 12:55:54 - Power saving for 00:02:51
+18-08-2020 12:58:46 - Setting data record timer: 600 s
+18-08-2020 12:58:51 - Reading data from sensors...
+18-08-2020 12:58:55 - Error: Could not read Luminox O2 sensor.
+18-08-2020 12:59:00 - Got data, processing and parsing...
+18-08-2020 12:59:00 - Read data packet: &1638&1597755526&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:5603&18:65535
+18-08-2020 12:59:00 - Power saving for 00:06:54
+18-08-2020 13:05:55 - Encoding message: &1638&1597755526&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:5603&18:65535
+18-08-2020 13:05:55 - length 82 -> 41
+18-08-2020 13:05:55 - LoRaRadio: Attempting to send message...
+18-08-2020 13:06:00 - LoRaRadio: transmission complete
+18-08-2020 13:06:00 - Successfully sent message "&1638&1597755526&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:5603&18:65535"
+18-08-2020 13:06:00 - Setting radio timer: 600 s
+18-08-2020 13:06:00 - Power saving for 00:02:46
+18-08-2020 13:08:47 - Setting data record timer: 600 s
+18-08-2020 13:08:52 - Reading data from sensors...
+18-08-2020 13:08:56 - Error: Could not read Luminox O2 sensor.
+18-08-2020 13:09:01 - Got data, processing and parsing...
+18-08-2020 13:09:01 - Read data packet: &1638&1597756127&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.80&38:5692&18:65535
+18-08-2020 13:09:01 - Power saving for 00:06:59
+18-08-2020 13:16:01 - Encoding message: &1638&1597756127&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.80&38:5692&18:65535
+18-08-2020 13:16:01 - length 82 -> 41
+18-08-2020 13:16:01 - LoRaRadio: Attempting to send message...
+18-08-2020 13:16:05 - LoRaRadio: transmission complete
+18-08-2020 13:16:05 - Successfully sent message "&1638&1597756127&17:0&32:-1.0,-1.0,-1,-1.00&33:86.7,86.7,87,86.80&38:5692&18:65535"
+18-08-2020 13:16:05 - Setting radio timer: 600 s
+18-08-2020 13:16:05 - Power saving for 00:02:42
+18-08-2020 13:18:48 - Setting data record timer: 600 s
+18-08-2020 13:18:53 - Reading data from sensors...
+18-08-2020 13:18:57 - Error: Could not read Luminox O2 sensor.
+18-08-2020 13:19:02 - Got data, processing and parsing...
+18-08-2020 13:19:02 - Read data packet: &1638&1597756728&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.6,87,86.60&38:5679&18:65535
+18-08-2020 13:19:02 - Power saving for 00:07:03
+18-08-2020 13:26:06 - Encoding message: &1638&1597756728&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.6,87,86.60&38:5679&18:65535
+18-08-2020 13:26:06 - length 82 -> 41
+18-08-2020 13:26:06 - LoRaRadio: Attempting to send message...
+18-08-2020 13:26:10 - LoRaRadio: transmission complete
+18-08-2020 13:26:10 - Successfully sent message "&1638&1597756728&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.6,87,86.60&38:5679&18:65535"
+18-08-2020 13:26:10 - Setting radio timer: 600 s
+18-08-2020 13:26:10 - Power saving for 00:02:38
+18-08-2020 13:28:50 - Setting data record timer: 600 s
+18-08-2020 13:28:55 - Reading data from sensors...
+18-08-2020 13:28:59 - Error: Could not read Luminox O2 sensor.
+18-08-2020 13:29:04 - Got data, processing and parsing...
+18-08-2020 13:29:04 - Read data packet: &1638&1597757330&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.40&38:5768&18:65535
+18-08-2020 13:29:04 - Power saving for 00:07:06
+18-08-2020 13:36:11 - Encoding message: &1638&1597757330&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.40&38:5768&18:65535
+18-08-2020 13:36:11 - length 82 -> 41
+18-08-2020 13:36:11 - LoRaRadio: Attempting to send message...
+18-08-2020 13:36:15 - LoRaRadio: transmission complete
+18-08-2020 13:36:15 - Successfully sent message "&1638&1597757330&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.40&38:5768&18:65535"
+18-08-2020 13:36:15 - Setting radio timer: 600 s
+18-08-2020 13:36:15 - Power saving for 00:02:35
+18-08-2020 13:38:52 - Setting data record timer: 600 s
+18-08-2020 13:38:57 - Reading data from sensors...
+18-08-2020 13:39:01 - Error: Could not read Luminox O2 sensor.
+18-08-2020 13:39:06 - Got data, processing and parsing...
+18-08-2020 13:39:06 - Read data packet: &1638&1597757932&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,86,86.50&38:5874&18:65535
+18-08-2020 13:39:06 - Power saving for 00:07:09
+18-08-2020 13:46:16 - Encoding message: &1638&1597757932&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,86,86.50&38:5874&18:65535
+18-08-2020 13:46:16 - length 82 -> 41
+18-08-2020 13:46:16 - LoRaRadio: Attempting to send message...
+18-08-2020 13:46:20 - LoRaRadio: transmission complete
+18-08-2020 13:46:20 - Successfully sent message "&1638&1597757932&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,86,86.50&38:5874&18:65535"
+18-08-2020 13:46:20 - Setting radio timer: 600 s
+18-08-2020 13:46:20 - Power saving for 00:02:32
+18-08-2020 13:48:54 - Setting data record timer: 600 s
+18-08-2020 13:48:59 - Reading data from sensors...
+18-08-2020 13:49:03 - Error: Could not read Luminox O2 sensor.
+18-08-2020 13:49:08 - Got data, processing and parsing...
+18-08-2020 13:49:08 - Read data packet: &1638&1597758534&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.4,86,86.40&38:5783&18:65535
+18-08-2020 13:49:08 - Power saving for 00:07:12
+18-08-2020 13:56:21 - Encoding message: &1638&1597758534&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.4,86,86.40&38:5783&18:65535
+18-08-2020 13:56:21 - length 82 -> 41
+18-08-2020 13:56:21 - LoRaRadio: Attempting to send message...
+18-08-2020 13:56:25 - LoRaRadio: transmission complete
+18-08-2020 13:56:25 - Successfully sent message "&1638&1597758534&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.4,86,86.40&38:5783&18:65535"
+18-08-2020 13:56:25 - Setting radio timer: 600 s
+18-08-2020 13:56:25 - Power saving for 00:02:29
+18-08-2020 13:58:55 - Setting data record timer: 600 s
+18-08-2020 13:59:00 - Reading data from sensors...
+18-08-2020 13:59:04 - Error: Could not read Luminox O2 sensor.
+18-08-2020 13:59:09 - Got data, processing and parsing...
+18-08-2020 13:59:09 - Read data packet: &1638&1597759135&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.30&38:5845&18:65535
+18-08-2020 13:59:09 - Power saving for 00:07:16
+18-08-2020 14:06:26 - Encoding message: &1638&1597759135&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.30&38:5845&18:65535
+18-08-2020 14:06:26 - length 82 -> 41
+18-08-2020 14:06:26 - LoRaRadio: Attempting to send message...
+18-08-2020 14:06:30 - LoRaRadio: transmission complete
+18-08-2020 14:06:30 - Successfully sent message "&1638&1597759135&17:0&32:-1.0,-1.0,-1,-1.00&33:86.3,86.3,86,86.30&38:5845&18:65535"
+18-08-2020 14:06:30 - Setting radio timer: 600 s
+18-08-2020 14:06:30 - Power saving for 00:02:25
+18-08-2020 14:08:56 - Setting data record timer: 600 s
+18-08-2020 14:09:01 - Reading data from sensors...
+18-08-2020 14:09:05 - Error: Could not read Luminox O2 sensor.
+18-08-2020 14:09:10 - Got data, processing and parsing...
+18-08-2020 14:09:10 - Read data packet: &1638&1597759736&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.20&38:5697&18:65535
+18-08-2020 14:09:10 - Power saving for 00:07:20
+18-08-2020 14:16:31 - Encoding message: &1638&1597759736&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.20&38:5697&18:65535
+18-08-2020 14:16:31 - length 82 -> 41
+18-08-2020 14:16:31 - LoRaRadio: Attempting to send message...
+18-08-2020 14:16:35 - LoRaRadio: transmission complete
+18-08-2020 14:16:35 - Successfully sent message "&1638&1597759736&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.20&38:5697&18:65535"
+18-08-2020 14:16:35 - Setting radio timer: 600 s
+18-08-2020 14:16:35 - Power saving for 00:02:21
+18-08-2020 14:18:57 - Setting data record timer: 600 s
+18-08-2020 14:19:02 - Reading data from sensors...
+18-08-2020 14:19:06 - Error: Could not read Luminox O2 sensor.
+18-08-2020 14:19:11 - Got data, processing and parsing...
+18-08-2020 14:19:11 - Read data packet: &1638&1597760337&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.30&38:5808&18:65535
+18-08-2020 14:19:11 - Power saving for 00:07:24
+18-08-2020 14:26:36 - Encoding message: &1638&1597760337&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.30&38:5808&18:65535
+18-08-2020 14:26:36 - length 82 -> 41
+18-08-2020 14:26:36 - LoRaRadio: Attempting to send message...
+18-08-2020 14:26:40 - LoRaRadio: transmission complete
+18-08-2020 14:26:40 - Successfully sent message "&1638&1597760337&17:0&32:-1.0,-1.0,-1,-1.00&33:86.2,86.2,86,86.30&38:5808&18:65535"
+18-08-2020 14:26:40 - Setting radio timer: 600 s
+18-08-2020 14:26:40 - Power saving for 00:02:17
+18-08-2020 14:28:58 - Setting data record timer: 600 s
+18-08-2020 14:29:03 - Reading data from sensors...
+18-08-2020 14:29:07 - Error: Could not read Luminox O2 sensor.
+18-08-2020 14:29:12 - Got data, processing and parsing...
+18-08-2020 14:29:12 - Read data packet: &1638&1597760938&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.6,87,86.60&38:5588&18:65535
+18-08-2020 14:29:12 - Power saving for 00:07:28
+18-08-2020 14:36:41 - Encoding message: &1638&1597760938&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.6,87,86.60&38:5588&18:65535
+18-08-2020 14:36:41 - length 82 -> 41
+18-08-2020 14:36:41 - LoRaRadio: Attempting to send message...
+18-08-2020 14:36:44 - LoRaRadio: transmission complete
+18-08-2020 14:36:44 - Successfully sent message "&1638&1597760938&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.6,87,86.60&38:5588&18:65535"
+18-08-2020 14:36:44 - Setting radio timer: 600 s
+18-08-2020 14:36:44 - Power saving for 00:02:14
+18-08-2020 14:38:59 - Setting data record timer: 600 s
+18-08-2020 14:39:04 - Reading data from sensors...
+18-08-2020 14:39:08 - Error: Could not read Luminox O2 sensor.
+18-08-2020 14:39:13 - Got data, processing and parsing...
+18-08-2020 14:39:13 - Read data packet: &1638&1597761539&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.4,86,86.40&38:5707&18:65535
+18-08-2020 14:39:13 - Power saving for 00:07:31
+18-08-2020 14:46:45 - Encoding message: &1638&1597761539&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.4,86,86.40&38:5707&18:65535
+18-08-2020 14:46:45 - length 82 -> 41
+18-08-2020 14:46:45 - LoRaRadio: Attempting to send message...
+18-08-2020 14:46:50 - LoRaRadio: transmission complete
+18-08-2020 14:46:50 - Successfully sent message "&1638&1597761539&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.4,86,86.40&38:5707&18:65535"
+18-08-2020 14:46:50 - Setting radio timer: 600 s
+18-08-2020 14:46:50 - Power saving for 00:02:09
+18-08-2020 14:49:00 - Setting data record timer: 600 s
+18-08-2020 14:49:05 - Reading data from sensors...
+18-08-2020 14:49:09 - Error: Could not read Luminox O2 sensor.
+18-08-2020 14:49:14 - Got data, processing and parsing...
+18-08-2020 14:49:14 - Read data packet: &1638&1597762140&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,86,86.50&38:5806&18:65535
+18-08-2020 14:49:14 - Power saving for 00:07:36
+18-08-2020 14:56:51 - Encoding message: &1638&1597762140&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,86,86.50&38:5806&18:65535
+18-08-2020 14:56:51 - length 82 -> 41
+18-08-2020 14:56:51 - LoRaRadio: Attempting to send message...
+18-08-2020 14:56:55 - LoRaRadio: transmission complete
+18-08-2020 14:56:55 - Successfully sent message "&1638&1597762140&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,86,86.50&38:5806&18:65535"
+18-08-2020 14:56:55 - Setting radio timer: 600 s
+18-08-2020 14:56:55 - Power saving for 00:02:05
+18-08-2020 14:59:02 - Setting data record timer: 600 s
+18-08-2020 14:59:07 - Reading data from sensors...
+18-08-2020 14:59:11 - Error: Could not read Luminox O2 sensor.
+18-08-2020 14:59:16 - Got data, processing and parsing...
+18-08-2020 14:59:16 - Read data packet: &1638&1597762742&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,86,86.50&38:5916&18:65535
+18-08-2020 14:59:16 - Power saving for 00:07:39
+18-08-2020 15:06:56 - Encoding message: &1638&1597762742&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,86,86.50&38:5916&18:65535
+18-08-2020 15:06:56 - length 82 -> 41
+18-08-2020 15:06:56 - LoRaRadio: Attempting to send message...
+18-08-2020 15:07:00 - LoRaRadio: transmission complete
+18-08-2020 15:07:00 - Successfully sent message "&1638&1597762742&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,86,86.50&38:5916&18:65535"
+18-08-2020 15:07:00 - Setting radio timer: 600 s
+18-08-2020 15:07:00 - Power saving for 00:02:02
+18-08-2020 15:09:03 - Setting data record timer: 600 s
+18-08-2020 15:09:08 - Reading data from sensors...
+18-08-2020 15:09:12 - Error: Could not read Luminox O2 sensor.
+18-08-2020 15:09:17 - Got data, processing and parsing...
+18-08-2020 15:09:17 - Read data packet: &1638&1597763343&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,87,86.60&38:5928&18:65535
+18-08-2020 15:09:17 - Power saving for 00:07:43
+18-08-2020 15:17:01 - Encoding message: &1638&1597763343&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,87,86.60&38:5928&18:65535
+18-08-2020 15:17:01 - length 82 -> 41
+18-08-2020 15:17:01 - LoRaRadio: Attempting to send message...
+18-08-2020 15:17:06 - LoRaRadio: transmission complete
+18-08-2020 15:17:06 - Successfully sent message "&1638&1597763343&17:0&32:-1.0,-1.0,-1,-1.00&33:86.5,86.5,87,86.60&38:5928&18:65535"
+18-08-2020 15:17:06 - Setting radio timer: 600 s
+18-08-2020 15:17:06 - Power saving for 00:01:57
+18-08-2020 15:19:04 - Setting data record timer: 600 s
+18-08-2020 15:19:09 - Reading data from sensors...
+18-08-2020 15:19:13 - Error: Could not read Luminox O2 sensor.
+18-08-2020 15:19:18 - Got data, processing and parsing...
+18-08-2020 15:19:18 - Read data packet: &1638&1597763944&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.5,86,86.50&38:5891&18:65535
+18-08-2020 15:19:18 - Power saving for 00:07:48
+18-08-2020 15:27:07 - Encoding message: &1638&1597763944&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.5,86,86.50&38:5891&18:65535
+18-08-2020 15:27:07 - length 82 -> 41
+18-08-2020 15:27:07 - LoRaRadio: Attempting to send message...
+18-08-2020 15:27:12 - LoRaRadio: transmission complete
+18-08-2020 15:27:12 - Successfully sent message "&1638&1597763944&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.5,86,86.50&38:5891&18:65535"
+18-08-2020 15:27:12 - Setting radio timer: 600 s
+18-08-2020 15:27:12 - Power saving for 00:01:52
+18-08-2020 15:29:05 - Setting data record timer: 600 s
+18-08-2020 15:29:10 - Reading data from sensors...
+18-08-2020 15:29:14 - Error: Could not read Luminox O2 sensor.
+18-08-2020 15:29:19 - Got data, processing and parsing...
+18-08-2020 15:29:19 - Read data packet: &1638&1597764545&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.4,86,86.40&38:5974&18:65535
+18-08-2020 15:29:19 - Power saving for 00:07:53
+18-08-2020 15:37:13 - Encoding message: &1638&1597764545&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.4,86,86.40&38:5974&18:65535
+18-08-2020 15:37:13 - length 82 -> 41
+18-08-2020 15:37:13 - LoRaRadio: Attempting to send message...
+18-08-2020 15:37:18 - LoRaRadio: transmission complete
+18-08-2020 15:37:18 - Successfully sent message "&1638&1597764545&17:0&32:-1.0,-1.0,-1,-1.00&33:86.4,86.4,86,86.40&38:5974&18:65535"
+18-08-2020 15:37:18 - Setting radio timer: 600 s
+18-08-2020 15:37:18 - Power saving for 00:01:47
+18-08-2020 15:39:06 - Setting data record timer: 600 s
+18-08-2020 15:39:11 - Reading data from sensors...
+18-08-2020 15:39:15 - Error: Could not read Luminox O2 sensor.
+18-08-2020 15:39:20 - Got data, processing and parsing...
+18-08-2020 15:39:20 - Read data packet: &1638&1597765146&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.20&38:6132&18:65535
+18-08-2020 15:39:20 - Power saving for 00:07:58
+18-08-2020 15:47:19 - Encoding message: &1638&1597765146&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.20&38:6132&18:65535
+18-08-2020 15:47:19 - length 82 -> 41
+18-08-2020 15:47:19 - LoRaRadio: Attempting to send message...
+18-08-2020 15:47:23 - LoRaRadio: transmission complete
+18-08-2020 15:47:23 - Successfully sent message "&1638&1597765146&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.20&38:6132&18:65535"
+18-08-2020 15:47:23 - Setting radio timer: 600 s
+18-08-2020 15:47:23 - Power saving for 00:01:43
+18-08-2020 15:49:07 - Setting data record timer: 600 s
+18-08-2020 15:49:12 - Reading data from sensors...
+18-08-2020 15:49:16 - Error: Could not read Luminox O2 sensor.
+18-08-2020 15:49:21 - Got data, processing and parsing...
+18-08-2020 15:49:21 - Read data packet: &1638&1597765747&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5992&18:65535
+18-08-2020 15:49:21 - Power saving for 00:08:02
+18-08-2020 15:57:24 - Encoding message: &1638&1597765747&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5992&18:65535
+18-08-2020 15:57:24 - length 82 -> 41
+18-08-2020 15:57:24 - LoRaRadio: Attempting to send message...
+18-08-2020 15:57:29 - LoRaRadio: transmission complete
+18-08-2020 15:57:29 - Successfully sent message "&1638&1597765747&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:5992&18:65535"
+18-08-2020 15:57:29 - Setting radio timer: 600 s
+18-08-2020 15:57:29 - Power saving for 00:01:38
+18-08-2020 15:59:08 - Setting data record timer: 600 s
+18-08-2020 15:59:13 - Reading data from sensors...
+18-08-2020 15:59:17 - Error: Could not read Luminox O2 sensor.
+18-08-2020 15:59:22 - Got data, processing and parsing...
+18-08-2020 15:59:22 - Read data packet: &1638&1597766348&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:6147&18:65535
+18-08-2020 15:59:22 - Power saving for 00:08:07
+18-08-2020 16:07:30 - Encoding message: &1638&1597766348&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:6147&18:65535
+18-08-2020 16:07:30 - length 82 -> 41
+18-08-2020 16:07:30 - LoRaRadio: Attempting to send message...
+18-08-2020 16:07:34 - LoRaRadio: transmission complete
+18-08-2020 16:07:34 - Successfully sent message "&1638&1597766348&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:6147&18:65535"
+18-08-2020 16:07:34 - Setting radio timer: 600 s
+18-08-2020 16:07:34 - Power saving for 00:01:34
+18-08-2020 16:09:09 - Setting data record timer: 600 s
+18-08-2020 16:09:14 - Reading data from sensors...
+18-08-2020 16:09:18 - Error: Could not read Luminox O2 sensor.
+18-08-2020 16:09:23 - Got data, processing and parsing...
+18-08-2020 16:09:23 - Read data packet: &1638&1597766949&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,86.0,86,86.00&38:6226&18:65535
+18-08-2020 16:09:23 - Power saving for 00:08:11
+18-08-2020 16:17:35 - Encoding message: &1638&1597766949&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,86.0,86,86.00&38:6226&18:65535
+18-08-2020 16:17:35 - length 82 -> 41
+18-08-2020 16:17:35 - LoRaRadio: Attempting to send message...
+18-08-2020 16:17:40 - LoRaRadio: transmission complete
+18-08-2020 16:17:40 - Successfully sent message "&1638&1597766949&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,86.0,86,86.00&38:6226&18:65535"
+18-08-2020 16:17:40 - Setting radio timer: 600 s
+18-08-2020 16:17:40 - Power saving for 00:01:29
+18-08-2020 16:19:10 - Setting data record timer: 600 s
+18-08-2020 16:19:15 - Reading data from sensors...
+18-08-2020 16:19:19 - Error: Could not read Luminox O2 sensor.
+18-08-2020 16:19:24 - Got data, processing and parsing...
+18-08-2020 16:19:24 - Read data packet: &1638&1597767550&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,85.90&38:6184&18:65535
+18-08-2020 16:19:24 - Power saving for 00:08:16
+18-08-2020 16:27:41 - Encoding message: &1638&1597767550&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,85.90&38:6184&18:65535
+18-08-2020 16:27:41 - length 82 -> 41
+18-08-2020 16:27:41 - LoRaRadio: Attempting to send message...
+18-08-2020 16:27:45 - LoRaRadio: transmission complete
+18-08-2020 16:27:45 - Successfully sent message "&1638&1597767550&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,85.90&38:6184&18:65535"
+18-08-2020 16:27:45 - Setting radio timer: 600 s
+18-08-2020 16:27:45 - Power saving for 00:01:25
+18-08-2020 16:29:11 - Setting data record timer: 600 s
+18-08-2020 16:29:16 - Reading data from sensors...
+18-08-2020 16:29:20 - Error: Could not read Luminox O2 sensor.
+18-08-2020 16:29:25 - Got data, processing and parsing...
+18-08-2020 16:29:25 - Read data packet: &1638&1597768151&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:6221&18:65535
+18-08-2020 16:29:25 - Power saving for 00:08:20
+18-08-2020 16:37:46 - Encoding message: &1638&1597768151&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:6221&18:65535
+18-08-2020 16:37:46 - length 82 -> 41
+18-08-2020 16:37:46 - LoRaRadio: Attempting to send message...
+18-08-2020 16:37:49 - LoRaRadio: transmission complete
+18-08-2020 16:37:49 - Successfully sent message "&1638&1597768151&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:6221&18:65535"
+18-08-2020 16:37:49 - Setting radio timer: 600 s
+18-08-2020 16:37:49 - Power saving for 00:01:22
+18-08-2020 16:39:13 - Setting data record timer: 600 s
+18-08-2020 16:39:18 - Reading data from sensors...
+18-08-2020 16:39:22 - Error: Could not read Luminox O2 sensor.
+18-08-2020 16:39:27 - Got data, processing and parsing...
+18-08-2020 16:39:27 - Read data packet: &1638&1597768753&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:6268&18:65535
+18-08-2020 16:39:27 - Power saving for 00:08:22
+18-08-2020 16:47:50 - Encoding message: &1638&1597768753&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:6268&18:65535
+18-08-2020 16:47:50 - length 82 -> 41
+18-08-2020 16:47:50 - LoRaRadio: Attempting to send message...
+18-08-2020 16:47:53 - LoRaRadio: transmission complete
+18-08-2020 16:47:53 - Successfully sent message "&1638&1597768753&17:0&32:-1.0,-1.0,-1,-1.00&33:86.1,86.1,86,86.10&38:6268&18:65535"
+18-08-2020 16:47:53 - Setting radio timer: 600 s
+18-08-2020 16:47:53 - Power saving for 00:01:20
+18-08-2020 16:49:15 - Setting data record timer: 600 s
+18-08-2020 16:49:20 - Reading data from sensors...
+18-08-2020 16:49:24 - Error: Could not read Luminox O2 sensor.
+18-08-2020 16:49:29 - Got data, processing and parsing...
+18-08-2020 16:49:29 - Read data packet: &1638&1597769355&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,85.90&38:6259&18:65535
+18-08-2020 16:49:29 - Power saving for 00:08:24
+18-08-2020 16:57:54 - Encoding message: &1638&1597769355&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,85.90&38:6259&18:65535
+18-08-2020 16:57:54 - length 82 -> 41
+18-08-2020 16:57:54 - LoRaRadio: Attempting to send message...
+18-08-2020 16:57:58 - LoRaRadio: transmission complete
+18-08-2020 16:57:58 - Successfully sent message "&1638&1597769355&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,85.90&38:6259&18:65535"
+18-08-2020 16:57:58 - Setting radio timer: 600 s
+18-08-2020 16:57:58 - Power saving for 00:01:17
+18-08-2020 16:59:16 - Setting data record timer: 600 s
+18-08-2020 16:59:21 - Reading data from sensors...
+18-08-2020 16:59:25 - Error: Could not read Luminox O2 sensor.
+18-08-2020 16:59:30 - Got data, processing and parsing...
+18-08-2020 16:59:30 - Read data packet: &1638&1597769956&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.10&38:6187&18:65535
+18-08-2020 16:59:30 - Power saving for 00:08:28
+18-08-2020 17:07:59 - Encoding message: &1638&1597769956&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.10&38:6187&18:65535
+18-08-2020 17:07:59 - length 82 -> 41
+18-08-2020 17:07:59 - LoRaRadio: Attempting to send message...
+18-08-2020 17:08:03 - LoRaRadio: transmission complete
+18-08-2020 17:08:03 - Successfully sent message "&1638&1597769956&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.10&38:6187&18:65535"
+18-08-2020 17:08:03 - Setting radio timer: 600 s
+18-08-2020 17:08:03 - Power saving for 00:01:13
+18-08-2020 17:09:18 - Setting data record timer: 600 s
+18-08-2020 17:09:23 - Reading data from sensors...
+18-08-2020 17:09:27 - Error: Could not read Luminox O2 sensor.
+18-08-2020 17:09:32 - Got data, processing and parsing...
+18-08-2020 17:09:32 - Read data packet: &1638&1597770558&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:6437&18:65535
+18-08-2020 17:09:32 - Power saving for 00:08:31
+18-08-2020 17:18:04 - Encoding message: &1638&1597770558&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:6437&18:65535
+18-08-2020 17:18:04 - length 82 -> 41
+18-08-2020 17:18:04 - LoRaRadio: Attempting to send message...
+18-08-2020 17:18:08 - LoRaRadio: transmission complete
+18-08-2020 17:18:08 - Successfully sent message "&1638&1597770558&17:0&32:-1.0,-1.0,-1,-1.00&33:86.0,86.0,86,86.00&38:6437&18:65535"
+18-08-2020 17:18:08 - Setting radio timer: 600 s
+18-08-2020 17:18:08 - Power saving for 00:01:10
+18-08-2020 17:19:19 - Setting data record timer: 600 s
+18-08-2020 17:19:24 - Reading data from sensors...
+18-08-2020 17:19:28 - Error: Could not read Luminox O2 sensor.
+18-08-2020 17:19:33 - Got data, processing and parsing...
+18-08-2020 17:19:33 - Read data packet: &1638&1597771159&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,86.00&38:6463&18:65535
+18-08-2020 17:19:33 - Power saving for 00:08:35
+18-08-2020 17:28:09 - Encoding message: &1638&1597771159&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,86.00&38:6463&18:65535
+18-08-2020 17:28:09 - length 82 -> 41
+18-08-2020 17:28:09 - LoRaRadio: Attempting to send message...
+18-08-2020 17:28:13 - LoRaRadio: transmission complete
+18-08-2020 17:28:13 - Successfully sent message "&1638&1597771159&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,86.00&38:6463&18:65535"
+18-08-2020 17:28:13 - Setting radio timer: 600 s
+18-08-2020 17:28:13 - Power saving for 00:01:06
+18-08-2020 17:29:20 - Setting data record timer: 600 s
+18-08-2020 17:29:25 - Reading data from sensors...
+18-08-2020 17:29:29 - Error: Could not read Luminox O2 sensor.
+18-08-2020 17:29:34 - Got data, processing and parsing...
+18-08-2020 17:29:34 - Read data packet: &1638&1597771760&17:0&32:-1.0,-1.0,-1,-1.00&33:85.8,85.9,86,85.90&38:6498&18:65535
+18-08-2020 17:29:34 - Power saving for 00:08:39
+18-08-2020 17:38:14 - Encoding message: &1638&1597771760&17:0&32:-1.0,-1.0,-1,-1.00&33:85.8,85.9,86,85.90&38:6498&18:65535
+18-08-2020 17:38:14 - length 82 -> 41
+18-08-2020 17:38:14 - LoRaRadio: Attempting to send message...
+18-08-2020 17:38:17 - LoRaRadio: transmission complete
+18-08-2020 17:38:17 - Successfully sent message "&1638&1597771760&17:0&32:-1.0,-1.0,-1,-1.00&33:85.8,85.9,86,85.90&38:6498&18:65535"
+18-08-2020 17:38:17 - Setting radio timer: 600 s
+18-08-2020 17:38:17 - Power saving for 00:01:03
+18-08-2020 17:39:21 - Setting data record timer: 600 s
+18-08-2020 17:39:26 - Reading data from sensors...
+18-08-2020 17:39:30 - Error: Could not read Luminox O2 sensor.
+18-08-2020 17:39:35 - Got data, processing and parsing...
+18-08-2020 17:39:35 - Read data packet: &1638&1597772361&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,85.90&38:6454&18:65535
+18-08-2020 17:39:35 - Power saving for 00:08:42
+18-08-2020 17:48:18 - Encoding message: &1638&1597772361&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,85.90&38:6454&18:65535
+18-08-2020 17:48:18 - length 82 -> 41
+18-08-2020 17:48:18 - LoRaRadio: Attempting to send message...
+18-08-2020 17:48:23 - LoRaRadio: transmission complete
+18-08-2020 17:48:23 - Successfully sent message "&1638&1597772361&17:0&32:-1.0,-1.0,-1,-1.00&33:85.9,85.9,86,85.90&38:6454&18:65535"
+18-08-2020 17:48:23 - Setting radio timer: 600 s
+18-08-2020 17:48:23 - Power saving for 00:00:58
+18-08-2020 17:49:22 - Setting data record timer: 600 s
+18-08-2020 17:49:27 - Reading data from sensors...
+18-08-2020 17:49:31 - Error: Could not read Luminox O2 sensor.
+18-08-2020 17:49:36 - Got data, processing and parsing...
+18-08-2020 17:49:36 - Read data packet: &1638&1597772962&17:0&32:-1.0,-1.0,-1,-1.00&33:85.6,85.6,86,85.60&38:6481&18:65535
+18-08-2020 17:49:36 - Power saving for 00:08:47
+18-08-2020 17:58:24 - Encoding message: &1638&1597772962&17:0&32:-1.0,-1.0,-1,-1.00&33:85.6,85.6,86,85.60&38:6481&18:65535
+18-08-2020 17:58:24 - length 82 -> 41
+18-08-2020 17:58:24 - LoRaRadio: Attempting to send message...
+18-08-2020 17:58:28 - LoRaRadio: transmission complete
+18-08-2020 17:58:28 - Successfully sent message "&1638&1597772962&17:0&32:-1.0,-1.0,-1,-1.00&33:85.6,85.6,86,85.60&38:6481&18:65535"
+18-08-2020 17:58:28 - Setting radio timer: 600 s
+18-08-2020 17:58:28 - Power saving for 00:00:54
+18-08-2020 17:59:24 - Setting data record timer: 600 s
+18-08-2020 17:59:29 - Reading data from sensors...
+18-08-2020 17:59:33 - Error: Could not read Luminox O2 sensor.
+18-08-2020 17:59:38 - Got data, processing and parsing...
+18-08-2020 17:59:38 - Read data packet: &1638&1597773564&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.80&38:6505&18:65535
+18-08-2020 17:59:38 - Power saving for 00:08:50
+18-08-2020 18:08:29 - Encoding message: &1638&1597773564&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.80&38:6505&18:65535
+18-08-2020 18:08:29 - length 82 -> 41
+18-08-2020 18:08:29 - LoRaRadio: Attempting to send message...
+18-08-2020 18:08:34 - LoRaRadio: transmission complete
+18-08-2020 18:08:34 - Successfully sent message "&1638&1597773564&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.80&38:6505&18:65535"
+18-08-2020 18:08:34 - Setting radio timer: 600 s
+18-08-2020 18:08:34 - Power saving for 00:00:50
+18-08-2020 18:09:25 - Setting data record timer: 600 s
+18-08-2020 18:09:30 - Reading data from sensors...
+18-08-2020 18:09:34 - Error: Could not read Luminox O2 sensor.
+18-08-2020 18:09:39 - Got data, processing and parsing...
+18-08-2020 18:09:39 - Read data packet: &1638&1597774165&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.70&38:6538&18:65535
+18-08-2020 18:09:39 - Power saving for 00:08:55
+18-08-2020 18:18:35 - Encoding message: &1638&1597774165&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.70&38:6538&18:65535
+18-08-2020 18:18:35 - length 82 -> 41
+18-08-2020 18:18:35 - LoRaRadio: Attempting to send message...
+18-08-2020 18:18:38 - LoRaRadio: transmission complete
+18-08-2020 18:18:38 - Successfully sent message "&1638&1597774165&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.70&38:6538&18:65535"
+18-08-2020 18:18:38 - Setting radio timer: 600 s
+18-08-2020 18:18:38 - Power saving for 00:00:47
+18-08-2020 18:19:27 - Setting data record timer: 600 s
+18-08-2020 18:19:32 - Reading data from sensors...
+18-08-2020 18:19:36 - Error: Could not read Luminox O2 sensor.
+18-08-2020 18:19:41 - Got data, processing and parsing...
+18-08-2020 18:19:41 - Read data packet: &1638&1597774767&17:0&32:-1.0,-1.0,-1,-1.00&33:85.5,85.5,86,85.50&38:6537&18:65535
+18-08-2020 18:19:41 - Power saving for 00:08:57
+18-08-2020 18:28:39 - Encoding message: &1638&1597774767&17:0&32:-1.0,-1.0,-1,-1.00&33:85.5,85.5,86,85.50&38:6537&18:65535
+18-08-2020 18:28:39 - length 82 -> 41
+18-08-2020 18:28:39 - LoRaRadio: Attempting to send message...
+18-08-2020 18:28:42 - LoRaRadio: transmission complete
+18-08-2020 18:28:42 - Successfully sent message "&1638&1597774767&17:0&32:-1.0,-1.0,-1,-1.00&33:85.5,85.5,86,85.50&38:6537&18:65535"
+18-08-2020 18:28:42 - Setting radio timer: 600 s
+18-08-2020 18:28:42 - Power saving for 00:00:45
+18-08-2020 18:29:29 - Setting data record timer: 600 s
+18-08-2020 18:29:34 - Reading data from sensors...
+18-08-2020 18:29:38 - Error: Could not read Luminox O2 sensor.
+18-08-2020 18:29:43 - Got data, processing and parsing...
+18-08-2020 18:29:43 - Read data packet: &1638&1597775369&17:0&32:-1.0,-1.0,-1,-1.00&33:85.4,85.4,86,85.50&38:6601&18:65535
+18-08-2020 18:29:43 - Power saving for 00:08:59
+18-08-2020 18:38:43 - Encoding message: &1638&1597775369&17:0&32:-1.0,-1.0,-1,-1.00&33:85.4,85.4,86,85.50&38:6601&18:65535
+18-08-2020 18:38:43 - length 82 -> 41
+18-08-2020 18:38:43 - LoRaRadio: Attempting to send message...
+18-08-2020 18:38:47 - LoRaRadio: transmission complete
+18-08-2020 18:38:47 - Successfully sent message "&1638&1597775369&17:0&32:-1.0,-1.0,-1,-1.00&33:85.4,85.4,86,85.50&38:6601&18:65535"
+18-08-2020 18:38:47 - Setting radio timer: 600 s
+18-08-2020 18:38:47 - Power saving for 00:00:42
+18-08-2020 18:39:31 - Setting data record timer: 600 s
+18-08-2020 18:39:36 - Reading data from sensors...
+18-08-2020 18:39:40 - Error: Could not read Luminox O2 sensor.
+18-08-2020 18:39:45 - Got data, processing and parsing...
+18-08-2020 18:39:45 - Read data packet: &1638&1597775971&17:0&32:-1.0,-1.0,-1,-1.00&33:85.6,85.6,86,85.60&38:6580&18:65535
+18-08-2020 18:39:45 - Power saving for 00:09:02
+18-08-2020 18:48:48 - Encoding message: &1638&1597775971&17:0&32:-1.0,-1.0,-1,-1.00&33:85.6,85.6,86,85.60&38:6580&18:65535
+18-08-2020 18:48:48 - length 82 -> 41
+18-08-2020 18:48:48 - LoRaRadio: Attempting to send message...
+18-08-2020 18:48:52 - LoRaRadio: transmission complete
+18-08-2020 18:48:52 - Successfully sent message "&1638&1597775971&17:0&32:-1.0,-1.0,-1,-1.00&33:85.6,85.6,86,85.60&38:6580&18:65535"
+18-08-2020 18:48:52 - Setting radio timer: 600 s
+18-08-2020 18:48:52 - Power saving for 00:00:39
+18-08-2020 18:49:33 - Setting data record timer: 600 s
+18-08-2020 18:49:38 - Reading data from sensors...
+18-08-2020 18:49:42 - Error: Could not read Luminox O2 sensor.
+18-08-2020 18:49:47 - Got data, processing and parsing...
+18-08-2020 18:49:47 - Read data packet: &1638&1597776573&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.70&38:6539&18:65535
+18-08-2020 18:49:47 - Power saving for 00:09:05
+18-08-2020 18:58:53 - Encoding message: &1638&1597776573&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.70&38:6539&18:65535
+18-08-2020 18:58:53 - length 82 -> 41
+18-08-2020 18:58:53 - LoRaRadio: Attempting to send message...
+18-08-2020 18:58:56 - LoRaRadio: transmission complete
+18-08-2020 18:58:56 - Successfully sent message "&1638&1597776573&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.70&38:6539&18:65535"
+18-08-2020 18:58:56 - Setting radio timer: 600 s
+18-08-2020 18:58:56 - Power saving for 00:00:37
+18-08-2020 18:59:35 - Setting data record timer: 600 s
+18-08-2020 18:59:40 - Reading data from sensors...
+18-08-2020 18:59:44 - Error: Could not read Luminox O2 sensor.
+18-08-2020 18:59:49 - Got data, processing and parsing...
+18-08-2020 18:59:49 - Read data packet: &1638&1597777175&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.70&38:6636&18:65535
+18-08-2020 18:59:49 - Power saving for 00:09:07
+18-08-2020 19:08:57 - Encoding message: &1638&1597777175&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.70&38:6636&18:65535
+18-08-2020 19:08:57 - length 82 -> 41
+18-08-2020 19:08:57 - LoRaRadio: Attempting to send message...
+18-08-2020 19:09:02 - LoRaRadio: transmission complete
+18-08-2020 19:09:02 - Successfully sent message "&1638&1597777175&17:0&32:-1.0,-1.0,-1,-1.00&33:85.7,85.7,86,85.70&38:6636&18:65535"
+18-08-2020 19:09:02 - Setting radio timer: 600 s
+18-08-2020 19:09:02 - Power saving for 00:00:33
+18-08-2020 19:09:36 - Setting data record timer: 600 s
+18-08-2020 19:09:41 - Reading data from sensors...
+18-08-2020 19:09:45 - Error: Could not read Luminox O2 sensor.
+18-08-2020 19:09:50 - Got data, processing and parsing...
+18-08-2020 19:09:50 - Read data packet: &1638&1597777776&17:0&32:-1.0,-1.0,-1,-1.00&33:85.4,85.4,85,85.40&38:6714&18:65535
+18-08-2020 19:09:50 - Power saving for 00:09:12
+18-08-2020 19:19:03 - Encoding message: &1638&1597777776&17:0&32:-1.0,-1.0,-1,-1.00&33:85.4,85.4,85,85.40&38:6714&18:65535
+18-08-2020 19:19:03 - length 82 -> 41
+18-08-2020 19:19:03 - LoRaRadio: Attempting to send message...
+18-08-2020 19:19:07 - LoRaRadio: transmission complete
+18-08-2020 19:19:07 - Successfully sent message "&1638&1597777776&17:0&32:-1.0,-1.0,-1,-1.00&33:85.4,85.4,85,85.40&38:6714&18:65535"
+18-08-2020 19:19:07 - Setting radio timer: 600 s
+18-08-2020 19:19:07 - Power saving for 00:00:29
+18-08-2020 19:19:38 - Setting data record timer: 600 s
+18-08-2020 19:19:43 - Reading data from sensors...
+18-08-2020 19:19:47 - Error: Could not read Luminox O2 sensor.
+18-08-2020 19:19:52 - Got data, processing and parsing...
+18-08-2020 19:19:52 - Read data packet: &1638&1597778378&17:0&32:-1.0,-1.0,-1,-1.00&33:85.3,85.3,85,85.40&38:6769&18:65535
+18-08-2020 19:19:52 - Power saving for 00:09:15
+18-08-2020 19:29:08 - Encoding message: &1638&1597778378&17:0&32:-1.0,-1.0,-1,-1.00&33:85.3,85.3,85,85.40&38:6769&18:65535
+18-08-2020 19:29:08 - length 82 -> 41
+18-08-2020 19:29:08 - LoRaRadio: Attempting to send message...
+18-08-2020 19:29:13 - LoRaRadio: transmission complete
+18-08-2020 19:29:13 - Successfully sent message "&1638&1597778378&17:0&32:-1.0,-1.0,-1,-1.00&33:85.3,85.3,85,85.40&38:6769&18:65535"
+18-08-2020 19:29:13 - Setting radio timer: 600 s
+18-08-2020 19:29:13 - Power saving for 00:00:25
+18-08-2020 19:29:39 - Setting data record timer: 600 s
+18-08-2020 19:29:44 - Reading data from sensors...
+18-08-2020 19:29:48 - Error: Could not read Luminox O2 sensor.
+18-08-2020 19:29:53 - Got data, processing and parsing...
+18-08-2020 19:29:53 - Read data packet: &1638&1597778979&17:0&32:-1.0,-1.0,-1,-1.00&33:85.3,85.3,85,85.30&38:6781&18:65535
+18-08-2020 19:29:53 - Power saving for 00:09:20
+18-08-2020 19:39:14 - Encoding message: &1638&1597778979&17:0&32:-1.0,-1.0,-1,-1.00&33:85.3,85.3,85,85.30&38:6781&18:65535
+18-08-2020 19:39:14 - length 82 -> 41
+18-08-2020 19:39:14 - LoRaRadio: Attempting to send message...
+18-08-2020 19:39:18 - LoRaRadio: transmission complete
+18-08-2020 19:39:18 - Successfully sent message "&1638&1597778979&17:0&32:-1.0,-1.0,-1,-1.00&33:85.3,85.3,85,85.30&38:6781&18:65535"
+18-08-2020 19:39:18 - Setting radio timer: 600 s
+18-08-2020 19:39:18 - Power saving for 00:00:21
+18-08-2020 19:39:40 - Setting data record timer: 600 s
+18-08-2020 19:39:45 - Reading data from sensors...
+18-08-2020 19:39:49 - Error: Could not read Luminox O2 sensor.
+18-08-2020 19:39:54 - Got data, processing and parsing...
+18-08-2020 19:39:54 - Read data packet: &1638&1597779580&17:0&32:-1.0,-1.0,-1,-1.00&33:85.2,85.2,85,85.20&38:6852&18:65535
+18-08-2020 19:39:54 - Power saving for 00:09:24
+18-08-2020 19:49:19 - Encoding message: &1638&1597779580&17:0&32:-1.0,-1.0,-1,-1.00&33:85.2,85.2,85,85.20&38:6852&18:65535
+18-08-2020 19:49:19 - length 82 -> 41
+18-08-2020 19:49:19 - LoRaRadio: Attempting to send message...
+18-08-2020 19:49:23 - LoRaRadio: transmission complete
+18-08-2020 19:49:23 - Successfully sent message "&1638&1597779580&17:0&32:-1.0,-1.0,-1,-1.00&33:85.2,85.2,85,85.20&38:6852&18:65535"
+18-08-2020 19:49:23 - Setting radio timer: 600 s
+18-08-2020 19:49:23 - Power saving for 00:00:17
+18-08-2020 19:49:42 - Setting data record timer: 600 s
+18-08-2020 19:49:47 - Reading data from sensors...
+18-08-2020 19:49:51 - Error: Could not read Luminox O2 sensor.
+18-08-2020 19:49:56 - Got data, processing and parsing...
+18-08-2020 19:49:56 - Read data packet: &1638&1597780182&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.10&38:6883&18:65535
+18-08-2020 19:49:56 - Power saving for 00:09:27
+18-08-2020 19:59:24 - Encoding message: &1638&1597780182&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.10&38:6883&18:65535
+18-08-2020 19:59:24 - length 82 -> 41
+18-08-2020 19:59:24 - LoRaRadio: Attempting to send message...
+18-08-2020 19:59:29 - LoRaRadio: transmission complete
+18-08-2020 19:59:29 - Successfully sent message "&1638&1597780182&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.10&38:6883&18:65535"
+18-08-2020 19:59:29 - Setting radio timer: 600 s
+18-08-2020 19:59:29 - Power saving for 00:00:13
+18-08-2020 19:59:43 - Setting data record timer: 600 s
+18-08-2020 19:59:48 - Reading data from sensors...
+18-08-2020 19:59:52 - Error: Could not read Luminox O2 sensor.
+18-08-2020 19:59:57 - Got data, processing and parsing...
+18-08-2020 19:59:57 - Read data packet: &1638&1597780783&17:0&32:-1.0,-1.0,-1,-1.00&33:84.9,85.0,85,85.00&38:6908&18:65535
+18-08-2020 19:59:57 - Power saving for 00:09:32
+18-08-2020 20:09:30 - Encoding message: &1638&1597780783&17:0&32:-1.0,-1.0,-1,-1.00&33:84.9,85.0,85,85.00&38:6908&18:65535
+18-08-2020 20:09:30 - length 82 -> 41
+18-08-2020 20:09:30 - LoRaRadio: Attempting to send message...
+18-08-2020 20:09:35 - LoRaRadio: transmission complete
+18-08-2020 20:09:35 - Successfully sent message "&1638&1597780783&17:0&32:-1.0,-1.0,-1,-1.00&33:84.9,85.0,85,85.00&38:6908&18:65535"
+18-08-2020 20:09:35 - Setting radio timer: 600 s
+18-08-2020 20:09:44 - Setting data record timer: 600 s
+18-08-2020 20:09:49 - Reading data from sensors...
+18-08-2020 20:09:53 - Error: Could not read Luminox O2 sensor.
+18-08-2020 20:09:58 - Got data, processing and parsing...
+18-08-2020 20:09:58 - Read data packet: &1638&1597781384&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6863&18:65535
+18-08-2020 20:09:58 - Power saving for 00:09:37
+18-08-2020 20:19:36 - Encoding message: &1638&1597781384&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6863&18:65535
+18-08-2020 20:19:36 - length 82 -> 41
+18-08-2020 20:19:36 - LoRaRadio: Attempting to send message...
+18-08-2020 20:19:41 - LoRaRadio: transmission complete
+18-08-2020 20:19:41 - Successfully sent message "&1638&1597781384&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6863&18:65535"
+18-08-2020 20:19:41 - Setting radio timer: 600 s
+18-08-2020 20:19:45 - Setting data record timer: 600 s
+18-08-2020 20:19:50 - Reading data from sensors...
+18-08-2020 20:19:54 - Error: Could not read Luminox O2 sensor.
+18-08-2020 20:19:59 - Got data, processing and parsing...
+18-08-2020 20:19:59 - Read data packet: &1638&1597781985&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6868&18:65535
+18-08-2020 20:19:59 - Power saving for 00:09:42
+18-08-2020 20:29:42 - Encoding message: &1638&1597781985&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6868&18:65535
+18-08-2020 20:29:42 - length 82 -> 41
+18-08-2020 20:29:42 - LoRaRadio: Attempting to send message...
+18-08-2020 20:29:47 - LoRaRadio: transmission complete
+18-08-2020 20:29:47 - Successfully sent message "&1638&1597781985&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6868&18:65535"
+18-08-2020 20:29:47 - Setting radio timer: 600 s
+18-08-2020 20:29:47 - Setting data record timer: 600 s
+18-08-2020 20:29:52 - Reading data from sensors...
+18-08-2020 20:29:56 - Error: Could not read Luminox O2 sensor.
+18-08-2020 20:30:01 - Got data, processing and parsing...
+18-08-2020 20:30:01 - Read data packet: &1638&1597782587&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6853&18:65535
+18-08-2020 20:30:01 - Power saving for 00:09:46
+18-08-2020 20:39:48 - Setting data record timer: 600 s
+18-08-2020 20:39:53 - Reading data from sensors...
+18-08-2020 20:39:57 - Error: Could not read Luminox O2 sensor.
+18-08-2020 20:40:02 - Got data, processing and parsing...
+18-08-2020 20:40:02 - Read data packet: &1638&1597783188&17:0&32:-1.0,-1.0,-1,-1.00&33:84.9,84.9,85,84.90&38:6947&18:65535
+18-08-2020 20:40:02 - Encoding message: &1638&1597783188&17:0&32:-1.0,-1.0,-1,-1.00&33:84.9,84.9,85,84.90&38:6947&18:65535
+18-08-2020 20:40:02 - length 82 -> 41
+18-08-2020 20:40:02 - LoRaRadio: Attempting to send message...
+18-08-2020 20:40:07 - LoRaRadio: transmission complete
+18-08-2020 20:40:07 - Successfully sent message "&1638&1597783188&17:0&32:-1.0,-1.0,-1,-1.00&33:84.9,84.9,85,84.90&38:6947&18:65535"
+18-08-2020 20:40:07 - Setting radio timer: 300 s
+18-08-2020 20:40:07 - Power saving for 00:05:00
+18-08-2020 20:45:08 - Encoding message: &1638&1597782587&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6853&18:65535
+18-08-2020 20:45:08 - length 82 -> 41
+18-08-2020 20:45:08 - LoRaRadio: Attempting to send message...
+18-08-2020 20:45:11 - LoRaRadio: transmission complete
+18-08-2020 20:45:11 - Successfully sent message "&1638&1597782587&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6853&18:65535"
+18-08-2020 20:45:11 - Setting radio timer: 600 s
+18-08-2020 20:45:11 - Power saving for 00:04:37
+18-08-2020 20:49:50 - Setting data record timer: 600 s
+18-08-2020 20:49:55 - Reading data from sensors...
+18-08-2020 20:49:59 - Error: Could not read Luminox O2 sensor.
+18-08-2020 20:50:04 - Got data, processing and parsing...
+18-08-2020 20:50:04 - Read data packet: &1638&1597783790&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6802&18:65535
+18-08-2020 20:50:04 - Power saving for 00:05:07
+18-08-2020 20:55:12 - Encoding message: &1638&1597783790&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6802&18:65535
+18-08-2020 20:55:12 - length 82 -> 41
+18-08-2020 20:55:12 - LoRaRadio: Attempting to send message...
+18-08-2020 20:55:15 - LoRaRadio: transmission complete
+18-08-2020 20:55:15 - Successfully sent message "&1638&1597783790&17:0&32:-1.0,-1.0,-1,-1.00&33:85.0,85.0,85,85.00&38:6802&18:65535"
+18-08-2020 20:55:15 - Setting radio timer: 600 s
+18-08-2020 20:55:15 - Power saving for 00:04:35
+18-08-2020 20:59:52 - Setting data record timer: 600 s
+18-08-2020 20:59:57 - Reading data from sensors...
+18-08-2020 21:00:01 - Error: Could not read Luminox O2 sensor.
+18-08-2020 21:00:06 - Got data, processing and parsing...
+18-08-2020 21:00:06 - Read data packet: &1638&1597784392&17:0&32:-1.0,-1.0,-1,-1.00&33:84.9,84.9,85,84.90&38:6897&18:65535
+18-08-2020 21:00:06 - Power saving for 00:05:09
+18-08-2020 21:05:16 - Encoding message: &1638&1597784392&17:0&32:-1.0,-1.0,-1,-1.00&33:84.9,84.9,85,84.90&38:6897&18:65535
+18-08-2020 21:05:16 - length 82 -> 41
+18-08-2020 21:05:16 - LoRaRadio: Attempting to send message...
+18-08-2020 21:05:20 - LoRaRadio: transmission complete
+18-08-2020 21:05:20 - Successfully sent message "&1638&1597784392&17:0&32:-1.0,-1.0,-1,-1.00&33:84.9,84.9,85,84.90&38:6897&18:65535"
+18-08-2020 21:05:20 - Setting radio timer: 600 s
+18-08-2020 21:05:20 - Power saving for 00:04:32
+18-08-2020 21:09:53 - Setting data record timer: 600 s
+18-08-2020 21:09:58 - Reading data from sensors...
+18-08-2020 21:10:02 - Error: Could not read Luminox O2 sensor.
+18-08-2020 21:10:07 - Got data, processing and parsing...
+18-08-2020 21:10:07 - Read data packet: &1638&1597784993&17:0&32:-1.0,-1.0,-1,-1.00&33:84.8,84.9,85,84.90&38:6872&18:65535
+18-08-2020 21:10:07 - Power saving for 00:05:13
+18-08-2020 21:15:21 - Encoding message: &1638&1597784993&17:0&32:-1.0,-1.0,-1,-1.00&33:84.8,84.9,85,84.90&38:6872&18:65535
+18-08-2020 21:15:21 - length 82 -> 41
+18-08-2020 21:15:21 - LoRaRadio: Attempting to send message...
+18-08-2020 21:15:25 - LoRaRadio: transmission complete
+18-08-2020 21:15:25 - Successfully sent message "&1638&1597784993&17:0&32:-1.0,-1.0,-1,-1.00&33:84.8,84.9,85,84.90&38:6872&18:65535"
+18-08-2020 21:15:25 - Setting radio timer: 600 s
+18-08-2020 21:15:25 - Power saving for 00:04:28
+18-08-2020 21:19:54 - Setting data record timer: 600 s
+18-08-2020 21:19:59 - Reading data from sensors...
+18-08-2020 21:20:03 - Error: Could not read Luminox O2 sensor.
+18-08-2020 21:20:08 - Got data, processing and parsing...
+18-08-2020 21:20:08 - Read data packet: &1638&1597785594&17:0&32:-1.0,-1.0,-1,-1.00&33:84.8,84.9,85,84.90&38:6827&18:65535
+18-08-2020 21:20:08 - Power saving for 00:05:17
+18-08-2020 21:25:26 - Encoding message: &1638&1597785594&17:0&32:-1.0,-1.0,-1,-1.00&33:84.8,84.9,85,84.90&38:6827&18:65535
+18-08-2020 21:25:26 - length 82 -> 41
+18-08-2020 21:25:26 - LoRaRadio: Attempting to send message...
+18-08-2020 21:25:30 - LoRaRadio: transmission complete
+18-08-2020 21:25:30 - Successfully sent message "&1638&1597785594&17:0&32:-1.0,-1.0,-1,-1.00&33:84.8,84.9,85,84.90&38:6827&18:65535"
+18-08-2020 21:25:30 - Setting radio timer: 600 s
+18-08-2020 21:25:30 - Power saving for 00:04:24
+18-08-2020 21:29:55 - Setting data record timer: 600 s
+18-08-2020 21:30:00 - Reading data from sensors...
+18-08-2020 21:30:04 - Error: Could not read Luminox O2 sensor.
+18-08-2020 21:30:09 - Got data, processing and parsing...
+18-08-2020 21:30:09 - Read data packet: &1638&1597786195&17:0&32:-1.0,-1.0,-1,-1.00&33:84.8,84.9,85,84.90&38:6893&18:65535
+18-08-2020 21:30:09 - Power saving for 00:05:21
+18-08-2020 21:35:31 - Encoding message: &1638&1597786195&17:0&32:-1.0,-1.0,-1,-1.00&33:84.8,84.9,85,84.90&38:6893&18:65535
+18-08-2020 21:35:31 - length 82 -> 41
+18-08-2020 21:35:31 - LoRaRadio: Attempting to send message...
+18-08-2020 21:35:34 - LoRaRadio: transmission complete
+18-08-2020 21:35:34 - Successfully sent message "&1638&1597786195&17:0&32:-1.0,-1.0,-1,-1.00&33:84.8,84.9,85,84.90&38:6893&18:65535"
+18-08-2020 21:35:34 - Setting radio timer: 600 s
+18-08-2020 21:35:34 - Power saving for 00:04:21
+18-08-2020 21:39:56 - Setting data record timer: 600 s
+18-08-2020 21:40:01 - Reading data from sensors...
+18-08-2020 21:40:05 - Error: Could not read Luminox O2 sensor.
+18-08-2020 21:40:10 - Got data, processing and parsing...
+18-08-2020 21:40:10 - Read data packet: &1638&1597786796&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.7,85,84.70&38:6868&18:65535
+18-08-2020 21:40:10 - Power saving for 00:05:24
+18-08-2020 21:45:35 - Encoding message: &1638&1597786796&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.7,85,84.70&38:6868&18:65535
+18-08-2020 21:45:35 - length 82 -> 41
+18-08-2020 21:45:35 - LoRaRadio: Attempting to send message...
+18-08-2020 21:45:38 - LoRaRadio: transmission complete
+18-08-2020 21:45:38 - Successfully sent message "&1638&1597786796&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.7,85,84.70&38:6868&18:65535"
+18-08-2020 21:45:38 - Setting radio timer: 600 s
+18-08-2020 21:45:38 - Power saving for 00:04:18
+18-08-2020 21:49:58 - Setting data record timer: 600 s
+18-08-2020 21:50:03 - Reading data from sensors...
+18-08-2020 21:50:07 - Error: Could not read Luminox O2 sensor.
+18-08-2020 21:50:12 - Got data, processing and parsing...
+18-08-2020 21:50:12 - Read data packet: &1638&1597787398&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.6,85,84.60&38:6899&18:65535
+18-08-2020 21:50:12 - Power saving for 00:05:26
+18-08-2020 21:55:39 - Encoding message: &1638&1597787398&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.6,85,84.60&38:6899&18:65535
+18-08-2020 21:55:39 - length 82 -> 41
+18-08-2020 21:55:39 - LoRaRadio: Attempting to send message...
+18-08-2020 21:55:42 - LoRaRadio: transmission complete
+18-08-2020 21:55:42 - Successfully sent message "&1638&1597787398&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.6,85,84.60&38:6899&18:65535"
+18-08-2020 21:55:42 - Setting radio timer: 600 s
+18-08-2020 21:55:42 - Power saving for 00:04:16
+18-08-2020 22:00:00 - Setting data record timer: 600 s
+18-08-2020 22:00:05 - Reading data from sensors...
+18-08-2020 22:00:09 - Error: Could not read Luminox O2 sensor.
+18-08-2020 22:00:14 - Got data, processing and parsing...
+18-08-2020 22:00:14 - Read data packet: &1638&1597788000&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.6,85,84.60&38:6947&18:65535
+18-08-2020 22:00:14 - Power saving for 00:05:28
+18-08-2020 22:05:43 - Encoding message: &1638&1597788000&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.6,85,84.60&38:6947&18:65535
+18-08-2020 22:05:43 - length 82 -> 41
+18-08-2020 22:05:43 - LoRaRadio: Attempting to send message...
+18-08-2020 22:05:48 - LoRaRadio: transmission complete
+18-08-2020 22:05:48 - Successfully sent message "&1638&1597788000&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.6,85,84.60&38:6947&18:65535"
+18-08-2020 22:05:48 - Setting radio timer: 600 s
+18-08-2020 22:05:48 - Power saving for 00:04:12
+18-08-2020 22:10:01 - Setting data record timer: 600 s
+18-08-2020 22:10:06 - Reading data from sensors...
+18-08-2020 22:10:10 - Error: Could not read Luminox O2 sensor.
+18-08-2020 22:10:15 - Got data, processing and parsing...
+18-08-2020 22:10:15 - Read data packet: &1638&1597788601&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.6,85,84.60&38:6870&18:65535
+18-08-2020 22:10:15 - Power saving for 00:05:33
+18-08-2020 22:15:49 - Encoding message: &1638&1597788601&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.6,85,84.60&38:6870&18:65535
+18-08-2020 22:15:49 - length 82 -> 41
+18-08-2020 22:15:49 - LoRaRadio: Attempting to send message...
+18-08-2020 22:15:53 - LoRaRadio: transmission complete
+18-08-2020 22:15:53 - Successfully sent message "&1638&1597788601&17:0&32:-1.0,-1.0,-1,-1.00&33:84.6,84.6,85,84.60&38:6870&18:65535"
+18-08-2020 22:15:53 - Setting radio timer: 600 s
+18-08-2020 22:15:53 - Power saving for 00:04:08
+18-08-2020 22:20:02 - Setting data record timer: 600 s
+18-08-2020 22:20:07 - Reading data from sensors...
+18-08-2020 22:20:11 - Error: Could not read Luminox O2 sensor.
+18-08-2020 22:20:16 - Got data, processing and parsing...
+18-08-2020 22:20:16 - Read data packet: &1638&1597789202&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6819&18:65535
+18-08-2020 22:20:16 - Power saving for 00:05:37
+18-08-2020 22:25:54 - Encoding message: &1638&1597789202&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6819&18:65535
+18-08-2020 22:25:54 - length 82 -> 41
+18-08-2020 22:25:54 - LoRaRadio: Attempting to send message...
+18-08-2020 22:25:59 - LoRaRadio: transmission complete
+18-08-2020 22:25:59 - Successfully sent message "&1638&1597789202&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6819&18:65535"
+18-08-2020 22:25:59 - Setting radio timer: 600 s
+18-08-2020 22:25:59 - Power saving for 00:04:03
+18-08-2020 22:30:03 - Setting data record timer: 600 s
+18-08-2020 22:30:08 - Reading data from sensors...
+18-08-2020 22:30:12 - Error: Could not read Luminox O2 sensor.
+18-08-2020 22:30:17 - Got data, processing and parsing...
+18-08-2020 22:30:17 - Read data packet: &1638&1597789803&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6665&18:65535
+18-08-2020 22:30:17 - Power saving for 00:05:42
+18-08-2020 22:36:00 - Encoding message: &1638&1597789803&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6665&18:65535
+18-08-2020 22:36:00 - length 82 -> 41
+18-08-2020 22:36:00 - LoRaRadio: Attempting to send message...
+18-08-2020 22:36:04 - LoRaRadio: transmission complete
+18-08-2020 22:36:04 - Successfully sent message "&1638&1597789803&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6665&18:65535"
+18-08-2020 22:36:04 - Setting radio timer: 600 s
+18-08-2020 22:36:04 - Power saving for 00:03:59
+18-08-2020 22:40:04 - Setting data record timer: 600 s
+18-08-2020 22:40:09 - Reading data from sensors...
+18-08-2020 22:40:13 - Error: Could not read Luminox O2 sensor.
+18-08-2020 22:40:18 - Got data, processing and parsing...
+18-08-2020 22:40:18 - Read data packet: &1638&1597790404&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6729&18:65535
+18-08-2020 22:40:18 - Power saving for 00:05:46
+18-08-2020 22:46:05 - Encoding message: &1638&1597790404&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6729&18:65535
+18-08-2020 22:46:05 - length 82 -> 41
+18-08-2020 22:46:05 - LoRaRadio: Attempting to send message...
+18-08-2020 22:46:09 - LoRaRadio: transmission complete
+18-08-2020 22:46:09 - Successfully sent message "&1638&1597790404&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6729&18:65535"
+18-08-2020 22:46:09 - Setting radio timer: 600 s
+18-08-2020 22:46:09 - Power saving for 00:03:55
+18-08-2020 22:50:05 - Setting data record timer: 600 s
+18-08-2020 22:50:10 - Reading data from sensors...
+18-08-2020 22:50:14 - Error: Could not read Luminox O2 sensor.
+18-08-2020 22:50:19 - Got data, processing and parsing...
+18-08-2020 22:50:19 - Read data packet: &1638&1597791005&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6802&18:65535
+18-08-2020 22:50:19 - Power saving for 00:05:50
+18-08-2020 22:56:10 - Encoding message: &1638&1597791005&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6802&18:65535
+18-08-2020 22:56:10 - length 82 -> 41
+18-08-2020 22:56:10 - LoRaRadio: Attempting to send message...
+18-08-2020 22:56:14 - LoRaRadio: transmission complete
+18-08-2020 22:56:14 - Successfully sent message "&1638&1597791005&17:0&32:-1.0,-1.0,-1,-1.00&33:84.7,84.7,85,84.70&38:6802&18:65535"
+18-08-2020 22:56:14 - Setting radio timer: 600 s
+18-08-2020 22:56:14 - Power saving for 00:03:51
+18-08-2020 23:00:07 - Setting data record timer: 600 s
+18-08-2020 23:00:12 - Reading data from sensors...
+18-08-2020 23:00:16 - Error: Could not read Luminox O2 sensor.
+18-08-2020 23:00:21 - Got data, processing and parsing...
+18-08-2020 23:00:21 - Read data packet: &1638&1597791607&17:0&32:-1.0,-1.0,-1,-1.00&33:84.4,84.4,84,84.50&38:6759&18:65535
+18-08-2020 23:00:21 - Power saving for 00:05:53
+18-08-2020 23:06:15 - Encoding message: &1638&1597791607&17:0&32:-1.0,-1.0,-1,-1.00&33:84.4,84.4,84,84.50&38:6759&18:65535
+18-08-2020 23:06:15 - length 82 -> 41
+18-08-2020 23:06:15 - LoRaRadio: Attempting to send message...
+18-08-2020 23:06:18 - LoRaRadio: transmission complete
+18-08-2020 23:06:18 - Successfully sent message "&1638&1597791607&17:0&32:-1.0,-1.0,-1,-1.00&33:84.4,84.4,84,84.50&38:6759&18:65535"
+18-08-2020 23:06:18 - Setting radio timer: 600 s
+18-08-2020 23:06:18 - Power saving for 00:03:49
+18-08-2020 23:10:09 - Setting data record timer: 600 s
+18-08-2020 23:10:14 - Reading data from sensors...
+18-08-2020 23:10:18 - Error: Could not read Luminox O2 sensor.
+18-08-2020 23:10:23 - Got data, processing and parsing...
+18-08-2020 23:10:23 - Read data packet: &1638&1597792209&17:0&32:-1.0,-1.0,-1,-1.00&33:84.5,84.5,84,84.50&38:6765&18:65535
+18-08-2020 23:10:23 - Power saving for 00:05:55
+18-08-2020 23:16:19 - Encoding message: &1638&1597792209&17:0&32:-1.0,-1.0,-1,-1.00&33:84.5,84.5,84,84.50&38:6765&18:65535
+18-08-2020 23:16:19 - length 82 -> 41
+18-08-2020 23:16:19 - LoRaRadio: Attempting to send message...
+18-08-2020 23:16:23 - LoRaRadio: transmission complete
+18-08-2020 23:16:23 - Successfully sent message "&1638&1597792209&17:0&32:-1.0,-1.0,-1,-1.00&33:84.5,84.5,84,84.50&38:6765&18:65535"
+18-08-2020 23:16:23 - Setting radio timer: 600 s
+18-08-2020 23:16:23 - Power saving for 00:03:46
+18-08-2020 23:20:10 - Setting data record timer: 600 s
+18-08-2020 23:20:15 - Reading data from sensors...
+18-08-2020 23:20:19 - Error: Could not read Luminox O2 sensor.
+18-08-2020 23:20:24 - Got data, processing and parsing...
+18-08-2020 23:20:24 - Read data packet: &1638&1597792810&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6787&18:65535
+18-08-2020 23:20:24 - Power saving for 00:05:59
+18-08-2020 23:26:24 - Encoding message: &1638&1597792810&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6787&18:65535
+18-08-2020 23:26:24 - length 82 -> 41
+18-08-2020 23:26:24 - LoRaRadio: Attempting to send message...
+18-08-2020 23:26:28 - LoRaRadio: transmission complete
+18-08-2020 23:26:28 - Successfully sent message "&1638&1597792810&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6787&18:65535"
+18-08-2020 23:26:28 - Setting radio timer: 600 s
+18-08-2020 23:26:28 - Power saving for 00:03:42
+18-08-2020 23:30:12 - Setting data record timer: 600 s
+18-08-2020 23:30:17 - Reading data from sensors...
+18-08-2020 23:30:21 - Error: Could not read Luminox O2 sensor.
+18-08-2020 23:30:26 - Got data, processing and parsing...
+18-08-2020 23:30:26 - Read data packet: &1638&1597793412&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6728&18:65535
+18-08-2020 23:30:26 - Power saving for 00:06:02
+18-08-2020 23:36:29 - Encoding message: &1638&1597793412&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6728&18:65535
+18-08-2020 23:36:29 - length 82 -> 41
+18-08-2020 23:36:29 - LoRaRadio: Attempting to send message...
+18-08-2020 23:36:32 - LoRaRadio: transmission complete
+18-08-2020 23:36:32 - Successfully sent message "&1638&1597793412&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6728&18:65535"
+18-08-2020 23:36:32 - Setting radio timer: 600 s
+18-08-2020 23:36:32 - Power saving for 00:03:40
+18-08-2020 23:40:14 - Setting data record timer: 600 s
+18-08-2020 23:40:19 - Reading data from sensors...
+18-08-2020 23:40:23 - Error: Could not read Luminox O2 sensor.
+18-08-2020 23:40:28 - Got data, processing and parsing...
+18-08-2020 23:40:28 - Read data packet: &1638&1597794014&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.30&38:6667&18:65535
+18-08-2020 23:40:28 - Power saving for 00:06:04
+18-08-2020 23:46:33 - Encoding message: &1638&1597794014&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.30&38:6667&18:65535
+18-08-2020 23:46:33 - length 82 -> 41
+18-08-2020 23:46:33 - LoRaRadio: Attempting to send message...
+18-08-2020 23:46:36 - LoRaRadio: transmission complete
+18-08-2020 23:46:36 - Successfully sent message "&1638&1597794014&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.30&38:6667&18:65535"
+18-08-2020 23:46:36 - Setting radio timer: 600 s
+18-08-2020 23:46:36 - Power saving for 00:03:38
+18-08-2020 23:50:16 - Setting data record timer: 600 s
+18-08-2020 23:50:21 - Reading data from sensors...
+18-08-2020 23:50:25 - Error: Could not read Luminox O2 sensor.
+18-08-2020 23:50:30 - Got data, processing and parsing...
+18-08-2020 23:50:30 - Read data packet: &1638&1597794616&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.20&38:6798&18:65535
+18-08-2020 23:50:30 - Power saving for 00:06:06
+18-08-2020 23:56:37 - Encoding message: &1638&1597794616&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.20&38:6798&18:65535
+18-08-2020 23:56:37 - length 82 -> 41
+18-08-2020 23:56:37 - LoRaRadio: Attempting to send message...
+18-08-2020 23:56:41 - LoRaRadio: transmission complete
+18-08-2020 23:56:41 - Successfully sent message "&1638&1597794616&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.20&38:6798&18:65535"
+18-08-2020 23:56:41 - Setting radio timer: 600 s
+18-08-2020 23:56:41 - Power saving for 00:03:35
+19-08-2020 00:00:18 - Setting data record timer: 600 s
+19-08-2020 00:00:23 - Reading data from sensors...
+19-08-2020 00:00:27 - Error: Could not read Luminox O2 sensor.
+19-08-2020 00:00:32 - Got data, processing and parsing...
+19-08-2020 00:00:32 - Read data packet: &1638&1597795218&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6670&18:65535
+19-08-2020 00:00:32 - Power saving for 00:06:09
+19-08-2020 00:06:42 - Encoding message: &1638&1597795218&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6670&18:65535
+19-08-2020 00:06:42 - length 82 -> 41
+19-08-2020 00:06:42 - LoRaRadio: Attempting to send message...
+19-08-2020 00:06:46 - LoRaRadio: transmission complete
+19-08-2020 00:06:46 - Successfully sent message "&1638&1597795218&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6670&18:65535"
+19-08-2020 00:06:46 - Setting radio timer: 600 s
+19-08-2020 00:06:46 - Power saving for 00:03:32
+19-08-2020 00:10:19 - Setting data record timer: 600 s
+19-08-2020 00:10:24 - Reading data from sensors...
+19-08-2020 00:10:28 - Error: Could not read Luminox O2 sensor.
+19-08-2020 00:10:33 - Got data, processing and parsing...
+19-08-2020 00:10:33 - Read data packet: &1638&1597795819&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6817&18:65535
+19-08-2020 00:10:33 - Power saving for 00:06:13
+19-08-2020 00:16:47 - Encoding message: &1638&1597795819&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6817&18:65535
+19-08-2020 00:16:47 - length 82 -> 41
+19-08-2020 00:16:47 - LoRaRadio: Attempting to send message...
+19-08-2020 00:16:51 - LoRaRadio: transmission complete
+19-08-2020 00:16:51 - Successfully sent message "&1638&1597795819&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6817&18:65535"
+19-08-2020 00:16:51 - Setting radio timer: 600 s
+19-08-2020 00:16:51 - Power saving for 00:03:28
+19-08-2020 00:20:20 - Setting data record timer: 600 s
+19-08-2020 00:20:25 - Reading data from sensors...
+19-08-2020 00:20:29 - Error: Could not read Luminox O2 sensor.
+19-08-2020 00:20:34 - Got data, processing and parsing...
+19-08-2020 00:20:34 - Read data packet: &1638&1597796420&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.20&38:6563&18:65535
+19-08-2020 00:20:34 - Power saving for 00:06:17
+19-08-2020 00:26:52 - Encoding message: &1638&1597796420&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.20&38:6563&18:65535
+19-08-2020 00:26:52 - length 82 -> 41
+19-08-2020 00:26:52 - LoRaRadio: Attempting to send message...
+19-08-2020 00:26:57 - LoRaRadio: transmission complete
+19-08-2020 00:26:57 - Successfully sent message "&1638&1597796420&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.20&38:6563&18:65535"
+19-08-2020 00:26:57 - Setting radio timer: 600 s
+19-08-2020 00:26:57 - Power saving for 00:03:23
+19-08-2020 00:30:21 - Setting data record timer: 600 s
+19-08-2020 00:30:26 - Reading data from sensors...
+19-08-2020 00:30:30 - Error: Could not read Luminox O2 sensor.
+19-08-2020 00:30:35 - Got data, processing and parsing...
+19-08-2020 00:30:35 - Read data packet: &1638&1597797021&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6480&18:65535
+19-08-2020 00:30:35 - Power saving for 00:06:22
+19-08-2020 00:36:58 - Encoding message: &1638&1597797021&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6480&18:65535
+19-08-2020 00:36:58 - length 82 -> 41
+19-08-2020 00:36:58 - LoRaRadio: Attempting to send message...
+19-08-2020 00:37:03 - LoRaRadio: transmission complete
+19-08-2020 00:37:03 - Successfully sent message "&1638&1597797021&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6480&18:65535"
+19-08-2020 00:37:03 - Setting radio timer: 600 s
+19-08-2020 00:37:03 - Power saving for 00:03:18
+19-08-2020 00:40:22 - Setting data record timer: 600 s
+19-08-2020 00:40:27 - Reading data from sensors...
+19-08-2020 00:40:31 - Error: Could not read Luminox O2 sensor.
+19-08-2020 00:40:36 - Got data, processing and parsing...
+19-08-2020 00:40:36 - Read data packet: &1638&1597797622&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.3,84,84.30&38:6673&18:65535
+19-08-2020 00:40:36 - Power saving for 00:06:27
+19-08-2020 00:47:04 - Encoding message: &1638&1597797622&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.3,84,84.30&38:6673&18:65535
+19-08-2020 00:47:04 - length 82 -> 41
+19-08-2020 00:47:04 - LoRaRadio: Attempting to send message...
+19-08-2020 00:47:09 - LoRaRadio: transmission complete
+19-08-2020 00:47:09 - Successfully sent message "&1638&1597797622&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.3,84,84.30&38:6673&18:65535"
+19-08-2020 00:47:09 - Setting radio timer: 600 s
+19-08-2020 00:47:09 - Power saving for 00:03:13
+19-08-2020 00:50:23 - Setting data record timer: 600 s
+19-08-2020 00:50:28 - Reading data from sensors...
+19-08-2020 00:50:32 - Error: Could not read Luminox O2 sensor.
+19-08-2020 00:50:37 - Got data, processing and parsing...
+19-08-2020 00:50:37 - Read data packet: &1638&1597798223&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.2,84,84.20&38:6726&18:65535
+19-08-2020 00:50:37 - Power saving for 00:06:32
+19-08-2020 00:57:10 - Encoding message: &1638&1597798223&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.2,84,84.20&38:6726&18:65535
+19-08-2020 00:57:10 - length 82 -> 41
+19-08-2020 00:57:10 - LoRaRadio: Attempting to send message...
+19-08-2020 00:57:14 - LoRaRadio: transmission complete
+19-08-2020 00:57:14 - Successfully sent message "&1638&1597798223&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.2,84,84.20&38:6726&18:65535"
+19-08-2020 00:57:14 - Setting radio timer: 600 s
+19-08-2020 00:57:14 - Power saving for 00:03:09
+19-08-2020 01:00:24 - Setting data record timer: 600 s
+19-08-2020 01:00:29 - Reading data from sensors...
+19-08-2020 01:00:33 - Error: Could not read Luminox O2 sensor.
+19-08-2020 01:00:38 - Got data, processing and parsing...
+19-08-2020 01:00:38 - Read data packet: &1638&1597798824&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6587&18:65535
+19-08-2020 01:00:38 - Power saving for 00:06:36
+19-08-2020 01:07:15 - Encoding message: &1638&1597798824&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6587&18:65535
+19-08-2020 01:07:15 - length 82 -> 41
+19-08-2020 01:07:15 - LoRaRadio: Attempting to send message...
+19-08-2020 01:07:18 - LoRaRadio: transmission complete
+19-08-2020 01:07:18 - Successfully sent message "&1638&1597798824&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6587&18:65535"
+19-08-2020 01:07:18 - Setting radio timer: 600 s
+19-08-2020 01:07:18 - Power saving for 00:03:06
+19-08-2020 01:10:25 - Setting data record timer: 600 s
+19-08-2020 01:10:30 - Reading data from sensors...
+19-08-2020 01:10:34 - Error: Could not read Luminox O2 sensor.
+19-08-2020 01:10:39 - Got data, processing and parsing...
+19-08-2020 01:10:39 - Read data packet: &1638&1597799425&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6374&18:65535
+19-08-2020 01:10:39 - Power saving for 00:06:39
+19-08-2020 01:17:19 - Encoding message: &1638&1597799425&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6374&18:65535
+19-08-2020 01:17:19 - length 82 -> 41
+19-08-2020 01:17:19 - LoRaRadio: Attempting to send message...
+19-08-2020 01:17:22 - LoRaRadio: transmission complete
+19-08-2020 01:17:22 - Successfully sent message "&1638&1597799425&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6374&18:65535"
+19-08-2020 01:17:22 - Setting radio timer: 600 s
+19-08-2020 01:17:22 - Power saving for 00:03:03
+19-08-2020 01:20:26 - Setting data record timer: 600 s
+19-08-2020 01:20:31 - Reading data from sensors...
+19-08-2020 01:20:35 - Error: Could not read Luminox O2 sensor.
+19-08-2020 01:20:40 - Got data, processing and parsing...
+19-08-2020 01:20:40 - Read data packet: &1638&1597800026&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6501&18:65535
+19-08-2020 01:20:40 - Power saving for 00:06:42
+19-08-2020 01:27:23 - Encoding message: &1638&1597800026&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6501&18:65535
+19-08-2020 01:27:23 - length 82 -> 41
+19-08-2020 01:27:23 - LoRaRadio: Attempting to send message...
+19-08-2020 01:27:28 - LoRaRadio: transmission complete
+19-08-2020 01:27:28 - Successfully sent message "&1638&1597800026&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6501&18:65535"
+19-08-2020 01:27:28 - Setting radio timer: 600 s
+19-08-2020 01:27:28 - Power saving for 00:02:58
+19-08-2020 01:30:27 - Setting data record timer: 600 s
+19-08-2020 01:30:32 - Reading data from sensors...
+19-08-2020 01:30:36 - Error: Could not read Luminox O2 sensor.
+19-08-2020 01:30:41 - Got data, processing and parsing...
+19-08-2020 01:30:41 - Read data packet: &1638&1597800627&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.2,84,84.20&38:6467&18:65535
+19-08-2020 01:30:41 - Power saving for 00:06:47
+19-08-2020 01:37:29 - Encoding message: &1638&1597800627&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.2,84,84.20&38:6467&18:65535
+19-08-2020 01:37:29 - length 82 -> 41
+19-08-2020 01:37:29 - LoRaRadio: Attempting to send message...
+19-08-2020 01:37:33 - LoRaRadio: transmission complete
+19-08-2020 01:37:33 - Successfully sent message "&1638&1597800627&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.2,84,84.20&38:6467&18:65535"
+19-08-2020 01:37:33 - Setting radio timer: 600 s
+19-08-2020 01:37:33 - Power saving for 00:02:54
+19-08-2020 01:40:28 - Setting data record timer: 600 s
+19-08-2020 01:40:33 - Reading data from sensors...
+19-08-2020 01:40:37 - Error: Could not read Luminox O2 sensor.
+19-08-2020 01:40:42 - Got data, processing and parsing...
+19-08-2020 01:40:42 - Read data packet: &1638&1597801228&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6419&18:65535
+19-08-2020 01:40:42 - Power saving for 00:06:51
+19-08-2020 01:47:34 - Encoding message: &1638&1597801228&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6419&18:65535
+19-08-2020 01:47:34 - length 82 -> 41
+19-08-2020 01:47:34 - LoRaRadio: Attempting to send message...
+19-08-2020 01:47:39 - LoRaRadio: transmission complete
+19-08-2020 01:47:39 - Successfully sent message "&1638&1597801228&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6419&18:65535"
+19-08-2020 01:47:39 - Setting radio timer: 600 s
+19-08-2020 01:47:39 - Power saving for 00:02:49
+19-08-2020 01:50:29 - Setting data record timer: 600 s
+19-08-2020 01:50:34 - Reading data from sensors...
+19-08-2020 01:50:38 - Error: Could not read Luminox O2 sensor.
+19-08-2020 01:50:43 - Got data, processing and parsing...
+19-08-2020 01:50:43 - Read data packet: &1638&1597801829&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.30&38:6409&18:65535
+19-08-2020 01:50:43 - Power saving for 00:06:56
+19-08-2020 01:57:40 - Encoding message: &1638&1597801829&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.30&38:6409&18:65535
+19-08-2020 01:57:40 - length 82 -> 41
+19-08-2020 01:57:40 - LoRaRadio: Attempting to send message...
+19-08-2020 01:57:45 - LoRaRadio: transmission complete
+19-08-2020 01:57:45 - Successfully sent message "&1638&1597801829&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.30&38:6409&18:65535"
+19-08-2020 01:57:45 - Setting radio timer: 600 s
+19-08-2020 01:57:45 - Power saving for 00:02:44
+19-08-2020 02:00:30 - Setting data record timer: 600 s
+19-08-2020 02:00:35 - Reading data from sensors...
+19-08-2020 02:00:39 - Error: Could not read Luminox O2 sensor.
+19-08-2020 02:00:44 - Got data, processing and parsing...
+19-08-2020 02:00:44 - Read data packet: &1638&1597802430&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6337&18:65535
+19-08-2020 02:00:44 - Power saving for 00:07:01
+19-08-2020 02:07:46 - Encoding message: &1638&1597802430&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6337&18:65535
+19-08-2020 02:07:46 - length 82 -> 41
+19-08-2020 02:07:46 - LoRaRadio: Attempting to send message...
+19-08-2020 02:07:50 - LoRaRadio: transmission complete
+19-08-2020 02:07:50 - Successfully sent message "&1638&1597802430&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6337&18:65535"
+19-08-2020 02:07:50 - Setting radio timer: 600 s
+19-08-2020 02:07:50 - Power saving for 00:02:40
+19-08-2020 02:10:32 - Setting data record timer: 600 s
+19-08-2020 02:10:37 - Reading data from sensors...
+19-08-2020 02:10:41 - Error: Could not read Luminox O2 sensor.
+19-08-2020 02:10:46 - Got data, processing and parsing...
+19-08-2020 02:10:46 - Read data packet: &1638&1597803032&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6408&18:65535
+19-08-2020 02:10:46 - Power saving for 00:07:04
+19-08-2020 02:17:51 - Encoding message: &1638&1597803032&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6408&18:65535
+19-08-2020 02:17:51 - length 82 -> 41
+19-08-2020 02:17:51 - LoRaRadio: Attempting to send message...
+19-08-2020 02:17:55 - LoRaRadio: transmission complete
+19-08-2020 02:17:55 - Successfully sent message "&1638&1597803032&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6408&18:65535"
+19-08-2020 02:17:55 - Setting radio timer: 600 s
+19-08-2020 02:17:55 - Power saving for 00:02:37
+19-08-2020 02:20:33 - Setting data record timer: 600 s
+19-08-2020 02:20:38 - Reading data from sensors...
+19-08-2020 02:20:42 - Error: Could not read Luminox O2 sensor.
+19-08-2020 02:20:47 - Got data, processing and parsing...
+19-08-2020 02:20:47 - Read data packet: &1638&1597803633&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.30&38:6307&18:65535
+19-08-2020 02:20:47 - Power saving for 00:07:08
+19-08-2020 02:27:56 - Encoding message: &1638&1597803633&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.30&38:6307&18:65535
+19-08-2020 02:27:56 - length 82 -> 41
+19-08-2020 02:27:56 - LoRaRadio: Attempting to send message...
+19-08-2020 02:28:00 - LoRaRadio: transmission complete
+19-08-2020 02:28:00 - Successfully sent message "&1638&1597803633&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.30&38:6307&18:65535"
+19-08-2020 02:28:00 - Setting radio timer: 600 s
+19-08-2020 02:28:00 - Power saving for 00:02:33
+19-08-2020 02:30:34 - Setting data record timer: 600 s
+19-08-2020 02:30:39 - Reading data from sensors...
+19-08-2020 02:30:43 - Error: Could not read Luminox O2 sensor.
+19-08-2020 02:30:48 - Got data, processing and parsing...
+19-08-2020 02:30:48 - Read data packet: &1638&1597804234&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.4,84,84.40&38:6291&18:65535
+19-08-2020 02:30:48 - Power saving for 00:07:12
+19-08-2020 02:38:01 - Encoding message: &1638&1597804234&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.4,84,84.40&38:6291&18:65535
+19-08-2020 02:38:01 - length 82 -> 41
+19-08-2020 02:38:01 - LoRaRadio: Attempting to send message...
+19-08-2020 02:38:06 - LoRaRadio: transmission complete
+19-08-2020 02:38:06 - Successfully sent message "&1638&1597804234&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.4,84,84.40&38:6291&18:65535"
+19-08-2020 02:38:06 - Setting radio timer: 600 s
+19-08-2020 02:38:06 - Power saving for 00:02:28
+19-08-2020 02:40:35 - Setting data record timer: 600 s
+19-08-2020 02:40:40 - Reading data from sensors...
+19-08-2020 02:40:44 - Error: Could not read Luminox O2 sensor.
+19-08-2020 02:40:49 - Got data, processing and parsing...
+19-08-2020 02:40:49 - Read data packet: &1638&1597804835&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6283&18:65535
+19-08-2020 02:40:49 - Power saving for 00:07:17
+19-08-2020 02:48:07 - Encoding message: &1638&1597804835&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6283&18:65535
+19-08-2020 02:48:07 - length 82 -> 41
+19-08-2020 02:48:07 - LoRaRadio: Attempting to send message...
+19-08-2020 02:48:12 - LoRaRadio: transmission complete
+19-08-2020 02:48:12 - Successfully sent message "&1638&1597804835&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6283&18:65535"
+19-08-2020 02:48:12 - Setting radio timer: 600 s
+19-08-2020 02:48:12 - Power saving for 00:02:23
+19-08-2020 02:50:36 - Setting data record timer: 600 s
+19-08-2020 02:50:41 - Reading data from sensors...
+19-08-2020 02:50:45 - Error: Could not read Luminox O2 sensor.
+19-08-2020 02:50:50 - Got data, processing and parsing...
+19-08-2020 02:50:50 - Read data packet: &1638&1597805436&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.40&38:6380&18:65535
+19-08-2020 02:50:50 - Power saving for 00:07:22
+19-08-2020 02:58:13 - Encoding message: &1638&1597805436&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.40&38:6380&18:65535
+19-08-2020 02:58:13 - length 82 -> 41
+19-08-2020 02:58:13 - LoRaRadio: Attempting to send message...
+19-08-2020 02:58:18 - LoRaRadio: transmission complete
+19-08-2020 02:58:18 - Successfully sent message "&1638&1597805436&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.40&38:6380&18:65535"
+19-08-2020 02:58:18 - Setting radio timer: 600 s
+19-08-2020 02:58:18 - Power saving for 00:02:18
+19-08-2020 03:00:37 - Setting data record timer: 600 s
+19-08-2020 03:00:42 - Reading data from sensors...
+19-08-2020 03:00:46 - Error: Could not read Luminox O2 sensor.
+19-08-2020 03:00:51 - Got data, processing and parsing...
+19-08-2020 03:00:51 - Read data packet: &1638&1597806037&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.40&38:6402&18:65535
+19-08-2020 03:00:51 - Power saving for 00:07:27
+19-08-2020 03:08:19 - Encoding message: &1638&1597806037&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.40&38:6402&18:65535
+19-08-2020 03:08:19 - length 82 -> 41
+19-08-2020 03:08:19 - LoRaRadio: Attempting to send message...
+19-08-2020 03:08:24 - LoRaRadio: transmission complete
+19-08-2020 03:08:24 - Successfully sent message "&1638&1597806037&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.40&38:6402&18:65535"
+19-08-2020 03:08:24 - Setting radio timer: 600 s
+19-08-2020 03:08:24 - Power saving for 00:02:13
+19-08-2020 03:10:38 - Setting data record timer: 600 s
+19-08-2020 03:10:43 - Reading data from sensors...
+19-08-2020 03:10:47 - Error: Could not read Luminox O2 sensor.
+19-08-2020 03:10:52 - Got data, processing and parsing...
+19-08-2020 03:10:52 - Read data packet: &1638&1597806638&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6314&18:65535
+19-08-2020 03:10:52 - Power saving for 00:07:32
+19-08-2020 03:18:25 - Encoding message: &1638&1597806638&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6314&18:65535
+19-08-2020 03:18:25 - length 82 -> 41
+19-08-2020 03:18:25 - LoRaRadio: Attempting to send message...
+19-08-2020 03:18:28 - LoRaRadio: transmission complete
+19-08-2020 03:18:28 - Successfully sent message "&1638&1597806638&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6314&18:65535"
+19-08-2020 03:18:28 - Setting radio timer: 600 s
+19-08-2020 03:18:28 - Power saving for 00:02:10
+19-08-2020 03:20:40 - Setting data record timer: 600 s
+19-08-2020 03:20:45 - Reading data from sensors...
+19-08-2020 03:20:49 - Error: Could not read Luminox O2 sensor.
+19-08-2020 03:20:54 - Got data, processing and parsing...
+19-08-2020 03:20:54 - Read data packet: &1638&1597807240&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6291&18:65535
+19-08-2020 03:20:54 - Power saving for 00:07:34
+19-08-2020 03:28:29 - Encoding message: &1638&1597807240&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6291&18:65535
+19-08-2020 03:28:29 - length 82 -> 41
+19-08-2020 03:28:29 - LoRaRadio: Attempting to send message...
+19-08-2020 03:28:33 - LoRaRadio: transmission complete
+19-08-2020 03:28:33 - Successfully sent message "&1638&1597807240&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6291&18:65535"
+19-08-2020 03:28:33 - Setting radio timer: 600 s
+19-08-2020 03:28:33 - Power saving for 00:02:07
+19-08-2020 03:30:41 - Setting data record timer: 600 s
+19-08-2020 03:30:46 - Reading data from sensors...
+19-08-2020 03:30:50 - Error: Could not read Luminox O2 sensor.
+19-08-2020 03:30:55 - Got data, processing and parsing...
+19-08-2020 03:30:55 - Read data packet: &1638&1597807841&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6376&18:65535
+19-08-2020 03:30:55 - Power saving for 00:07:38
+19-08-2020 03:38:34 - Encoding message: &1638&1597807841&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6376&18:65535
+19-08-2020 03:38:34 - length 82 -> 41
+19-08-2020 03:38:34 - LoRaRadio: Attempting to send message...
+19-08-2020 03:38:38 - LoRaRadio: transmission complete
+19-08-2020 03:38:38 - Successfully sent message "&1638&1597807841&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6376&18:65535"
+19-08-2020 03:38:38 - Setting radio timer: 600 s
+19-08-2020 03:38:38 - Power saving for 00:02:03
+19-08-2020 03:40:42 - Setting data record timer: 600 s
+19-08-2020 03:40:47 - Reading data from sensors...
+19-08-2020 03:40:51 - Error: Could not read Luminox O2 sensor.
+19-08-2020 03:40:56 - Got data, processing and parsing...
+19-08-2020 03:40:56 - Read data packet: &1638&1597808442&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6261&18:65535
+19-08-2020 03:40:56 - Power saving for 00:07:42
+19-08-2020 03:48:39 - Encoding message: &1638&1597808442&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6261&18:65535
+19-08-2020 03:48:39 - length 82 -> 41
+19-08-2020 03:48:39 - LoRaRadio: Attempting to send message...
+19-08-2020 03:48:43 - LoRaRadio: transmission complete
+19-08-2020 03:48:43 - Successfully sent message "&1638&1597808442&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6261&18:65535"
+19-08-2020 03:48:43 - Setting radio timer: 600 s
+19-08-2020 03:48:43 - Power saving for 00:01:59
+19-08-2020 03:50:43 - Setting data record timer: 600 s
+19-08-2020 03:50:48 - Reading data from sensors...
+19-08-2020 03:50:52 - Error: Could not read Luminox O2 sensor.
+19-08-2020 03:50:57 - Got data, processing and parsing...
+19-08-2020 03:50:57 - Read data packet: &1638&1597809043&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6265&18:65535
+19-08-2020 03:50:57 - Power saving for 00:07:46
+19-08-2020 03:58:44 - Encoding message: &1638&1597809043&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6265&18:65535
+19-08-2020 03:58:44 - length 82 -> 41
+19-08-2020 03:58:44 - LoRaRadio: Attempting to send message...
+19-08-2020 03:58:47 - LoRaRadio: transmission complete
+19-08-2020 03:58:47 - Successfully sent message "&1638&1597809043&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6265&18:65535"
+19-08-2020 03:58:47 - Setting radio timer: 600 s
+19-08-2020 03:58:47 - Power saving for 00:01:56
+19-08-2020 04:00:45 - Setting data record timer: 600 s
+19-08-2020 04:00:50 - Reading data from sensors...
+19-08-2020 04:00:54 - Error: Could not read Luminox O2 sensor.
+19-08-2020 04:00:59 - Got data, processing and parsing...
+19-08-2020 04:00:59 - Read data packet: &1638&1597809645&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.4,84,84.40&38:6310&18:65535
+19-08-2020 04:00:59 - Power saving for 00:07:48
+19-08-2020 04:08:48 - Encoding message: &1638&1597809645&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.4,84,84.40&38:6310&18:65535
+19-08-2020 04:08:48 - length 82 -> 41
+19-08-2020 04:08:48 - LoRaRadio: Attempting to send message...
+19-08-2020 04:08:53 - LoRaRadio: transmission complete
+19-08-2020 04:08:53 - Successfully sent message "&1638&1597809645&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.4,84,84.40&38:6310&18:65535"
+19-08-2020 04:08:53 - Setting radio timer: 600 s
+19-08-2020 04:08:53 - Power saving for 00:01:52
+19-08-2020 04:10:46 - Setting data record timer: 600 s
+19-08-2020 04:10:51 - Reading data from sensors...
+19-08-2020 04:10:55 - Error: Could not read Luminox O2 sensor.
+19-08-2020 04:11:00 - Got data, processing and parsing...
+19-08-2020 04:11:00 - Read data packet: &1638&1597810246&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6239&18:65535
+19-08-2020 04:11:00 - Power saving for 00:07:53
+19-08-2020 04:18:54 - Encoding message: &1638&1597810246&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6239&18:65535
+19-08-2020 04:18:54 - length 82 -> 41
+19-08-2020 04:18:54 - LoRaRadio: Attempting to send message...
+19-08-2020 04:18:59 - LoRaRadio: transmission complete
+19-08-2020 04:18:59 - Successfully sent message "&1638&1597810246&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6239&18:65535"
+19-08-2020 04:18:59 - Setting radio timer: 600 s
+19-08-2020 04:18:59 - Power saving for 00:01:47
+19-08-2020 04:20:47 - Setting data record timer: 600 s
+19-08-2020 04:20:52 - Reading data from sensors...
+19-08-2020 04:20:56 - Error: Could not read Luminox O2 sensor.
+19-08-2020 04:21:01 - Got data, processing and parsing...
+19-08-2020 04:21:01 - Read data packet: &1638&1597810847&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6276&18:65535
+19-08-2020 04:21:01 - Power saving for 00:07:58
+19-08-2020 04:29:00 - Encoding message: &1638&1597810847&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6276&18:65535
+19-08-2020 04:29:00 - length 82 -> 41
+19-08-2020 04:29:00 - LoRaRadio: Attempting to send message...
+19-08-2020 04:29:05 - LoRaRadio: transmission complete
+19-08-2020 04:29:05 - Successfully sent message "&1638&1597810847&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6276&18:65535"
+19-08-2020 04:29:05 - Setting radio timer: 600 s
+19-08-2020 04:29:05 - Power saving for 00:01:42
+19-08-2020 04:30:48 - Setting data record timer: 600 s
+19-08-2020 04:30:53 - Reading data from sensors...
+19-08-2020 04:30:57 - Error: Could not read Luminox O2 sensor.
+19-08-2020 04:31:02 - Got data, processing and parsing...
+19-08-2020 04:31:02 - Read data packet: &1638&1597811448&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6201&18:65535
+19-08-2020 04:31:02 - Power saving for 00:08:03
+19-08-2020 04:39:06 - Encoding message: &1638&1597811448&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6201&18:65535
+19-08-2020 04:39:06 - length 82 -> 41
+19-08-2020 04:39:06 - LoRaRadio: Attempting to send message...
+19-08-2020 04:39:10 - LoRaRadio: transmission complete
+19-08-2020 04:39:10 - Successfully sent message "&1638&1597811448&17:0&32:-1.0,-1.0,-1,-1.00&33:84.3,84.3,84,84.30&38:6201&18:65535"
+19-08-2020 04:39:10 - Setting radio timer: 600 s
+19-08-2020 04:39:10 - Power saving for 00:01:38
+19-08-2020 04:40:49 - Setting data record timer: 600 s
+19-08-2020 04:40:54 - Reading data from sensors...
+19-08-2020 04:40:58 - Error: Could not read Luminox O2 sensor.
+19-08-2020 04:41:03 - Got data, processing and parsing...
+19-08-2020 04:41:03 - Read data packet: &1638&1597812049&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6181&18:65535
+19-08-2020 04:41:03 - Power saving for 00:08:07
+19-08-2020 04:49:11 - Encoding message: &1638&1597812049&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6181&18:65535
+19-08-2020 04:49:11 - length 82 -> 41
+19-08-2020 04:49:11 - LoRaRadio: Attempting to send message...
+19-08-2020 04:49:15 - LoRaRadio: transmission complete
+19-08-2020 04:49:15 - Successfully sent message "&1638&1597812049&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6181&18:65535"
+19-08-2020 04:49:15 - Setting radio timer: 600 s
+19-08-2020 04:49:15 - Power saving for 00:01:34
+19-08-2020 04:50:50 - Setting data record timer: 600 s
+19-08-2020 04:50:55 - Reading data from sensors...
+19-08-2020 04:50:59 - Error: Could not read Luminox O2 sensor.
+19-08-2020 04:51:04 - Got data, processing and parsing...
+19-08-2020 04:51:04 - Read data packet: &1638&1597812650&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6280&18:65535
+19-08-2020 04:51:04 - Power saving for 00:08:11
+19-08-2020 04:59:16 - Encoding message: &1638&1597812650&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6280&18:65535
+19-08-2020 04:59:16 - length 82 -> 41
+19-08-2020 04:59:16 - LoRaRadio: Attempting to send message...
+19-08-2020 04:59:19 - LoRaRadio: transmission complete
+19-08-2020 04:59:20 - Successfully sent message "&1638&1597812650&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6280&18:65535"
+19-08-2020 04:59:20 - Setting radio timer: 600 s
+19-08-2020 04:59:20 - Power saving for 00:01:30
+19-08-2020 05:00:51 - Setting data record timer: 600 s
+19-08-2020 05:00:56 - Reading data from sensors...
+19-08-2020 05:01:00 - Error: Could not read Luminox O2 sensor.
+19-08-2020 05:01:05 - Got data, processing and parsing...
+19-08-2020 05:01:05 - Read data packet: &1638&1597813251&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6225&18:65535
+19-08-2020 05:01:05 - Power saving for 00:08:15
+19-08-2020 05:09:21 - Encoding message: &1638&1597813251&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6225&18:65535
+19-08-2020 05:09:21 - length 82 -> 41
+19-08-2020 05:09:21 - LoRaRadio: Attempting to send message...
+19-08-2020 05:09:25 - LoRaRadio: transmission complete
+19-08-2020 05:09:25 - Successfully sent message "&1638&1597813251&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6225&18:65535"
+19-08-2020 05:09:25 - Setting radio timer: 600 s
+19-08-2020 05:09:25 - Power saving for 00:01:26
+19-08-2020 05:10:52 - Setting data record timer: 600 s
+19-08-2020 05:10:57 - Reading data from sensors...
+19-08-2020 05:11:01 - Error: Could not read Luminox O2 sensor.
+19-08-2020 05:11:06 - Got data, processing and parsing...
+19-08-2020 05:11:06 - Read data packet: &1638&1597813852&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.20&38:6186&18:65535
+19-08-2020 05:11:06 - Power saving for 00:08:19
+19-08-2020 05:19:26 - Encoding message: &1638&1597813852&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.20&38:6186&18:65535
+19-08-2020 05:19:26 - length 82 -> 41
+19-08-2020 05:19:26 - LoRaRadio: Attempting to send message...
+19-08-2020 05:19:31 - LoRaRadio: transmission complete
+19-08-2020 05:19:31 - Successfully sent message "&1638&1597813852&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.20&38:6186&18:65535"
+19-08-2020 05:19:31 - Setting radio timer: 600 s
+19-08-2020 05:19:31 - Power saving for 00:01:21
+19-08-2020 05:20:53 - Setting data record timer: 600 s
+19-08-2020 05:20:58 - Reading data from sensors...
+19-08-2020 05:21:02 - Error: Could not read Luminox O2 sensor.
+19-08-2020 05:21:07 - Got data, processing and parsing...
+19-08-2020 05:21:07 - Read data packet: &1638&1597814453&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6307&18:65535
+19-08-2020 05:21:07 - Power saving for 00:08:24
+19-08-2020 05:29:32 - Encoding message: &1638&1597814453&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6307&18:65535
+19-08-2020 05:29:32 - length 82 -> 41
+19-08-2020 05:29:32 - LoRaRadio: Attempting to send message...
+19-08-2020 05:29:36 - LoRaRadio: transmission complete
+19-08-2020 05:29:36 - Successfully sent message "&1638&1597814453&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6307&18:65535"
+19-08-2020 05:29:36 - Setting radio timer: 600 s
+19-08-2020 05:29:36 - Power saving for 00:01:17
+19-08-2020 05:30:55 - Setting data record timer: 600 s
+19-08-2020 05:31:00 - Reading data from sensors...
+19-08-2020 05:31:04 - Error: Could not read Luminox O2 sensor.
+19-08-2020 05:31:09 - Got data, processing and parsing...
+19-08-2020 05:31:09 - Read data packet: &1638&1597815055&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6255&18:65535
+19-08-2020 05:31:09 - Power saving for 00:08:27
+19-08-2020 05:39:37 - Encoding message: &1638&1597815055&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6255&18:65535
+19-08-2020 05:39:37 - length 82 -> 41
+19-08-2020 05:39:37 - LoRaRadio: Attempting to send message...
+19-08-2020 05:39:42 - LoRaRadio: transmission complete
+19-08-2020 05:39:42 - Successfully sent message "&1638&1597815055&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6255&18:65535"
+19-08-2020 05:39:42 - Setting radio timer: 600 s
+19-08-2020 05:39:42 - Power saving for 00:01:13
+19-08-2020 05:40:56 - Setting data record timer: 600 s
+19-08-2020 05:41:01 - Reading data from sensors...
+19-08-2020 05:41:05 - Error: Could not read Luminox O2 sensor.
+19-08-2020 05:41:10 - Got data, processing and parsing...
+19-08-2020 05:41:10 - Read data packet: &1638&1597815656&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6178&18:65535
+19-08-2020 05:41:10 - Power saving for 00:08:32
+19-08-2020 05:49:43 - Encoding message: &1638&1597815656&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6178&18:65535
+19-08-2020 05:49:43 - length 82 -> 41
+19-08-2020 05:49:43 - LoRaRadio: Attempting to send message...
+19-08-2020 05:49:47 - LoRaRadio: transmission complete
+19-08-2020 05:49:47 - Successfully sent message "&1638&1597815656&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6178&18:65535"
+19-08-2020 05:49:47 - Setting radio timer: 600 s
+19-08-2020 05:49:47 - Power saving for 00:01:09
+19-08-2020 05:50:57 - Setting data record timer: 600 s
+19-08-2020 05:51:02 - Reading data from sensors...
+19-08-2020 05:51:06 - Error: Could not read Luminox O2 sensor.
+19-08-2020 05:51:11 - Got data, processing and parsing...
+19-08-2020 05:51:11 - Read data packet: &1638&1597816257&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6140&18:65535
+19-08-2020 05:51:11 - Power saving for 00:08:36
+19-08-2020 05:59:48 - Encoding message: &1638&1597816257&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6140&18:65535
+19-08-2020 05:59:48 - length 82 -> 41
+19-08-2020 05:59:48 - LoRaRadio: Attempting to send message...
+19-08-2020 05:59:53 - LoRaRadio: transmission complete
+19-08-2020 05:59:53 - Successfully sent message "&1638&1597816257&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6140&18:65535"
+19-08-2020 05:59:53 - Setting radio timer: 600 s
+19-08-2020 05:59:53 - Power saving for 00:01:04
+19-08-2020 06:00:58 - Setting data record timer: 600 s
+19-08-2020 06:01:03 - Reading data from sensors...
+19-08-2020 06:01:07 - Error: Could not read Luminox O2 sensor.
+19-08-2020 06:01:12 - Got data, processing and parsing...
+19-08-2020 06:01:12 - Read data packet: &1638&1597816858&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6123&18:65535
+19-08-2020 06:01:12 - Power saving for 00:08:41
+19-08-2020 06:09:54 - Encoding message: &1638&1597816858&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6123&18:65535
+19-08-2020 06:09:54 - length 82 -> 41
+19-08-2020 06:09:54 - LoRaRadio: Attempting to send message...
+19-08-2020 06:09:58 - LoRaRadio: transmission complete
+19-08-2020 06:09:58 - Successfully sent message "&1638&1597816858&17:0&32:-1.0,-1.0,-1,-1.00&33:84.2,84.2,84,84.20&38:6123&18:65535"
+19-08-2020 06:09:58 - Setting radio timer: 600 s
+19-08-2020 06:09:58 - Power saving for 00:01:00
+19-08-2020 06:10:59 - Setting data record timer: 600 s
+19-08-2020 06:11:04 - Reading data from sensors...
+19-08-2020 06:11:08 - Error: Could not read Luminox O2 sensor.
+19-08-2020 06:11:13 - Got data, processing and parsing...
+19-08-2020 06:11:13 - Read data packet: &1638&1597817459&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6201&18:65535
+19-08-2020 06:11:13 - Power saving for 00:08:45
+19-08-2020 06:19:59 - Encoding message: &1638&1597817459&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6201&18:65535
+19-08-2020 06:19:59 - length 82 -> 41
+19-08-2020 06:19:59 - LoRaRadio: Attempting to send message...
+19-08-2020 06:20:03 - LoRaRadio: transmission complete
+19-08-2020 06:20:03 - Successfully sent message "&1638&1597817459&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6201&18:65535"
+19-08-2020 06:20:03 - Setting radio timer: 600 s
+19-08-2020 06:20:03 - Power saving for 00:00:56
+19-08-2020 06:21:01 - Setting data record timer: 600 s
+19-08-2020 06:21:06 - Reading data from sensors...
+19-08-2020 06:21:10 - Error: Could not read Luminox O2 sensor.
+19-08-2020 06:21:15 - Got data, processing and parsing...
+19-08-2020 06:21:15 - Read data packet: &1638&1597818061&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6229&18:65535
+19-08-2020 06:21:15 - Power saving for 00:08:48
+19-08-2020 06:30:04 - Encoding message: &1638&1597818061&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6229&18:65535
+19-08-2020 06:30:04 - length 82 -> 41
+19-08-2020 06:30:04 - LoRaRadio: Attempting to send message...
+19-08-2020 06:30:09 - LoRaRadio: transmission complete
+19-08-2020 06:30:09 - Successfully sent message "&1638&1597818061&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6229&18:65535"
+19-08-2020 06:30:09 - Setting radio timer: 600 s
+19-08-2020 06:30:09 - Power saving for 00:00:52
+19-08-2020 06:31:02 - Setting data record timer: 600 s
+19-08-2020 06:31:07 - Reading data from sensors...
+19-08-2020 06:31:11 - Error: Could not read Luminox O2 sensor.
+19-08-2020 06:31:16 - Got data, processing and parsing...
+19-08-2020 06:31:16 - Read data packet: &1638&1597818662&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6234&18:65535
+19-08-2020 06:31:16 - Power saving for 00:08:53
+19-08-2020 06:40:10 - Encoding message: &1638&1597818662&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6234&18:65535
+19-08-2020 06:40:10 - length 82 -> 41
+19-08-2020 06:40:10 - LoRaRadio: Attempting to send message...
+19-08-2020 06:40:15 - LoRaRadio: transmission complete
+19-08-2020 06:40:15 - Successfully sent message "&1638&1597818662&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6234&18:65535"
+19-08-2020 06:40:15 - Setting radio timer: 600 s
+19-08-2020 06:40:15 - Power saving for 00:00:47
+19-08-2020 06:41:03 - Setting data record timer: 600 s
+19-08-2020 06:41:08 - Reading data from sensors...
+19-08-2020 06:41:12 - Error: Could not read Luminox O2 sensor.
+19-08-2020 06:41:17 - Got data, processing and parsing...
+19-08-2020 06:41:17 - Read data packet: &1638&1597819263&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6222&18:65535
+19-08-2020 06:41:17 - Power saving for 00:08:58
+19-08-2020 06:50:16 - Encoding message: &1638&1597819263&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6222&18:65535
+19-08-2020 06:50:16 - length 82 -> 41
+19-08-2020 06:50:16 - LoRaRadio: Attempting to send message...
+19-08-2020 06:50:19 - LoRaRadio: transmission complete
+19-08-2020 06:50:19 - Successfully sent message "&1638&1597819263&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6222&18:65535"
+19-08-2020 06:50:19 - Setting radio timer: 600 s
+19-08-2020 06:50:19 - Power saving for 00:00:44
+19-08-2020 06:51:05 - Setting data record timer: 600 s
+19-08-2020 06:51:10 - Reading data from sensors...
+19-08-2020 06:51:14 - Error: Could not read Luminox O2 sensor.
+19-08-2020 06:51:19 - Got data, processing and parsing...
+19-08-2020 06:51:19 - Read data packet: &1638&1597819865&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,84.0,84,84.00&38:6132&18:65535
+19-08-2020 06:51:19 - Power saving for 00:09:00
+19-08-2020 07:00:20 - Encoding message: &1638&1597819865&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,84.0,84,84.00&38:6132&18:65535
+19-08-2020 07:00:20 - length 82 -> 41
+19-08-2020 07:00:20 - LoRaRadio: Attempting to send message...
+19-08-2020 07:00:24 - LoRaRadio: transmission complete
+19-08-2020 07:00:24 - Successfully sent message "&1638&1597819865&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,84.0,84,84.00&38:6132&18:65535"
+19-08-2020 07:00:24 - Setting radio timer: 600 s
+19-08-2020 07:00:24 - Power saving for 00:00:41
+19-08-2020 07:01:06 - Setting data record timer: 600 s
+19-08-2020 07:01:11 - Reading data from sensors...
+19-08-2020 07:01:15 - Error: Could not read Luminox O2 sensor.
+19-08-2020 07:01:20 - Got data, processing and parsing...
+19-08-2020 07:01:20 - Read data packet: &1638&1597820466&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6205&18:65535
+19-08-2020 07:01:20 - Power saving for 00:09:04
+19-08-2020 07:10:25 - Encoding message: &1638&1597820466&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6205&18:65535
+19-08-2020 07:10:25 - length 82 -> 41
+19-08-2020 07:10:25 - LoRaRadio: Attempting to send message...
+19-08-2020 07:10:30 - LoRaRadio: transmission complete
+19-08-2020 07:10:30 - Successfully sent message "&1638&1597820466&17:0&32:-1.0,-1.0,-1,-1.00&33:84.0,84.0,84,84.00&38:6205&18:65535"
+19-08-2020 07:10:30 - Setting radio timer: 600 s
+19-08-2020 07:10:30 - Power saving for 00:00:36
+19-08-2020 07:11:07 - Setting data record timer: 600 s
+19-08-2020 07:11:12 - Reading data from sensors...
+19-08-2020 07:11:16 - Error: Could not read Luminox O2 sensor.
+19-08-2020 07:11:21 - Got data, processing and parsing...
+19-08-2020 07:11:21 - Read data packet: &1638&1597821067&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6167&18:65535
+19-08-2020 07:11:21 - Power saving for 00:09:09
+19-08-2020 07:20:31 - Encoding message: &1638&1597821067&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6167&18:65535
+19-08-2020 07:20:31 - length 82 -> 41
+19-08-2020 07:20:31 - LoRaRadio: Attempting to send message...
+19-08-2020 07:20:35 - LoRaRadio: transmission complete
+19-08-2020 07:20:35 - Successfully sent message "&1638&1597821067&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6167&18:65535"
+19-08-2020 07:20:35 - Setting radio timer: 600 s
+19-08-2020 07:20:35 - Power saving for 00:00:32
+19-08-2020 07:21:08 - Setting data record timer: 600 s
+19-08-2020 07:21:13 - Reading data from sensors...
+19-08-2020 07:21:17 - Error: Could not read Luminox O2 sensor.
+19-08-2020 07:21:22 - Got data, processing and parsing...
+19-08-2020 07:21:22 - Read data packet: &1638&1597821668&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6167&18:65535
+19-08-2020 07:21:22 - Power saving for 00:09:13
+19-08-2020 07:30:36 - Encoding message: &1638&1597821668&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6167&18:65535
+19-08-2020 07:30:36 - length 82 -> 41
+19-08-2020 07:30:36 - LoRaRadio: Attempting to send message...
+19-08-2020 07:30:40 - LoRaRadio: transmission complete
+19-08-2020 07:30:40 - Successfully sent message "&1638&1597821668&17:0&32:-1.0,-1.0,-1,-1.00&33:84.1,84.1,84,84.10&38:6167&18:65535"
+19-08-2020 07:30:40 - Setting radio timer: 600 s
+19-08-2020 07:30:40 - Power saving for 00:00:28
+19-08-2020 07:31:09 - Setting data record timer: 600 s
+19-08-2020 07:31:14 - Reading data from sensors...
+19-08-2020 07:31:18 - Error: Could not read Luminox O2 sensor.
+19-08-2020 07:31:23 - Got data, processing and parsing...
+19-08-2020 07:31:23 - Read data packet: &1638&1597822269&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,84.00&38:6195&18:65535
+19-08-2020 07:31:23 - Power saving for 00:09:17
+19-08-2020 07:40:41 - Encoding message: &1638&1597822269&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,84.00&38:6195&18:65535
+19-08-2020 07:40:41 - length 82 -> 41
+19-08-2020 07:40:41 - LoRaRadio: Attempting to send message...
+19-08-2020 07:40:45 - LoRaRadio: transmission complete
+19-08-2020 07:40:45 - Successfully sent message "&1638&1597822269&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,84.00&38:6195&18:65535"
+19-08-2020 07:40:45 - Setting radio timer: 600 s
+19-08-2020 07:40:45 - Power saving for 00:00:24
+19-08-2020 07:41:10 - Setting data record timer: 600 s
+19-08-2020 07:41:15 - Reading data from sensors...
+19-08-2020 07:41:19 - Error: Could not read Luminox O2 sensor.
+19-08-2020 07:41:24 - Got data, processing and parsing...
+19-08-2020 07:41:24 - Read data packet: &1638&1597822870&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,83.90&38:6206&18:65535
+19-08-2020 07:41:24 - Power saving for 00:09:21
+19-08-2020 07:50:46 - Encoding message: &1638&1597822870&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,83.90&38:6206&18:65535
+19-08-2020 07:50:46 - length 82 -> 41
+19-08-2020 07:50:46 - LoRaRadio: Attempting to send message...
+19-08-2020 07:50:51 - LoRaRadio: transmission complete
+19-08-2020 07:50:51 - Successfully sent message "&1638&1597822870&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,83.90&38:6206&18:65535"
+19-08-2020 07:50:51 - Setting radio timer: 600 s
+19-08-2020 07:50:51 - Power saving for 00:00:19
+19-08-2020 07:51:11 - Setting data record timer: 600 s
+19-08-2020 07:51:16 - Reading data from sensors...
+19-08-2020 07:51:20 - Error: Could not read Luminox O2 sensor.
+19-08-2020 07:51:25 - Got data, processing and parsing...
+19-08-2020 07:51:25 - Read data packet: &1638&1597823471&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.9,84,83.90&38:6115&18:65535
+19-08-2020 07:51:25 - Power saving for 00:09:26
+19-08-2020 08:00:52 - Encoding message: &1638&1597823471&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.9,84,83.90&38:6115&18:65535
+19-08-2020 08:00:52 - length 82 -> 41
+19-08-2020 08:00:52 - LoRaRadio: Attempting to send message...
+19-08-2020 08:00:57 - LoRaRadio: transmission complete
+19-08-2020 08:00:57 - Successfully sent message "&1638&1597823471&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.9,84,83.90&38:6115&18:65535"
+19-08-2020 08:00:57 - Setting radio timer: 600 s
+19-08-2020 08:00:57 - Power saving for 00:00:14
+19-08-2020 08:01:12 - Setting data record timer: 600 s
+19-08-2020 08:01:17 - Reading data from sensors...
+19-08-2020 08:01:21 - Error: Could not read Luminox O2 sensor.
+19-08-2020 08:01:26 - Got data, processing and parsing...
+19-08-2020 08:01:26 - Read data packet: &1638&1597824072&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,83.90&38:6083&18:65535
+19-08-2020 08:01:26 - Power saving for 00:09:31
+19-08-2020 08:10:58 - Encoding message: &1638&1597824072&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,83.90&38:6083&18:65535
+19-08-2020 08:10:58 - length 82 -> 41
+19-08-2020 08:10:58 - LoRaRadio: Attempting to send message...
+19-08-2020 08:11:03 - LoRaRadio: transmission complete
+19-08-2020 08:11:03 - Successfully sent message "&1638&1597824072&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,83.90&38:6083&18:65535"
+19-08-2020 08:11:03 - Setting radio timer: 600 s
+19-08-2020 08:11:13 - Setting data record timer: 600 s
+19-08-2020 08:11:18 - Reading data from sensors...
+19-08-2020 08:11:22 - Error: Could not read Luminox O2 sensor.
+19-08-2020 08:11:27 - Got data, processing and parsing...
+19-08-2020 08:11:27 - Read data packet: &1638&1597824673&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,83.90&38:6120&18:65535
+19-08-2020 08:11:27 - Power saving for 00:09:36
+19-08-2020 08:21:04 - Encoding message: &1638&1597824673&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,83.90&38:6120&18:65535
+19-08-2020 08:21:04 - length 82 -> 41
+19-08-2020 08:21:04 - LoRaRadio: Attempting to send message...
+19-08-2020 08:21:09 - LoRaRadio: transmission complete
+19-08-2020 08:21:09 - Successfully sent message "&1638&1597824673&17:0&32:-1.0,-1.0,-1,-1.00&33:83.9,83.9,84,83.90&38:6120&18:65535"
+19-08-2020 08:21:09 - Setting radio timer: 600 s
+19-08-2020 08:21:14 - Setting data record timer: 600 s
+19-08-2020 08:21:19 - Reading data from sensors...
+19-08-2020 08:21:23 - Error: Could not read Luminox O2 sensor.
+19-08-2020 08:21:28 - Got data, processing and parsing...
+19-08-2020 08:21:28 - Read data packet: &1638&1597825274&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.9,84,83.90&38:6249&18:65535
+19-08-2020 08:21:28 - Power saving for 00:09:41
+19-08-2020 08:31:10 - Encoding message: &1638&1597825274&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.9,84,83.90&38:6249&18:65535
+19-08-2020 08:31:10 - length 82 -> 41
+19-08-2020 08:31:10 - LoRaRadio: Attempting to send message...
+19-08-2020 08:31:15 - LoRaRadio: transmission complete
+19-08-2020 08:31:15 - Successfully sent message "&1638&1597825274&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.9,84,83.90&38:6249&18:65535"
+19-08-2020 08:31:15 - Setting radio timer: 600 s
+19-08-2020 08:31:15 - Setting data record timer: 600 s
+19-08-2020 08:31:20 - Reading data from sensors...
+19-08-2020 08:31:24 - Error: Could not read Luminox O2 sensor.
+19-08-2020 08:31:29 - Got data, processing and parsing...
+19-08-2020 08:31:29 - Read data packet: &1638&1597825875&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.7,84,83.70&38:6099&18:65535
+19-08-2020 08:31:29 - Power saving for 00:09:46
+19-08-2020 08:41:16 - Setting data record timer: 600 s
+19-08-2020 08:41:21 - Reading data from sensors...
+19-08-2020 08:41:25 - Error: Could not read Luminox O2 sensor.
+19-08-2020 08:41:30 - Got data, processing and parsing...
+19-08-2020 08:41:30 - Read data packet: &1638&1597826476&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6071&18:65535
+19-08-2020 08:41:30 - Encoding message: &1638&1597826476&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6071&18:65535
+19-08-2020 08:41:30 - length 82 -> 41
+19-08-2020 08:41:30 - LoRaRadio: Attempting to send message...
+19-08-2020 08:41:34 - LoRaRadio: transmission complete
+19-08-2020 08:41:34 - Successfully sent message "&1638&1597826476&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6071&18:65535"
+19-08-2020 08:41:34 - Setting radio timer: 300 s
+19-08-2020 08:41:34 - Power saving for 00:05:00
+19-08-2020 08:46:35 - Encoding message: &1638&1597825875&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.7,84,83.70&38:6099&18:65535
+19-08-2020 08:46:35 - length 82 -> 41
+19-08-2020 08:46:35 - LoRaRadio: Attempting to send message...
+19-08-2020 08:46:40 - LoRaRadio: transmission complete
+19-08-2020 08:46:40 - Successfully sent message "&1638&1597825875&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.7,84,83.70&38:6099&18:65535"
+19-08-2020 08:46:40 - Setting radio timer: 600 s
+19-08-2020 08:46:40 - Power saving for 00:04:36
+19-08-2020 08:51:17 - Setting data record timer: 600 s
+19-08-2020 08:51:22 - Reading data from sensors...
+19-08-2020 08:51:26 - Error: Could not read Luminox O2 sensor.
+19-08-2020 08:51:31 - Got data, processing and parsing...
+19-08-2020 08:51:31 - Read data packet: &1638&1597827077&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6082&18:65535
+19-08-2020 08:51:31 - Power saving for 00:05:09
+19-08-2020 08:56:41 - Encoding message: &1638&1597827077&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6082&18:65535
+19-08-2020 08:56:41 - length 82 -> 41
+19-08-2020 08:56:41 - LoRaRadio: Attempting to send message...
+19-08-2020 08:56:45 - LoRaRadio: transmission complete
+19-08-2020 08:56:45 - Successfully sent message "&1638&1597827077&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6082&18:65535"
+19-08-2020 08:56:45 - Setting radio timer: 600 s
+19-08-2020 08:56:45 - Power saving for 00:04:32
+19-08-2020 09:01:18 - Setting data record timer: 600 s
+19-08-2020 09:01:23 - Reading data from sensors...
+19-08-2020 09:01:27 - Error: Could not read Luminox O2 sensor.
+19-08-2020 09:01:32 - Got data, processing and parsing...
+19-08-2020 09:01:32 - Read data packet: &1638&1597827678&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.7,84,83.70&38:6149&18:65535
+19-08-2020 09:01:32 - Power saving for 00:05:13
+19-08-2020 09:06:46 - Encoding message: &1638&1597827678&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.7,84,83.70&38:6149&18:65535
+19-08-2020 09:06:46 - length 82 -> 41
+19-08-2020 09:06:46 - LoRaRadio: Attempting to send message...
+19-08-2020 09:06:51 - LoRaRadio: transmission complete
+19-08-2020 09:06:51 - Successfully sent message "&1638&1597827678&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.7,84,83.70&38:6149&18:65535"
+19-08-2020 09:06:51 - Setting radio timer: 600 s
+19-08-2020 09:06:51 - Power saving for 00:04:27
+19-08-2020 09:11:19 - Setting data record timer: 600 s
+19-08-2020 09:11:24 - Reading data from sensors...
+19-08-2020 09:11:28 - Error: Could not read Luminox O2 sensor.
+19-08-2020 09:11:33 - Got data, processing and parsing...
+19-08-2020 09:11:33 - Read data packet: &1638&1597828279&17:0&32:-1.0,-1.0,-1,-1.00&33:83.6,83.6,84,83.70&38:6070&18:65535
+19-08-2020 09:11:33 - Power saving for 00:05:18
+19-08-2020 09:16:52 - Encoding message: &1638&1597828279&17:0&32:-1.0,-1.0,-1,-1.00&33:83.6,83.6,84,83.70&38:6070&18:65535
+19-08-2020 09:16:52 - length 82 -> 41
+19-08-2020 09:16:52 - LoRaRadio: Attempting to send message...
+19-08-2020 09:16:57 - LoRaRadio: transmission complete
+19-08-2020 09:16:57 - Successfully sent message "&1638&1597828279&17:0&32:-1.0,-1.0,-1,-1.00&33:83.6,83.6,84,83.70&38:6070&18:65535"
+19-08-2020 09:16:57 - Setting radio timer: 600 s
+19-08-2020 09:16:57 - Power saving for 00:04:22
+19-08-2020 09:21:20 - Setting data record timer: 600 s
+19-08-2020 09:21:25 - Reading data from sensors...
+19-08-2020 09:21:29 - Error: Could not read Luminox O2 sensor.
+19-08-2020 09:21:34 - Got data, processing and parsing...
+19-08-2020 09:21:34 - Read data packet: &1638&1597828880&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6050&18:65535
+19-08-2020 09:21:34 - Power saving for 00:05:23
+19-08-2020 09:26:58 - Encoding message: &1638&1597828880&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6050&18:65535
+19-08-2020 09:26:58 - length 82 -> 41
+19-08-2020 09:26:58 - LoRaRadio: Attempting to send message...
+19-08-2020 09:27:01 - LoRaRadio: transmission complete
+19-08-2020 09:27:01 - Successfully sent message "&1638&1597828880&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6050&18:65535"
+19-08-2020 09:27:01 - Setting radio timer: 600 s
+19-08-2020 09:27:01 - Power saving for 00:04:19
+19-08-2020 09:31:22 - Setting data record timer: 600 s
+19-08-2020 09:31:27 - Reading data from sensors...
+19-08-2020 09:31:31 - Error: Could not read Luminox O2 sensor.
+19-08-2020 09:31:36 - Got data, processing and parsing...
+19-08-2020 09:31:36 - Read data packet: &1638&1597829482&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6095&18:65535
+19-08-2020 09:31:36 - Power saving for 00:05:25
+19-08-2020 09:37:02 - Encoding message: &1638&1597829482&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6095&18:65535
+19-08-2020 09:37:02 - length 82 -> 41
+19-08-2020 09:37:02 - LoRaRadio: Attempting to send message...
+19-08-2020 09:37:06 - LoRaRadio: transmission complete
+19-08-2020 09:37:06 - Successfully sent message "&1638&1597829482&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6095&18:65535"
+19-08-2020 09:37:06 - Setting radio timer: 600 s
+19-08-2020 09:37:06 - Power saving for 00:04:16
+19-08-2020 09:41:23 - Setting data record timer: 600 s
+19-08-2020 09:41:28 - Reading data from sensors...
+19-08-2020 09:41:32 - Error: Could not read Luminox O2 sensor.
+19-08-2020 09:41:37 - Got data, processing and parsing...
+19-08-2020 09:41:37 - Read data packet: &1638&1597830083&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6139&18:65535
+19-08-2020 09:41:37 - Power saving for 00:05:29
+19-08-2020 09:47:07 - Encoding message: &1638&1597830083&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6139&18:65535
+19-08-2020 09:47:07 - length 82 -> 41
+19-08-2020 09:47:07 - LoRaRadio: Attempting to send message...
+19-08-2020 09:47:12 - LoRaRadio: transmission complete
+19-08-2020 09:47:12 - Successfully sent message "&1638&1597830083&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6139&18:65535"
+19-08-2020 09:47:12 - Setting radio timer: 600 s
+19-08-2020 09:47:12 - Power saving for 00:04:11
+19-08-2020 09:51:24 - Setting data record timer: 600 s
+19-08-2020 09:51:29 - Reading data from sensors...
+19-08-2020 09:51:33 - Error: Could not read Luminox O2 sensor.
+19-08-2020 09:51:38 - Got data, processing and parsing...
+19-08-2020 09:51:38 - Read data packet: &1638&1597830684&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.7,84,83.70&38:6047&18:65535
+19-08-2020 09:51:38 - Power saving for 00:05:34
+19-08-2020 09:57:13 - Encoding message: &1638&1597830684&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.7,84,83.70&38:6047&18:65535
+19-08-2020 09:57:13 - length 82 -> 41
+19-08-2020 09:57:13 - LoRaRadio: Attempting to send message...
+19-08-2020 09:57:18 - LoRaRadio: transmission complete
+19-08-2020 09:57:18 - Successfully sent message "&1638&1597830684&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.7,84,83.70&38:6047&18:65535"
+19-08-2020 09:57:18 - Setting radio timer: 600 s
+19-08-2020 09:57:18 - Power saving for 00:04:06
+19-08-2020 10:01:25 - Setting data record timer: 600 s
+19-08-2020 10:01:30 - Reading data from sensors...
+19-08-2020 10:01:34 - Error: Could not read Luminox O2 sensor.
+19-08-2020 10:01:39 - Got data, processing and parsing...
+19-08-2020 10:01:39 - Read data packet: &1638&1597831285&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6087&18:65535
+19-08-2020 10:01:39 - Power saving for 00:05:39
+19-08-2020 10:07:19 - Encoding message: &1638&1597831285&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6087&18:65535
+19-08-2020 10:07:19 - length 82 -> 41
+19-08-2020 10:07:19 - LoRaRadio: Attempting to send message...
+19-08-2020 10:07:23 - LoRaRadio: transmission complete
+19-08-2020 10:07:23 - Successfully sent message "&1638&1597831285&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6087&18:65535"
+19-08-2020 10:07:23 - Setting radio timer: 600 s
+19-08-2020 10:07:24 - Power saving for 00:04:01
+19-08-2020 10:11:26 - Setting data record timer: 600 s
+19-08-2020 10:11:31 - Reading data from sensors...
+19-08-2020 10:11:35 - Error: Could not read Luminox O2 sensor.
+19-08-2020 10:11:40 - Got data, processing and parsing...
+19-08-2020 10:11:40 - Read data packet: &1638&1597831886&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6130&18:65535
+19-08-2020 10:11:40 - Power saving for 00:05:44
+19-08-2020 10:17:25 - Encoding message: &1638&1597831886&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6130&18:65535
+19-08-2020 10:17:25 - length 82 -> 41
+19-08-2020 10:17:25 - LoRaRadio: Attempting to send message...
+19-08-2020 10:17:28 - LoRaRadio: transmission complete
+19-08-2020 10:17:28 - Successfully sent message "&1638&1597831886&17:0&32:-1.0,-1.0,-1,-1.00&33:83.8,83.8,84,83.80&38:6130&18:65535"
+19-08-2020 10:17:28 - Setting radio timer: 600 s
+19-08-2020 10:17:28 - Power saving for 00:03:58
+19-08-2020 10:21:28 - Setting data record timer: 600 s
+19-08-2020 10:21:33 - Reading data from sensors...
+19-08-2020 10:21:37 - Error: Could not read Luminox O2 sensor.
+19-08-2020 10:21:42 - Got data, processing and parsing...
+19-08-2020 10:21:42 - Read data packet: &1638&1597832488&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.8,84,83.80&38:6131&18:65535
+19-08-2020 10:21:42 - Power saving for 00:05:46
+19-08-2020 10:27:29 - Encoding message: &1638&1597832488&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.8,84,83.80&38:6131&18:65535
+19-08-2020 10:27:29 - length 82 -> 41
+19-08-2020 10:27:29 - LoRaRadio: Attempting to send message...
+19-08-2020 10:27:33 - LoRaRadio: transmission complete
+19-08-2020 10:27:33 - Successfully sent message "&1638&1597832488&17:0&32:-1.0,-1.0,-1,-1.00&33:83.7,83.8,84,83.80&38:6131&18:65535"
+19-08-2020 10:27:33 - Setting radio timer: 600 s
+19-08-2020 10:27:33 - Power saving for 00:03:55
+19-08-2020 10:31:29 - Setting data record timer: 600 s
+19-08-2020 10:31:34 - Reading data from sensors...
+19-08-2020 10:31:38 - Error: Could not read Luminox O2 sensor.
+19-08-2020 10:31:43 - Got data, processing and parsing...
+19-08-2020 10:31:43 - Read data packet: &1638&1597833089&17:0&32:-1.0,-1.0,-1,-1.00&33:83.6,83.6,84,83.60&38:6035&18:65535
+19-08-2020 10:31:43 - Power saving for 00:05:50
+19-08-2020 10:37:34 - Encoding message: &1638&1597833089&17:0&32:-1.0,-1.0,-1,-1.00&33:83.6,83.6,84,83.60&38:6035&18:65535
+19-08-2020 10:37:34 - length 82 -> 41
+19-08-2020 10:37:34 - LoRaRadio: Attempting to send message...
+19-08-2020 10:37:38 - LoRaRadio: transmission complete
+19-08-2020 10:37:38 - Successfully sent message "&1638&1597833089&17:0&32:-1.0,-1.0,-1,-1.00&33:83.6,83.6,84,83.60&38:6035&18:65535"
+19-08-2020 10:37:38 - Setting radio timer: 600 s
+19-08-2020 10:37:38 - Power saving for 00:03:51
+19-08-2020 10:41:30 - Setting data record timer: 600 s
+19-08-2020 10:41:35 - Reading data from sensors...
+19-08-2020 10:41:39 - Error: Could not read Luminox O2 sensor.
+19-08-2020 10:41:44 - Got data, processing and parsing...
+19-08-2020 10:41:44 - Read data packet: &1638&1597833690&17:0&32:-1.0,-1.0,-1,-1.00&33:83.5,83.5,84,83.60&38:6157&18:65535
+19-08-2020 10:41:44 - Power saving for 00:05:54
+19-08-2020 10:47:39 - Encoding message: &1638&1597833690&17:0&32:-1.0,-1.0,-1,-1.00&33:83.5,83.5,84,83.60&38:6157&18:65535
+19-08-2020 10:47:39 - length 82 -> 41
+19-08-2020 10:47:39 - LoRaRadio: Attempting to send message...
+19-08-2020 10:47:44 - LoRaRadio: transmission complete
+19-08-2020 10:47:44 - Successfully sent message "&1638&1597833690&17:0&32:-1.0,-1.0,-1,-1.00&33:83.5,83.5,84,83.60&38:6157&18:65535"
+19-08-2020 10:47:44 - Setting radio timer: 600 s
+19-08-2020 10:47:44 - Power saving for 00:03:46
+19-08-2020 10:51:31 - Setting data record timer: 600 s
+19-08-2020 10:51:36 - Reading data from sensors...
+19-08-2020 10:51:40 - Error: Could not read Luminox O2 sensor.
+19-08-2020 10:51:45 - Got data, processing and parsing...
+19-08-2020 10:51:45 - Read data packet: &1638&1597834291&17:0&32:-1.0,-1.0,-1,-1.00&33:83.6,83.6,84,83.60&38:6078&18:65535
+19-08-2020 10:51:45 - Power saving for 00:05:59
+19-08-2020 10:57:45 - Encoding message: &1638&1597834291&17:0&32:-1.0,-1.0,-1,-1.00&33:83.6,83.6,84,83.60&38:6078&18:65535
+19-08-2020 10:57:45 - length 82 -> 41
+19-08-2020 10:57:45 - LoRaRadio: Attempting to send message...
+19-08-2020 10:57:49 - LoRaRadio: transmission complete
+19-08-2020 10:57:49 - Successfully sent message "&1638&1597834291&17:0&32:-1.0,-1.0,-1,-1.00&33:83.6,83.6,84,83.60&38:6078&18:65535"
+19-08-2020 10:57:49 - Setting radio timer: 600 s
+19-08-2020 10:57:49 - Power saving for 00:03:42
+19-08-2020 11:01:32 - Setting data record timer: 600 s
+19-08-2020 11:01:37 - Reading data from sensors...
+19-08-2020 11:01:41 - Error: Could not read Luminox O2 sensor.
+19-08-2020 11:01:46 - Got data, processing and parsing...
+19-08-2020 11:01:46 - Read data packet: &1638&1597834892&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.4,83,83.40&38:6081&18:65535
+19-08-2020 11:01:46 - Power saving for 00:06:03
+19-08-2020 11:07:50 - Encoding message: &1638&1597834892&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.4,83,83.40&38:6081&18:65535
+19-08-2020 11:07:50 - length 82 -> 41
+19-08-2020 11:07:50 - LoRaRadio: Attempting to send message...
+19-08-2020 11:07:55 - LoRaRadio: transmission complete
+19-08-2020 11:07:55 - Successfully sent message "&1638&1597834892&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.4,83,83.40&38:6081&18:65535"
+19-08-2020 11:07:55 - Setting radio timer: 600 s
+19-08-2020 11:07:55 - Power saving for 00:03:37
+19-08-2020 11:11:33 - Setting data record timer: 600 s
+19-08-2020 11:11:38 - Reading data from sensors...
+19-08-2020 11:11:42 - Error: Could not read Luminox O2 sensor.
+19-08-2020 11:11:47 - Got data, processing and parsing...
+19-08-2020 11:11:47 - Read data packet: &1638&1597835493&17:0&32:-1.0,-1.0,-1,-1.00&33:83.4,83.4,83,83.40&38:6060&18:65535
+19-08-2020 11:11:47 - Power saving for 00:06:08
+19-08-2020 11:17:56 - Encoding message: &1638&1597835493&17:0&32:-1.0,-1.0,-1,-1.00&33:83.4,83.4,83,83.40&38:6060&18:65535
+19-08-2020 11:17:56 - length 82 -> 41
+19-08-2020 11:17:56 - LoRaRadio: Attempting to send message...
+19-08-2020 11:17:59 - LoRaRadio: transmission complete
+19-08-2020 11:17:59 - Successfully sent message "&1638&1597835493&17:0&32:-1.0,-1.0,-1,-1.00&33:83.4,83.4,83,83.40&38:6060&18:65535"
+19-08-2020 11:17:59 - Setting radio timer: 600 s
+19-08-2020 11:17:59 - Power saving for 00:03:34
+19-08-2020 11:21:35 - Setting data record timer: 600 s
+19-08-2020 11:21:40 - Reading data from sensors...
+19-08-2020 11:21:44 - Error: Could not read Luminox O2 sensor.
+19-08-2020 11:21:49 - Got data, processing and parsing...
+19-08-2020 11:21:49 - Read data packet: &1638&1597836095&17:0&32:-1.0,-1.0,-1,-1.00&33:83.2,83.2,83,83.30&38:6155&18:65535
+19-08-2020 11:21:49 - Power saving for 00:06:10
+19-08-2020 11:28:00 - Encoding message: &1638&1597836095&17:0&32:-1.0,-1.0,-1,-1.00&33:83.2,83.2,83,83.30&38:6155&18:65535
+19-08-2020 11:28:00 - length 82 -> 41
+19-08-2020 11:28:00 - LoRaRadio: Attempting to send message...
+19-08-2020 11:28:03 - LoRaRadio: transmission complete
+19-08-2020 11:28:04 - Successfully sent message "&1638&1597836095&17:0&32:-1.0,-1.0,-1,-1.00&33:83.2,83.2,83,83.30&38:6155&18:65535"
+19-08-2020 11:28:04 - Setting radio timer: 600 s
+19-08-2020 11:28:04 - Power saving for 00:03:31
+19-08-2020 11:31:36 - Setting data record timer: 600 s
+19-08-2020 11:31:41 - Reading data from sensors...
+19-08-2020 11:31:45 - Error: Could not read Luminox O2 sensor.
+19-08-2020 11:31:50 - Got data, processing and parsing...
+19-08-2020 11:31:50 - Read data packet: &1638&1597836696&17:0&32:-1.0,-1.0,-1,-1.00&33:83.4,83.4,83,83.40&38:6128&18:65535
+19-08-2020 11:31:50 - Power saving for 00:06:14
+19-08-2020 11:38:05 - Encoding message: &1638&1597836696&17:0&32:-1.0,-1.0,-1,-1.00&33:83.4,83.4,83,83.40&38:6128&18:65535
+19-08-2020 11:38:05 - length 82 -> 41
+19-08-2020 11:38:05 - LoRaRadio: Attempting to send message...
+19-08-2020 11:38:09 - LoRaRadio: transmission complete
+19-08-2020 11:38:09 - Successfully sent message "&1638&1597836696&17:0&32:-1.0,-1.0,-1,-1.00&33:83.4,83.4,83,83.40&38:6128&18:65535"
+19-08-2020 11:38:09 - Setting radio timer: 600 s
+19-08-2020 11:38:09 - Power saving for 00:03:27
+19-08-2020 11:41:37 - Setting data record timer: 600 s
+19-08-2020 11:41:42 - Reading data from sensors...
+19-08-2020 11:41:46 - Error: Could not read Luminox O2 sensor.
+19-08-2020 11:41:51 - Got data, processing and parsing...
+19-08-2020 11:41:51 - Read data packet: &1638&1597837297&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.3,83,83.40&38:6311&18:65535
+19-08-2020 11:41:51 - Power saving for 00:06:18
+19-08-2020 11:48:10 - Encoding message: &1638&1597837297&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.3,83,83.40&38:6311&18:65535
+19-08-2020 11:48:10 - length 82 -> 41
+19-08-2020 11:48:10 - LoRaRadio: Attempting to send message...
+19-08-2020 11:48:15 - LoRaRadio: transmission complete
+19-08-2020 11:48:15 - Successfully sent message "&1638&1597837297&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.3,83,83.40&38:6311&18:65535"
+19-08-2020 11:48:15 - Setting radio timer: 600 s
+19-08-2020 11:48:15 - Power saving for 00:03:22
+19-08-2020 11:51:38 - Setting data record timer: 600 s
+19-08-2020 11:51:43 - Reading data from sensors...
+19-08-2020 11:51:47 - Error: Could not read Luminox O2 sensor.
+19-08-2020 11:51:52 - Got data, processing and parsing...
+19-08-2020 11:51:52 - Read data packet: &1638&1597837898&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.3,83,83.30&38:6065&18:65535
+19-08-2020 11:51:52 - Power saving for 00:06:23
+19-08-2020 11:58:16 - Encoding message: &1638&1597837898&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.3,83,83.30&38:6065&18:65535
+19-08-2020 11:58:16 - length 82 -> 41
+19-08-2020 11:58:16 - LoRaRadio: Attempting to send message...
+19-08-2020 11:58:20 - LoRaRadio: transmission complete
+19-08-2020 11:58:20 - Successfully sent message "&1638&1597837898&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.3,83,83.30&38:6065&18:65535"
+19-08-2020 11:58:20 - Setting radio timer: 600 s
+19-08-2020 11:58:20 - Power saving for 00:03:18
+19-08-2020 12:01:40 - Setting data record timer: 600 s
+19-08-2020 12:01:45 - Reading data from sensors...
+19-08-2020 12:01:49 - Error: Could not read Luminox O2 sensor.
+19-08-2020 12:01:54 - Got data, processing and parsing...
+19-08-2020 12:01:54 - Read data packet: &1638&1597838500&17:0&32:-1.0,-1.0,-1,-1.00&33:83.5,83.5,84,83.50&38:6329&18:65535
+19-08-2020 12:01:54 - Power saving for 00:06:26
+19-08-2020 12:08:21 - Encoding message: &1638&1597838500&17:0&32:-1.0,-1.0,-1,-1.00&33:83.5,83.5,84,83.50&38:6329&18:65535
+19-08-2020 12:08:21 - length 82 -> 41
+19-08-2020 12:08:21 - LoRaRadio: Attempting to send message...
+19-08-2020 12:08:25 - LoRaRadio: transmission complete
+19-08-2020 12:08:25 - Successfully sent message "&1638&1597838500&17:0&32:-1.0,-1.0,-1,-1.00&33:83.5,83.5,84,83.50&38:6329&18:65535"
+19-08-2020 12:08:25 - Setting radio timer: 600 s
+19-08-2020 12:08:25 - Power saving for 00:03:15
+19-08-2020 12:11:41 - Setting data record timer: 600 s
+19-08-2020 12:11:46 - Reading data from sensors...
+19-08-2020 12:11:50 - Error: Could not read Luminox O2 sensor.
+19-08-2020 12:11:55 - Got data, processing and parsing...
+19-08-2020 12:11:55 - Read data packet: &1638&1597839101&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.4,83,83.40&38:6309&18:65535
+19-08-2020 12:11:55 - Power saving for 00:06:30
+19-08-2020 12:18:26 - Encoding message: &1638&1597839101&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.4,83,83.40&38:6309&18:65535
+19-08-2020 12:18:26 - length 82 -> 41
+19-08-2020 12:18:26 - LoRaRadio: Attempting to send message...
+19-08-2020 12:18:30 - LoRaRadio: transmission complete
+19-08-2020 12:18:30 - Successfully sent message "&1638&1597839101&17:0&32:-1.0,-1.0,-1,-1.00&33:83.3,83.4,83,83.40&38:6309&18:65535"
+19-08-2020 12:18:30 - Setting radio timer: 600 s
+19-08-2020 12:18:30 - Power saving for 00:03:11
+19-08-2020 12:21:42 - Setting data record timer: 600 s
+19-08-2020 12:21:47 - Reading data from sensors...
+19-08-2020 12:21:51 - Error: Could not read Luminox O2 sensor.
+19-08-2020 12:21:56 - Got data, processing and parsing...
+19-08-2020 12:21:56 - Read data packet: &1638&1597839702&17:0&32:-1.0,-1.0,-1,-1.00&33:83.2,83.2,83,83.20&38:6355&18:65535
+19-08-2020 12:21:56 - Power saving for 00:06:34
+19-08-2020 12:28:31 - Encoding message: &1638&1597839702&17:0&32:-1.0,-1.0,-1,-1.00&33:83.2,83.2,83,83.20&38:6355&18:65535
+19-08-2020 12:28:31 - length 82 -> 41
+19-08-2020 12:28:31 - LoRaRadio: Attempting to send message...
+19-08-2020 12:28:35 - LoRaRadio: transmission complete
+19-08-2020 12:28:35 - Successfully sent message "&1638&1597839702&17:0&32:-1.0,-1.0,-1,-1.00&33:83.2,83.2,83,83.20&38:6355&18:65535"
+19-08-2020 12:28:35 - Setting radio timer: 600 s
+19-08-2020 12:28:35 - Power saving for 00:03:07
+19-08-2020 12:31:43 - Setting data record timer: 600 s
+19-08-2020 12:31:48 - Reading data from sensors...
+19-08-2020 12:31:52 - Error: Could not read Luminox O2 sensor.
+19-08-2020 12:31:57 - Got data, processing and parsing...
+19-08-2020 12:31:57 - Read data packet: &1638&1597840303&17:0&32:-1.0,-1.0,-1,-1.00&33:82.7,82.7,83,82.70&38:8204&18:65535
+19-08-2020 12:31:57 - Power saving for 00:06:38
+19-08-2020 12:38:36 - Encoding message: &1638&1597840303&17:0&32:-1.0,-1.0,-1,-1.00&33:82.7,82.7,83,82.70&38:8204&18:65535
+19-08-2020 12:38:36 - length 82 -> 41
+19-08-2020 12:38:36 - LoRaRadio: Attempting to send message...
+19-08-2020 12:38:39 - LoRaRadio: transmission complete
+19-08-2020 12:38:39 - Successfully sent message "&1638&1597840303&17:0&32:-1.0,-1.0,-1,-1.00&33:82.7,82.7,83,82.70&38:8204&18:65535"
+19-08-2020 12:38:39 - Setting radio timer: 600 s
+19-08-2020 12:38:39 - Power saving for 00:03:04
+19-08-2020 12:41:45 - Setting data record timer: 600 s
+19-08-2020 12:41:50 - Reading data from sensors...
+19-08-2020 12:41:54 - Error: Could not read Luminox O2 sensor.
+19-08-2020 12:41:59 - Got data, processing and parsing...
+19-08-2020 12:41:59 - Read data packet: &1638&1597840905&17:0&32:-1.0,-1.0,-1,-1.00&33:82.6,82.6,83,82.60&38:7476&18:65535
+19-08-2020 12:41:59 - Power saving for 00:06:40
