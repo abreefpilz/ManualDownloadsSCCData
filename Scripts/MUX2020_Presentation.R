@@ -243,7 +243,7 @@ mux_only_long=mux_only%>%
 #clean dates according to field sheets
 mux_cleaning = as.POSIXct(c("2020-05-04 15:00",
   "2020-07-06 12:48", "2020-07-13 11:24", "2020-06-08 11:50",
-  "2020-06-25 12:00", "2020-07-10 12:00", "2020-07-31 12:00"), tz="Etc/GMT+4")
+  "2020-06-25 12:00", "2020-07-31 12:00"), tz="Etc/GMT+4")
 
 #subset for most recent time period
 mux_lastweek=mux_only_long[mux_only_long$DateTime>"2020-08-24 14:15:00",]
@@ -259,7 +259,30 @@ dev.off()
   
 ####compare 1.6m mux data with 1.6m scan####
 mux_16 = filter(mux_only_long,Depth=='1.6')
-mux_v2 = filter(mux_only,Valve=='2')
+mux_16$wavelength2=gsub('nm','',mux_16$wavelength)
+
+png("mux16_2020_raw_by_depth.png",width = 8, height = 2, units = 'in', res = 300)
+ggplot(mux_16, aes(x=DateTime, y=absorbance, color=wavelength)) + 
+  geom_line() +
+  geom_vline(xintercept = mux_cleaning, linetype="dotted", 
+             color = "black", size=0.6)#+
+  #facet_grid(rows = vars(Depth))
+dev.off()
+
+png("scan16_2020_muxmatch.png",width = 9, height = 2, units = 'in', res = 300)
+
+ggplot(obs_animate2, aes(x=Date.Time,y=absorbance))+
+  geom_line(aes(colour=factor(wavelength)))+
+  geom_vline(xintercept = cleaning, linetype="dotted", 
+             color = "black", size=0.6)
+
+dev.off()
+
+# for (l in 1:nrow(mux_v2)) { #struggling with this for loop, trying to get closest measurements together..
+#   temptime = interval(start = mux_16$DateTime[l]-minutes(4), end = mux_16$DateTime[l]+minutes(4) ) #trying something out with data
+#   mux_16$scan_abs[l]=obs_animate2$absorbance[obs_animate2$wavelength[obs_animate2$Date.Time %within% temptime]==mux_16$wavelength2[l]]
+#   mux_16$scantime[l]=obs_animate2$Date.Time[obs_animate2$Date.Time %within% temptime && obs_animate2$wavelength==mux_16$wavelength2[l]]
+# }
 
 ##### 4.5 m scan #####
 deploy_time = interval(start = "2020-04-10 15:15:00", end = "2020-04-24 10:00:00", tz="Etc/GMT+4" )
@@ -340,7 +363,7 @@ catheader<-read.csv("https://github.com/CareyLabVT/SCCData/raw/mia-data/Catwalk.
 catdata<-read.csv("https://github.com/CareyLabVT/SCCData/raw/mia-data/Catwalk.csv", skip=4, header=F) #get data minus wonky Campbell rows
 names(catdata)<-names(catheader) #combine the names to deal with Campbell logger formatting
 
-sub_cat= interval(start="2020-04-10 15:20:00", end="2020-07-31 10:00:00", tz="Etc/GMT+4")
+sub_cat= interval(start="2020-04-10 15:20:00", end="2020-08-03 09:40:00", tz="Etc/GMT+4")
 catdata$TIMESTAMP=ymd_hms(catdata$TIMESTAMP, tz="Etc/GMT+4")
 catdata_muxmatch = catdata[catdata$TIMESTAMP %within% sub_cat,]
 
@@ -369,7 +392,7 @@ legend("topleft", c("Chla", "Phyco", "fDOM"), text.col=c("green", "blue", "fireb
 
 dev.off()
 
-png("mux16_2020_muxmatch.png",width = 9, height = 6, units = 'in', res = 300)
+png("mux16_2020_muxmatch2.png",width = 9, height = 4, units = 'in', res = 300)
 
 ggplot(obs_animate2, aes(x=Date.Time,y=absorbance))+
   geom_line(aes(colour=factor(wavelength)))+
@@ -378,7 +401,7 @@ ggplot(obs_animate2, aes(x=Date.Time,y=absorbance))+
 
 dev.off()
 
-png("EXObio_2020_muxmatch.png",width = 9, height = 6, units = 'in', res = 300)
+png("EXObio_2020_muxmatch.png",width = 9, height = 4, units = 'in', res = 300)
 
 #wavelength 435-445
 plot(catdata_muxmatch$TIMESTAMP,catdata_muxmatch$Chla_1, main="Chla, Phyco, fDOM", xlab="Time", ylab="ug/L or QSU", type='l', col="green", lwd=1.5, ylim=c(-0.5,35))

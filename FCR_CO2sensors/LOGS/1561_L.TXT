@@ -1,0 +1,46 @@
+                      Node class initializing...
+                      Running software version: 1.7.0
+12-08-2020 07:34:56 - RTC has set the system time: 7:34:56 12 8 2020
+12-08-2020 07:34:56 - Bootcount = 1561
+12-08-2020 07:34:56 - SD: card initialized.
+12-08-2020 07:34:56 - SD: Getting hardware version from config: 4
+12-08-2020 07:34:56 - SD: Getting interval info from config...
+12-08-2020 07:34:56 -     record_time_interval: 600 s
+12-08-2020 07:34:56 -     transmit_time_interval: 300 s
+12-08-2020 07:34:57 -     gps_time_interval: Not found, will use default.
+12-08-2020 07:34:57 - SD: Getting disabled info from config...
+12-08-2020 07:34:57 -     disable_power_save: false
+12-08-2020 07:34:57 -     disable_radio: false
+12-08-2020 07:34:57 -     disable_gps: true
+12-08-2020 07:34:57 - SD: Getting thermistor info from config: OFF
+12-08-2020 07:34:57 - SD: Getting config ID from config: 253
+12-08-2020 07:34:57 - SD: Getting connected sensor info from config...
+12-08-2020 07:34:57 - SD: From config: pin: 17, type: i2c - senseair, SN: 101
+12-08-2020 07:34:57 - SD: From config: pin: 32, type: UART - LuminOx, SN: 195
+12-08-2020 07:34:57 - SD: From config: pin: 33, type: UART - LuminOx, SN: 214
+12-08-2020 07:34:57 - SD: From config: pin: 38, type: i2c - senseair, SN: 100
+12-08-2020 07:34:57 - SD: From config: pin: 18, type: i2c - senseair, SN: 102
+12-08-2020 07:34:57 - Nothing connected on pins:  15 16 31 34 35 36 37 39 19 20 21 22 23
+12-08-2020 07:35:04 - SD: Getting debug info from config: OFF
+12-08-2020 07:35:04 - Read config: :1561&1597217704-1.7.0-253&17:101&32:195&33:214&38:100&18:102
+12-08-2020 07:35:04 - Initializing radio...
+12-08-2020 07:35:04 - SD: Getting network info from config...
+12-08-2020 07:35:04 -     device_EUI: 00D1DC2F61DBF31D
+12-08-2020 07:35:04 -     application_EUI: 70B3D57ED001C671
+12-08-2020 07:35:04 -     app_key: 2558E7BD41A7C4065FBBD547278BAD4B
+12-08-2020 07:35:04 - radio initialized.
+12-08-2020 07:35:04 - Setting radio timer: 300 s
+12-08-2020 07:35:04 - GPS Disabled. Ensuring pin is not being used...
+12-08-2020 07:35:04 - Set up snooze block to enable power save.
+12-08-2020 07:35:04 - Started watchdog timer at 900 s
+12-08-2020 07:35:04 - Setting data record timer: 15 s
+12-08-2020 07:35:04 - Initialization successful!
+12-08-2020 07:35:04 - 
+12-08-2020 07:35:04 - Power saving for 00:00:15
+12-08-2020 07:35:20 - Setting data record timer: 600 s
+12-08-2020 07:35:25 - Reading data from sensors...
+12-08-2020 07:35:29 - Error: Could not read Luminox O2 sensor.
+12-08-2020 07:35:33 - Error: Could not read Luminox O2 sensor.
+12-08-2020 07:35:33 - Got data, processing and parsing...
+12-08-2020 07:35:33 - Read data packet: &1561&1597217720&17:0&32:-1.0,-1.0,-1,-1.00&33:-1.0,-1.0,-1,-1.00&38:7287&18:0
+12-08-2020 07:35:33 - Power saving for 00:04:31
