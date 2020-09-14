@@ -38,5 +38,5 @@ for (i in 1:length(ncomps)) {
 plot(RMSE) #plot RMSE curve
 
 #############
-#Choose the number that is at the bottom of the curve, plus 1. 
+#Choose the number that is at the bottom of the curve, plus 1.  
 ############
