@@ -152,7 +152,7 @@ TS_conc[,(8)]<-WQP_TS #for DOC
 #TS_conc[,(10)]<-WQP_TS #for DC
 #TS_conc[,(11)]<-WQP_TS #for DN
 
-#TS_conc <- read.csv("TS_PREDICTIONS_2019_16m.csv")
+#TS_conc <- read.csv("TS_PREDICTIONS_2019_16m.csv") 
 
 srp_test <- ggplot() +
   geom_point(data=TS_conc, aes(x=DateTime,y=SRP_ugL), size=0.8, alpha=0.8) +
