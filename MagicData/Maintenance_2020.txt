@@ -90,3 +90,37 @@ Data downloaded. 1.6m scan cleaned at 12:54.
 
 07AUG20
 Mux cuvette cleaned at 10:37-10:57.
+
+10AUG20
+Data downloaded. 1.6m scan cleaned at 13:21-13:24EDT.
+
+17AUG20
+Data downloaded. 1.6m scan cleaned at 15:00-15:03EDT. Mux cleaned at 14:49-15:11EDT.
+
+24AUG20
+Data downloaded. 1.6m scan cleaned at 11:59-12:02EDT.
+
+02SEP20
+Data downloaded. 1.6m scan cleaned at 12:35-12:39EDT. Mux pulled for cleaning.
+
+09SEP20
+Attempted to put Mux back out but ran into power issues. Asking Francois about it. 
+
+11SEP20
+Data downloaded. 1.6m scan cleaned at 10:42-10:52EDT.
+
+15SEP20
+Data downloaded. 1.6m scan cleaned at 10:44-10:48EDT.
+
+19SEP20
+Data downloaded. 1.6m scan cleaned at 13:51-14:01EDT. 
+
+30SEP20
+Data downloaded. 1.6m scan cleaned at 10:52-10:57EDT.
+
+06OCT20
+Data downloaded. 1.6m scan cleaned at 14:44-14:46EDT with DI not ethanol. 
+
+14OCT20
+Data downloaded. 1.6m scan cleaned at 13:03-13:05EDT. Chain replaced with new rope 13:28-14:18EDT.
+
