@@ -87,7 +87,7 @@ for(i in 2:nrow(obs)){
 obs_animate = pivot_longer(obs, cols=3:223, names_to = "wavelength", values_to = "absorbance")
 
 #subset data to a smaller interval (one day)
-sub= interval(start="2020-08-17 00:00:00", end="2020-08-19 00:00:00", tz="Etc/GMT+4")
+sub= interval(start="2020-10-16 12:00:00", end="2020-10-26 12:00:00", tz="Etc/GMT+4")
 obs_animate_sub = obs_animate[obs_animate$Date.Time %within% sub,]
 obs_animate_sub$wavelength = as.numeric(obs_animate_sub$wavelength)
 
