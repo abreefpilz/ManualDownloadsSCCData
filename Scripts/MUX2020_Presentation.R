@@ -131,11 +131,11 @@ dev.off()
 cleaning_sub = as.POSIXct(c("2020-04-20 12:40"), tz="Etc/GMT+4")
 obs_animate_sub2 = filter(obs_animate_sub, wavelength==200|wavelength==300|wavelength==400
                       |wavelength==500|wavelength==600|wavelength==700)
-png("1.6m_ts_sub.png",width = 7, height = 3, units = 'in', res = 300)
+png("1.6m_ts_Oct_sub.png",width = 7, height = 3, units = 'in', res = 300)
 ggplot(obs_animate_sub2, aes(x=Date.Time,y=absorbance))+
-  geom_line(aes(colour=factor(wavelength)))+
-  geom_vline(xintercept = cleaning_sub, linetype="dotted", 
-             color = "black", size=0.6)
+  geom_line(aes(colour=factor(wavelength)))
+  #geom_vline(xintercept = cleaning_sub, linetype="dotted", 
+            # color = "black", size=0.6)
 dev.off()
 
 
