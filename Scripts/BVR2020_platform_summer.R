@@ -19,12 +19,12 @@ myfiles = list.files(path=mydir, pattern="CR6_BVR*", full.names=TRUE)#list the f
 #taking out the the Temp Test files
 myfilesBVR <- myfiles[ !grepl("CR6_BVR_TempTest*", myfiles) ]#exclude the Temp test data
 
-#combine all of the files into one data sheet
+#combine all of the files into one data sheet, have to come back and fix this loop
 for(k in 1:length(myfilesBVR)){
   bvrheader1<-read.csv(myfilesBVR[k], skip=1, as.is=T) #get header minus wonky Campbell rows
   bvrdata1<-read.csv(myfilesBVR[k], skip=4, header=F) #get data minus wonky Campbell rows
   names(bvrdata1)<-names(bvrheader1) #combine the names to deal with Campbell logger formatting
-  bvrdata=rbind(bvrdata, bvrdata1)
+  bvrdata=rbind(bvrdata1, bvrdata)
   }
 #taking out the duplicate values  
 obs1=distinct(bvrdata)
