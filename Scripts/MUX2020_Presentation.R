@@ -87,7 +87,7 @@ for(i in 2:nrow(obs)){
 obs_animate = pivot_longer(obs, cols=3:223, names_to = "wavelength", values_to = "absorbance")
 
 #subset data to a smaller interval (one day)
-sub= interval(start="2020-04-10 15:19:53", end="2020-04-24 9:49:52", tz="Etc/GMT+4")
+sub= interval(start="2020-10-16 12:00:00", end="2020-10-26 12:00:00", tz="Etc/GMT+4")
 obs_animate_sub = obs_animate[obs_animate$Date.Time %within% sub,]
 obs_animate_sub$wavelength = as.numeric(obs_animate_sub$wavelength)
 
@@ -131,11 +131,11 @@ dev.off()
 cleaning_sub = as.POSIXct(c("2020-04-20 12:40"), tz="Etc/GMT+4")
 obs_animate_sub2 = filter(obs_animate_sub, wavelength==200|wavelength==300|wavelength==400
                       |wavelength==500|wavelength==600|wavelength==700)
-png("1.6m_ts_Apr10_24.png",width = 7, height = 3, units = 'in', res = 300)
+png("1.6m_ts_Oct_sub.png",width = 7, height = 3, units = 'in', res = 300)
 ggplot(obs_animate_sub2, aes(x=Date.Time,y=absorbance))+
-  geom_line(aes(colour=factor(wavelength)))+
-  geom_vline(xintercept = cleaning_sub, linetype="dotted", 
-             color = "black", size=0.6)
+  geom_line(aes(colour=factor(wavelength)))
+  #geom_vline(xintercept = cleaning_sub, linetype="dotted", 
+            # color = "black", size=0.6)
 dev.off()
 
 
@@ -246,11 +246,11 @@ mux_cleaning = as.POSIXct(c("2020-05-04 15:00",
   "2020-06-25 12:00", "2020-07-31 12:00"), tz="Etc/GMT+4")
 
 #subset for most recent time period
-mux_lastweek=mux_only_long[mux_only_long$DateTime>"2020-08-24 14:15:00",]
+mux_lastweek=mux_only_long[mux_only_long$DateTime>"2020-08-06 00:00:00" & mux_only_long$DateTime<"2020-08-08 00:00:00",]
 
 #create  a multipanel plot of absorbance over time separated by depth 
-png("mux_2020_raw_by_depth.png",width = 9, height = 4, units = 'in', res = 300)
-ggplot(mux_only_long, aes(x=DateTime, y=absorbance, color=wavelength)) + 
+png("mux_cleaning_raw_by_depth.png",width = 9, height = 4, units = 'in', res = 300)
+ggplot(mux_lastweek, aes(x=DateTime, y=absorbance, color=wavelength)) + 
  geom_line() +
   geom_vline(xintercept = mux_cleaning, linetype="dotted", 
              color = "black", size=0.6)+
