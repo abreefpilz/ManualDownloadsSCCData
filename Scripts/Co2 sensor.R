@@ -33,5 +33,5 @@ out.file$CO2_2_Avg=as.numeric(out.file$CO2_2_Avg)
 axs=ggplot(out.file, aes(x=TIMESTAMP, y=CO2_2_Avg, col=CO2_2_Avg)) +
   geom_point()
   
- 
+axs 
   
