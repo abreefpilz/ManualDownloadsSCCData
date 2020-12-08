@@ -133,6 +133,9 @@ Data downloaded. 1.6m scan cleaned at 10:00-10:10EDT. Replaced cuvette 10:40EDT.
 28OCT20
 Data downloaded. Replaced cuvette 9:43EDT.
 
+30OCT20
+Data downloaded. Replaced cuvette.
+
 02NOV20
 Data downloaded. 1.6m scan cleaned at 10:21-10:29EST. Replaced cuvette 9:40EST.
 
