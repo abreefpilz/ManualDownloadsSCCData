@@ -87,7 +87,7 @@ for(i in 2:nrow(obs)){
 obs_animate = pivot_longer(obs, cols=3:223, names_to = "wavelength", values_to = "absorbance")
 
 #subset data to a smaller interval (one day)
-sub= interval(start="2020-10-16 12:00:00", end="2020-10-26 12:00:00", tz="Etc/GMT+4")
+sub= interval(start="2020-10-16 13:00:00", end="2020-10-17 14:00:00", tz="Etc/GMT+4")
 obs_animate_sub = obs_animate[obs_animate$Date.Time %within% sub,]
 obs_animate_sub$wavelength = as.numeric(obs_animate_sub$wavelength)
 
@@ -100,8 +100,8 @@ a <- p + transition_time(Date.Time) +
   labs(title = "Date.Time: {frame_time}") +
   scale_x_continuous(breaks = c(seq(200,750,100)), limits = c(200,750)) +
   ease_aes('cubic-in-out')
-animate(a, nframes=150, fps=6)
-anim_save("1.6_Apr10_Apr24.gif", animation = last_animation())
+animate(a, nframes=150, fps=12)
+anim_save("1.6_Oct16_Oct17.gif", animation = last_animation())
 
 #More plots (for powerpoint)
 dev.off()
