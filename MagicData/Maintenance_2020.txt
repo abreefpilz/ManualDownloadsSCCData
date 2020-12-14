@@ -124,3 +124,29 @@ Data downloaded. 1.6m scan cleaned at 14:44-14:46EDT with DI not ethanol.
 14OCT20
 Data downloaded. 1.6m scan cleaned at 13:03-13:05EDT. Chain replaced with new rope 13:28-14:18EDT.
 
+19OCT20
+Data donwloaded. 1.6m scan cleaned at 13:12-13:17EDT. Replaced cuvette.
+
+26OCT20
+Data downloaded. 1.6m scan cleaned at 10:00-10:10EDT. Replaced cuvette 10:40EDT.
+
+28OCT20
+Data downloaded. Replaced cuvette 9:43EDT.
+
+30OCT20
+Data downloaded. Replaced cuvette.
+
+02NOV20
+Data downloaded. 1.6m scan cleaned at 10:21-10:29EST. Replaced cuvette 9:40EST.
+
+04NOV20
+Data downloaded. Replaced cuvette.
+
+09NOV20 
+Data downloaded. 1.6m scan cleaned at 10:25-10:35EST. 
+
+24NOV20
+1.6m scan cleaned at 11:34-11:37EST.
+
+02DEC20
+Data downloaded. 1.6m scan cleaned at 12:23-12:27EST.

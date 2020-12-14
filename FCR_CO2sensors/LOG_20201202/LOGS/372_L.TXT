@@ -1,0 +1,119 @@
+                      Node class initializing...
+                      Running software version: 1.9.0
+29-09-2020 09:52:53 - RTC has set the system time: 9:52:53 29 9 2020
+29-09-2020 09:52:53 - Bootcount = 372
+29-09-2020 09:52:53 - SD: card initialized.
+29-09-2020 09:52:54 - SD: Getting hardware version from config: 4
+29-09-2020 09:52:54 - SD: Getting interval info from config...
+29-09-2020 09:52:54 -     record_time_interval: 300 s
+29-09-2020 09:52:54 -     transmit_time_interval: 150 s
+29-09-2020 09:52:54 -     gps_time_interval: Not found, will use default.
+29-09-2020 09:52:54 - SD: Getting disabled info from config...
+29-09-2020 09:52:54 -     disable_power_save: false
+29-09-2020 09:52:54 -     disable_radio: false
+29-09-2020 09:52:54 -     disable_gps: false
+29-09-2020 09:52:54 - SD: Getting thermistor info from config: ON
+29-09-2020 09:52:54 - SD: Getting config ID from config: 281
+29-09-2020 09:52:54 - SD: Getting save log file info from config: ON
+29-09-2020 09:52:54 - SD: Getting connected sensor info from config...
+29-09-2020 09:52:54 - SD: From config: pin: 17, type: i2c - senseair, SN: 296
+29-09-2020 09:52:54 - SD: From config: pin: 32, type: UART - LuminOx, SN: 194
+29-09-2020 09:52:54 - SD: From config: pin: 33, type: UART - LuminOx, SN: 213
+29-09-2020 09:52:54 - SD: From config: pin: 18, type: i2c - senseair, SN: 105
+29-09-2020 09:52:54 - Nothing connected on pins:  15 16 31 34 35 36 37 38 39 19 20 21 22 23
+29-09-2020 09:53:01 - SD: Getting debug info from config: ON
+29-09-2020 09:53:01 - Read config: :372&1601373181-1.9.0-281&17:296&32:194&33:213&18:105
+29-09-2020 09:53:01 - Initializing radio...
+29-09-2020 09:53:01 - SD: Getting network info from config...
+29-09-2020 09:53:01 -     device_EUI: 00D84FE43F6C55F3
+29-09-2020 09:53:01 -     application_EUI: 70B3D57ED001C671
+29-09-2020 09:53:01 -     app_key: 15264622DE3E2586347E5AB49FAE3C6F
+29-09-2020 09:53:01 - radio initialized.
+29-09-2020 09:53:01 - Setting radio timer: 150 s
+29-09-2020 09:53:01 - Initializing GPS...
+29-09-2020 09:53:04 - GPS: Trying to connect...
+29-09-2020 09:53:04 - GPS: trying 38400 baud
+29-09-2020 09:53:04 - GPS: succeeded on 38400 baud
+29-09-2020 09:53:04 - GPS: connection successful
+29-09-2020 09:53:05 - Setting GPS timer: 120 s
+29-09-2020 09:53:05 - Set up snooze block to enable power save.
+29-09-2020 09:53:05 - Started watchdog timer at 600 s
+29-09-2020 09:53:05 - Setting data record timer: 15 s
+29-09-2020 09:53:05 - Initialization successful!
+29-09-2020 09:53:05 - 
+29-09-2020 09:53:05 - Power saving for 00:01:53
+29-09-2020 09:55:07 - Reading data from sensors...
+29-09-2020 09:55:09 - Got data, processing and parsing...
+29-09-2020 09:55:10 - Read data packet: &372&1601373302&17:809,13.8&32:218.7,14.4,1021,21.42&33:211.6,15.5,1020,20.74&18:966,14.4
+29-09-2020 09:55:10 - Read data packet: &372&1601373302&0:19.8
+29-09-2020 09:55:10 - Setting data record timer: 300 s
+29-09-2020 09:55:10 - Updating RTC from GPS:  Unable
+29-09-2020 09:55:58 - Settings GPS timer: 120 s
+29-09-2020 09:55:58 - Encoding message: :372&1601373181-1.9.0-281&17:296&32:194&33:213&18:105
+29-09-2020 09:55:58 - length 53 -> 27
+29-09-2020 09:55:58 - LoRaRadio: Attempting to join LoRaWAN...
+29-09-2020 09:55:58 - LoRaRadio: Attempting to send message...
+29-09-2020 09:56:05 - LoRaRadio: Attempting to send message...
+29-09-2020 09:56:14 - Setting radio timer: 150 s
+29-09-2020 09:56:14 - Power saving for 00:01:44
+29-09-2020 09:58:00 - Updating RTC from GPS:  Unable
+29-09-2020 09:58:48 - Settings GPS timer: 120 s
+29-09-2020 09:58:48 - Encoding message: :372&1601373181-1.9.0-281&17:296&32:194&33:213&18:105
+29-09-2020 09:58:48 - length 53 -> 27
+29-09-2020 09:58:48 - LoRaRadio: Attempting to join LoRaWAN...
+29-09-2020 09:58:48 - LoRaRadio: Attempting to send message...
+29-09-2020 09:58:55 - LoRaRadio: Attempting to send message...
+29-09-2020 09:59:04 - Setting radio timer: 150 s
+29-09-2020 09:59:04 - Power saving for 00:01:04
+29-09-2020 10:00:18 - Reading data from sensors...
+29-09-2020 10:00:20 - Got data, processing and parsing...
+29-09-2020 10:00:21 - Read data packet: &372&1601373613&17:789,13.8&32:218.9,14.4,1021,21.44&33:211.9,15.6,1020,20.77&18:948,14.4
+29-09-2020 10:00:21 - Read data packet: &372&1601373613&0:20.5
+29-09-2020 10:00:21 - Setting data record timer: 300 s
+29-09-2020 10:00:21 - Power saving for 00:00:27
+29-09-2020 10:00:50 - Updating RTC from GPS:  Unable
+29-09-2020 10:01:38 - Settings GPS timer: 120 s
+29-09-2020 10:01:38 - Encoding message: :372&1601373181-1.9.0-281&17:296&32:194&33:213&18:105
+29-09-2020 10:01:38 - length 53 -> 27
+29-09-2020 10:01:38 - LoRaRadio: Attempting to join LoRaWAN...
+29-09-2020 10:01:38 - LoRaRadio: Attempting to send message...
+29-09-2020 10:01:46 - LoRaRadio: Attempting to send message...
+29-09-2020 10:01:54 - Setting radio timer: 150 s
+29-09-2020 10:01:54 - Power saving for 00:01:44
+29-09-2020 10:03:40 - Updating RTC from GPS:  Unable
+29-09-2020 10:04:28 - Setting GPS timer: 86400 s
+29-09-2020 10:04:28 - Turn off GPS
+29-09-2020 10:04:28 - Encoding message: :372&1601373181-1.9.0-281&17:296&32:194&33:213&18:105
+29-09-2020 10:04:28 - length 53 -> 27
+29-09-2020 10:04:28 - LoRaRadio: Attempting to join LoRaWAN...
+29-09-2020 10:04:28 - LoRaRadio: Attempting to send message...
+29-09-2020 10:04:34 - LoRaRadio: LoRaWAN joined:
+29-09-2020 10:04:34 -    netid: 19
+29-09-2020 10:04:34 -    devaddr: 26022674
+29-09-2020 10:04:34 -    artKey: 271da0646d582fa09912abf17596f1d8
+29-09-2020 10:04:34 -    nwkKey: a22e73aa36bf24755db7f2f79e1d77e
+29-09-2020 10:04:34 - LoRaRadio: Attempting to send message...
+29-09-2020 10:04:35 - LoRaRadio: transmission complete
+29-09-2020 10:04:35 - Successfully sent message ":372&1601373181-1.9.0-281&17:296&32:194&33:213&18:105"
+29-09-2020 10:04:35 - Setting radio timer: 150 s
+29-09-2020 10:04:35 - Power saving for 00:00:44
+29-09-2020 10:05:28 - Reading data from sensors...
+29-09-2020 10:05:30 - Got data, processing and parsing...
+29-09-2020 10:05:31 - Read data packet: &372&1601373923&0:20.8
+29-09-2020 10:05:31 - Read data packet: &372&1601373923&17:797,13.9&32:218.7,14.4,1021,21.42&33:211.7,15.6,1020,20.75&18:951,14.5
+29-09-2020 10:05:31 - Setting data record timer: 300 s
+29-09-2020 10:05:31 - Power saving for 00:01:34
+29-09-2020 10:07:07 - Encoding message: &372&1601373613&17:789,13.8&32:218.9,14.4,1021,21.44&33:211.9,15.6,1020,20.77&18:948,14.4
+29-09-2020 10:07:07 - length 89 -> 45
+29-09-2020 10:07:07 - LoRaRadio: Attempting to send message...
+29-09-2020 10:07:11 - LoRaRadio: transmission complete
+29-09-2020 10:07:11 - Successfully sent message "&372&1601373613&17:789,13.8&32:218.9,14.4,1021,21.44&33:211.9,15.6,1020,20.77&18:948,14.4"
+29-09-2020 10:07:11 - Setting radio timer: 150 s
+29-09-2020 10:07:11 - Power saving for 00:02:30
+29-09-2020 10:09:43 - Encoding message: &372&1601373302&0:19.8
+29-09-2020 10:09:43 - length 22 -> 11
+29-09-2020 10:09:43 - LoRaRadio: Attempting to send message...
+29-09-2020 10:09:47 - LoRaRadio: transmission complete
+29-09-2020 10:09:47 - Successfully sent message "&372&1601373302&0:19.8"
+29-09-2020 10:09:47 - Setting radio timer: 150 s
+29-09-2020 10:09:47 - Power saving for 00:00:42
