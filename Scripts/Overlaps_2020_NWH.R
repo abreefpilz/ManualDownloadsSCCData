@@ -100,6 +100,8 @@ for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
   }
 }
 
+# Subset to date range after 2020-06-16 13:39 because data before that is messy
+# May go back and clean this up later
 mux_only=obs2[obs2$DateTime>"2020-06-16 14:00:00",] #change to not default to UTC, should be 14:15 in GMT 4
 mux_only=mux_only[order(mux_only$DateTime),]
 
@@ -110,7 +112,7 @@ MUX = mux_only
 #Change working directory to folder where WQ data is housed
 setwd("C:/Users/hammo/OneDrive/Documents/Magic Sensor PLSR/")
 pathWQ = "C:/Users/hammo/OneDrive/Documents/Magic Sensor PLSR/Data/"
-WQ = "FCR_Jan_Aug_2020.xlsx"
+WQ = "FCR_Jan_Nov_2020.xlsx"
 dataWQ<-read_xlsx(paste(pathWQ,WQ,sep="")) #Import data as .csv file
 
 
@@ -131,7 +133,9 @@ SSCAN_FP_Overlaps_2020 = df.final
 write.csv(SSCAN_FP_Overlaps_2020, file = "SSCAN_FP_Overlaps_2020.csv")
 
 #### Match WQ times with MUX times to find the reading closest to the sampling time ####
-WQtimes <- WQtimes[WQtimes>"2020-06-16 14:00:00"]
+
+#Subset date range to second deployment of MUX in Oct
+WQtimes <- WQtimes[WQtimes>"2020-10-16 12:00:00"]
 
 df.final<-MUX %>% group_by(Valve) %>% slice(which.min(abs(as.numeric(DateTime) - as.numeric(WQtimes[1])))) #Create a new dataframe of just the first sample
 for (i in 2:length(WQtimes)){ #loop through all sample times and add the closest values to the final dataframe
@@ -141,7 +145,7 @@ for (i in 2:length(WQtimes)){ #loop through all sample times and add the closest
 
 #Write to csv
 MUX_FP_Overlaps_2020 = df.final
-write.csv(MUX_FP_Overlaps_2020, file = "MUX_FP_Overlaps_2020.csv")
+write.csv(MUX_FP_Overlaps_2020, file = "MUX_FP_Overlaps_Oct_Nov_2020.csv")
 
 
 # Write full time series of SSCAN and MUX FP data to csv
