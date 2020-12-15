@@ -187,7 +187,7 @@ par(mar=c(5.1, 4.1, 4.1, 2.1), mgp=c(3, 1, 0), las=0)
 plot(obs1$TIMESTAMP,obs1$doobs_13, main="DO", xlab="Time", ylab="mg/L", type='l', col="medium sea green", lwd=1.5, ylim=c(-0.5,18))
 points(obs1$TIMESTAMP, obs1$doobs_6, col="black", type='l', lwd=1.5)
 points(obs1$TIMESTAMP, obs1$doobs_1, col="magenta", type='l', lwd=1.5)
-legend("topleft", c("1m", "6m", "13m"), text.col=c("magenta", "black", "medium sea green"), x.intersp=0.001)
+legend("topleft", c("1.5m", "4m", "11m"), text.col=c("magenta", "black", "medium sea green"), x.intersp=0.001)
 
 #DOsat 
 plot(obs1$TIMESTAMP,obs1$dosat_13, main="DO % saturation", xlab="Time", ylab="% saturation", type='l', col="medium sea green", lwd=1.5, ylim=c(-0.5,200))
