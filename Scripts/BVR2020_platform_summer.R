@@ -7,10 +7,17 @@ library(lubridate)
 library(plyr)
 library(readr)
 library(dplyr)
-library(ggplot)
+
+
 
 
 #time to now play with BVR data!
+#upload the current BVR data from GitHub
+download.file('https://github.com/FLARE-forecast/BVRE-data/raw/bvre-platform-data/BVRplatform.csv', "BVRplatform.csv") 
+
+bvrheader1<-read.csv("BVRplatform.csv", skip=1, as.is=T) #get header minus wonky Campbell rows
+bvrdata1<-read.csv("BVRplatform.csv", skip=4, header=F) #get data minus wonky Campbell rows
+names(bvrdata1)<-names(bvrheader1) #combine the names to deal with Campbell logger formatting
 
 #put manual data from BVR platform into a file 
 mydir = "BVRPlatform"
@@ -19,15 +26,23 @@ myfiles = list.files(path=mydir, pattern="CR6_BVR*", full.names=TRUE)#list the f
 #taking out the the Temp Test files
 myfilesBVR <- myfiles[ !grepl("CR6_BVR_TempTest*", myfiles) ]#exclude the Temp test data
 
+#create dataframe for the for loop
+bvrdata3<-""
+
 #combine all of the files into one data sheet, have to come back and fix this loop
 for(k in 1:length(myfilesBVR)){
-  bvrheader1<-read.csv(myfilesBVR[k], skip=1, as.is=T) #get header minus wonky Campbell rows
-  bvrdata1<-read.csv(myfilesBVR[k], skip=4, header=F) #get data minus wonky Campbell rows
-  names(bvrdata1)<-names(bvrheader1) #combine the names to deal with Campbell logger formatting
-  bvrdata=rbind(bvrdata1, bvrdata)
-  }
+  bvrheader2<-read.csv(myfilesBVR[k], skip=1, as.is=T) #get header minus wonky Campbell rows
+  bvrdata2<-read.csv(myfilesBVR[k], skip=4, header=F) #get data minus wonky Campbell rows
+  names(bvrdata2)<-names(bvrheader2) #combine the names to deal with Campbell logger formatting
+  bvrdata3=rbind(bvrdata2, bvrdata3)
+}
+
+#combine manual and most recent files
+bvrdata=rbind(bvrdata3, bvrdata1)
+
 #taking out the duplicate values  
 obs1=distinct(bvrdata)
+
 #change the date from character to unknown making it easier to graph
 obs1$TIMESTAMP <- as.POSIXct(obs1$TIMESTAMP, format = "%Y-%m-%d %H:%M:%S", tz = "Etc/GMT+4") 
 
@@ -123,4 +138,60 @@ legend("right",c("1m", "2m", "3m", "4m", "5m", "6m", "7m","8m", "9m", "10m", "11
 
 dev.off() #file made!
 
+#Create Air temp and Do for the summer
+#change to line and not point
+#get rid of air temp in graph
 
+#messy way of getting rid of broken temp string data
+obs1[obs1==0]<- NA
+obs1[obs1 == 10.86135] <- NA  
+obs1[obs1 == 10.44107] <- NA 
+obs1[obs1 == 10.44106] <- NA
+obs1[obs1 == 10.28613] <- NA  
+obs1[obs1 == 10.19531] <- NA  
+obs1[obs1 == 10.04641] <- NA  
+obs1[obs1 == 9.759333] <- NA 
+obs1[obs1 == 30.77133] <- NA  
+obs1[obs1 == 32.61395] <- NA  
+obs1[obs1 == 33.0209] <- NA 
+
+
+
+#Water temp
+par(mfrow=c(1,1))
+par(oma=c(1,1,1,4))
+#plot(obs1$TIMESTAMP,obs1$wtr_1, main="Water Temp", xlab="Time", ylab="degrees C", type='p', col="firebrick4", lwd=1.5, ylim=c(0,40))
+#points(obs1$TIMESTAMP, obs1$wtr_2, col="firebrick1", type='p', lwd=1.5)
+plot(obs1$TIMESTAMP, obs1$wtr_3, main="Water Temp", xlab="Time", ylab="degrees C",type='l', col="DarkOrange1",  lwd=1.5, ylim=c(0,40))
+points(obs1$TIMESTAMP, obs1$wtr_4, col="gold", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$wtr_5, col="greenyellow", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$wtr_6, col="medium sea green", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$wtr_7, col="sea green", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$wtr_8, col="DeepSkyBlue4", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$wtr_9, col="blue2", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$wtr_10, col="blue4", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$wtr_11, col="navy", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$wtr_12, col="magenta2", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$wtr_13, col="darkmagenta", type='l', lwd=1.5)
+
+par(fig=c(0,1,0,1), oma=c(0,0,0,0), mar=c(0,0,0,0), new=T)
+plot(0, 0, type = "n", bty = "n", xaxt = "n", yaxt = "n")
+legend("right",c("1m", "2m", "3m", "4m", "5m", "6m","7m", "8m", "9m", "10m", "11m"),
+       text.col=c("DarkOrange1", "gold", "greenyellow", "medium sea green", "sea green",
+                  "DeepSkyBlue4", "blue2", "blue4", "navy", "magenta2", "darkmagenta"),
+       cex=1, y.intersp=1, x.intersp=0.001, inset=c(0,0), xpd=T, bty='n')
+dev.off()
+
+#DO
+par(mar=c(5.1, 4.1, 4.1, 2.1), mgp=c(3, 1, 0), las=0)
+plot(obs1$TIMESTAMP,obs1$doobs_13, main="DO", xlab="Time", ylab="mg/L", type='l', col="medium sea green", lwd=1.5, ylim=c(-0.5,18))
+points(obs1$TIMESTAMP, obs1$doobs_6, col="black", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$doobs_1, col="magenta", type='l', lwd=1.5)
+legend("topleft", c("1.5m", "4m", "11m"), text.col=c("magenta", "black", "medium sea green"), x.intersp=0.001)
+
+#DOsat 
+plot(obs1$TIMESTAMP,obs1$dosat_13, main="DO % saturation", xlab="Time", ylab="% saturation", type='l', col="medium sea green", lwd=1.5, ylim=c(-0.5,200))
+points(obs1$TIMESTAMP, obs1$dosat_6, col="black", type='l', lwd=1.5)
+points(obs1$TIMESTAMP, obs1$dosat_1, col="magenta", type='l', lwd=1.5)
+legend("topleft", c("1m", "6m", "13m"), text.col=c("magenta", "black", "medium sea green"), x.intersp=0.001)
+dev.off()
