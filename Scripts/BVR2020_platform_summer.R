@@ -8,10 +8,34 @@ library(plyr)
 library(readr)
 library(dplyr)
 
-
-
-
 #time to now play with BVR data!
+#Gateway has missing data sections so combine manual data for EDI
+
+#put manual data from BVR platform into a file 
+mydir = "BVRPlatform"
+myfiles = list.files(path=mydir, pattern="CR6*", full.names=TRUE)#list the files from BVR platform
+
+#taking out the the Temp Test files
+myfilesBVR <- myfiles[ !grepl("CR6_BVR_TempTest*", myfiles) ]#exclude the Temp test data
+
+#create dataframe for the for loop
+bvrdata3<-""
+
+#combine all of the files into one data sheet, have to come back and fix this loop
+for(k in 1:length(myfilesBVR)){
+  bvrheader2<-read.csv(myfilesBVR[k], skip=1, as.is=T) #get header minus wonky Campbell rows
+  bvrdata2<-read.csv(myfilesBVR[k], skip=4, header=F) #get data minus wonky Campbell rows
+  names(bvrdata2)<-names(bvrheader2) #combine the names to deal with Campbell logger formatting
+  bvrdata3=rbind(bvrdata2, bvrdata3)
+}
+
+#get rid of duplicates
+bvrdata=bvrdata3[!duplicated(bvrdata3$TIMESTAMP), ]
+
+#create CSV of manual downloads which can be combined with Github files to fill in missing gaps
+
+write.csv(bvrdata, "BVRplatform_manual_2020.csv")
+
 #upload the current BVR data from GitHub
 download.file('https://github.com/FLARE-forecast/BVRE-data/raw/bvre-platform-data/BVRplatform.csv', "BVRplatform.csv") 
 
@@ -19,9 +43,11 @@ bvrheader1<-read.csv("BVRplatform.csv", skip=1, as.is=T) #get header minus wonky
 bvrdata1<-read.csv("BVRplatform.csv", skip=4, header=F) #get data minus wonky Campbell rows
 names(bvrdata1)<-names(bvrheader1) #combine the names to deal with Campbell logger formatting
 
+
+
 #put manual data from BVR platform into a file 
 mydir = "BVRPlatform"
-myfiles = list.files(path=mydir, pattern="CR6_BVR*", full.names=TRUE)#list the files from BVR platform
+myfiles = list.files(path=mydir, pattern="CR6*", full.names=TRUE)#list the files from BVR platform
 
 #taking out the the Temp Test files
 myfilesBVR <- myfiles[ !grepl("CR6_BVR_TempTest*", myfiles) ]#exclude the Temp test data
@@ -41,7 +67,8 @@ for(k in 1:length(myfilesBVR)){
 bvrdata=rbind(bvrdata3, bvrdata1)
 
 #taking out the duplicate values  
-obs1=distinct(bvrdata)
+obs1=bvrdata[!duplicated(bvrdata$TIMESTAMP), ]
+
 
 #change the date from character to unknown making it easier to graph
 obs1$TIMESTAMP <- as.POSIXct(obs1$TIMESTAMP, format = "%Y-%m-%d %H:%M:%S", tz = "Etc/GMT+4") 
