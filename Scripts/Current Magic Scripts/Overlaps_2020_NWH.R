@@ -128,8 +128,13 @@ for (i in 2:length(WQtimes)){ #loop through all samples and add the closest valu
   df.final <- rbind(df.final,SSCAN_atThisTime)
 }
 
-#Write to csv
 SSCAN_FP_Overlaps_2020 = df.final
+
+#Plot to check
+plot(WQtimes,SSCAN_FP_Overlaps_2020$Date.Time, xlab = "Sampling Times",
+     ylab = "SSCAN times")
+
+#Write to csv
 write.csv(SSCAN_FP_Overlaps_2020, file = "SSCAN_FP_Overlaps_2020.csv")
 
 #### Match WQ times with MUX times to find the reading closest to the sampling time ####
@@ -143,8 +148,13 @@ for (i in 2:length(WQtimes)){ #loop through all sample times and add the closest
   df.final <- rbind(df.final,MUX_atThisDepth)
 }
 
-#Write to csv
 MUX_FP_Overlaps_2020 = df.final
+
+#Plot to check
+plot(WQtimes,MUX_FP_Overlaps_2020$DateTime[which(MUX_FP_Overlaps_2020$Valve==1)],
+     xlab = "Sampling Times", ylab = "MUX times")
+
+#Write to csv
 write.csv(MUX_FP_Overlaps_2020, file = "MUX_FP_Overlaps_Oct_Nov_2020.csv")
 
 
