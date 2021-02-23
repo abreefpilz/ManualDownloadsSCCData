@@ -79,7 +79,7 @@ num_comps(param="TFe_mgl",dataWQ,dataCalFP,TS_FP)
 
 #### Run the function for a single parameter ####
 param<-"TFe_mgl"
-ncomp=9
+ncomp=7
 PLSR_SCAN(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
 
@@ -100,8 +100,8 @@ colnames(dataWQ)[2] <- "Depth"   #rename this column for plotting
 #  change column names (i.e. "TS_conc$uncerNO2_max") to match parameter.
 TS_conc$uncerTFe_max <- NA
 TS_conc$uncerTFe_min <- NA
-TS_conc$uncerTFe_max <- WQP_TS + 1.96*sd(as.numeric(fit$residuals[,,9])) #max uncert
-TS_conc$uncerTFe_min <- WQP_TS - 1.96*sd(as.numeric(fit$residuals[,,9])) #min uncert
+TS_conc$uncerTFe_max <- WQP_TS + 1.96*sd(as.numeric(fit$residuals[,,7])) #max uncert
+TS_conc$uncerTFe_min <- WQP_TS - 1.96*sd(as.numeric(fit$residuals[,,7])) #min uncert
 TS_conc$uncerTFe_max <- unlist(TS_conc$uncerTFe_max)
 TS_conc$uncerTFe_min <- unlist(TS_conc$uncerTFe_min)
 
@@ -110,20 +110,50 @@ TS_conc[,(3)]<-WQP_TS #for TFe
 #TS_conc[,(4)]<-WQP_TS  #for TMn
 #TS_conc[,(5)]<-WQP_TS #for SFe
 
-# Now plot the results
-png("MUX_TFe_Oct_Nov_2020_pred.png",width = 9, height = 4, units = 'in', res = 300) 
+
+#### Statistics ####
+
+# Plot residuals
+png("resid_normlty_hypo.png",width = 9, height = 4, units = 'in', res = 300)
+par(mfrow=c(1,2))
+hist(fit$residuals,main = "Hypolimnion model")
+qqnorm(fit$residuals, pch = 1, frame = FALSE)
+qqline(fit$residuals, col = "steelblue", lwd = 2)
+dev.off()
+
+#Calculate RMSE
+RMSE_run <-sqrt(mean((WQ-WQP$`Pfit[1:length(Pfit)]` )^2))
+RMSE_run
+
+#Calculate R2 of pred vs obs
+R2_run <- lm(WQP$`Pfit[1:length(Pfit)]`~WQ)
+summary(R2_run)
+
+
+#### Visualize Results ####
+
+#Create vector of turnover date (for plotting)
+turnover = as.data.frame(ymd_hm(c("2020-11-02 12:00")))
+colnames(turnover)= c("Date")
+
+# Plot all depths 
+png("MUX_TFe_Oct_Nov_2020_epi_hypo_022221.png",width = 9, height = 4, units = 'in', res = 300) 
 TFe_plot <- ggplot() +
-  geom_path(data=TS_conc, aes(x=DateTime,y=TFe_mgl, color= Depth), size=0.5) +
+  geom_path(data=TS_conc_all, aes(x=DateTime,y=TFe_mgl, color= Depth), size=0.5) +
   #geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
-  geom_point(data=dataWQ, aes(x=Date, y=TFe_mgl, colour= as.factor(Depth))) +
-  #ylim(0, 0.5)+
-  labs(x="Date", y = "TFe_mgl", title = "Predicted TFe") +
+  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgl, colour= as.factor(Depth))) +
+  ylim(0, 8)+
+  labs(x="Date", y = "Total Fe (mg/L)", title = "Total Iron Pre- and Post-Turnover 2020 (High-Frequency Observations)") +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
-  theme(legend.position="right")
+  theme(legend.position="right")+
+  labs(color= "Depth (m)")+
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
 TFe_plot
 dev.off()
 
-#plot a single depth
+# Plot a single depth
+
+ # First, create a dataframe for each depth's predictions and WQ 
 nine_m = TS_conc %>% filter(Depth == '9.0')
 nine_m_WQ = dataWQ %>% filter(Depth == 9.0)
 
@@ -144,7 +174,8 @@ one_m_WQ = dataWQ %>% filter(Depth == 1.6)
 
 surface = TS_conc %>% filter(Depth == '0.1')
 surface_WQ = dataWQ %>% filter(Depth == 0.1)
-
+ 
+ # Line plot for a single depth
 png("MUX_TFe_2020_pred_surface_epi_013_9comp.png",width = 9, height = 4, units = 'in', res = 300) 
 TFe_plot <- ggplot() +
   geom_path(data=surface, aes(x=DateTime,y=TFe_mgl), size=0.5) +
@@ -157,27 +188,13 @@ TFe_plot <- ggplot() +
 TFe_plot
 dev.off()
 
-# Plot residuals
-png("resid_normlty_hypo.png",width = 9, height = 4, units = 'in', res = 300)
-par(mfrow=c(1,2))
-hist(fit$residuals,main = "Hypolimnion model")
-qqnorm(fit$residuals, pch = 1, frame = FALSE)
-qqline(fit$residuals, col = "steelblue", lwd = 2)
-dev.off()
 
-#Calculate RMSE
-RMSE_run <-sqrt(mean((WQ-WQP$`Pfit[1:length(Pfit)]` )^2))
-RMSE_run
 
-#Calculate R2 of pred vs obs
-R2_run <- lm(WQP$`Pfit[1:length(Pfit)]`~WQ)
-summary(R2_run)
+### SAVE TS_CONC results so you can go back later and re-combine all depths ###
 
-## SAVE TS_CONC results so you can go back later and re-combine all depths ##
-
-epi_results = TS_conc
+#epi_results = TS_conc
 #meta_results = TS_conc
-#hypo_results = TS_conc
+hypo_results = TS_conc
 
 TS_conc_all = rbind(epi_results,hypo_results)
 TS_conc_all = TS_conc_all %>% group_by(Depth) %>% arrange(-desc(DateTime)) %>%
@@ -185,3 +202,31 @@ TS_conc_all = TS_conc_all %>% group_by(Depth) %>% arrange(-desc(DateTime)) %>%
 
 #write csv of predictions
 write.csv(TS_conc_all,"MUX_Oct_Nov_2020_predictions_021121.csv")
+
+
+## Save dataWQ, for plotting purposes ## 
+
+#hypo_WQ = dataWQ
+epi_WQ = dataWQ
+
+WQ_all = rbind(hypo_WQ, epi_WQ)
+WQ_all = WQ_all %>% group_by(Depth) %>% arrange(-desc(DateTime)) %>% ungroup(Depth)
+
+ # Remove values from 24 hr sampling (except the first sampling time), just for plotting purposes
+WQ_low_freq = WQ_all[-c(7:40),]
+
+## Plot WQ data (without 24 hr sampling)
+png("MUX_TFe_Oct_Nov_2020_epi_hypo_WQ_022221.png",width = 9, height = 4, units = 'in', res = 300) 
+TFe_plot <- ggplot() +
+  geom_path(data=WQ_low_freq, aes(x=DateTime,y=TFe_mgl, color= as.factor(Depth)), size=0.5) +
+  geom_point(data=WQ_low_freq, aes(x=DateTime,y=TFe_mgl, color= as.factor(Depth)), size=0.8) +
+  #geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
+  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgl, colour= as.factor(Depth))) +
+  ylim(0, 8)+
+  labs(x="Date", y = "Total Fe (mg/L)", title = "Total Iron Pre- and Post-Turnover 2020 (Weekly Sampling)") +
+  scale_x_datetime(labels = date_format("%Y-%m-%d"))+
+  theme(legend.position="right")+
+   labs(color= "Depth (m)")+
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
+TFe_plot
+dev.off()
