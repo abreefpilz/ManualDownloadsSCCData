@@ -3,10 +3,10 @@
 ####
 
 
-data_prep = function(WQ,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam){
+data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam){
   
 #### Read in FCR WQ data ####
-dataWQ <- read_xlsx(path=paste(pathD,WQ,sep=""))
+dataWQ <- read_xlsx(path=paste(pathD,WQ_name,sep=""))
 
 #Subset to just include desired depths
 dataWQ <- dataWQ %>%
