@@ -9,7 +9,7 @@ library(ggplot2)
 #load in data from the Vaisala Sensor
 
 mydir = "FCR_CO2sensors/Vaisala Sensor"
-myfiles = list.files(path=mydir, pattern="CR1000_CO2_Sensor_FCR_CO2*", full.names=TRUE)
+myfiles = list.files(path=mydir, pattern="CR1000*", full.names=TRUE)
 
 #combine the files
 #create an out.file for the combined data
