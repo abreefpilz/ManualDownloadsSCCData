@@ -4,6 +4,7 @@
 
 PLSR_SCAN<-function(param,dataCalFP,dataWQ,TS_FP,ncomp,yesplot=FALSE){
   
+  # These five lines of code are technically obsolete with the prior data prep (but leaving them in for now) #
   WQ<-data.matrix(subset(dataWQ,select=param)) #Make matrix of the param values
   temp<-cbind(dataCalFP,WQ) #combines FP and WQ columns to remove the rows containing NAs 
   temp<-temp[complete.cases(temp),] #removes the rows containing NAs
@@ -23,7 +24,7 @@ PLSR_SCAN<-function(param,dataCalFP,dataWQ,TS_FP,ncomp,yesplot=FALSE){
   WQP_TS<-as.data.frame(Pfit_TS[1:length(Pfit_TS)])  #Insert predicted param values into data frame
   
   if (yesplot==TRUE){
-    plot(WQ,as.matrix(WQP),
+    plot(WQ,as.matrix(WQP), asp = 1,
          xlab=paste("measured",param,"?g/L",sep=" "),
          ylab=c("PLSR_predicted")) #Compare predicted and lab values of param
     

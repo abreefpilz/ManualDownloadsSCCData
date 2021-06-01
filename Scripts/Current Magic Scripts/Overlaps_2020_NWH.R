@@ -21,30 +21,52 @@ library(readxl)
 #### Load in FP files from GitHub for the 1.6m SCAN ####
 
 #set working directory
-setwd('./MagicData/FP_2020')
+setwd('./MagicData')
 
 #create list with files from 1.6m SCAN (".fp" retrieves all files from 1.6m SCAN bc they all have a lower case fp)
-fp.files<-list.files(path=".", pattern = ".fp")
+fp.files20<-list.files(path="./FP_2020", pattern = ".fp")
+fp.files21<-list.files(path="./FP_2021", pattern = ".fp")
+fp.files <- c(fp.files20,fp.files21)
+
 
 ### Read in first file
-obs<-read.table(file=fp.files[1],skip=1,header=TRUE, row.names = NULL,
+obs<-read.table(file=paste0("./FP_2020/",fp.files[1]),skip=1,header=TRUE, row.names = NULL,
                 fill= TRUE, sep = "\t") #read in first file
 obs$Date.Time=ymd_hms(obs$Date.Time, tz = "Etc/GMT+4")
 
 #reads in all files within folder in Github
-for(i in 2:length(fp.files)){ 
-  temp<-read.table(file=fp.files[i],skip=1,header=TRUE, row.names = NULL,
+for(i in 2:length(fp.files)){
+  if(file.exists(paste0("./FP_2020/",fp.files[i])))
+  { 
+  temp<-read.table(file=paste0("./FP_2020/",fp.files[i]),skip=1,header=TRUE, row.names = NULL,
                    sep = "\t", fill = TRUE)
   temp$Date.Time=ymd_hms(temp$Date.Time, tz = "Etc/GMT+4")
-  obs<-rbind(obs,temp)
+  obs<-rbind(obs,temp)}
+  if(file.exists(paste0("./FP_2021/",fp.files[i])))
+  { 
+    temp<-read.table(file=paste0("./FP_2021/",fp.files[i]),skip=1,header=TRUE, row.names = NULL,
+                     sep = "\t", fill = TRUE)
+    temp$Date.Time=ymd_hms(temp$Date.Time, tz = "Etc/GMT+4")
+    obs<-rbind(obs,temp)}
 }
+
+
+# Remove duplicated rows (resulting from overlap in files)
+obs = unique(obs)
 
 #create list of the first line of each .fp file to make sure SCAN ID is consistent (QAQC)
 id = list()
 for(i in 2:length(fp.files)){
-  abc = read.table(file=fp.files[i],nrows=1,header=FALSE, row.names = NULL,
+  if(file.exists(paste0("./FP_2020/",fp.files[i]))){
+  abc = read.table(file=paste0("./FP_2020/",fp.files[i]),nrows=1,header=FALSE, row.names = NULL,
                    sep = "\t", fill = TRUE)
   id = rbind(id, abc)
+  }
+  if(file.exists(paste0("./FP_2021/",fp.files[i]))){
+    abc = read.table(file=paste0("./FP_2021/",fp.files[i]),nrows=1,header=FALSE, row.names = NULL,
+                     sep = "\t", fill = TRUE)
+    id = rbind(id, abc)
+  }
 }
 print(id)
 

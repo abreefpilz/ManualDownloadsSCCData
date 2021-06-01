@@ -1,4 +1,4 @@
-# PLSR Script for 2020 MUX Predictions of Fe and Mn
+# PLSR Script for 2020 MUX Predictions of Fe and Mn with bootstrap predictive intervals
 # Authors: Nick Hammond
 # Last Updated: 02/02/2020
 
@@ -37,14 +37,14 @@ FPcaldata_name<-"MUX_FP_Overlaps_Oct_Nov_2020.csv"
 TimeSeriesFP_name<-"MUX_FP_TS_2020.csv"
 
 #Select Desired Depths
-Depths<-c("0.1",
-  "1.6",
-  "3.8"
+Depths<-c(#"0.1",
+  #"1.6",
+  #"3.8"
   #"5.0",
-  #"6.2", 
-  #"8.0", 
-  #"9.0"
-  )
+  "6.2", 
+  "8.0", 
+  "9.0"
+)
 
 #Select Desired Date Range
 Begin_time<- c("2020-10-15 12:00")
@@ -61,9 +61,9 @@ data_prep(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQ
 
 
 # Remove outliers #  (don't run this code every time!!!!)
-  # Remove last sample data from 9m at 2020-10-17 13:49:00 because it is an outlier
-  # Doing this manually for now #
-  # Also removing the high 9m sample at 2020-10-16 21:53:00 (blowoff?) bc it's doing weird things too
+# Remove last sample data from 9m at 2020-10-17 13:49:00 because it is an outlier
+# Doing this manually for now #
+# Also removing the high 9m sample at 2020-10-16 21:53:00 (blowoff?) bc it's doing weird things too
 
 dataWQ= dataWQ[-c(9,21),]
 dataCalFP = dataCalFP[-c(9,21),]
@@ -73,28 +73,15 @@ dataCalFP = dataCalFP[-c(9,21),]
 # code addapted from CCC original PLSR script
 num_comps(param="TFe_mgl",dataWQ,dataCalFP,TS_FP)
 
-#### Run the function for a single parameter ####
-param<-"TFe_mgl"
-ncomp=15
-PLSR_SCAN(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
-
-plot(RMSEP(fit), legendpos = "topright")
-
 #############
 #Choose the number that is at the bottom of the curve, plus 1. 
 ############
-
-ncomp.onesigma <- selectNcomp(fit, method = "onesigma", plot = TRUE)
-ncomp.permut <- selectNcomp(fit, method = "randomization", plot = TRUE)
 
 #### Run the function for a single parameter ####
 param<-"TFe_mgl"
 ncomp=9
 PLSR_SCAN(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
-# loading plot
-plot(fit, "correlation", comps = 2:3)
-abline(h = 0)
 
 #If there are obvious outliers, run whats in the PLSR loop, then click on the points.
 #This will give you a location of which datapoints are outliers, and you can then 
@@ -169,7 +156,7 @@ dev.off()
 
 # Plot a single depth
 
- # First, create a dataframe for each depth's predictions and WQ 
+# First, create a dataframe for each depth's predictions and WQ 
 nine_m = TS_conc %>% filter(Depth == '9.0')
 nine_m_WQ = dataWQ %>% filter(Depth == 9.0)
 
@@ -190,15 +177,15 @@ one_m_WQ = dataWQ %>% filter(Depth == 1.6)
 
 surface = TS_conc %>% filter(Depth == '0.1')
 surface_WQ = dataWQ %>% filter(Depth == 0.1)
- 
- # Line plot for a single depth
-png("MUX_TFe_2020_one_epi_013_9comp.png",width = 9, height = 4, units = 'in', res = 300) 
+
+# Line plot for a single depth
+png("MUX_TFe_2020_pred_surface_epi_013_9comp.png",width = 9, height = 4, units = 'in', res = 300) 
 TFe_plot <- ggplot() +
-  geom_path(data=one_m, aes(x=DateTime,y=TFe_mgl), size=0.5) +
-  geom_ribbon(data=one_m, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
-  geom_point(data=one_m_WQ, aes(x=DateTime, y=TFe_mgl), colour="blue") +
+  geom_path(data=surface, aes(x=DateTime,y=TFe_mgl), size=0.5) +
+  geom_ribbon(data=surface, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
+  geom_point(data=surface_WQ, aes(x=DateTime, y=TFe_mgl), colour="blue") +
   #ylim(0, 7)+
-  labs(x="Date", y = "TFe_mgl", title = "1.6m, epi model, 9comps, CV-RMSEP=0.14, R2=0.94 ") +
+  labs(x="Date", y = "TFe_mgl", title = "Predicted TFe at 0.1m, epi only model") +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
   theme(legend.position="none")
 TFe_plot
@@ -228,7 +215,7 @@ epi_WQ = dataWQ
 WQ_all = rbind(hypo_WQ, epi_WQ)
 WQ_all = WQ_all %>% group_by(Depth) %>% arrange(-desc(DateTime)) %>% ungroup(Depth)
 
- # Remove values from 24 hr sampling (except the first sampling time), just for plotting purposes
+# Remove values from 24 hr sampling (except the first sampling time), just for plotting purposes
 WQ_low_freq = WQ_all[-c(7:40),]
 
 ## Plot WQ data (without 24 hr sampling)
@@ -243,7 +230,7 @@ TFe_plot <- ggplot() +
   labs(x="Date", y = "Total Fe (mg/L)", title = "Total Iron Pre- and Post-Turnover 2020 (Weekly Sampling)") +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
   theme(legend.position="right")+
-   labs(color= "Depth (m)")+
+  labs(color= "Depth (m)")+
   geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
 TFe_plot
 dev.off()
