@@ -1,0 +1,57 @@
+                      Node class initializing...
+                      Running software version: 1.9.0
+29-09-2020 10:28:19 - RTC has set the system time: 10:28:19 29 9 2020
+29-09-2020 10:28:19 - Bootcount = 393
+29-09-2020 10:28:19 - SD: card initialized.
+29-09-2020 10:28:19 - SD: Getting hardware version from config: 4
+29-09-2020 10:28:19 - SD: Getting interval info from config...
+29-09-2020 10:28:19 -     record_time_interval: 300 s
+29-09-2020 10:28:19 -     transmit_time_interval: 150 s
+29-09-2020 10:28:19 -     gps_time_interval: Not found, will use default.
+29-09-2020 10:28:19 - SD: Getting disabled info from config...
+29-09-2020 10:28:19 -     disable_power_save: false
+29-09-2020 10:28:19 -     disable_radio: false
+29-09-2020 10:28:19 -     disable_gps: false
+29-09-2020 10:28:19 - SD: Getting thermistor info from config: ON
+29-09-2020 10:28:19 - SD: Getting config ID from config: 281
+29-09-2020 10:28:19 - SD: Getting save log file info from config: ON
+29-09-2020 10:28:19 - SD: Getting connected sensor info from config...
+29-09-2020 10:28:19 - SD: From config: pin: 17, type: i2c - senseair, SN: 296
+29-09-2020 10:28:20 - SD: From config: pin: 32, type: UART - LuminOx, SN: 194
+29-09-2020 10:28:20 - SD: From config: pin: 33, type: UART - LuminOx, SN: 213
+29-09-2020 10:28:20 - SD: From config: pin: 18, type: i2c - senseair, SN: 105
+29-09-2020 10:28:20 - Nothing connected on pins:  15 16 31 34 35 36 37 38 39 19 20 21 22 23
+29-09-2020 10:28:27 - SD: Getting debug info from config: ON
+29-09-2020 10:28:37 - WARN: Couldn't establish a connection to the serial monitor
+29-09-2020 10:28:37 - Read config: :393&1601375317-1.9.0-281&17:296&32:194&33:213&18:105
+29-09-2020 10:28:37 - Initializing radio...
+29-09-2020 10:28:37 - SD: Getting network info from config...
+29-09-2020 10:28:37 -     device_EUI: 00D84FE43F6C55F3
+29-09-2020 10:28:37 -     application_EUI: 70B3D57ED001C671
+29-09-2020 10:28:37 -     app_key: 15264622DE3E2586347E5AB49FAE3C6F
+29-09-2020 10:28:37 - radio initialized.
+29-09-2020 10:28:37 - Setting radio timer: 150 s
+29-09-2020 10:28:37 - Initializing GPS...
+29-09-2020 10:28:40 - GPS: Trying to connect...
+29-09-2020 10:28:40 - GPS: trying 38400 baud
+29-09-2020 10:28:40 - GPS: succeeded on 38400 baud
+29-09-2020 10:28:40 - GPS: connection successful
+29-09-2020 10:28:41 - Setting GPS timer: 120 s
+29-09-2020 10:28:41 - Set up snooze block to enable power save.
+29-09-2020 10:28:41 - Started watchdog timer at 600 s
+29-09-2020 10:28:41 - Setting data record timer: 15 s
+29-09-2020 10:28:41 - Initialization successful!
+29-09-2020 10:28:41 - 
+29-09-2020 10:28:41 - Power saving for 00:01:17
+29-09-2020 10:30:06 - Reading data from sensors...
+29-09-2020 10:30:08 - Got data, processing and parsing...
+29-09-2020 10:30:09 - Read data packet: &393&1601375401&17:0,0.0&32:207.9,15.8,972,21.39&33:1.0,234.3,16,1128.00&18:605,14.9
+29-09-2020 10:30:09 - Read data packet: &393&1601375401&0:24.7
+29-09-2020 10:30:09 - Setting data record timer: 300 s
+29-09-2020 10:30:09 - Power saving for 00:00:32
+29-09-2020 10:30:42 - Updating RTC from GPS:  Unable
+29-09-2020 10:31:30 - Settings GPS timer: 120 s
+29-09-2020 10:31:30 - Encoding message: :393&1601375317-1.9.0-281&17:296&32:194&33:213&18:105
+29-09-2020 10:31:30 - length 53 -> 27
+29-09-2020 10:31:30 - LoRaRadio: Attempting to join LoRaWAN...
+29-09-2020 10:31:30 - LoRaRadio: Attempting to send message...
