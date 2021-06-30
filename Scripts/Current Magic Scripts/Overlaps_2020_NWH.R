@@ -105,7 +105,7 @@ SSCAN = obs
 #   10      air
 #   12      DI
 
-muxfiles<-list.files(path=".", pattern = ".FP")
+muxfiles<-list.files(path="./FP_2021", pattern = ".FP")
 
 mux_colnames = c("DateTime", "Status", paste0(as.character(c(seq(200,750, by = 2.5))),"nm"), "Valve","Measurement time")
 obs2 <- as.data.frame(matrix(,0,length(mux_colnames)))
@@ -113,14 +113,17 @@ names(obs2) <- mux_colnames
 obs2$DateTime=ymd_hms(obs2$DateTime, tz="Etc/GMT+4")
 
 for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
-  if(file.size(muxfiles[i])>4000){
-    temp<-read.table(file=muxfiles[i],skip=2,header=FALSE, row.names = NULL, sep = "\t")
+  if(file.size(paste0("./FP_2021/",muxfiles[i]))>4000){
+    temp<-read.table(file=paste0("./FP_2021/",muxfiles[i]),skip=2,header=FALSE, row.names = NULL, sep = "\t")
     names(temp) <- mux_colnames
     temp$DateTime=ymd_hms(temp$DateTime, tz="Etc/GMT+4")
     obs2<-rbind(obs2,temp)
     #print(i)
   }
 }
+
+# Plot data
+plot(obs2$DateTime,obs2$`255nm`)
 
 # Subset to date range after 2020-06-16 13:39 because data before that is messy
 # May go back and clean this up later
