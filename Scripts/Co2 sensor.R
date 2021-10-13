@@ -8,8 +8,8 @@ library(ggplot2)
 
 #load in data from the Vaisala Sensor
 
-mydir = "FCR_CO2sensors/Vaisala Sensor"
-myfiles = list.files(path=mydir, pattern="CR1000*", full.names=TRUE)
+mydir = "FCR_CO2sensors/Vaisala Sensor.backup"
+myfiles = list.files(path=mydir, pattern="", full.names=TRUE)
 
 #combine the files
 #create an out.file for the combined data
@@ -19,6 +19,7 @@ for(i in 1:length(myfiles)){
   file <- read.csv(myfiles[i], header=F, skip=4)
   out.file <- rbind(out.file, file)
 }
+
 
 #Naming the header because they have to be eliminated above to combine the files
 colnames(out.file)=c("TIMESTAMP","RECORD","batt_volt_Min","PTemp","CO2_1_Avg","CO2_2_Avg")
