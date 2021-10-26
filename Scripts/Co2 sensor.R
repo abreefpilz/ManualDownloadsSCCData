@@ -23,6 +23,8 @@ for(i in 1:length(myfiles)){
 
 #Naming the header because they have to be eliminated above to combine the files
 colnames(out.file)=c("TIMESTAMP","RECORD","batt_volt_Min","PTemp","CO2_1_Avg","CO2_2_Avg")
+#take out duplicates
+out.file=distinct(out.file)
 #make the dates cooperate
 out.file$TIMESTAMP <- as.POSIXct(out.file$TIMESTAMP, format = "%Y-%m-%d %H:%M:%S", tz = "Etc/GMT+4")
 #add a month column to make sorting easier
