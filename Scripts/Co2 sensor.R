@@ -4,6 +4,7 @@
 
 
 library(lubridate)
+library(tidyverse)
 library(ggplot2)
 
 #load in data from the Vaisala Sensor
@@ -37,5 +38,11 @@ axs=ggplot(out.file, aes(x=TIMESTAMP, y=CO2_2_Avg, col=CO2_2_Avg)) +
   geom_point()
   
 axs 
-  
+
+axs_2=out.file%>%
+  filter(TIMESTAMP>"2021-10-10 00:00")%>%
+  ggplot(., aes(x=TIMESTAMP, y=CO2_2_Avg, col=CO2_2_Avg)) +
+  geom_point()
+
+axs_2
 
