@@ -1,6 +1,6 @@
 # PLSR Script for 2020 MUX Predictions of Fe and Mn
 # Authors: Nick Hammond
-# Last Updated: 02/02/2020
+# Last Updated: 02/02/2021
 
 
 
@@ -37,13 +37,13 @@ FPcaldata_name<-"MUX_FP_Overlaps_Oct_Nov_2020.csv"
 TimeSeriesFP_name<-"MUX_FP_TS_2020.csv"
 
 #Select Desired Depths
-Depths<-c("0.1",
-  "1.6",
-  "3.8"
+Depths<-c(#"0.1",
+  #"1.6",
+  #"3.8"
   #"5.0",
-  #"6.2", 
-  #"8.0", 
-  #"9.0"
+  "6.2", 
+  "8.0", 
+  "9.0"
   )
 
 #Select Desired Date Range
@@ -65,8 +65,8 @@ data_prep(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQ
   # Doing this manually for now #
   # Also removing the high 9m sample at 2020-10-16 21:53:00 (blowoff?) bc it's doing weird things too
 
-dataWQ= dataWQ[-c(9,21),]
-dataCalFP = dataCalFP[-c(9,21),]
+dataWQ= dataWQ[-c(9),]
+dataCalFP = dataCalFP[-c(9),]
 
 
 #### Use the PLSR model to identify the correct number of components for each param using RMSE ####
@@ -80,6 +80,10 @@ PLSR_SCAN(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
 plot(RMSEP(fit), legendpos = "topright")
 
+png("RMSEP20_TFe_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300)
+plot(RMSEP(fit), legendpos = "topright")
+dev.off()
+
 #############
 #Choose the number that is at the bottom of the curve, plus 1. 
 ############
@@ -89,12 +93,25 @@ ncomp.permut <- selectNcomp(fit, method = "randomization", plot = TRUE)
 
 #### Run the function for a single parameter ####
 param<-"TFe_mgl"
-ncomp=9
+ncomp=4
 PLSR_SCAN(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
+
+# Bi-plot of pred vs. obs
+png("Biplot20_TFe_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300)
+plot(WQ,as.matrix(WQP),
+     xlab=paste("measured",param),
+     ylab=c("PLSR_predicted"))
+fit2<-lm(WQ~as.matrix(WQP)) #Linear regression of predicted and lab NO3-N values
+abline(fit2)
+dev.off()
+
 # loading plot
-plot(fit, "correlation", comps = 2:3)
+png("Loading20_TFe_epi_5comp_0out_082621.png",width = 9, height = 5, units = 'in', res = 300)
+plot(fit, "loading", comps = 1:5, legendpos = "topright")
 abline(h = 0)
+dev.off()
+
 
 #If there are obvious outliers, run whats in the PLSR loop, then click on the points.
 #This will give you a location of which datapoints are outliers, and you can then 
@@ -120,16 +137,16 @@ TS_conc$uncerTFe_min <- unlist(TS_conc$uncerTFe_min)
 
 # Assign WQP_TS to correct parameter column in TS_conc dataframe.
 TS_conc[,(3)]<-WQP_TS #for TFe
-#TS_conc[,(4)]<-WQP_TS  #for TMn
-#TS_conc[,(5)]<-WQP_TS #for SFe
-
+TS_conc[,(4)]<-WQP_TS  #for TMn
+TS_conc[,(5)]<-WQP_TS #for SFe
+TS_conc[,(6)]<-WQP_TS #for SMn 
 
 #### Statistics ####
 
 # Plot residuals
-png("resid_normlty_hypo.png",width = 9, height = 4, units = 'in', res = 300)
+png("Resid20_TFe_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300)
 par(mfrow=c(1,2))
-hist(fit$residuals,main = "Hypolimnion model")
+hist(fit$residuals,main = "Model Residuals")
 qqnorm(fit$residuals, pch = 1, frame = FALSE)
 qqline(fit$residuals, col = "steelblue", lwd = 2)
 dev.off()
@@ -149,17 +166,17 @@ summary(R2_run)
 turnover = as.data.frame(ymd_hm(c("2020-11-02 12:00")))
 colnames(turnover)= c("Date")
 
-TS_conc_all$Depth = as.numeric(TS_conc_all$Depth)
+TS_conc$Depth = as.numeric(TS_conc$Depth)
 
 # Plot all depths 
-png("Samplingonly_TFe_24hr_022621.png",width = 9, height = 4, units = 'in', res = 300) 
+png("Pred20_TFe_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300) 
 TFe_plot <- ggplot() +
-  #geom_path(data=TS_conc_all, aes(x=DateTime,y=TFe_mgl, color= as.character(Depth)), size=0.5) +
+  geom_path(data=TS_conc, aes(x=DateTime,y=TFe_mgl, color= as.character(Depth)), size=0.5) +
   #geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
-  geom_point(data=WQ_all, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth))) +
-  geom_path(data=WQ_all, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth))) +
-  ylim(0,8)+
-  labs(x="Date", y = "Total Fe (mg/L)", title = "Total Iron, 24 hours (High-Frequency Observations)") +
+  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth))) +
+  #geom_path(data=WQ_all, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth))) +
+  ylim(-0.5,1)+
+  labs(x="Date", y = "Total Fe (mg/L)", title = "PLSR Results (MUX vs. Obs)") +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
   theme(legend.position="right")+
   labs(color= "Depth (m)")+
@@ -208,16 +225,16 @@ dev.off()
 
 ### SAVE TS_CONC results so you can go back later and re-combine all depths ###
 
-epi_results = TS_conc
+#epi_results = TS_conc
 #meta_results = TS_conc
-#hypo_results = TS_conc
+hypo_results = TS_conc
 
 TS_conc_all = rbind(epi_results,hypo_results)
 TS_conc_all = TS_conc_all %>% group_by(Depth) %>% arrange(-desc(DateTime)) %>%
   ungroup(Depth)
 
 #write csv of predictions
-write.csv(TS_conc_all,"MUX_Oct_Nov_2020_predictions_021121.csv")
+write.csv(TS_conc_all,"MUX20_predictions_082721.csv")
 
 
 ## Save dataWQ, for plotting purposes ## 
@@ -229,7 +246,11 @@ WQ_all = rbind(hypo_WQ, epi_WQ)
 WQ_all = WQ_all %>% group_by(Depth) %>% arrange(-desc(DateTime)) %>% ungroup(Depth)
 
  # Remove values from 24 hr sampling (except the first sampling time), just for plotting purposes
-WQ_low_freq = WQ_all[-c(7:40),]
+#WQ_low_freq = WQ_all[-c(7:40),]
+
+
+
+
 
 ## Plot WQ data (without 24 hr sampling)
 #TFe
@@ -262,4 +283,45 @@ TMn_plot <- ggplot() +
   labs(color= "Depth (m)")+
   geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
 TMn_plot
+dev.off()
+
+
+
+
+
+# Plot a single depth
+
+# First, create a dataframe for each depth's predictions and WQ 
+nine_m = TS_conc %>% filter(Depth == '9.0')
+nine_m_WQ = dataWQ %>% filter(Depth == 9.0)
+
+eight_m = TS_conc %>% filter(Depth == '8.0')
+eight_m_WQ = dataWQ %>% filter(Depth == 8.0)
+
+six_m = TS_conc %>% filter(Depth == '6.2')
+six_m_WQ = dataWQ %>% filter(Depth == 6.2)
+
+five_m = TS_conc %>% filter(Depth == '5.0')
+five_m_WQ = dataWQ %>% filter(Depth == 5.0)
+
+three_m = TS_conc %>% filter(Depth == '3.8')
+three_m_WQ = dataWQ %>% filter(Depth == 3.8)
+
+one_m = TS_conc %>% filter(Depth == '1.6')
+one_m_WQ = dataWQ %>% filter(Depth == 1.6)
+
+surface = TS_conc %>% filter(Depth == '0.1')
+surface_WQ = dataWQ %>% filter(Depth == 0.1)
+
+# Line plot for a single depth
+png("MUX_TFe_2020_one_epi_013_9comp.png",width = 9, height = 4, units = 'in', res = 300) 
+TFe_plot <- ggplot() +
+  geom_path(data=one_m, aes(x=DateTime,y=TFe_mgl), size=0.5) +
+  geom_ribbon(data=one_m, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
+  geom_point(data=one_m_WQ, aes(x=DateTime, y=TFe_mgl), colour="blue") +
+  #ylim(0, 7)+
+  labs(x="Date", y = "TFe_mgl", title = "1.6m, epi model, 9comps, CV-RMSEP=0.14, R2=0.94 ") +
+  scale_x_datetime(labels = date_format("%Y-%m-%d"))+
+  theme(legend.position="none")
+TFe_plot
 dev.off()

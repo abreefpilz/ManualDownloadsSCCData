@@ -46,8 +46,12 @@ Depths<-c(#"0.1",
 )
 
 #Select Desired Date Range
-Begin_time<- as.POSIXct(c("2020-04-10 01:00:00"), format = "%Y-%m-%d %H:%M:%S",tz='UTC')
-End_time<- as.POSIXct(c("2020-11-09 15:00:00"), format = "%Y-%m-%d %H:%M:%S",tz='UTC') #make sure this is after the last FP *and* sampling times!
+#Select Desired Date Range
+Begin_time<- c("2020-04-10 01:00:00")
+End_time<- c("2020-11-03 15:00:00") #make sure this is after the last FP *and* sampling times!
+
+#Begin_time<- as.POSIXct(c("2020-04-10 01:00:00"), format = "%Y-%m-%d %H:%M:%S",tz='UTC')
+#End_time<- as.POSIXct(c("2020-11-09 15:00:00"), format = "%Y-%m-%d %H:%M:%S",tz='UTC') #make sure this is after the last FP *and* sampling times!
 
 #Select WQ parameter (e.g. "TFe")
 WQparam <- c("TFe_mgl","TMn_mgl","SFe_mgl","SMn_mgl") 
@@ -84,9 +88,23 @@ ncomp.permut <- selectNcomp(fit, method = "randomization", plot = TRUE)
 
 #### Re-Run the function for a single parameter, using the correct number of comps ####
 param<-"TFe_mgl"
-ncomp=5
+ncomp=10
 PLSR_SCAN(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
+# Bi-plot of pred vs. obs
+png("Biplot20_SCAN_TFe_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300)
+plot(WQ,as.matrix(WQP),
+     xlab=paste("measured",param),
+     ylab=c("PLSR_predicted"))
+fit2<-lm(WQ~as.matrix(WQP)) #Linear regression of predicted and lab NO3-N values
+abline(fit2)
+dev.off()
+
+# loading plot
+png("Loading20_SCAN_TFe_10comp_083121.png",width = 9, height = 5, units = 'in', res = 300)
+plot(fit, "loading", comps = 5:10, legendpos = "topright")
+abline(h = 0)
+dev.off()
 
 #If there are obvious outliers, run whats in the PLSR loop, then click on the points.
 #This will give you a location of which datapoints are outliers, and you can then 
@@ -144,7 +162,7 @@ colnames(turnover)= c("Date")
 png("SCAN_TFe_2020_full_5comp_042021.png",width = 9, height = 4, units = 'in', res = 300) 
 TFe_plot <- ggplot() +
   geom_point(data=TS_conc, aes(x=DateTime,y=TFe_mgl), size=0.5) +
-  geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
+  #geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
   geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgl),colour="blue") +
   ylim(0,3.5)+
   coord_cartesian(xlim=(c(as.POSIXct("2020-10-16 13:00:00", tz='UTC'),as.POSIXct("2020-11-09 15:00:00",tz='UTC'))))+

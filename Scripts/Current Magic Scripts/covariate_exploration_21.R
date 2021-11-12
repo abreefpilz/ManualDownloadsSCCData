@@ -1,6 +1,6 @@
 #### Script for exploratory data analysis of MUX predictions and potential covariates ####
 ### Author: Nick Hammond
-### Last Edited: 08/30/2021
+### Last Edited: 10/11/2021
 
 # Set wd, load packages, source code
 library(lubridate)
@@ -23,54 +23,54 @@ setwd("C:/Users/hammo/Documents/Magic Sensor PLSR/")
 
 
 # Read in catwalk data
-catwalk = read.csv(paste0(getwd(),"/Data/Covariate data/Catwalk_EDI_2020.csv"))
+#catwalk = read.csv(paste0(getwd(),"/Data/Covariate data/Catwalk_EDI_2020.csv"))
 
 # Read in met data
-met = read.csv(paste0(getwd(),"/Data/Covariate data/Met_final_2015_2020.csv"))
+#met = read.csv(paste0(getwd(),"/Data/Covariate data/Met_final_2015_2020.csv"))
 
 # Read in MUX PLSR predictions
-MUX_preds = read.csv(paste0(getwd(),"/Raw_predictions/MUX20_predictions_boot_092021.csv"))
+MUX_preds = read.csv(paste0(getwd(),"/Raw_predictions/MUX21_predictions_boot_101121.csv"))
 MUX_preds$DateTime = ymd_hms(MUX_preds$DateTime, tz="Etc/GMT+4")
 
 
 #### Read in FCR WQ data ####
-dataWQ <- read_csv(paste0(getwd(),"/Raw_predictions/MUX20_dataWQ_092021.csv"))
+dataWQ <- read_csv(paste0(getwd(),"/Raw_predictions/MUX21_dataWQ_101121.csv"))
 dataWQ$DateTime = ymd_hms(dataWQ$DateTime, tz="Etc/GMT+4")
 dataWQ = dataWQ %>% select(-c('X1','ID'))
 
 
 # Select the variables we want
-catwalk_exp = catwalk %>% select(Reservoir,Site,DateTime,RDO_mgL_5_adjusted,
-                                 RDO_mgL_9_adjusted, EXODO_mgL_1,ThermistorTemp_C_surface,
-                                 ThermistorTemp_C_1,ThermistorTemp_C_2, ThermistorTemp_C_3,
-                                 ThermistorTemp_C_4, ThermistorTemp_C_8, ThermistorTemp_C_9,
-                                 ThermistorTemp_C_5, ThermistorTemp_C_6, ThermistorTemp_C_7,
-                                 EXOfDOM_QSU_1, EXOSpCond_uScm_1, EXOChla_ugL_1)
+#catwalk_exp = catwalk %>% select(Reservoir,Site,DateTime,RDO_mgL_5_adjusted,
+#                                 RDO_mgL_9_adjusted, EXODO_mgL_1,ThermistorTemp_C_surface,
+#                                 ThermistorTemp_C_1,ThermistorTemp_C_2, ThermistorTemp_C_3,
+#                                 ThermistorTemp_C_4, ThermistorTemp_C_8, ThermistorTemp_C_9,
+#                                 ThermistorTemp_C_5, ThermistorTemp_C_6, ThermistorTemp_C_7,
+#                                 EXOfDOM_QSU_1, EXOSpCond_uScm_1, EXOChla_ugL_1)
 
 # Select the variables we want
-met_exp = met %>% select(Reservoir,Site,DateTime,WindSpeed_Average_m_s,ShortwaveRadiationDown_Average_W_m2,
-                             Rain_Total_mm, AirTemp_Average_C)
+#met_exp = met %>% select(Reservoir,Site,DateTime,WindSpeed_Average_m_s,ShortwaveRadiationDown_Average_W_m2,
+#                         Rain_Total_mm, AirTemp_Average_C)
 
 # Convert DateTime to PosixCT
-catwalk_exp$DateTime = mdy_hm(catwalk_exp$DateTime, tz="Etc/GMT+5") # GMT+5 because the sensors are on EST?
-met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="Etc/GMT+5")
+#catwalk_exp$DateTime = mdy_hm(catwalk_exp$DateTime, tz="Etc/GMT+5") # GMT+5 because the sensors are on EST?
+#met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="Etc/GMT+5")
 
 
 
 # Select the reservoir, site, and date range we want
-catwalk_exp = catwalk_exp %>% filter(Reservoir=="FCR" & Site==50) %>%
-  filter(DateTime>"2020-10-16 13:10:00") %>%
-  filter(DateTime<"2020-11-09 14:00:00")
+#catwalk_exp = catwalk_exp %>% filter(Reservoir=="FCR" & Site==50) %>%
+#  filter(DateTime>"2020-10-16 13:10:00") %>%
+#  filter(DateTime<"2020-11-09 14:00:00")
 
 # Select the reservoir, site, and date range we want
-met_exp = met_exp %>% filter(Reservoir=="FCR" & Site==50) %>%
-  filter(DateTime>"2020-10-16 13:10:00") %>%
-  filter(DateTime<"2020-11-09 14:00:00")
+#met_exp = met_exp %>% filter(Reservoir=="FCR" & Site==50) %>%
+#  filter(DateTime>"2020-10-16 13:10:00") %>%
+#  filter(DateTime<"2020-11-09 14:00:00")
 
 # Select date range for MUX predictions
-MUX_preds = MUX_preds %>%
-  filter(DateTime>"2020-10-16 13:10:00") %>%
-  filter(DateTime<"2020-11-09 14:00:00")
+#MUX_preds = MUX_preds %>%
+#  filter(DateTime>"2020-10-16 13:10:00") %>%
+#  filter(DateTime<"2020-11-09 14:00:00")
 
 # Smooth time series using moving average
 #MUX_preds = MUX_preds %>%
@@ -78,27 +78,24 @@ MUX_preds = MUX_preds %>%
 #  mutate(TFe_ma10 = rollmean(TFe_mgl,k=10,fill = NA)) %>%
 #  ungroup(Depth)
 
-# Split MUX_preds by depth (for plotting)
-MUX_preds_hypo = MUX_preds %>% filter(Depth > 3.8)
-MUX_preds_epi = MUX_preds %>% filter(Depth <= 3.8)
 
 # convert temp to long format for plotting
-therm_depths = data.frame(depth_m = c(0.1,1:9), depth = c("ThermistorTemp_C_surface",
-                                                        paste0("ThermistorTemp_C_",rep(1:9))))
-DO_depths = data.frame(depth_m = c(1.6,5,9), depth = c("EXODO_mgL_1","RDO_mgL_5_adjusted",
-                                                       "RDO_mgL_9_adjusted"))
-catwalk_exp_long = catwalk_exp %>% pivot_longer(cols=c(7:16),names_to = "depth", 
-                                                values_to = "temperature") %>%
-  left_join(therm_depths, by = "depth")
+#therm_depths = data.frame(depth_m = c(0.1,1:9), depth = c("ThermistorTemp_C_surface",
+#                                                          paste0("ThermistorTemp_C_",rep(1:9))))
+#DO_depths = data.frame(depth_m = c(1.6,5,9), depth = c("EXODO_mgL_1","RDO_mgL_5_adjusted",
+ #                                                      "RDO_mgL_9_adjusted"))
+#catwalk_exp_long = catwalk_exp %>% pivot_longer(cols=c(7:16),names_to = "depth", 
+#                                                values_to = "temperature") %>%
+#  left_join(therm_depths, by = "depth")
 
-DO_long = catwalk_exp %>% 
-  select(Reservoir, Site, DateTime, EXODO_mgL_1, RDO_mgL_5_adjusted,
-         RDO_mgL_9_adjusted) %>%
-    pivot_longer(cols=c(4:6),names_to = "depth", values_to = "DO_mgL") %>%
-  left_join(DO_depths, by = "depth")
+#DO_long = catwalk_exp %>% 
+#  select(Reservoir, Site, DateTime, EXODO_mgL_1, RDO_mgL_5_adjusted,
+#         RDO_mgL_9_adjusted) %>%
+#  pivot_longer(cols=c(4:6),names_to = "depth", values_to = "DO_mgL") %>%
+#  left_join(DO_depths, by = "depth")
 
 # filter temp by depth
-catwalk_exp_long = catwalk_exp_long %>% filter(depth_m %in% c(0.1,1,2,3,4,5,6,7,8,9))
+#catwalk_exp_long = catwalk_exp_long %>% filter(depth_m %in% c(0.1,1,2,3,4,5,6,7,8,9))
 
 ###### Multi-panel plot #####
 
@@ -107,44 +104,51 @@ catwalk_exp_long = catwalk_exp_long %>% filter(depth_m %in% c(0.1,1,2,3,4,5,6,7,
 #FF61C3 = 9m
 #00C19F = 6.2m
 
-# vector to add turnover line
-turnover = as.data.frame(ymd_hm(c("2020-11-02 12:00")))
-colnames(turnover)= c("Date")
+# vector to add SSS line
+SSS = as.data.frame(ymd_hm(c("2021-06-11 11:00")))
+colnames(SSS)= c("Date")
+
 
 # for plotting...
 MUX_preds$Depth = as.numeric(MUX_preds$Depth)
 
-# Convert negative values to zero
-MUX_preds = MUX_preds %>% mutate(TFe_mgL = if_else(TFe_mgl > 0, TFe_mgl, 0),
-                                 TMn_mgl = if_else(TMn_mgl > 0, TMn_mgl, 0),
-                                 SFe_mgl = if_else(SFe_mgl > 0, SFe_mgl, 0),
-                                 SMn_mgl = if_else(SMn_mgl > 0, SMn_mgl, 0))
-# Calculate soluble:total ratios
-MUX_preds = MUX_preds %>% mutate(Fe_ratio = SFe_mgl / TFe_mgl,
-                                 Mn_ratio = SMn_mgl / TMn_mgl,
+
+  # Convert negative values to zero
+MUX_preds = MUX_preds %>% mutate(TFe_mgL = if_else(TFe_mgL > 0, TFe_mgL, 0),
+                                 TMn_mgL = if_else(TMn_mgL > 0, TMn_mgL, 0),
+                                 SFe_mgL = if_else(SFe_mgL > 0, SFe_mgL, 0),
+                                 SMn_mgL = if_else(SMn_mgL > 0, SMn_mgL, 0))
+  # Calculate soluble:total ratios
+MUX_preds = MUX_preds %>% mutate(Fe_ratio = SFe_mgL / TFe_mgL,
+                                 Mn_ratio = SMn_mgL / TMn_mgL,
                                  Fe_ratio = if_else(Fe_ratio > 1, 1, Fe_ratio), # If ratios > 1, set to 1
                                  Mn_ratio = if_else(Mn_ratio > 1, 1, Mn_ratio)) %>%
-  group_by(Depth) %>%                                    # rolling average
-  mutate(Fe_ratio_ma10 = rollmean(Fe_ratio,k=10,fill = NA),
-         Mn_ratio_ma10 = rollmean(Mn_ratio,k=10,fill = NA)) %>%
-  ungroup(Depth)
+                         group_by(Depth) %>%                                    # rolling average
+                         mutate(Fe_ratio_ma10 = rollmean(Fe_ratio,k=10,fill = NA),
+                                Mn_ratio_ma10 = rollmean(Mn_ratio,k=10,fill = NA)) %>%
+                         ungroup(Depth)
+
+# Split MUX_preds by depth (for plotting)
+MUX_preds_hypo = MUX_preds %>% filter(Depth > 3.8)
+MUX_preds_epi = MUX_preds %>% filter(Depth <= 3.8)
+
+dataWQ_hypo = dataWQ %>% filter(Depth_m > 3.8)
+dataWQ_epi = dataWQ %>% filter(Depth_m <= 3.8)
 
 # Create variable for BeginTime and EndTime
-Begin_time = as.POSIXct("2020-10-16 00:00:00")
-End_time = as.POSIXct("2020-11-09 18:00:00")
+Begin_time = as.POSIXct("2021-05-26 00:00:00")
+End_time = as.POSIXct("2021-06-21 14:00:00")
 
 
 TFe_plot = ggplot() +
-  #geom_path(data=MUX_preds_hypo, aes(x=DateTime,y=TFe_mgl, color= as.character(Depth)), size=1) +
-  #geom_ribbon(data=MUX_preds_hypo, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "red"), alpha = 0.2)+
-  geom_path(data=MUX_preds_epi, aes(x=DateTime,y=TFe_mgl, color= as.character(Depth)), size=1) +
-  geom_ribbon(data=MUX_preds_epi, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "blue"), alpha = 0.2)+
-  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth_m)), size=3.5) +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TFe_mgL, color= as.character(Depth)), size=1) +
+  geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Total Fe (mg/L)", color = "Depth (m)", fill="90% PI") +
-  ylim(0,1.5) +
-    theme(legend.position="right")+
+  #ylim(0,1.5) +
+  theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
@@ -182,19 +186,15 @@ Fe_ratio_plot = ggplot() +
     legend.box.background = element_rect()
   ) 
 
-
-
 TMn_plot = ggplot() +
-  geom_path(data=MUX_preds_hypo, aes(x=DateTime,y=TMn_mgl, color= as.character(Depth)), size=1) +
-  geom_ribbon(data=MUX_preds_hypo, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = "red"), alpha = 0.2)+
-  geom_path(data=MUX_preds_epi, aes(x=DateTime,y=TMn_mgl, color= as.character(Depth)), size=1) +
-  geom_ribbon(data=MUX_preds_epi, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = "blue"), alpha = 0.2)+
-  geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgl, colour= as.character(Depth_m)), size=3.5) +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TMn_mgL, color= as.character(Depth)), size=1) +
+  geom_ribbon(data=MUX_preds, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Total Mn (mg/L)", color = "Depth (m)", fill="90% PI") +
   #ylim(0,1.5) +
   theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
@@ -208,7 +208,6 @@ TMn_plot = ggplot() +
     legend.title = element_text(size = 20),
     legend.box.background = element_rect()
   ) 
-  
 
 Mn_ratio_plot = ggplot() +
   geom_point(data=MUX_preds, aes(x=DateTime,y=Mn_ratio_ma10, color= as.character(Depth)), size=3) +
@@ -233,18 +232,29 @@ Mn_ratio_plot = ggplot() +
     legend.box.background = element_rect()
   ) 
 
-
 SFe_plot = ggplot() +
-  geom_path(data=nine_m, aes(x=DateTime,y=SFe_mgl), size=1, color="darkgreen") +
-  xlab("Date") +
-  ylab("Soluble Fe (mg/L)") +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=SFe_mgL, color= as.character(Depth)), size=1) +
+  geom_ribbon(data=MUX_preds, aes(ymin=uncerSFe_min, ymax=uncerSFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  geom_point(data=dataWQ, aes(x=DateTime, y=SFe_mgL, colour= as.character(Depth_m)), size=3.5) +
+  labs(x="Date",y="Soluble Fe (mg/L)", color = "Depth (m)", fill="90% PI") +
+  #ylim(0,1.5) +
+  theme(legend.position="right")+
+  #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
   #theme_ipsum() +
+  scale_x_datetime(date_minor_breaks = "1 day", 
+                   limits = c(Begin_time,End_time),
+                   labels = date_format("%Y-%m-%d")) +
   theme(
     axis.text.x = element_text(size= 22),
     axis.text.y.left = element_text(size= 22),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "brown", size=25)
-  )
+    axis.title.y = element_text(color = "black", size=25),
+    legend.text = element_text(size = 18),
+    legend.title = element_text(size = 20),
+    legend.box.background = element_rect()
+  ) 
+
 
 DO_plot = ggplot() +
   geom_path(data=DO_long, aes(x=DateTime, y=DO_mgL, color = as.character(depth_m)), size=1) +
@@ -378,10 +388,10 @@ AirTemp_plot = ggplot() +
     legend.box.background = element_rect()
   ) 
 
-png('MUX20_Fe_Mn_ratios_FullDepths_FullTS_101421.png', width = 28, height = 20, units = 'in', res = 300)
+png('MUX21_TFe_Tmn_ratios_FullTS_101421.png', width = 28, height = 20, units = 'in', res = 300)
 
- Fe_ratio_plot / Mn_ratio_plot 
- 
+Fe_ratio_plot / Mn_ratio_plot
+
 dev.off()
 
 
@@ -390,6 +400,55 @@ dev.off()
 
 
 #### Old Code ####
+
+
+
+TFe_plot_hypo = ggplot() +
+  geom_path(data=MUX_preds_hypo, aes(x=DateTime,y=TFe_mgL, color= as.character(Depth)), size=1) +
+  geom_ribbon(data=MUX_preds_hypo, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  geom_point(data=dataWQ_hypo, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
+  labs(x="Date",y="Total Fe (mg/L)", color = "Depth (m)", fill="90% PI") +
+  #ylim(0,1.5) +
+  theme(legend.position="right")+
+  #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  #theme_ipsum() +
+  scale_x_datetime(date_minor_breaks = "1 day", 
+                   limits = c(Begin_time,End_time),
+                   labels = date_format("%Y-%m-%d")) +
+  theme(
+    axis.text.x = element_text(size= 22),
+    axis.text.y.left = element_text(size= 22),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(color = "black", size=25),
+    legend.text = element_text(size = 18),
+    legend.title = element_text(size = 20),
+    legend.box.background = element_rect()
+  ) 
+
+TMn_plot = ggplot() +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TMn_mgL, color= as.character(Depth)), size=1) +
+  geom_ribbon(data=MUX_preds, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgL, colour= as.character(Depth_m)), size=3.5) +
+  labs(x="Date",y="Total Mn (mg/L)", color = "Depth (m)", fill="90% PI") +
+  #ylim(0,1.5) +
+  theme(legend.position="right")+
+  #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  #theme_ipsum() +
+  scale_x_datetime(date_minor_breaks = "1 day", 
+                   limits = c(Begin_time,End_time),
+                   labels = date_format("%Y-%m-%d")) +
+  theme(
+    axis.text.x = element_text(size= 22),
+    axis.text.y.left = element_text(size= 22),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(color = "black", size=25),
+    legend.text = element_text(size = 18),
+    legend.title = element_text(size = 20),
+    legend.box.background = element_rect()
+  ) 
+
 
 # Merge MUX metals predictions dataframe with catwalk dataframe
 #combined = merge(MUX_preds,catwalk_exp,by="DateTime",all = TRUE)
@@ -459,7 +518,7 @@ Temp_plot = ggplot() +
     axis.title.y = element_text(color = FeColor, size=25),
     axis.title.y.right = element_text(color = TempColor, size=25)
   ) +
-ggtitle("MUX Predicted TFe at 1.6m, Temperature at 1m")
+  ggtitle("MUX Predicted TFe at 1.6m, Temperature at 1m")
 Temp_plot
 dev.off()
 
