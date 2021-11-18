@@ -1,4 +1,4 @@
-"TIMESTAMP","Chla_RFU_1","Cond_1","EXO_depth_1","fDOM_QSU_1","fDOM_RFU_1","nLF.Cond.µS.cm","dosat_1","doobs_1","EXO_pressure_1","SpCond_1","BGAPC_RFU_1","TDS_1","EXO_wiper_1","EXO_wtr_1","Vertical.Position.m","EXO_battery_1","EXO_cablepower_1"
+"TIMESTAMP","Chla_RFU_1","Cond_1","EXO_depth_1","fDOM_QSU_1","fDOM_RFU_1","nLF.Cond.uS.cm","dosat_1","doobs_1","EXO_pressure_1","SpCond_1","BGAPC_RFU_1","TDS_1","EXO_wiper_1","EXO_wtr_1","Vertical.Position.m","EXO_battery_1","EXO_cablepower_1"
 "2021-07-01 13:30:00","0.18","56.4","1.743","4.9","1.63","53.1","105.9","8.31","2.467","53.5","0.58","35","1.204","27.871","1.743","6.25","0"
 "2021-07-01 13:40:00","0.18","56.2","1.75","4.9","1.63","53.1","105.9","8.33","2.476","53.4","0.58","35","1.196","27.761","1.749","6.25","0"
 "2021-07-01 13:50:00","0.19","56.2","1.758","4.91","1.63","53.1","106","8.34","2.488","53.4","0.59","35","1.199","27.75","1.757","6.25","0"
