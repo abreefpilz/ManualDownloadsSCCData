@@ -39,12 +39,16 @@ CCR_1_5_EXO$TIMESTAMP <- as.POSIXct(strptime(CCR_1_5_EXO$TIMESTAMP, format = "%m
 CCR_1_5_EXO$TIMESTAMP<-with_tz(force_tz(CCR_1_5_EXO$TIMESTAMP,"Etc/GMT+4"), "Etc/GMT+5") #pre time change data gets assigned proper timezone then corrected to GMT -5 to match the rest of the data set
 
 #Naming the header to match what is on the data logger
-colnames(CCR_1_5_EXO)=c("TIMESTAMP","Chla_RFU_1","Cond_1","EXO_depth_1","fDOM_QSU_1","fDOM_RFU_1","nLF.Cond.µS.cm",
+colnames(CCR_1_5_EXO)=c("TIMESTAMP","Chla_RFU_1","Cond_1","EXO_depth_1","fDOM_QSU_1","fDOM_RFU_1","nLF.Cond.uS.cm",
 "dosat_1","doobs_1","EXO_pressure_1","SpCond_1","BGAPC_RFU_1","TDS_1","EXO_wiper_1",
 "EXO_wtr_1","Vertical.Position.m","EXO_battery_1","EXO_cablepower_1")
 
          
-#take out duplicates
+#change date to character
 CCR_1_5_EXO$TIMESTAMP=as.character(CCR_1_5_EXO$TIMESTAMP)
 
-write.csv(CCR_1_5_EXO, "CCR_manual_downloads/CCR_1_5_EXO_downloads/Collated_CCR_1_5_EXO_.csv",na="NAN", row.names = FALSE)
+#change everything else to numeric
+
+CCR_1_5_EXO[2:23]=as
+
+write.csv(CCR_1_5_EXO, "CCR_manual_downloads/CCR_1_5_EXO_downloads/Collated_CCR_1_5_EXO.csv",na="NAN", row.names = FALSE)
