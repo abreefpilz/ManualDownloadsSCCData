@@ -7,13 +7,18 @@ library(lubridate)
 library(plyr)
 library(readr)
 library(dplyr)
+library(tidyverse)
 
-#time to now play with BVR data!
+#read in the collated manual file that we are adding to
+FCRman_data=read.csv("CR6_Files/FCRcatwalk_manual_2021.csv")
+
+
+#time to now play with FCR data!
 #Gateway has missing data sections so combine manual data for EDI
 
-#put manual data from BVR platform into a file 
+#put manual data from FCR platform into a file 
 mydir = "CR6_Files/Catwalk"
-myfiles = list.files(path=mydir, pattern="", full.names=TRUE)#list the files from BVR platform
+myfiles = list.files(path=mydir, pattern="CR6_FCRcatwalk_Catwalk_20210726", full.names=TRUE)#list the files from BVR platform
 
 #taking out the the Temp Test files
 #myfilesBVR <- myfiles[ !grepl("CR6_BVR_TempTest*", myfiles) ]#exclude the Temp test data
@@ -57,6 +62,11 @@ presdata=presdata3[!duplicated(presdata3$TIMESTAMP), ]
 
 FCR=merge(fcrdata,presdata, all.x=T)
 
+FCR=rbind(FCRman_data,fcrdata3)
+
+FCR2=FCR%>%
+  filter(TIMESTAMP!="")
+
 #create CSV of manual downloads which can be combined with Github files to fill in missing gaps
 
-write.csv(FCR, "FCRcatwalk_manual_2021.csv")
+write.csv(FCR2, "CR6_Files/FCRcatwalk_manual_2021.csv", row.names=FALSE)
