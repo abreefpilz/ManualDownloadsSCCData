@@ -36,7 +36,10 @@ MUX_preds$DateTime = ymd_hms(MUX_preds$DateTime, tz="Etc/GMT+4")
 #### Read in FCR WQ data ####
 dataWQ <- read_csv(paste0(getwd(),"/Raw_predictions/MUX20_dataWQ_092021.csv"))
 dataWQ$DateTime = ymd_hms(dataWQ$DateTime, tz="Etc/GMT+4")
-dataWQ = dataWQ %>% select(-c('X1','ID'))
+dataWQ = dataWQ %>% select(-c('...1','ID'))
+
+## Read in Thermocline depth data ##
+ThermoDepths = read_csv(paste0(getwd(),"/Data/Covariate data/FCR_ThermoDepth_MUX20_013122.csv"))
 
 
 # Select the variables we want
@@ -52,8 +55,9 @@ met_exp = met %>% select(Reservoir,Site,DateTime,WindSpeed_Average_m_s,Shortwave
                              Rain_Total_mm, AirTemp_Average_C)
 
 # Convert DateTime to PosixCT
-catwalk_exp$DateTime = mdy_hm(catwalk_exp$DateTime, tz="Etc/GMT+5") # GMT+5 because the sensors are on EST?
-met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="Etc/GMT+5")
+catwalk_exp$DateTime = mdy_hm(catwalk_exp$DateTime, tz="Etc/GMT+4") # Sensors are on EST (GMT+5) but converting to
+met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="Etc/GMT+4")        # EDT (GMT+4) to match MUX data
+ThermoDepths$datetime = ymd_hms(ThermoDepths$datetime,tz="Etc/GMT+4")
 
 
 
@@ -73,14 +77,17 @@ MUX_preds = MUX_preds %>%
   filter(DateTime<"2020-11-09 14:00:00")
 
 # Smooth time series using moving average
+ThermoDepths = ThermoDepths %>% 
+  mutate(thermo.depth_roll = rollmean(thermo.depth,k=9,fill = NA))
+
 #MUX_preds = MUX_preds %>%
 #  group_by(Depth) %>%
 #  mutate(TFe_ma10 = rollmean(TFe_mgl,k=10,fill = NA)) %>%
 #  ungroup(Depth)
 
 # Split MUX_preds by depth (for plotting)
-MUX_preds_hypo = MUX_preds %>% filter(Depth > 3.8)
-MUX_preds_epi = MUX_preds %>% filter(Depth <= 3.8)
+#MUX_preds_hypo = MUX_preds %>% filter(Depth > 3.8)
+#MUX_preds_epi = MUX_preds %>% filter(Depth <= 3.8)
 
 # convert temp to long format for plotting
 therm_depths = data.frame(depth_m = c(0.1,1:9), depth = c("ThermistorTemp_C_surface",
@@ -135,13 +142,11 @@ End_time = as.POSIXct("2020-11-09 18:00:00")
 
 
 TFe_plot = ggplot() +
-  #geom_path(data=MUX_preds_hypo, aes(x=DateTime,y=TFe_mgl, color= as.character(Depth)), size=1) +
-  #geom_ribbon(data=MUX_preds_hypo, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "red"), alpha = 0.2)+
-  geom_path(data=MUX_preds_epi, aes(x=DateTime,y=TFe_mgl, color= as.character(Depth)), size=1) +
-  geom_ribbon(data=MUX_preds_epi, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "blue"), alpha = 0.2)+
-  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth_m)), size=3.5) +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TFe_mgl, color= as.character(Depth)), size=1) +
+  geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Total Fe (mg/L)", color = "Depth (m)", fill="90% PI") +
-  ylim(0,1.5) +
+  #ylim(0,1.5) +
     theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
   geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
@@ -156,8 +161,7 @@ TFe_plot = ggplot() +
     axis.title.y = element_text(color = "black", size=25),
     legend.text = element_text(size = 18),
     legend.title = element_text(size = 20),
-    legend.box.background = element_rect()
-  ) 
+    legend.box.background = element_rect()) 
 
 Fe_ratio_plot = ggplot() +
   geom_point(data=MUX_preds, aes(x=DateTime,y=Fe_ratio_ma10, color= as.character(Depth)), size=3) +
@@ -185,10 +189,8 @@ Fe_ratio_plot = ggplot() +
 
 
 TMn_plot = ggplot() +
-  geom_path(data=MUX_preds_hypo, aes(x=DateTime,y=TMn_mgl, color= as.character(Depth)), size=1) +
-  geom_ribbon(data=MUX_preds_hypo, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = "red"), alpha = 0.2)+
-  geom_path(data=MUX_preds_epi, aes(x=DateTime,y=TMn_mgl, color= as.character(Depth)), size=1) +
-  geom_ribbon(data=MUX_preds_epi, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = "blue"), alpha = 0.2)+
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TMn_mgl, color= as.character(Depth)), size=1) +
+  geom_ribbon(data=MUX_preds, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
   geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgl, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Total Mn (mg/L)", color = "Depth (m)", fill="90% PI") +
   #ylim(0,1.5) +
@@ -232,6 +234,23 @@ Mn_ratio_plot = ggplot() +
     legend.title = element_text(size = 20),
     legend.box.background = element_rect()
   ) 
+
+thermocline_plot = ggplot() +
+  geom_path(data=ThermoDepths, aes(x=datetime, y=thermo.depth_roll), size=1, color = "black") +
+  labs(x="Date", y="Thermocline Depth (m)")+
+  #theme_ipsum() +
+  #theme(legend.position=c(0.95,0.95))+
+  scale_x_datetime(date_minor_breaks = "1 day", limits = c(Begin_time,End_time),
+                   labels = date_format("%Y-%m-%d")) +
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  theme(
+    axis.text.x = element_text(size= 22),
+    axis.text.y.left = element_text(size= 22),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(color = "black", size=25),
+    legend.text = element_text(size = 18),
+    legend.title = element_text(size = 20),
+    legend.box.background = element_rect())
 
 
 SFe_plot = ggplot() +
@@ -285,15 +304,17 @@ fdom_plot = ggplot() +
   geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
   ylim(c(18,24)) +
   #theme_ipsum() +
-  scale_x_datetime(date_minor_breaks = "1 day",
+  scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
   theme(
     axis.text.x = element_text(size= 22),
     axis.text.y.left = element_text(size= 22),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "brown", size=25),
-  ) 
+    axis.title.y = element_text(color = "black", size=25),
+    legend.text = element_text(size = 18),
+    legend.title = element_text(size = 20),
+    legend.box.background = element_rect()) 
 
 Temp_plot = ggplot() +
   geom_path(data=catwalk_exp_long, aes(x=DateTime, y=temperature, color = as.factor(depth_m)), size=1) +
@@ -335,14 +356,16 @@ wind_plot = ggplot() +
   xlab("Date") +
   ylab("Avg Wind Speed (W/m2)") +
   scale_x_datetime(date_minor_breaks = "1 day", 
-                   limits = c(as.POSIXct("2020-10-16"),as.POSIXct("2020-11-02"))) +
-  #theme_ipsum() +
+                   limits = c(Begin_time,End_time),
+                   labels = date_format("%Y-%m-%d")) +
   theme(
-    axis.text.x = element_text(size= 18),
-    axis.text.y.left = element_text(size= 10),
+    axis.text.x = element_text(size= 22),
+    axis.text.y.left = element_text(size= 22),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = 77, size=20),
-  )
+    axis.title.y = element_text(color = "black", size=25),
+    legend.text = element_text(size = 18),
+    legend.title = element_text(size = 20),
+    legend.box.background = element_rect()) 
 
 
 rain_plot = ggplot() +
@@ -378,9 +401,11 @@ AirTemp_plot = ggplot() +
     legend.box.background = element_rect()
   ) 
 
-png('MUX20_Fe_Mn_ratios_FullDepths_FullTS_101421.png', width = 28, height = 20, units = 'in', res = 300)
+#### Create png file of multipanel plots ####
 
- Fe_ratio_plot / Mn_ratio_plot 
+png('MUX20_TFe_Thermocline_FullDepths_FullTS_013122.png', width = 28, height = 20, units = 'in', res = 300)
+
+ TFe_plot / thermocline_plot
  
 dev.off()
 

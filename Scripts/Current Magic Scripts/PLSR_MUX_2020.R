@@ -65,8 +65,8 @@ data_prep(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQ
   # Doing this manually for now #
   # Also removing the high 9m sample at 2020-10-16 21:53:00 (blowoff?) bc it's doing weird things too
 
-dataWQ= dataWQ[-c(9),]
-dataCalFP = dataCalFP[-c(9),]
+dataWQ= dataWQ[-c(9,21),]
+dataCalFP = dataCalFP[-c(9,21),]
 
 
 #### Use the PLSR model to identify the correct number of components for each param using RMSE ####
@@ -74,13 +74,13 @@ dataCalFP = dataCalFP[-c(9),]
 num_comps(param="TFe_mgl",dataWQ,dataCalFP,TS_FP)
 
 #### Run the function for a single parameter ####
-param<-"TFe_mgl"
+param<-"SMn_mgl"
 ncomp=15
 PLSR_SCAN(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
 plot(RMSEP(fit), legendpos = "topright")
 
-png("RMSEP20_TFe_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300)
+png("RMSEP20_SMn_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300)
 plot(RMSEP(fit), legendpos = "topright")
 dev.off()
 
@@ -92,13 +92,13 @@ ncomp.onesigma <- selectNcomp(fit, method = "onesigma", plot = TRUE)
 ncomp.permut <- selectNcomp(fit, method = "randomization", plot = TRUE)
 
 #### Run the function for a single parameter ####
-param<-"TFe_mgl"
-ncomp=4
+param<-"SMn_mgl"
+ncomp=5
 PLSR_SCAN(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
 
 # Bi-plot of pred vs. obs
-png("Biplot20_TFe_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300)
+png("Biplot20_SMn_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300)
 plot(WQ,as.matrix(WQP),
      xlab=paste("measured",param),
      ylab=c("PLSR_predicted"))
@@ -107,7 +107,7 @@ abline(fit2)
 dev.off()
 
 # loading plot
-png("Loading20_TFe_epi_5comp_0out_082621.png",width = 9, height = 5, units = 'in', res = 300)
+png("Loading20_SMn_epi_5comp_0out_082621.png",width = 9, height = 5, units = 'in', res = 300)
 plot(fit, "loading", comps = 1:5, legendpos = "topright")
 abline(h = 0)
 dev.off()
@@ -128,12 +128,12 @@ colnames(dataWQ)[2] <- "Depth"   #rename this column for plotting
 # assign the predictions to the correct column in the TS_conc matrix. This portion of the script will
 # change for each parameter. change number in "sd(as.numeric(fit$residuals[,,X]))" to match number of components,
 #  change column names (i.e. "TS_conc$uncerNO2_max") to match parameter.
-TS_conc$uncerTFe_max <- NA
-TS_conc$uncerTFe_min <- NA
-TS_conc$uncerTFe_max <- WQP_TS + 1.96*sd(as.numeric(fit$residuals[,,9])) #max uncert
-TS_conc$uncerTFe_min <- WQP_TS - 1.96*sd(as.numeric(fit$residuals[,,9])) #min uncert
-TS_conc$uncerTFe_max <- unlist(TS_conc$uncerTFe_max)
-TS_conc$uncerTFe_min <- unlist(TS_conc$uncerTFe_min)
+TS_conc$uncerSMn_max <- NA
+TS_conc$uncerSMn_min <- NA
+TS_conc$uncerSMn_max <- WQP_TS + 1.96*sd(as.numeric(fit$residuals[,,9])) #max uncert
+TS_conc$uncerSMn_min <- WQP_TS - 1.96*sd(as.numeric(fit$residuals[,,9])) #min uncert
+TS_conc$uncerSMn_max <- unlist(TS_conc$uncerSMn_max)
+TS_conc$uncerSMn_min <- unlist(TS_conc$uncerSMn_min)
 
 # Assign WQP_TS to correct parameter column in TS_conc dataframe.
 TS_conc[,(3)]<-WQP_TS #for TFe
@@ -144,7 +144,7 @@ TS_conc[,(6)]<-WQP_TS #for SMn
 #### Statistics ####
 
 # Plot residuals
-png("Resid20_TFe_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300)
+png("Resid20_SMn_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300)
 par(mfrow=c(1,2))
 hist(fit$residuals,main = "Model Residuals")
 qqnorm(fit$residuals, pch = 1, frame = FALSE)
@@ -169,19 +169,19 @@ colnames(turnover)= c("Date")
 TS_conc$Depth = as.numeric(TS_conc$Depth)
 
 # Plot all depths 
-png("Pred20_TFe_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300) 
-TFe_plot <- ggplot() +
-  geom_path(data=TS_conc, aes(x=DateTime,y=TFe_mgl, color= as.character(Depth)), size=0.5) +
-  #geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
-  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth))) +
-  #geom_path(data=WQ_all, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth))) +
+png("Pred20_SMn_epi_5comp_0out_082621.png",width = 9, height = 4, units = 'in', res = 300) 
+SMn_plot <- ggplot() +
+  geom_path(data=TS_conc, aes(x=DateTime,y=SMn_mgl, color= as.character(Depth)), size=0.5) +
+  #geom_ribbon(data=TS_conc, aes(ymin=uncerSMn_min, ymax=uncerSMn_max, x=DateTime, fill = "band"), alpha = 0.2)+
+  geom_point(data=dataWQ, aes(x=DateTime, y=SMn_mgl, colour= as.character(Depth))) +
+  #geom_path(data=WQ_all, aes(x=DateTime, y=SMn_mgl, colour= as.character(Depth))) +
   ylim(-0.5,1)+
   labs(x="Date", y = "Total Fe (mg/L)", title = "PLSR Results (MUX vs. Obs)") +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
   theme(legend.position="right")+
   labs(color= "Depth (m)")+
   geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
-TFe_plot
+SMn_plot
 dev.off()
 
 # Plot a single depth

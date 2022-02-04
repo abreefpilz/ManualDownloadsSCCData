@@ -117,7 +117,11 @@ MUX_preds$Depth = as.numeric(MUX_preds$Depth)
 MUX_preds = MUX_preds %>% mutate(TFe_mgL = if_else(TFe_mgL > 0, TFe_mgL, 0),
                                  TMn_mgL = if_else(TMn_mgL > 0, TMn_mgL, 0),
                                  SFe_mgL = if_else(SFe_mgL > 0, SFe_mgL, 0),
-                                 SMn_mgL = if_else(SMn_mgL > 0, SMn_mgL, 0))
+                                 SMn_mgL = if_else(SMn_mgL > 0, SMn_mgL, 0),
+                                 uncerTFe_max = if_else(uncerTFe_max > 0, uncerTFe_max, 0),
+                                 uncerTFe_min = if_else(uncerTFe_min > 0, uncerTFe_min, 0),
+                                 uncerTMn_max = if_else(uncerTMn_max > 0, uncerTMn_max, 0),
+                                 uncerTMn_min = if_else(uncerTMn_min > 0, uncerTMn_min, 0))
   # Calculate soluble:total ratios
 MUX_preds = MUX_preds %>% mutate(Fe_ratio = SFe_mgL / TFe_mgL,
                                  Mn_ratio = SMn_mgL / TMn_mgL,
@@ -141,94 +145,96 @@ End_time = as.POSIXct("2021-06-21 14:00:00")
 
 
 TFe_plot = ggplot() +
-  geom_path(data=MUX_preds, aes(x=DateTime,y=TFe_mgL, color= as.character(Depth)), size=1) +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TFe_mgL, color= as.character(Depth)), size=1.5) +
   geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
-  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
+  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=4) +
   labs(x="Date",y="Total Fe (mg/L)", color = "Depth (m)", fill="90% PI") +
   #ylim(0,1.5) +
   theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
-  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
     legend.box.background = element_rect()
   ) 
 
 Fe_ratio_plot = ggplot() +
-  geom_point(data=MUX_preds, aes(x=DateTime,y=Fe_ratio_ma10, color= as.character(Depth)), size=3) +
+  geom_point(data=MUX_preds_hypo, aes(x=DateTime,y=Fe_ratio_ma10, color= as.character(Depth)), size=6) +
   #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Fe Soluble:Total", color = "Depth (m)") +
-  #ylim(0,1.5) +
+  ylim(0,1) +
   theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
-  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
+  scale_color_manual(values = c("6.2" = "#00B0F6", "8" = "#E76BF3")) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
     legend.box.background = element_rect()
   ) 
 
 TMn_plot = ggplot() +
-  geom_path(data=MUX_preds, aes(x=DateTime,y=TMn_mgL, color= as.character(Depth)), size=1) +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TMn_mgL, color= as.character(Depth)), size=1.5) +
   geom_ribbon(data=MUX_preds, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
-  geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgL, colour= as.character(Depth_m)), size=3.5) +
+  geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgL, colour= as.character(Depth_m)), size=4) +
   labs(x="Date",y="Total Mn (mg/L)", color = "Depth (m)", fill="90% PI") +
   #ylim(0,1.5) +
   theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
-  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
     legend.box.background = element_rect()
   ) 
 
 Mn_ratio_plot = ggplot() +
-  geom_point(data=MUX_preds, aes(x=DateTime,y=Mn_ratio_ma10, color= as.character(Depth)), size=3) +
+  geom_point(data=MUX_preds_hypo, aes(x=DateTime,y=Mn_ratio_ma10, color= as.character(Depth)), size=6) +
   #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Mn Soluble:Total", color = "Depth (m)") +
-  #ylim(0,1) +
+  ylim(0,1) +
   theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
-  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
+  scale_color_manual(values = c("6.2" = "#00B0F6", "8" = "#E76BF3")) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
     legend.box.background = element_rect()
   ) 
 
@@ -388,9 +394,9 @@ AirTemp_plot = ggplot() +
     legend.box.background = element_rect()
   ) 
 
-png('MUX21_TFe_Tmn_ratios_FullTS_101421.png', width = 28, height = 20, units = 'in', res = 300)
+png('MUX21_TFe_TMn_FullDepths_FullTS_011022.png', width = 28, height = 20, units = 'in', res = 300)
 
-Fe_ratio_plot / Mn_ratio_plot
+TFe_plot / TMn_plot
 
 dev.off()
 
