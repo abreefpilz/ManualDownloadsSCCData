@@ -1,21 +1,18 @@
-####
+###
 #### Function for prepping data for PLSR ####
-####
+#### with fouling corrections ###
 
 
 data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam){
   
   #### Read in FCR WQ data ####
-  dataWQ <- read_excel(path=paste(pathD,WQ_name,sep=""))
-  dataWQ$DateTime = ymd_hms(dataWQ$DateTime,tz="America/New_York")
+  dataWQ <- read_csv(paste(pathD,WQ_name,sep=""))
   
   #Subset to just include desired depths, Reservoir, and Site
   # Remove 'Flag' columns
   dataWQ <- dataWQ %>%
     filter(Depth_m %in% as.numeric(Depths)) %>%
-    filter(Reservoir == "FCR") %>%
-    filter(Site == 50) %>%
-    select(-c("Reservoir","Site","Flag_DateTime","Flag_TFe","Flag_TMn","Flag_SFe","Flag_SMn"))
+    select(-c("...1"))
   
   #Subset to desired date range
   dataWQ = dataWQ[dataWQ$DateTime>Begin_time,]
@@ -27,10 +24,8 @@ data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,
   #### Reading of  FingerPrint (FP) file corresponding to lab concentrations for calibration ####
   # This step reads in the file of overlapping MUX/SCAN data and field data. 
   dataCalFP<-read.delim(file=paste(pathD,FPcaldata_name,sep=""),sep=",")  #Import data as .csv file
-  colnames(dataCalFP)<-c("ID","DateTime","status",seq(200,750,2.5),"Valve", "Measurement Time", "Depth") #Add column names
+  colnames(dataCalFP)<-c("ID","DateTime","status",seq(200,750,2.5),"Valve", "Measurement Time") #Add column names
   
-  # Remove 'Depth' Column - we'll add this back in later
-  dataCalFP = dataCalFP %>% select(-c("Depth"))
   
   # Filter out the air valve measurements (valve #7)
   dataCalFP <- dataCalFP %>%

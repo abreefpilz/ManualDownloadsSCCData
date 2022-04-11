@@ -23,44 +23,44 @@ setwd("C:/Users/hammo/Documents/Magic Sensor PLSR/")
 
 
 # Read in catwalk data
-#catwalk = read.csv(paste0(getwd(),"/Data/Covariate data/Catwalk_EDI_2020.csv"))
+catwalk = read_csv(paste0(getwd(),"/Data/Covariate data/FCR_Catwalk_2018_2021.csv"))
 
 # Read in met data
 #met = read.csv(paste0(getwd(),"/Data/Covariate data/Met_final_2015_2020.csv"))
 
 # Read in MUX PLSR predictions
-MUX_preds = read.csv(paste0(getwd(),"/Raw_predictions/MUX21_predictions_boot_101121.csv"))
-MUX_preds$DateTime = ymd_hms(MUX_preds$DateTime, tz="Etc/GMT+4")
+MUX_preds = read.csv(paste0(getwd(),"/Raw_predictions/MUX21_predictions_boot_020922.csv"))
+MUX_preds$DateTime = ymd_hms(MUX_preds$DateTime, tz="America/New_York")
 
 
 #### Read in FCR WQ data ####
-dataWQ <- read_csv(paste0(getwd(),"/Raw_predictions/MUX21_dataWQ_101121.csv"))
-dataWQ$DateTime = ymd_hms(dataWQ$DateTime, tz="Etc/GMT+4")
-dataWQ = dataWQ %>% select(-c('X1','ID'))
+dataWQ <- read_csv(paste0(getwd(),"/Raw_predictions/MUX21_dataWQ_021122.csv"))
+dataWQ$DateTime = ymd_hms(dataWQ$DateTime, tz="America/New_York")
+dataWQ = dataWQ %>% select(-c("...1",'ID'))
 
 
 # Select the variables we want
-#catwalk_exp = catwalk %>% select(Reservoir,Site,DateTime,RDO_mgL_5_adjusted,
-#                                 RDO_mgL_9_adjusted, EXODO_mgL_1,ThermistorTemp_C_surface,
-#                                 ThermistorTemp_C_1,ThermistorTemp_C_2, ThermistorTemp_C_3,
-#                                 ThermistorTemp_C_4, ThermistorTemp_C_8, ThermistorTemp_C_9,
-#                                 ThermistorTemp_C_5, ThermistorTemp_C_6, ThermistorTemp_C_7,
-#                                 EXOfDOM_QSU_1, EXOSpCond_uScm_1, EXOChla_ugL_1)
+catwalk_exp = catwalk %>% select(Reservoir,Site,DateTime,RDO_mgL_5_adjusted,
+                                 RDO_mgL_9_adjusted, EXODO_mgL_1,ThermistorTemp_C_surface,
+                                 ThermistorTemp_C_1,ThermistorTemp_C_2, ThermistorTemp_C_3,
+                                 ThermistorTemp_C_4, ThermistorTemp_C_8, ThermistorTemp_C_9,
+                                 ThermistorTemp_C_5, ThermistorTemp_C_6, ThermistorTemp_C_7,
+                                 EXOfDOM_QSU_1, EXOSpCond_uScm_1, EXOChla_ugL_1)
 
 # Select the variables we want
 #met_exp = met %>% select(Reservoir,Site,DateTime,WindSpeed_Average_m_s,ShortwaveRadiationDown_Average_W_m2,
 #                         Rain_Total_mm, AirTemp_Average_C)
 
 # Convert DateTime to PosixCT
-#catwalk_exp$DateTime = mdy_hm(catwalk_exp$DateTime, tz="Etc/GMT+5") # GMT+5 because the sensors are on EST?
+catwalk_exp$DateTime = ymd_hms(catwalk_exp$DateTime, tz="America/New_York") # GMT+5 because the sensors are on EST?
 #met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="Etc/GMT+5")
 
 
 
 # Select the reservoir, site, and date range we want
-#catwalk_exp = catwalk_exp %>% filter(Reservoir=="FCR" & Site==50) %>%
-#  filter(DateTime>"2020-10-16 13:10:00") %>%
-#  filter(DateTime<"2020-11-09 14:00:00")
+catwalk_exp = catwalk_exp %>% filter(Reservoir=="FCR" & Site==50) %>%
+  filter(DateTime>"2021-05-26 00:00:00") %>%
+  filter(DateTime<"2021-06-22 00:00:00")
 
 # Select the reservoir, site, and date range we want
 #met_exp = met_exp %>% filter(Reservoir=="FCR" & Site==50) %>%
@@ -80,22 +80,22 @@ dataWQ = dataWQ %>% select(-c('X1','ID'))
 
 
 # convert temp to long format for plotting
-#therm_depths = data.frame(depth_m = c(0.1,1:9), depth = c("ThermistorTemp_C_surface",
-#                                                          paste0("ThermistorTemp_C_",rep(1:9))))
-#DO_depths = data.frame(depth_m = c(1.6,5,9), depth = c("EXODO_mgL_1","RDO_mgL_5_adjusted",
- #                                                      "RDO_mgL_9_adjusted"))
-#catwalk_exp_long = catwalk_exp %>% pivot_longer(cols=c(7:16),names_to = "depth", 
-#                                                values_to = "temperature") %>%
-#  left_join(therm_depths, by = "depth")
+therm_depths = data.frame(depth_m = c(0.1,1:9), depth = c("ThermistorTemp_C_surface",
+                                                          paste0("ThermistorTemp_C_",rep(1:9))))
+DO_depths = data.frame(depth_m = c(1.6,5,9), depth = c("EXODO_mgL_1","RDO_mgL_5_adjusted",
+                                                      "RDO_mgL_9_adjusted"))
+catwalk_exp_long = catwalk_exp %>% pivot_longer(cols=c(7:16),names_to = "depth", 
+                                                values_to = "temperature") %>%
+  left_join(therm_depths, by = "depth")
 
-#DO_long = catwalk_exp %>% 
-#  select(Reservoir, Site, DateTime, EXODO_mgL_1, RDO_mgL_5_adjusted,
-#         RDO_mgL_9_adjusted) %>%
-#  pivot_longer(cols=c(4:6),names_to = "depth", values_to = "DO_mgL") %>%
-#  left_join(DO_depths, by = "depth")
+DO_long = catwalk_exp %>% 
+  select(Reservoir, Site, DateTime, EXODO_mgL_1, RDO_mgL_5_adjusted,
+         RDO_mgL_9_adjusted) %>%
+  pivot_longer(cols=c(4:6),names_to = "depth", values_to = "DO_mgL") %>%
+  left_join(DO_depths, by = "depth")
 
 # filter temp by depth
-#catwalk_exp_long = catwalk_exp_long %>% filter(depth_m %in% c(0.1,1,2,3,4,5,6,7,8,9))
+catwalk_exp_long = catwalk_exp_long %>% filter(depth_m %in% c(0.1,1,2,3,4,5,6,7,8,9))
 
 ###### Multi-panel plot #####
 
@@ -140,7 +140,7 @@ dataWQ_hypo = dataWQ %>% filter(Depth_m > 3.8)
 dataWQ_epi = dataWQ %>% filter(Depth_m <= 3.8)
 
 # Create variable for BeginTime and EndTime
-Begin_time = as.POSIXct("2021-05-26 00:00:00")
+Begin_time = as.POSIXct("2021-06-04 00:00:00") # 2021-06-04 starts after data gap
 End_time = as.POSIXct("2021-06-21 14:00:00")
 
 
@@ -162,13 +162,12 @@ TFe_plot = ggplot() +
     axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
     axis.title.y = element_text(color = "black", size=37),
-    legend.text = element_text(size = 32),
-    legend.title = element_text(size = 34),
-    legend.box.background = element_rect()
-  ) 
+    legend.text = element_text(size = 20),
+    legend.title = element_text(size = 22),
+    legend.box.background = element_rect())
 
 Fe_ratio_plot = ggplot() +
-  geom_point(data=MUX_preds_hypo, aes(x=DateTime,y=Fe_ratio_ma10, color= as.character(Depth)), size=6) +
+  geom_point(data=MUX_preds, aes(x=DateTime,y=Fe_ratio_ma10, color= as.character(Depth)), size=6) +
   #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Fe Soluble:Total", color = "Depth (m)") +
@@ -180,7 +179,7 @@ Fe_ratio_plot = ggplot() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
-  scale_color_manual(values = c("6.2" = "#00B0F6", "8" = "#E76BF3")) +
+  #scale_color_manual(values = c("6.2" = "#00B0F6", "8" = "#E76BF3")) +
   theme(
     axis.text.x = element_text(size= 36),
     axis.text.y.left = element_text(size= 36),
@@ -209,13 +208,12 @@ TMn_plot = ggplot() +
     axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
     axis.title.y = element_text(color = "black", size=37),
-    legend.text = element_text(size = 32),
-    legend.title = element_text(size = 34),
-    legend.box.background = element_rect()
-  ) 
+    legend.text = element_text(size = 20),
+    legend.title = element_text(size = 22),
+    legend.box.background = element_rect())
 
 Mn_ratio_plot = ggplot() +
-  geom_point(data=MUX_preds_hypo, aes(x=DateTime,y=Mn_ratio_ma10, color= as.character(Depth)), size=6) +
+  geom_point(data=MUX_preds, aes(x=DateTime,y=Mn_ratio_ma10, color= as.character(Depth)), size=6) +
   #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Mn Soluble:Total", color = "Depth (m)") +
@@ -227,7 +225,7 @@ Mn_ratio_plot = ggplot() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
-  scale_color_manual(values = c("6.2" = "#00B0F6", "8" = "#E76BF3")) +
+  #scale_color_manual(values = c("6.2" = "#00B0F6", "8" = "#E76BF3")) +
   theme(
     axis.text.x = element_text(size= 36),
     axis.text.y.left = element_text(size= 36),
@@ -318,16 +316,15 @@ Temp_plot = ggplot() +
   #theme(legend.position=c(0.95,0.95))+
   scale_x_datetime(date_minor_breaks = "1 day", limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
-    legend.box.background = element_rect()
-  ) 
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
+    legend.box.background = element_rect())
 
 
 SW_plot = ggplot() +
@@ -394,14 +391,48 @@ AirTemp_plot = ggplot() +
     legend.box.background = element_rect()
   ) 
 
-png('MUX21_TFe_TMn_FullDepths_FullTS_011022.png', width = 28, height = 20, units = 'in', res = 300)
+png('MUX21_Temp_TFe_TMn_FullDepths_FullTS_032122.png', width = 28, height = 20, units = 'in', res = 300)
 
-TFe_plot / TMn_plot
+Temp_plot / TFe_plot / TMn_plot
 
 dev.off()
 
 
 
+
+#### code for plotting Sol:Tot Fe and Mn on same plot (at 9m depth only) ####
+mux_preds_ratios = MUX_preds_hypo %>% rename(Fe = Fe_ratio_ma10, Mn = Mn_ratio_ma10) %>% 
+  pivot_longer(cols = c(18:19),names_to = "variable", values_to = "ratio") %>% 
+  filter(Depth ==9)
+
+Fe_Mn_ratio_plot = ggplot() +
+  geom_path(data=mux_preds_ratios, aes(x=DateTime,y=ratio, color= variable), size=3) +
+  #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
+  labs(x="Date",y="Soluble:Total", title = "2021 Oxygen-On Deployment", color = "Variable") +
+  ylim(0,1) +
+  theme(legend.position="right")+
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
+  #theme_ipsum() +
+  scale_x_datetime(date_minor_breaks = "1 day", 
+                   limits = c(Begin_time,End_time),
+                   labels = date_format("%Y-%m-%d")) +
+  theme(
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
+    legend.box.background = element_rect(),
+    title = element_text(size = 40)
+  )
+
+png('MUX21_TFe_TMn_Ratios_9m_FullTS_032122.png', width = 28, height = 12, units = 'in', res = 300)
+
+Fe_Mn_ratio_plot
+
+dev.off()
 
 
 

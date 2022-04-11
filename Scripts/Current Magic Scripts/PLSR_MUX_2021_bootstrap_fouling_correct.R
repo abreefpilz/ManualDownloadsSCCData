@@ -1,4 +1,5 @@
 # PLSR Script for 2021 MUX Predictions of Fe and Mn with bootstrap predictive intervals
+# Applying different methods for fouling correction
 # Authors: Nick Hammond
 # Last Updated: 10/11/2021
 
@@ -33,27 +34,27 @@ source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_num_components
 #### Specify input files, depths, date ranges, and parameters ####
 
 #Specify files for WQ data, FP overlaps, and the entire FP time series
-WQ_name<-"Metals_2021.xlsx"
-FPcaldata_name<-"MUX_FP_Overlaps_2021_old.csv"
+WQ_name<-"MUX_WQ_2021_doubles.csv"
+FPcaldata_name<-"MUX_FP_Overlaps_2021_doubles.csv"
 TimeSeriesFP_name<-"MUX_FP_TS_2021.csv"
 
 #Select Desired Depths
 Depths<-c(#"0.1",
-          #"1.6",
-          #"3.8"
-          #"5.0",
-          "6.2", 
-          "8.0",
-          "9.0"
+  #"1.6",
+  #"3.8"
+  #"5.0",
+  "6.2", 
+  "8.0",
+  "9.0"
 )
 
 #Select Desired Date Range
-Begin_time<- c("2021-05-26 00:00:00") # Full TS: "2021-05-26 00:00:00" Experiment start time: 5/26/2021 13:58
-                                      # Start at HOx-ON: "2021-06-11 12:00:00"
-End_time<- c("2021-06-21 14:00:00")   # Full TS: "2021-06-21 14:00:00" Experiment end time: 6/21/2021 8:47
+Begin_time<- c("2021-05-26 00:30:00") # Experiment start time: 5/26/2021 13:58
+
+End_time<- c("2021-06-21 12:00:00")   # Experiment end time: 6/21/2021 8:47
 #make sure this is after the last FP *and* sampling times!
 
-#Select WQ parameter (e.g. "TMn")
+#Select WQ parameter (e.g. "TFe")
 WQparam <- c("TFe_mgL","TMn_mgL","SFe_mgL","SMn_mgL") 
 
 
@@ -77,13 +78,13 @@ sd_TMn = sd(dataWQ$TMn_mgL)
 sd_SMn = sd(dataWQ$SMn_mgL)
 
 dataWQ = dataWQ %>% mutate(TFe_mgL = if_else(TFe_mgL < mean_TFe+3*sd_TFe & 
-                                                 TFe_mgL > mean_TFe-3*sd_TFe, TFe_mgL, NA_real_),
-                             SFe_mgL = if_else(SFe_mgL < mean_SFe+3*sd_SFe & 
-                                                 SFe_mgL > mean_SFe-3*sd_SFe, SFe_mgL, NA_real_),
-                             TMn_mgL = if_else(TMn_mgL < mean_TMn+3*sd_TMn & 
-                                                 TMn_mgL > mean_TMn-3*sd_TMn, TMn_mgL, NA_real_),
-                             SMn_mgL = if_else(SMn_mgL < mean_SMn+3*sd_SMn & 
-                                                 SMn_mgL > mean_SMn-3*sd_SMn, SMn_mgL, NA_real_))
+                                               TFe_mgL > mean_TFe-3*sd_TFe, TFe_mgL, NA_real_),
+                           SFe_mgL = if_else(SFe_mgL < mean_SFe+3*sd_SFe & 
+                                               SFe_mgL > mean_SFe-3*sd_SFe, SFe_mgL, NA_real_),
+                           TMn_mgL = if_else(TMn_mgL < mean_TMn+3*sd_TMn & 
+                                               TMn_mgL > mean_TMn-3*sd_TMn, TMn_mgL, NA_real_),
+                           SMn_mgL = if_else(SMn_mgL < mean_SMn+3*sd_SMn & 
+                                               SMn_mgL > mean_SMn-3*sd_SMn, SMn_mgL, NA_real_))
 
 #dataWQ= dataWQ[-c(15),]
 #dataCalFP = dataCalFP[-c(15),]
@@ -104,7 +105,7 @@ dataWQ = dataWQ %>% mutate(TFe_mgL = if_else(TFe_mgL < mean_TFe+3*sd_TFe &
 
 
 #### Remove lower wavelengths to correct fouling ####
-dataCalFP = dataCalFP[,-c(1:20)] # 20 = < 250nm; 40 = < 300nm
+dataCalFP = dataCalFP[,-c(1:20)] # 10 = <225nm; 20 = < 250nm; 30 = <275nm; 40 = < 300nm
 TS_FP = TS_FP[,-c(1:20)]
 
 
@@ -132,7 +133,7 @@ ncomp.permut <- selectNcomp(fit, method = "randomization", plot = TRUE)
 
 #### Run the function for a single parameter ####
 param<-"SMn_mgL"
-ncomp=4
+ncomp=3
 PLSR_SCAN_boot(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
 # Bi-plot of pred vs. obs
@@ -148,7 +149,7 @@ dev.off()
 
 # loading plot
 png("Loading21_SMn_epi_6comp_1out_020922.png",width = 9, height = 5, units = 'in', res = 300)
-plot(fit, "loading", comps = 1:4, legendpos = "topright")
+plot(fit, "coef", comps = 1:5, legendpos = "topright")
 abline(h = 0)
 dev.off()
 
@@ -221,11 +222,70 @@ SMn_plot <- ggplot() +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
   theme(legend.position="right")+
   labs(color= "Depth (m)",fill="90% PI")+
-geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
 SMn_plot
 dev.off()
 
 
+##### Save TS_conc as a new df ####
+
+### Splits ###
+
+full = TS_conc
+#split_pre = TS_conc
+#split_post = TS_conc
+
+full = full %>% mutate(time_series = "Full")
+split_pre = split_pre %>% mutate(time_series = "Split")
+split_post = split_post %>% mutate(time_series = "Split")
+
+split_df = union(full,split_pre)
+split_df = union(split_df,split_post)
+
+split_df = split_df %>% arrange(-desc(DateTime))
+
+write.csv(split_df,"MUX21_fouling_corr_splits_040822.csv")
+
+
+### Doubles ###
+
+#normal = TS_conc
+#doubles = TS_conc
+#doubles_250 = TS_conc
+
+normal = normal %>% mutate(correction = "no correction")
+doubles = doubles %>% mutate(correction = "doubles")
+doubles_250 = doubles_250 %>% mutate(correction = "doubles_250")
+
+doubles_df = union(normal,doubles)
+doubles_df = union(doubles_df,doubles_250)
+
+doubles_df = doubles_df %>% arrange(-desc(DateTime))
+
+write.csv(doubles_df,"MUX21_fouling_corr_doubles_031522.csv")
+
+### Subs ###
+
+#full = TS_conc
+#sub_225 = TS_conc
+#sub_250 = TS_conc
+#sub_275 = TS_conc
+sub_300 = TS_conc
+
+full = full %>% mutate(correction = "full")
+sub_225 = sub_225 %>% mutate(correction = "225nm")
+sub_250 = sub_250 %>% mutate(correction = "250nm")
+sub_275 = sub_275 %>% mutate(correction = "275nm")
+sub_300 = sub_300 %>% mutate(correction = "300nm")
+
+fouling_df = union(full,sub_225)
+fouling_df = union(fouling_df,sub_250)
+fouling_df = union(fouling_df,sub_275)
+fouling_df = union(fouling_df,sub_300)
+
+fouling_df = fouling_df %>% arrange(desc(DateTime))
+
+write.csv(fouling_df,"MUX21_fouling_corr_031122.csv")
 
 ### SAVE TS_CONC results so you can go back later and re-combine all depths ###
 
@@ -260,26 +320,26 @@ write.csv(WQ_all,"MUX21_dataWQ_021122.csv")
 WQ_low_freq = WQ_all[-c(7:40),]
 
 ## Plot WQ data (without 24 hr sampling)
-#SFe
-png("MUX_SFe_Oct_Nov_2020_epi_hypo_WQ_022221.png",width = 9, height = 4, units = 'in', res = 300) 
-SFe_plot <- ggplot() +
-  #geom_path(data=WQ_all, aes(x=DateTime,y=SFe_mgL, color= as.factor(Depth)), size=0.5) +
-  geom_point(data=WQ_all, aes(x=DateTime,y=SFe_mgL, color= as.factor(Depth)), size=0.8) +
-  #geom_ribbon(data=TS_conc, aes(ymin=uncerSFe_min, ymax=uncerSFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
-  #geom_point(data=dataWQ, aes(x=DateTime, y=SFe_mgL, colour= as.factor(Depth))) +
+#SMn
+png("MUX_SMn_Oct_Nov_2020_epi_hypo_WQ_022221.png",width = 9, height = 4, units = 'in', res = 300) 
+SMn_plot <- ggplot() +
+  #geom_path(data=WQ_all, aes(x=DateTime,y=SMn_mgL, color= as.factor(Depth)), size=0.5) +
+  geom_point(data=WQ_all, aes(x=DateTime,y=SMn_mgL, color= as.factor(Depth)), size=0.8) +
+  #geom_ribbon(data=TS_conc, aes(ymin=uncerSMn_min, ymax=uncerSMn_max, x=DateTime, fill = "band"), alpha = 0.2)+
+  #geom_point(data=dataWQ, aes(x=DateTime, y=SMn_mgL, colour= as.factor(Depth))) +
   ylim(0, 8)+
   labs(x="Date", y = "Total Fe (mg/L)", title = "Total Iron Pre- and Post-Turnover 2020 (Weekly Sampling)") +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
   theme(legend.position="right")+
   labs(color= "Depth (m)")+
   geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
-TMn_plot
+SMn_plot
 dev.off()
 
-#TMn
-png("MUX_TMn_Oct_Nov_2020_epi_hypo_WQ_022221.png",width = 9, height = 4, units = 'in', res = 300) 
-TMn_plot <- ggplot() +
-  geom_path(data=WQ_low_freq, aes(x=DateTime,y=TMn_mgL, color= as.factor(Depth)), size=0.5) +
+#SMn
+png("MUX_SMn_Oct_Nov_2020_epi_hypo_WQ_022221.png",width = 9, height = 4, units = 'in', res = 300) 
+SMn_plot <- ggplot() +
+  geom_path(data=WQ_low_freq, aes(x=DateTime,y=SMn_mgL, color= as.factor(Depth)), size=0.5) +
   geom_point(data=WQ_low_freq, aes(x=DateTime,y=TMn_mgL, color= as.factor(Depth)), size=0.8) +
   #geom_ribbon(data=TS_conc, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = "band"), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgL, colour= as.factor(Depth))) +

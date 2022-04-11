@@ -5,26 +5,26 @@ library(lubridate)
 library(tidyverse)
 
 #set working directory
-setwd('C:/Users/hammo/Desktop/Magic Sensor 2021 Experiment A/')
-folder = 'C:/Users/hammo/Desktop/Magic Sensor 2021 Experiment A/'
+setwd('C:/Users/hammo/Documents/Magic Sensor PLSR')
+folder = 'C:/Users/hammo/Documents/Magic Sensor PLSR/Data/'
 
-MUX = read_csv(paste0(folder,"MUX_FP_TS_2021.csv"))
+MUX = read_csv(paste0(folder,"MUX_FP_TS_2020.csv"))
+MUX = MUX %>% select(-c(`...1`))
 
-
-mux_colnames = c("DateTime", "Status", paste0(as.character(c(seq(200,750, by = 2.5)))), "Valve","Measurement time","Depth")
+mux_colnames = c("DateTime", "Status", paste0(as.character(c(seq(200,750, by = 2.5)))), "Valve","Measurement time")
 names(MUX) <- mux_colnames
-MUX$DateTime=ymd_hms(MUX$DateTime, tz="Etc/GMT+4")
+MUX$DateTime=ymd_hms(MUX$DateTime, tz="America/New_York")
 
 
 mux_only=MUX
 mux_only=mux_only[order(mux_only$DateTime),]
 
-mux_only = mux_only %>% select(-c(Depth))
+mux_only = mux_only %>% filter(DateTime > ymd_hms("2020-10-15 12:00:00",tz="America/New_York"))
 
 #create a data frame of valve number and depth
 valve_depth <- data.frame(
   Valve = c (1:12), 
-  Depth= c("0.1","1.6","3.8","5.0","6.2", "8.0", "9.0", "NA", "acid_r", "air","NA", "water_r"),
+  Depth= c("0.1","1.6","3.8","5.0","6.2", "8.0", "9.0", "NA", "acid_r", "air","NA", "air"),
   stringsAsFactors = FALSE
 )
 
@@ -37,17 +37,18 @@ mux_only_long=mux_only%>%
   filter(Depth %in% c('0.1','1.6','3.8','5.0','6.2','8.0','9.0','air','water_r', "acid_r"))
 
 # Vector of cleaning times
-cleaning = as.data.frame(ymd_hm(c("2021-05-26 12:25", "2021-05-28 09:30", "2021-05-31 11:46", "2021-06-02 12:22",
-             "2021-06-07 10:00","2021-06-10 16:55", "2021-06-15 17:25","2021-06-18 10:30")))
+cleaning = tibble(ymd_hms(c("2020-10-17 13:00:00", "2020-10-19 11:26:00", "2020-10-21 11:27:00", "2020-10-23 10:35:00",
+                                   "2020-10-26 10:40:00","2020-10-28 09:17:00", "2020-10-30 12:00:00","2020-11-02 09:40:00",
+                                   "2020-11-04 10:59:00"), tz="America/New_York"))
 colnames(cleaning)<- "DateTime"
 
 
 #### Create  a multipanel plot of absorbance over time separated by depth 
-png("Summer_21_fullTS.png",width = 13, height = 6, units = 'in', res = 300)
+png("Turnover_20_fullTS_022522.png",width = 13, height = 6, units = 'in', res = 300)
 ggplot(mux_only_long, aes(x=DateTime, y=absorbance, color=wavelength)) + 
   geom_point() +
   geom_vline(xintercept = cleaning$DateTime, linetype="dotted", 
-     color = "black", size=0.6)+
+             color = "black", size=0.6)+
   facet_wrap(facets = vars(Depth), ncol = 2, scales = "free_y")
 dev.off()
 

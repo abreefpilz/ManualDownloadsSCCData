@@ -20,12 +20,12 @@ library(zoo)
 
 
 #data path and working directory locations
-pathD<-"C:/Users/hammo/Documents/Magic Sensor PLSR/Data/" #EDIT: Specify folder where data is located
+pathD<-"C:/Users/hammo/Documents/Magic Sensor PLSR/Raw_predictions/" #EDIT: Specify folder where data is located
 setwd("C:/Users/hammo/Documents/Magic Sensor PLSR/")
 
 #Specify files for WQ data, FP overlaps, and the entire FP time series
-WQ_20<-"FCR_Jan_Nov_2020.xlsx"
-WQ_21<-"Metals_2021.xlsx"
+WQ_20<-"MUX20_dataWQ_021122.csv"
+WQ_21<-"MUX21_dataWQ_021122.csv"
 
 #Select Desired Depths
 Depths<-c("0.1",
@@ -47,8 +47,8 @@ End_21<- c("2021-06-21 12:00:00") # Experiment end time: 6/21/2021 8:47
 
 
 #### Read in FCR WQ data ####
-dataWQ_20 <- read_xlsx(path=paste(pathD,WQ_20,sep=""))
-dataWQ_21 <- read_xlsx(path=paste(pathD,WQ_21,sep=""))
+dataWQ_20 <- read_csv(paste(pathD,WQ_20,sep=""))
+dataWQ_21 <- read_csv(paste(pathD,WQ_21,sep=""))
 
 #Subset to just include desired depths
 dataWQ_20 <- dataWQ_20 %>%
@@ -80,46 +80,45 @@ TFe_box = ggplot() +
   labs(x = "Depth (m)", y = "Total Fe (mg/L)") +
   theme(legend.position = "none") +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
-    axis.title.x = element_text(size=22),
-    axis.title.y = element_text(color = "black", size=25),
-  ) 
+    axis.text.x = element_text(size= 30),
+    axis.text.y.left = element_text(size= 30),
+    axis.title.x = element_text(size=30),
+    axis.title.y = element_text(color = "black", size=34)) 
+
 TMn_box = ggplot() +
   geom_boxplot(data = dataWQ_20, aes(Depth_m,TMn_mgl,colour = Depth_m), size=2) +
   geom_point(data = dataWQ_20, aes(Depth_m,TMn_mgl,colour = Depth_m),size=4) +
   labs(x = "Depth (m)", y = "Total Mn (mg/L)") +
   theme(legend.position = "none") +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
-    axis.title.x = element_text(size=22),
-    axis.title.y = element_text(color = "black", size=25),
-  ) 
+    axis.text.x = element_text(size= 30),
+    axis.text.y.left = element_text(size= 30),
+    axis.title.x = element_text(size=30),
+    axis.title.y = element_text(color = "black", size=34))
+
 SFe_box = ggplot() +
   geom_boxplot(data = dataWQ_20, aes(Depth_m,SFe_mgl,colour = Depth_m),size=2) +
   geom_point(data = dataWQ_20, aes(Depth_m,SFe_mgl,colour = Depth_m),size=4) +
   labs(x = "Depth (m)", y = "Soluble Fe (mg/L)") +
   theme(legend.position = "none") +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
-    axis.title.x = element_text(size=22),
-    axis.title.y = element_text(color = "black", size=25),
-  ) 
+    axis.text.x = element_text(size= 30),
+    axis.text.y.left = element_text(size= 30),
+    axis.title.x = element_text(size=30),
+    axis.title.y = element_text(color = "black", size=34))
+
 SMn_box = ggplot() +
   geom_boxplot(data = dataWQ_20, aes(Depth_m,SMn_mgl,colour = Depth_m),size=2) +
   geom_point(data = dataWQ_20, aes(Depth_m,SMn_mgl,colour = Depth_m),size=4) +
   labs(x = "Depth (m)", y = "Soluble Mn (mg/L)") +
   theme(legend.position = "none") +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
-    axis.title.x = element_text(size = 22),
-    axis.title.y = element_text(color = "black", size=25),
-  ) 
+    axis.text.x = element_text(size= 30),
+    axis.text.y.left = element_text(size= 30),
+    axis.title.x = element_text(size=30),
+    axis.title.y = element_text(color = "black", size=34))
 
-png('MUX20_WQ_boxplots_101521.png', width = 28, height = 20, units = 'in', res = 300)
+png('MUX20_WQ_boxplots_021122.png', width = 28, height = 20, units = 'in', res = 300)
 
 (TFe_box | SFe_box) / (TMn_box | SMn_box) 
 
@@ -134,46 +133,46 @@ TFe_box = ggplot() +
   labs(x = "Depth (m)", y = "Total Fe (mg/L)") +
   theme(legend.position = "none") +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
-    axis.title.x = element_text(size=22),
-    axis.title.y = element_text(color = "black", size=25),
-  ) 
+    axis.text.x = element_text(size= 30),
+    axis.text.y.left = element_text(size= 30),
+    axis.title.x = element_text(size=30),
+    axis.title.y = element_text(color = "black", size=34)) 
+
 TMn_box = ggplot() +
   geom_boxplot(data = dataWQ_21, aes(Depth_m,TMn_mgL,colour = Depth_m), size=2) +
   geom_point(data = dataWQ_21, aes(Depth_m,TMn_mgL,colour = Depth_m),size=4) +
   labs(x = "Depth (m)", y = "Total Mn (mg/L)") +
   theme(legend.position = "none") +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
-    axis.title.x = element_text(size=22),
-    axis.title.y = element_text(color = "black", size=25),
-  ) 
+    axis.text.x = element_text(size= 30),
+    axis.text.y.left = element_text(size= 30),
+    axis.title.x = element_text(size=30),
+    axis.title.y = element_text(color = "black", size=34)) 
+
 SFe_box = ggplot() +
   geom_boxplot(data = dataWQ_21, aes(Depth_m,SFe_mgL,colour = Depth_m),size=2) +
   geom_point(data = dataWQ_21, aes(Depth_m,SFe_mgL,colour = Depth_m),size=4) +
   labs(x = "Depth (m)", y = "Soluble Fe (mg/L)") +
   theme(legend.position = "none") +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
-    axis.title.x = element_text(size=22),
-    axis.title.y = element_text(color = "black", size=25),
-  ) 
+    axis.text.x = element_text(size= 30),
+    axis.text.y.left = element_text(size= 30),
+    axis.title.x = element_text(size=30),
+    axis.title.y = element_text(color = "black", size=34)) 
+
 SMn_box = ggplot() +
   geom_boxplot(data = dataWQ_21, aes(Depth_m,SMn_mgL,colour = Depth_m),size=2) +
   geom_point(data = dataWQ_21, aes(Depth_m,SMn_mgL,colour = Depth_m),size=4) +
   labs(x = "Depth (m)", y = "Soluble Mn (mg/L)") +
   theme(legend.position = "none") +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
-    axis.title.x = element_text(size = 22),
-    axis.title.y = element_text(color = "black", size=25),
-  ) 
+    axis.text.x = element_text(size= 30),
+    axis.text.y.left = element_text(size= 30),
+    axis.title.x = element_text(size=30),
+    axis.title.y = element_text(color = "black", size=34)) 
 
-png('MUX21_WQ_boxplots_101521.png', width = 28, height = 20, units = 'in', res = 300)
+
+png('MUX21_WQ_boxplots_021122.png', width = 28, height = 20, units = 'in', res = 300)
 
 (TFe_box | SFe_box) / (TMn_box | SMn_box) 
 

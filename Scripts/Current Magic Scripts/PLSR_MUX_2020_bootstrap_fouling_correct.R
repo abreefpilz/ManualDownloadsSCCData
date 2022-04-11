@@ -1,6 +1,7 @@
 # PLSR Script for 2020 MUX Predictions of Fe and Mn with bootstrap predictive intervals
+# Applying different methods for fouling correction
 # Authors: Nick Hammond
-# Last Updated: 02/09/2022
+# Last Updated: 03/13/2022
 
 
 
@@ -25,32 +26,31 @@ setwd("C:/Users/hammo/Documents/Magic Sensor PLSR/")
 
 #load functions
 source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_function.R')
-source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_function_boot.R')
-source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_data_prep_function.R')
+source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_function_boot_w_temp.R')
+source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_data_prep_function_w_temp.R')
 source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_num_components_function.R')
 
 
 #### Specify input files, depths, date ranges, and parameters ####
 
 #Specify files for WQ data, FP overlaps, and the entire FP time series
-WQ_name<-"Metals_2014_2021.csv"
-FPcaldata_name<-"MUX_FP_Overlaps_Oct_Nov_2020.csv"
-TimeSeriesFP_name<-"MUX_FP_TS_2020.csv"
+WQ_name<-"MUX_WQ_Oct_Nov_2020_w_temp.csv"
+FPcaldata_name<-"MUX_FP_Overlaps_Oct_Nov_2020_w_temp.csv"
+TimeSeriesFP_name<-"MUX_FP_TS_2020_w_temp.csv"
 
 #Select Desired Depths
 Depths<-c(#"0.1",
-  #"1.6",
-  #"3.8"
-  #"5.0",
-  "6.2", 
-  "8.0", 
-  "9.0"
+          #"1.6",
+          #"3.8"
+          #"5.0",
+          "6.2", 
+          "8.0", 
+          "9.0"
 )
 
 #Select Desired Date Range
-Begin_time<- c("2020-10-15 12:00")    # Joyful Beginning: "2020-10-15 12:00"
-End_time<- c("2020-11-09 15:00:00")  # Bitter End: "2020-11-09 15:00:00" # Turnover: "2020-11-02 12:00:00"
-                                    # make sure this is after the last FP *and* sampling times!
+Begin_time<- c("2020-10-15 12:00")
+End_time<- c("2020-11-09 15:00:00") #make sure this is after the last FP *and* sampling times!
 
 #Select WQ parameter (e.g. "TFe")
 WQparam <- c("TFe_mgL","TMn_mgL","SFe_mgL","SMn_mgL") 
@@ -76,7 +76,7 @@ sd_TMn = sd(dataWQ$TMn_mgL)
 sd_SMn = sd(dataWQ$SMn_mgL)
 
 dataWQ = dataWQ %>% mutate(TFe_mgL = if_else(TFe_mgL < mean_TFe+3*sd_TFe & 
-                                                 TFe_mgL > mean_TFe-3*sd_TFe, TFe_mgL, NA_real_),
+                                               TFe_mgL > mean_TFe-3*sd_TFe, TFe_mgL, NA_real_),
                            SFe_mgL = if_else(SFe_mgL < mean_SFe+3*sd_SFe & 
                                                SFe_mgL > mean_SFe-3*sd_SFe, SFe_mgL, NA_real_),
                            TMn_mgL = if_else(TMn_mgL < mean_TMn+3*sd_TMn & 
@@ -87,6 +87,11 @@ dataWQ = dataWQ %>% mutate(TFe_mgL = if_else(TFe_mgL < mean_TFe+3*sd_TFe &
 # Still removing really low 9m sample manually bc it doesn't get flagged as an outlier
 dataWQ= dataWQ[-c(21),]
 dataCalFP = dataCalFP[-c(21),]
+
+
+#### Remove lower wavelengths to correct fouling ####
+dataCalFP = dataCalFP[,-c(1:20)] # 10 = <225nm; 20 = < 250nm; 30 = <275nm; 40 = < 300nm
+TS_FP = TS_FP[,-c(1:20)]
 
 
 #### Use the PLSR model to identify the correct number of components for each param using RMSE ####
@@ -129,7 +134,7 @@ dev.off()
 
 # loading plot
 png("Loading20_TFe_epi_6comp_0out_020922.png",width = 9, height = 5, units = 'in', res = 300)
-plot(fit, "loading", comps = 1:6, legendpos = "topright")
+plot(fit, "loading", comps = 1:4, legendpos = "topright")
 abline(h = 0)
 dev.off()
 
@@ -143,7 +148,7 @@ out
 
 #Make sure that your datetimes are formatted correctly before plotting
 TS_conc$DateTime <- as.POSIXct(TS_conc$DateTime, format="%Y-%m-%d %H:%M:%S")
-dataWQ$DateTime <- as.POSIXct(dataWQ$DateTime, format="%m/%d/%y %H:%M:%S")
+dataWQ$DateTime <- as.POSIXct(dataWQ$DateTime, format="%m/%d/%y %H:%M")
 #colnames(dataWQ)[2] <- "Depth"   #rename this column for plotting
 
 # assign the predictions to the correct column in the TS_conc matrix. This portion of the script will
@@ -171,7 +176,6 @@ par(mfrow=c(1,2))
 hist(fit$residuals[,,ncomp],main = "Residuals model")
 qqnorm(fit$residuals[,,ncomp], pch = 1, frame = FALSE)
 qqline(fit$residuals[,,ncomp], col = "steelblue", lwd = 2)
-shapiro.test(fit$residuals[,,ncomp]) # if p < 0.05, the residuals are NOT normal
 dev.off()
 
 #Calculate RMSE
@@ -189,13 +193,13 @@ summary(R2_run)
 turnover = as.data.frame(ymd_hm(c("2020-11-02 12:00")))
 colnames(turnover)= c("Date")
 
-TS_conc$Depth_m = as.numeric(TS_conc$Depth_m)
+TS_conc$Depth = as.numeric(TS_conc$Depth)
 
 # Plot all depths 
-png("Pred20_TFe_epi_6comp_0out_020922.png",width = 9, height = 4, units = 'in', res = 300) 
+png("Pred20_TFe_hypo_4comp_2out_doubles_030322.png",width = 9, height = 4, units = 'in', res = 300) 
 TFe_plot <- ggplot() +
-  geom_path(data=TS_conc, aes(x=DateTime,y=TFe_mgL, color= as.character(Depth_m)), size=0.5) +
-  geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth_m)), alpha = 0.2)+
+  geom_path(data=TS_conc, aes(x=DateTime,y=TFe_mgL, color= as.character(Depth)), size=0.5) +
+  geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
   geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m))) +
   #ylim(0,7)+
   labs(x="Date", y = "Total Fe (mg/L)", title = "PLSR Preds w/ bootstrap PI") +
@@ -207,6 +211,66 @@ TFe_plot
 dev.off()
 
 
+#### Save TS_conc as a new df for each subset ####
+
+### Splits ###
+
+full = TS_conc
+#split_pre = TS_conc
+#split_post = TS_conc
+
+full = full %>% mutate(time_series = "Full")
+split_pre = split_pre %>% mutate(time_series = "Split")
+split_post = split_post %>% mutate(time_series = "Split")
+
+split_df = union(full,split_pre)
+split_df = union(split_df,split_post)
+
+split_df = split_df %>% arrange(-desc(DateTime))
+
+write.csv(split_df,"MUX20_fouling_corr_splits_032922.csv")
+
+
+
+### Doubles ###
+
+#normal = TS_conc
+#doubles = TS_conc
+#doubles_250 = TS_conc
+
+normal = normal %>% mutate(correction = "no correction")
+doubles = doubles %>% mutate(correction = "doubles")
+doubles_250 = doubles_250 %>% mutate(correction = "doubles_250")
+
+doubles_df = union(normal,doubles)
+doubles_df = union(doubles_df,doubles_250)
+
+doubles_df = doubles_df %>% arrange(-desc(DateTime))
+
+write.csv(doubles_df,"MUX20_fouling_corr_doubles_031422.csv")
+
+### Wavelength removal ###
+
+#full = TS_conc
+#sub_225 = TS_conc
+#sub_250 = TS_conc
+#sub_275 = TS_conc
+#sub_300 = TS_conc
+
+full = full %>% mutate(correction = "full")
+sub_225 = sub_225 %>% mutate(correction = "225nm")
+sub_250 = sub_250 %>% mutate(correction = "250nm")
+sub_275 = sub_275 %>% mutate(correction = "275nm")
+sub_300 = sub_300 %>% mutate(correction = "300nm")
+
+fouling_df = union(full,sub_225)
+fouling_df = union(fouling_df,sub_250)
+fouling_df = union(fouling_df,sub_275)
+fouling_df = union(fouling_df,sub_300)
+
+fouling_df = fouling_df %>% arrange(-desc(DateTime))
+
+write.csv(fouling_df,"MUX20_fouling_corr_031322.csv")
 
 ### SAVE TS_CONC results so you can go back later and re-combine all depths ###
 
@@ -215,8 +279,8 @@ epi_results = TS_conc
 #hypo_results = TS_conc
 
 TS_conc_all = rbind(epi_results,hypo_results)
-TS_conc_all = TS_conc_all %>% group_by(Depth_m) %>% arrange(-desc(DateTime)) %>%
-  ungroup(Depth_m)
+TS_conc_all = TS_conc_all %>% group_by(Depth) %>% arrange(-desc(DateTime)) %>%
+  ungroup(Depth)
 
 #write csv of predictions
 write.csv(TS_conc_all,"MUX20_predictions_boot_020922.csv")
@@ -230,7 +294,7 @@ write.csv(dataWQ,"MUX20_dataWQ_092021.csv")
 epi_WQ = dataWQ
 
 WQ_all = rbind(hypo_WQ, epi_WQ)
-WQ_all = WQ_all %>% group_by(Depth_m) %>% arrange(-desc(DateTime)) %>% ungroup(Depth_m)
+WQ_all = WQ_all %>% group_by(Depth) %>% arrange(-desc(DateTime)) %>% ungroup(Depth)
 
 
 
@@ -242,15 +306,15 @@ WQ_low_freq = WQ_all[-c(7:40),]
 #TFe
 png("MUX_TFe_Oct_Nov_2020_epi_hypo_WQ_022221.png",width = 9, height = 4, units = 'in', res = 300) 
 TFe_plot <- ggplot() +
-  #geom_path(data=WQ_all, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth_m)), size=0.5) +
-  geom_point(data=WQ_all, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth_m)), size=0.8) +
+  #geom_path(data=WQ_all, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth)), size=0.5) +
+  geom_point(data=WQ_all, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth)), size=0.8) +
   #geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
-  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.factor(Depth_m))) +
+  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.factor(Depth))) +
   ylim(0, 8)+
   labs(x="Date", y = "Total Fe (mg/L)", title = "Total Iron Pre- and Post-Turnover 2020 (Weekly Sampling)") +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
   theme(legend.position="right")+
-  labs(color= "Depth_m (m)")+
+  labs(color= "Depth (m)")+
   geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
 TFe_plot
 dev.off()
@@ -258,10 +322,10 @@ dev.off()
 #TFe
 png("MUX_TFe_Oct_Nov_2020_epi_hypo_WQ_022221.png",width = 9, height = 4, units = 'in', res = 300) 
 TFe_plot <- ggplot() +
-  geom_path(data=WQ_low_freq, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth_m)), size=0.5) +
-  geom_point(data=WQ_low_freq, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth_m)), size=0.8) +
+  geom_path(data=WQ_low_freq, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth)), size=0.5) +
+  geom_point(data=WQ_low_freq, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth)), size=0.8) +
   #geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
-  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.factor(Depth_m))) +
+  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.factor(Depth))) +
   ylim(0, 4)+
   labs(x="Date", y = "Total Mn (mg/L)", title = "Total Manganese Pre- and Post-Turnover 2020 (Weekly Sampling)") +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
@@ -275,26 +339,26 @@ dev.off()
 # Plot a single depth
 
 # First, create a dataframe for each depth's predictions and WQ 
-nine_m = TS_conc %>% filter(Depth_m == '9.0')
-nine_m_WQ = dataWQ %>% filter(Depth_m == 9.0)
+nine_m = TS_conc %>% filter(Depth == '9.0')
+nine_m_WQ = dataWQ %>% filter(Depth == 9.0)
 
-eight_m = TS_conc %>% filter(Depth_m == '8.0')
-eight_m_WQ = dataWQ %>% filter(Depth_m == 8.0)
+eight_m = TS_conc %>% filter(Depth == '8.0')
+eight_m_WQ = dataWQ %>% filter(Depth == 8.0)
 
-six_m = TS_conc %>% filter(Depth_m == '6.2')
-six_m_WQ = dataWQ %>% filter(Depth_m == 6.2)
+six_m = TS_conc %>% filter(Depth == '6.2')
+six_m_WQ = dataWQ %>% filter(Depth == 6.2)
 
-five_m = TS_conc %>% filter(Depth_m == '5.0')
-five_m_WQ = dataWQ %>% filter(Depth_m == 5.0)
+five_m = TS_conc %>% filter(Depth == '5.0')
+five_m_WQ = dataWQ %>% filter(Depth == 5.0)
 
-three_m = TS_conc %>% filter(Depth_m == '3.8')
-three_m_WQ = dataWQ %>% filter(Depth_m == 3.8)
+three_m = TS_conc %>% filter(Depth == '3.8')
+three_m_WQ = dataWQ %>% filter(Depth == 3.8)
 
-one_m = TS_conc %>% filter(Depth_m == '1.6')
-one_m_WQ = dataWQ %>% filter(Depth_m == 1.6)
+one_m = TS_conc %>% filter(Depth == '1.6')
+one_m_WQ = dataWQ %>% filter(Depth == 1.6)
 
-surface = TS_conc %>% filter(Depth_m == '0.1')
-surface_WQ = dataWQ %>% filter(Depth_m == 0.1)
+surface = TS_conc %>% filter(Depth == '0.1')
+surface_WQ = dataWQ %>% filter(Depth == 0.1)
 
 # Line plot for a single depth
 png("MUX_TFe_2020_pred_surface_epi_013_9comp.png",width = 9, height = 4, units = 'in', res = 300) 

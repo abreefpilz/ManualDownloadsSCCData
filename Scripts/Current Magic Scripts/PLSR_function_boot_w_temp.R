@@ -53,7 +53,7 @@ PLSR_SCAN_boot<-function(param,dataCalFP,dataWQ,TS_FP,ncomp,yesplot=FALSE){
   }
   
   # Sample from G to estimate the 90% predictive interval
-  pred_int = apply(G, 1, quantile, c(0.05,0.95))
+  pred_int = apply(G, 1, quantile, c(0.05,0.95),na.rm=T)
   
   if (yesplot==TRUE){
     plot(WQ,as.matrix(WQP), asp = 1,

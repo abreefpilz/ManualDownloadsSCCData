@@ -29,13 +29,13 @@ catwalk = read.csv(paste0(getwd(),"/Data/Covariate data/Catwalk_EDI_2020.csv"))
 met = read.csv(paste0(getwd(),"/Data/Covariate data/Met_final_2015_2020.csv"))
 
 # Read in MUX PLSR predictions
-MUX_preds = read.csv(paste0(getwd(),"/Raw_predictions/MUX20_predictions_boot_092021.csv"))
-MUX_preds$DateTime = ymd_hms(MUX_preds$DateTime, tz="Etc/GMT+4")
+MUX_preds = read.csv(paste0(getwd(),"/Raw_predictions/MUX20_predictions_boot_020922.csv"))
+MUX_preds$DateTime = ymd_hms(MUX_preds$DateTime, tz="America/New_York")
 
 
 #### Read in FCR WQ data ####
-dataWQ <- read_csv(paste0(getwd(),"/Raw_predictions/MUX20_dataWQ_092021.csv"))
-dataWQ$DateTime = ymd_hms(dataWQ$DateTime, tz="Etc/GMT+4")
+dataWQ <- read_csv(paste0(getwd(),"/Raw_predictions/MUX20_dataWQ_021122.csv"))
+dataWQ$DateTime = mdy_hm(dataWQ$DateTime, tz="America/New_York")
 dataWQ = dataWQ %>% select(-c('...1','ID'))
 
 ## Read in Thermocline depth data ##
@@ -55,9 +55,9 @@ met_exp = met %>% select(Reservoir,Site,DateTime,WindSpeed_Average_m_s,Shortwave
                              Rain_Total_mm, AirTemp_Average_C)
 
 # Convert DateTime to PosixCT
-catwalk_exp$DateTime = mdy_hm(catwalk_exp$DateTime, tz="Etc/GMT+4") # Sensors are on EST (GMT+5) but converting to
-met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="Etc/GMT+4")        # EDT (GMT+4) to match MUX data
-ThermoDepths$datetime = ymd_hms(ThermoDepths$datetime,tz="Etc/GMT+4")
+catwalk_exp$DateTime = mdy_hm(catwalk_exp$DateTime, tz="America/New_York") # Sensors are on EST (GMT+5) but converting to
+met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="America/New_York")        # EDT (GMT+4) to match MUX data
+ThermoDepths$datetime = ymd_hms(ThermoDepths$datetime,tz="America/New_York")
 
 
 
@@ -122,7 +122,7 @@ colnames(turnover)= c("Date")
 MUX_preds$Depth = as.numeric(MUX_preds$Depth)
 
 # Convert negative values to zero
-MUX_preds = MUX_preds %>% mutate(TFe_mgL = if_else(TFe_mgl > 0, TFe_mgl, 0),
+MUX_preds = MUX_preds %>% mutate(TFe_mgl = if_else(TFe_mgl > 0, TFe_mgl, 0),
                                  TMn_mgl = if_else(TMn_mgl > 0, TMn_mgl, 0),
                                  SFe_mgl = if_else(SFe_mgl > 0, SFe_mgl, 0),
                                  SMn_mgl = if_else(SMn_mgl > 0, SMn_mgl, 0))
@@ -136,121 +136,128 @@ MUX_preds = MUX_preds %>% mutate(Fe_ratio = SFe_mgl / TFe_mgl,
          Mn_ratio_ma10 = rollmean(Mn_ratio,k=10,fill = NA)) %>%
   ungroup(Depth)
 
+# Split MUX_preds by depth (for plotting)
+MUX_preds_hypo = MUX_preds %>% filter(Depth > 3.8)
+MUX_preds_epi = MUX_preds %>% filter(Depth <= 3.8)
+
+dataWQ_hypo = dataWQ %>% filter(Depth_m > 3.8)
+dataWQ_epi = dataWQ %>% filter(Depth_m <= 3.8)
+
 # Create variable for BeginTime and EndTime
 Begin_time = as.POSIXct("2020-10-16 00:00:00")
 End_time = as.POSIXct("2020-11-09 18:00:00")
 
 
 TFe_plot = ggplot() +
-  geom_path(data=MUX_preds, aes(x=DateTime,y=TFe_mgl, color= as.character(Depth)), size=1) +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TFe_mgl, color= as.character(Depth)), size=1.5) +
   geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
-  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth_m)), size=3.5) +
+  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgl, colour= as.character(Depth_m)), size=4) +
   labs(x="Date",y="Total Fe (mg/L)", color = "Depth (m)", fill="90% PI") +
   #ylim(0,1.5) +
     theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
-    legend.box.background = element_rect()) 
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 20),
+    legend.title = element_text(size = 22),
+    legend.box.background = element_rect())  
+
 
 Fe_ratio_plot = ggplot() +
-  geom_point(data=MUX_preds, aes(x=DateTime,y=Fe_ratio_ma10, color= as.character(Depth)), size=3) +
+  geom_point(data=MUX_preds_hypo, aes(x=DateTime,y=Fe_ratio_ma10, color= as.character(Depth)), size=3) +
   #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Fe Soluble:Total", color = "Depth (m)") +
-  #ylim(0,1.5) +
+  ylim(0,1) +
   theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
-  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
     legend.box.background = element_rect()
-  ) 
+  )
 
 
 
 TMn_plot = ggplot() +
-  geom_path(data=MUX_preds, aes(x=DateTime,y=TMn_mgl, color= as.character(Depth)), size=1) +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TMn_mgl, color= as.character(Depth)), size=1.5) +
   geom_ribbon(data=MUX_preds, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
-  geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgl, colour= as.character(Depth_m)), size=3.5) +
+  geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgl, colour= as.character(Depth_m)), size=4) +
   labs(x="Date",y="Total Mn (mg/L)", color = "Depth (m)", fill="90% PI") +
   #ylim(0,1.5) +
   theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
-    legend.box.background = element_rect()
-  ) 
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 20),
+    legend.title = element_text(size = 22),
+    legend.box.background = element_rect())  
   
 
 Mn_ratio_plot = ggplot() +
-  geom_point(data=MUX_preds, aes(x=DateTime,y=Mn_ratio_ma10, color= as.character(Depth)), size=3) +
+  geom_point(data=MUX_preds_hypo, aes(x=DateTime,y=Mn_ratio_ma10, color= as.character(Depth)), size=3) +
   #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Mn Soluble:Total", color = "Depth (m)") +
   #ylim(0,1) +
   theme(legend.position="right")+
   #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
-  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
     legend.box.background = element_rect()
-  ) 
+  )
 
 thermocline_plot = ggplot() +
-  geom_path(data=ThermoDepths, aes(x=datetime, y=thermo.depth_roll), size=1, color = "black") +
+  geom_path(data=ThermoDepths, aes(x=datetime, y=thermo.depth_roll), size=2, color = "black") +
   labs(x="Date", y="Thermocline Depth (m)")+
   #theme_ipsum() +
   #theme(legend.position=c(0.95,0.95))+
   scale_x_datetime(date_minor_breaks = "1 day", limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
-    legend.box.background = element_rect())
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
+    legend.box.background = element_rect()) 
 
 
 SFe_plot = ggplot() +
@@ -266,23 +273,24 @@ SFe_plot = ggplot() +
   )
 
 DO_plot = ggplot() +
-  geom_path(data=DO_long, aes(x=DateTime, y=DO_mgL, color = as.character(depth_m)), size=1) +
+  geom_path(data=DO_long, aes(x=DateTime, y=DO_mgL, color = as.character(depth_m)), size=1.5) +
   labs(x="Date",y="DO (mg/L)",color="Depth (m)") +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
   theme(legend.position="right")+
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   #theme_ipsum() +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
-    legend.box.background = element_rect()
-  ) 
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
+    legend.box.background = element_rect())
+
+
 
 Cond_plot = ggplot() +
   geom_path(data=catwalk_exp, aes(x=DateTime, y=EXOSpCond_uScm_1), size=1, color="blue") +
@@ -323,16 +331,15 @@ Temp_plot = ggplot() +
   #theme(legend.position=c(0.95,0.95))+
   scale_x_datetime(date_minor_breaks = "1 day", limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
-    legend.box.background = element_rect()
-  ) 
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
+    legend.box.background = element_rect())
 
 
 SW_plot = ggplot() +
@@ -403,15 +410,48 @@ AirTemp_plot = ggplot() +
 
 #### Create png file of multipanel plots ####
 
-png('MUX20_TFe_Thermocline_FullDepths_FullTS_013122.png', width = 28, height = 20, units = 'in', res = 300)
+png('MUX20_Temp_TFe_TMn__FullDepths_FullTS_032122.png', width = 28, height = 20, units = 'in', res = 300)
 
- TFe_plot / thermocline_plot
+Temp_plot / TFe_plot / TMn_plot 
  
 dev.off()
 
 
 
+#### code for plotting Sol:Tot Fe and Mn on same plot (at 9m depth only) ####
+mux_preds_ratios = MUX_preds_hypo %>% rename(Fe = Fe_ratio_ma10, Mn = Mn_ratio_ma10) %>% 
+  pivot_longer(cols = c(18:19),names_to = "variable", values_to = "ratio") %>% 
+  filter(Depth ==9)
 
+Fe_Mn_ratio_plot = ggplot() +
+  geom_path(data=mux_preds_ratios, aes(x=DateTime,y=ratio, color= variable), size=3) +
+  #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
+  labs(x="Date",y="Soluble:Total", title = "2020 Turnover Deployment", color = "Variable") +
+  ylim(0,1) +
+  theme(legend.position="right")+
+  #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
+  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
+  #theme_ipsum() +
+  scale_x_datetime(date_minor_breaks = "1 day", 
+                   limits = c(Begin_time,End_time),
+                   labels = date_format("%Y-%m-%d")) +
+  theme(
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
+    legend.box.background = element_rect(),
+    title = element_text(size=40)
+  )
+
+png('MUX20_TFe_TMn_Ratios_9m_FullTS_032122.png', width = 28, height = 12, units = 'in', res = 300)
+
+Fe_Mn_ratio_plot
+
+dev.off()
 
 
 #### Old Code ####
