@@ -11,7 +11,7 @@ library(lubridate)
 
 ##### HOBO 3 / 0.1m 
 #read in csv 2021-08-25, we're skipping the first since that's just one column with the Hobos name; it's good to first read in without the skip to check the format 
-hobo3_0825 <- read.csv("CCR_Hobos/hobo3_CCR_0.1m_20210825.csv", skip = 1, check.names = F)
+hobo3_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_hobos/hobo3_CCR_0.1m_20210825.csv", skip = 1, check.names = F)
 
 #view 
 view(hobo3_0825)
@@ -35,7 +35,7 @@ hobo3_0825 <- hobo3_0825 %>%
          Depth_m = 0.1)
 
 #2021-04-19
-hobo3_0419 <- read.csv("CCR_Hobos/hobo3_CCR_0.1m_202190419.csv", skip = 1, check.names = F)
+hobo3_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo3_CCR_0.1m_202190419.csv", skip = 1, check.names = F)
 view(hobo3_0419)
 
 hobo3_0419 <- hobo3_0419 %>% 
@@ -61,7 +61,7 @@ hobo3_0.1m <- rbind(hobo3_0419, hobo3_0825)
 #also some only had 1 hobo file or 3. 
 
 #2021-04-19
-hobo5_0419 <- read.csv("CCR_Hobos/hobo5_CCR_1m_20210419.csv", skip = 1, check.names = F)
+hobo5_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo5_CCR_1m_20210419.csv", skip = 1, check.names = F)
 view(hobo5_0419)
 
 hobo5_0419 <- hobo5_0419 %>% 
@@ -73,7 +73,7 @@ hobo5_0419 <- hobo5_0419 %>%
          Depth_m = 1.0)
 
 #2021-08-25
-hobo5_0825 <- read.csv("CCR_Hobos/hobo5_CCR_1m_20210825.csv", skip = 1, check.names = F)
+hobo5_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo5_CCR_1m_20210825.csv", skip = 1, check.names = F)
 view(hobo5_0825)
 
 hobo5_0825 <- hobo5_0825 %>% 
@@ -89,7 +89,7 @@ hobo5_1m <- rbind(hobo5_0419, hobo5_0825)
 
 
 #2m 2021-04-19
-hobo7_0419 <- read.csv("CCR_Hobos/hobo7_CCR_2m_20210419.csv", skip = 1, check.names = F)
+hobo7_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo7_CCR_2m_20210419.csv", skip = 1, check.names = F)
 view(hobo7_0419)
 
 hobo7_0419 <- hobo7_0419 %>% 
@@ -101,7 +101,7 @@ hobo7_0419 <- hobo7_0419 %>%
          Depth_m = 2)
 
 #2m 2021-08-25
-hobo7_0825 <- read.csv("CCR_Hobos/hobo7_CCR_2m_20210825.csv", skip = 1, check.names = F)
+hobo7_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo7_CCR_2m_20210825.csv", skip = 1, check.names = F)
 view(hobo7_0825)
 
 hobo7_0825 <- hobo7_0825 %>% 
@@ -117,7 +117,7 @@ hobo7_2m <- rbind(hobo7_0419, hobo7_0825)
 
 
 #3m 2021-04-19
-hobo9_0419 <- read.csv("CCR_Hobos/hobo9_CCR_3m_20210419.csv", skip = 1, check.names = F)
+hobo9_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo9_CCR_3m_20210419.csv", skip = 1, check.names = F)
 view(hobo9_0419)
 
 hobo9_0419 <- hobo9_0419 %>% 
@@ -129,7 +129,7 @@ hobo9_0419 <- hobo9_0419 %>%
          Depth_m = 3)
 
 #3m 2021-08-25
-hobo9_0825 <- read.csv("CCR_Hobos/hobo9_CCR_3m_20210825.csv", skip = 1, check.names = F)
+hobo9_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo9_CCR_3m_20210825.csv", skip = 1, check.names = F)
 view(hobo9_0825)
 
 hobo9_0825 <- hobo9_0825 %>% 
@@ -144,7 +144,7 @@ hobo9_0825 <- hobo9_0825 %>%
 hobo9_3m <- rbind(hobo9_0419, hobo9_0825)
 
 #5m 2021-04-19
-hobo10_0419 <- read.csv("CCR_Hobos/hobo10_CCR_5m_20210419.csv", skip = 1, check.names = F)
+hobo10_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo10_CCR_5m_20210419.csv", skip = 1, check.names = F)
 view(hobo10_0419)
 
 hobo10_0419 <- hobo10_0419 %>% 
@@ -156,7 +156,7 @@ hobo10_0419 <- hobo10_0419 %>%
          Depth_m = 5)
 
 #5m 2021-08-25
-hobo10_0825 <- read.csv("CCR_Hobos/hobo10_CCR_5m_20210825.csv", skip = 1, check.names = F)
+hobo10_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo10_CCR_5m_20210825.csv", skip = 1, check.names = F)
 view(hobo10_0825)
 
 hobo10_0825 <- hobo10_0825 %>% 
@@ -172,7 +172,7 @@ hobo10_5m <- rbind(hobo10_0419, hobo10_0825)
 
 
 #4m 2021-04-19
-hobo19_0419 <- read.csv("CCR_Hobos/hobo19_CCR_4m_20210419.csv", skip = 1, check.names = F)
+hobo19_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo19_CCR_4m_20210419.csv", skip = 1, check.names = F)
 view(hobo19_0419)
 
 hobo19_0419 <- hobo19_0419 %>% 
@@ -184,7 +184,7 @@ hobo19_0419 <- hobo19_0419 %>%
          Depth_m = 4)
 
 #4m 2021-08-25
-hobo19_0825 <- read.csv("CCR_Hobos/hobo19_CCR_4m_20210825.csv", skip = 1, check.names = F)
+hobo19_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo19_CCR_4m_20210825.csv", skip = 1, check.names = F)
 view(hobo19_0825)
 
 hobo19_0825 <- hobo19_0825 %>% 
@@ -200,7 +200,7 @@ hobo19_4m <- rbind(hobo19_0419, hobo19_0825)
 
 
 #6m 2021-04-19
-hobo20_0419 <- read.csv("CCR_Hobos/hobo20_CCR_6m_20210419.csv", skip = 1, check.names = F)
+hobo20_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo20_CCR_6m_20210419.csv", skip = 1, check.names = F)
 view(hobo20_0419)
 
 hobo20_0419 <- hobo20_0419 %>% 
@@ -216,7 +216,7 @@ hobo20_6m <- hobo20_0419
 
 
 #7m 2021-04-19
-hobo24_0419 <- read.csv("CCR_Hobos/hobo24_CCR_7m_20210419.csv", skip = 1, check.names = F)
+hobo24_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo24_CCR_7m_20210419.csv", skip = 1, check.names = F)
 view(hobo24_0419)
 
 hobo24_0419 <- hobo24_0419 %>% 
@@ -228,7 +228,7 @@ hobo24_0419 <- hobo24_0419 %>%
          Depth_m = 7)
 
 #7m 2021-08-25
-hobo48_0825 <- read.csv("CCR_Hobos/hobo48_readout_20210825.csv", skip = 1, check.names = F)
+hobo48_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo48_readout_20210825.csv", skip = 1, check.names = F)
 view(hobo48_0825)
 
 hobo48_0825 <- hobo48_0825 %>% 
@@ -245,7 +245,7 @@ hobo24_48_7m <- rbind(hobo24_0419, hobo48_0825)
 
 
 #8m 2021-04-19
-hobo25_0419 <- read.csv("CCR_Hobos/hobo25_CCR_8m_20210419.csv", skip = 1, check.names = F)
+hobo25_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo25_CCR_8m_20210419.csv", skip = 1, check.names = F)
 view(hobo25_0419)
 
 hobo25_0419 <- hobo25_0419 %>% 
@@ -257,7 +257,7 @@ hobo25_0419 <- hobo25_0419 %>%
          Depth_m = 8)
 
 #8m 2021-08-25
-hobo25_0825 <- read.csv("CCR_Hobos/hobo25_CCR_8m_20210825.csv", skip = 1, check.names = F)
+hobo25_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo25_CCR_8m_20210825.csv", skip = 1, check.names = F)
 view(hobo25_0825)
 
 hobo25_0825 <- hobo25_0825 %>% 
@@ -273,7 +273,7 @@ hobo25_8m <- rbind(hobo25_0419, hobo25_0825)
 
 
 #9m 2021-04-19
-hobo26_0419 <- read.csv("CCR_Hobos/hobo26_CCR_9m_20210419.csv", skip = 1, check.names = F)
+hobo26_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo26_CCR_9m_20210419.csv", skip = 1, check.names = F)
 view(hobo26_0419)
 
 hobo26_0419 <- hobo26_0419 %>% 
@@ -285,7 +285,7 @@ hobo26_0419 <- hobo26_0419 %>%
          Depth_m = 9)
 
 #9m 2021-08-25
-hobo26_0825 <- read.csv("CCR_Hobos/hobo26_CCR_9m_20210825.csv", skip = 1, check.names = F)
+hobo26_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo26_CCR_9m_20210825.csv", skip = 1, check.names = F)
 view(hobo26_0825)
 
 hobo26_0825 <- hobo26_0825 %>% 
@@ -301,7 +301,7 @@ hobo26_9m <- rbind(hobo26_0419, hobo26_0825)
 
 
 #10m 2021-04-19
-hobo33_0419 <- read.csv("CCR_Hobos/hobo33_CCR_10m_20210419.csv", skip = 1, check.names = F)
+hobo33_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo33_CCR_10m_20210419.csv", skip = 1, check.names = F)
 view(hobo33_0419)
 
 hobo33_0419 <- hobo33_0419 %>% 
@@ -313,7 +313,7 @@ hobo33_0419 <- hobo33_0419 %>%
          Depth_m = 10)
 
 #10m 2021-08-25
-hobo33_0825 <- read.csv("CCR_Hobos/Hobo33_CCR_10m_20210825.csv", skip = 1, check.names = F)
+hobo33_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/Hobo33_CCR_10m_20210825.csv", skip = 1, check.names = F)
 view(hobo33_0825)
 
 hobo33_0825 <- hobo33_0825 %>% 
@@ -330,7 +330,7 @@ hobo33_10m <- rbind(hobo33_0419, hobo33_0825)
 
 
 #15m 2021-04-19
-hobo35_0419 <- read.csv("CCR_Hobos/hobo35_CCR_15m_20210419.csv", skip = 1, check.names = F)
+hobo35_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo35_CCR_15m_20210419.csv", skip = 1, check.names = F)
 view(hobo35_0419)
 
 hobo35_0419 <- hobo35_0419 %>% 
@@ -342,7 +342,7 @@ hobo35_0419 <- hobo35_0419 %>%
          Depth_m = 15)
 
 #15m 2021-08-25
-hobo35_0825 <- read.csv("CCR_Hobos/Hobo35_CCR_15m_20210825.csv", skip = 1, check.names = F)
+hobo35_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/Hobo35_CCR_15m_20210825.csv", skip = 1, check.names = F)
 view(hobo35_0825)
 
 hobo35_0825 <- hobo35_0825 %>% 
@@ -358,7 +358,7 @@ hobo35_15m <- rbind(hobo35_0419, hobo35_0825)
 
 
 #20m 2021-04-19 NO DATA
-hobo36_0419 <- read.csv("CCR_Hobos/hobo36_CCR_20m_20210419.csv", skip = 1, check.names = F)
+hobo36_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo36_CCR_20m_20210419.csv", skip = 1, check.names = F)
 view(hobo36_0419)
 
 hobo36_0419 <- hobo36_0419 %>% 
@@ -370,7 +370,7 @@ hobo36_0419 <- hobo36_0419 %>%
          Depth_m = 20)
 
 #20m 2021-08-25
-hobo36_0825 <- read.csv("CCR_Hobos/Hobo36_CCR_20m_20210825.csv", skip = 1, check.names = F)
+hobo36_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/Hobo36_CCR_20m_20210825.csv", skip = 1, check.names = F)
 view(hobo36_0825)
 
 hobo36_0825 <- hobo36_0825 %>% 
@@ -386,7 +386,7 @@ hobo36_20m <- rbind(hobo36_0419, hobo36_0825)
 
 
 #21m 2021-04-19
-hobo44_0419 <- read.csv("CCR_Hobos/hobo44_CCR_21m_20210419.csv", skip = 1, check.names = F)
+hobo44_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/hobo44_CCR_21m_20210419.csv", skip = 1, check.names = F)
 view(hobo44_0419)
 
 hobo44_0419 <- hobo44_0419 %>% 
@@ -398,7 +398,7 @@ hobo44_0419 <- hobo44_0419 %>%
          Depth_m = 21)
 
 #21m 2021-08-25
-hobo44_0825 <- read.csv("CCR_Hobos/Hobo44_CCR_21m_20210825.csv", skip = 1, check.names = F)
+hobo44_0825 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/Hobo44_CCR_21m_20210825.csv", skip = 1, check.names = F)
 view(hobo44_0825)
 
 hobo44_0825 <- hobo44_0825 %>% 
@@ -415,7 +415,7 @@ hobo44_21m <- rbind(hobo44_0419, hobo44_0825)
 
 #Inflow
 #0.1m 2021-04-19
-hobo65_0419 <- read.csv("CCR_Hobos/Hobo65_CCR_inflow_300_20210419.csv", skip = 1, check.names = F)
+hobo65_0419 <- read.csv("./CCR_manual_downloads/CCR_HOBOs/CCR_Hobos/Hobo65_CCR_inflow_300_20210419.csv", skip = 1, check.names = F)
 view(hobo65_0419)
 
 hobo65_0419 <- hobo65_0419 %>% 
@@ -434,25 +434,49 @@ Hobo_Compiled <- rbind(hobo3_0.1m, hobo5_1m, hobo7_2m, hobo9_3m, hobo19_4m, hobo
 view(Hobo_Compiled)
 head(Hobo_Compiled)
 
+Hobo_Compiled <- Hobo_Compiled %>% 
+  mutate(Reservoir = "CCR") %>% 
+  select(Reservoir, Site, DateTime, Depth_m, Temp_C)
+head(Hobo_Compiled)
+
 #viewing data
-Hobo_Compiled_colorbydepth <-Hobo_Compiled %>% 
+Hobo_Compiled_plot <-Hobo_Compiled %>% 
   filter(Site != 300) %>% 
   ggplot( mapping = aes(x = DateTime, y = Temp_C, color = Depth_m))+
  geom_point() 
 
-#filter
+Hobo_Compiled_plot
 
-Hobo_Compiled_Filtered <- Hobo_Compiled %>% 
+#filter out values when Hobos were out of water 
+
+Hobo_Compiled_Filtered <- Hobo_Compiled %>%    #################### FIX 4-19 issues
   filter(DateTime <= dmy_hms("19-08-2021 00:00:00")) %>% 
-  mutate(Temp_C = ifelse(DateTime == dmy_hms("19-04-2021 12:30:00"), NA, Temp_C))
+  mutate(Date = as.Date(DateTime)) %>% 
+  mutate(Temp_C = ifelse(Date == dmy("19-04-2021"), NA, Temp_C))
                         
-#check 04-19 ifelse statement
-CheckApril19 <- Hobo_Compiled_Filtered %>% 
-  filter(DateTime == dmy_hms("19-04-2021 12:30:00"))
-
 
 Hobo_Compiled_colorbydepth <-Hobo_Compiled_Filtered %>% 
   filter(Site != 300) %>% 
   ggplot( mapping = aes(x = DateTime, y = Temp_C, color = Depth_m))+
   geom_point() 
+
 Hobo_Compiled_colorbydepth 
+
+inflow_plot <- Hobo_Compiled_Filtered %>% 
+  filter(Site == 300) %>% 
+  ggplot( mapping = aes(x = DateTime, y = Temp_C))+
+  geom_point() 
+
+inflow_plot  
+
+#make final csv for export
+head(Hobo_Compiled_Filtered)
+
+ccr_hobos_final <- Hobo_Compiled_Filtered %>% 
+  select(Reservoir, Site, DateTime, Depth_m, Temp_C) %>% 
+  filter(!is.na(Temp_C))
+
+write.csv(ccr_hobos_final, "./CCR_manual_downloads/CCR_HOBOs/CCR_hobos_20_21.csv", row.names = FALSE)  
+
+
+  
