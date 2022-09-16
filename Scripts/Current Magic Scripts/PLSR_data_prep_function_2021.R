@@ -6,7 +6,7 @@
 data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam){
   
   #### Read in FCR WQ data ####
-  dataWQ <- read_excel(path=paste(pathD,WQ_name,sep=""))
+  dataWQ <- read_csv(paste(pathD,WQ_name,sep=""))
   dataWQ$DateTime = ymd_hms(dataWQ$DateTime,tz="America/New_York")
   
   #Subset to just include desired depths, Reservoir, and Site
@@ -27,10 +27,8 @@ data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,
   #### Reading of  FingerPrint (FP) file corresponding to lab concentrations for calibration ####
   # This step reads in the file of overlapping MUX/SCAN data and field data. 
   dataCalFP<-read.delim(file=paste(pathD,FPcaldata_name,sep=""),sep=",")  #Import data as .csv file
-  colnames(dataCalFP)<-c("ID","DateTime","status",seq(200,750,2.5),"Valve", "Measurement Time", "Depth") #Add column names
+  colnames(dataCalFP)<-c("ID","DateTime","status",seq(200,750,2.5),"Valve", "Measurement Time") #Add column names
   
-  # Remove 'Depth' Column - we'll add this back in later
-  dataCalFP = dataCalFP %>% select(-c("Depth"))
   
   # Filter out the air valve measurements (valve #7)
   dataCalFP <- dataCalFP %>%
@@ -78,14 +76,14 @@ data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,
   #### Reading of  FingerPrint (FP) file corresponding to the entire time series (TS) ####
   # This is the 2020 SCAN data 
   TS_FP<-read.table(file=paste(pathD,TimeSeriesFP_name,sep=""),sep=",", skip=1)  #Import Time Series data as .csv file
-  colnames(TS_FP)<-c("ID","DateTime","status",seq(200,750,2.5), "Valve", "Measurement Time","Depth") #Add column names
+  colnames(TS_FP)<-c("ID","DateTime","status",seq(200,750,2.5), "Valve", "Measurement Time", "Depth_m") #Add column names
   
   # Filter out the air valve measurements (valve #7)
   TS_FP <- TS_FP %>%
     filter(Valve!=9 | Valve!=10)
   
   # Remove 'Depth' Column - we'll add this back in later
-  TS_FP = TS_FP %>% select(-c("Depth"))
+  TS_FP = TS_FP %>% select(-c("Depth_m"))
   
   # Subset to just include desired depths
   # First we need to convert valve # to depth
@@ -123,20 +121,20 @@ data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,
   colnames(Valves)=c("valve")
   valve_depth <- data.frame(
     valve = c (1:7), 
-    Depth= c("0.1","1.6","3.8","5.0","6.2", "8.0", "9.0"),
+    Depth_m = c("0.1","1.6","3.8","5.0","6.2", "8.0", "9.0"),
     stringsAsFactors = FALSE
   )
   Valves= Valves %>% 
     left_join(valve_depth, by="valve")
   
   Depth_lab = Valves %>% 
-    select(Depth)
+    select(Depth_m)
   
   #Create matrix to store calculated concentrationss:TS_conc 
   TS_conc<-as.data.frame(matrix(0,dim(TS_FP)[1],6))  #Create data frame for DateTime and predicted values
   TS_conc[,1]<- Depth_lab
   TS_conc[,2]<-as.character(Dat, "%Y-%m-%d %H:%M:%S")
-  colnames(TS_conc)<-c("Depth", "DateTime",WQparam) #Add column names
+  colnames(TS_conc)<-c("Depth_m", "DateTime",WQparam) #Add column names
   
   # Finish cleaning up time series dataframe
   TS_FP<- TS_FP %>% select(!c(DateTime,status)) #remove 'Date' and 'status' columns

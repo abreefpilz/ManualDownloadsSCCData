@@ -72,26 +72,15 @@ dataWQ$DateTime<- ymd_hms(timesCalFP[,2], tz="America/New_York")
 #### Reading of  FingerPrint (FP) file corresponding to the entire time series (TS) ####
 # This is the 2020 SCAN data 
 TS_FP<-read.table(file=paste(pathD,TimeSeriesFP_name,sep=""),sep=",", skip=1)  #Import Time Series data as .csv file
-colnames(TS_FP)<-c("ID","Date","status",seq(200,750,2.5), "Valve", "Measurement Time") #Add column names
+colnames(TS_FP)<-c("ID","Date","status",seq(200,750,2.5), "Valve", "Measurement Time","Depth_m") #Add column names
 
 # Filter out the air valve measurements (valve #7)
 TS_FP <- TS_FP %>%
   filter(Valve!=12)
 
 # Subset to just include desired depths
-# First we need to convert valve # to depth
-Valves = as.data.frame(TS_FP$Valve)
-colnames(Valves)=c("valve")
-valve_depth <- data.frame(
-  valve = c (1:7), 
-  Depth_m= c("0.1","1.6","3.8","5.0","6.2", "8.0", "9.0"),
-  stringsAsFactors = FALSE
-)
-Valves = Valves %>% 
-  left_join(valve_depth, by="valve") %>% 
-  select(Depth_m)
-TS_FP = cbind(TS_FP,Valves)
-# Now we can subset based on depth
+
+# subset based on depth
 TS_FP <- TS_FP %>%
   filter(as.numeric(Depth_m) %in% as.numeric(Depths))
 #remove 'Depth' column

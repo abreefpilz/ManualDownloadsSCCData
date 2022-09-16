@@ -24,8 +24,8 @@ pathD<-"C:/Users/hammo/Documents/Magic Sensor PLSR/Raw_predictions/" #EDIT: Spec
 setwd("C:/Users/hammo/Documents/Magic Sensor PLSR/")
 
 #Specify files for WQ data, FP overlaps, and the entire FP time series
-WQ_20<-"MUX20_dataWQ_021122.csv"
-WQ_21<-"MUX21_dataWQ_021122.csv"
+WQ_20<-"MUX20_dataWQ_050622.csv"
+WQ_21<-"MUX21_dataWQ_051322.csv"
 
 #Select Desired Depths
 Depths<-c("0.1",
@@ -55,15 +55,15 @@ dataWQ_20 <- dataWQ_20 %>%
   filter(Depth_m %in% as.numeric(Depths))
 
 dataWQ_21 <- dataWQ_21 %>%
-  filter(Depth_m %in% as.numeric(Depths)) %>%
-  filter(Reservoir == "FCR") %>%
-  filter(Site == 50) %>%
-  select(-c("Reservoir","Site","Flag_DateTime","Flag_TFe","Flag_TMn","Flag_SFe","Flag_SMn"))
+  filter(Depth_m %in% as.numeric(Depths)) 
+  #filter(Reservoir == "FCR") %>%
+  #filter(Site == 50) %>%
+  #select(-c("Reservoir","Site","Flag_DateTime","Flag_TFe","Flag_TMn","Flag_SFe","Flag_SMn"))
 
 
 #Subset to desired date range
-dataWQ_20 = dataWQ_20[dataWQ_20$Date>Begin_20,]
-dataWQ_20 = dataWQ_20[dataWQ_20$Date<End_20,]
+dataWQ_20 = dataWQ_20[dataWQ_20$DateTime>Begin_20,]
+dataWQ_20 = dataWQ_20[dataWQ_20$DateTime<End_20,]
 
 dataWQ_21 = dataWQ_21[dataWQ_21$DateTime>Begin_21,]
 dataWQ_21 = dataWQ_21[dataWQ_21$DateTime<End_21,]
@@ -75,8 +75,8 @@ dataWQ_21$Depth_m = as.character(dataWQ_21$Depth_m)
 
 ### 2020 ###
 TFe_box = ggplot() +
-  geom_boxplot(data = dataWQ_20, aes(Depth_m,TFe_mgl,colour = Depth_m),size=2) +
-  geom_point(data = dataWQ_20, aes(Depth_m,TFe_mgl,colour = Depth_m),size=4) +
+  geom_boxplot(data = dataWQ_20, aes(Depth_m,TFe_mgL,colour = Depth_m),size=2) +
+  geom_point(data = dataWQ_20, aes(Depth_m,TFe_mgL,colour = Depth_m),size=4) +
   labs(x = "Depth (m)", y = "Total Fe (mg/L)") +
   theme(legend.position = "none") +
   theme(
@@ -86,8 +86,8 @@ TFe_box = ggplot() +
     axis.title.y = element_text(color = "black", size=34)) 
 
 TMn_box = ggplot() +
-  geom_boxplot(data = dataWQ_20, aes(Depth_m,TMn_mgl,colour = Depth_m), size=2) +
-  geom_point(data = dataWQ_20, aes(Depth_m,TMn_mgl,colour = Depth_m),size=4) +
+  geom_boxplot(data = dataWQ_20, aes(Depth_m,TMn_mgL,colour = Depth_m), size=2) +
+  geom_point(data = dataWQ_20, aes(Depth_m,TMn_mgL,colour = Depth_m),size=4) +
   labs(x = "Depth (m)", y = "Total Mn (mg/L)") +
   theme(legend.position = "none") +
   theme(
@@ -97,8 +97,8 @@ TMn_box = ggplot() +
     axis.title.y = element_text(color = "black", size=34))
 
 SFe_box = ggplot() +
-  geom_boxplot(data = dataWQ_20, aes(Depth_m,SFe_mgl,colour = Depth_m),size=2) +
-  geom_point(data = dataWQ_20, aes(Depth_m,SFe_mgl,colour = Depth_m),size=4) +
+  geom_boxplot(data = dataWQ_20, aes(Depth_m,SFe_mgL,colour = Depth_m),size=2) +
+  geom_point(data = dataWQ_20, aes(Depth_m,SFe_mgL,colour = Depth_m),size=4) +
   labs(x = "Depth (m)", y = "Soluble Fe (mg/L)") +
   theme(legend.position = "none") +
   theme(
@@ -108,8 +108,8 @@ SFe_box = ggplot() +
     axis.title.y = element_text(color = "black", size=34))
 
 SMn_box = ggplot() +
-  geom_boxplot(data = dataWQ_20, aes(Depth_m,SMn_mgl,colour = Depth_m),size=2) +
-  geom_point(data = dataWQ_20, aes(Depth_m,SMn_mgl,colour = Depth_m),size=4) +
+  geom_boxplot(data = dataWQ_20, aes(Depth_m,SMn_mgL,colour = Depth_m),size=2) +
+  geom_point(data = dataWQ_20, aes(Depth_m,SMn_mgL,colour = Depth_m),size=4) +
   labs(x = "Depth (m)", y = "Soluble Mn (mg/L)") +
   theme(legend.position = "none") +
   theme(
@@ -118,7 +118,7 @@ SMn_box = ggplot() +
     axis.title.x = element_text(size=30),
     axis.title.y = element_text(color = "black", size=34))
 
-png('MUX20_WQ_boxplots_021122.png', width = 28, height = 20, units = 'in', res = 300)
+png('MUX20_WQ_boxplots_082422.png', width = 28, height = 20, units = 'in', res = 300)
 
 (TFe_box | SFe_box) / (TMn_box | SMn_box) 
 
@@ -172,7 +172,7 @@ SMn_box = ggplot() +
     axis.title.y = element_text(color = "black", size=34)) 
 
 
-png('MUX21_WQ_boxplots_021122.png', width = 28, height = 20, units = 'in', res = 300)
+png('MUX21_WQ_boxplots_082422.png', width = 28, height = 20, units = 'in', res = 300)
 
 (TFe_box | SFe_box) / (TMn_box | SMn_box) 
 

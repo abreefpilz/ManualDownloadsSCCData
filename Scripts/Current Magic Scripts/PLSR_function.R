@@ -38,4 +38,5 @@ PLSR_SCAN<-function(param,dataCalFP,dataWQ,TS_FP,ncomp,yesplot=FALSE){
   assign("WQ",WQ,env=.GlobalEnv)
   assign("WQP",WQP,env=.GlobalEnv)
   assign("fit",fit,env=.GlobalEnv)
+  assign("fit2",fit2,env=.GlobalEnv)
 }

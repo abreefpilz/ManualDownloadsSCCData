@@ -32,7 +32,7 @@ fp.files <- c(fp.files20,fp.files21,fp.files22)
 ### Read in first file
 obs<-read.table(file=paste0("./FP_2020/",fp.files[1]),skip=1,header=TRUE, row.names = NULL,
                 fill= TRUE, sep = "\t") #read in first file
-obs$Date.Time=ymd_hms(obs$Date.Time, tz = "America/New_York")
+obs$Date.Time=ymd_hms(obs$Date.Time, tz = "EST")
 
 #reads in all files within folder in Github
 for(i in 2:length(fp.files)){
@@ -40,19 +40,19 @@ for(i in 2:length(fp.files)){
   { 
   temp<-read.table(file=paste0("./FP_2020/",fp.files[i]),skip=1,header=TRUE, row.names = NULL,
                    sep = "\t", fill = TRUE)
-  temp$Date.Time=ymd_hms(temp$Date.Time, tz = "America/New_York")
+  temp$Date.Time=ymd_hms(temp$Date.Time, tz = "EST")
   obs<-rbind(obs,temp)}
   if(file.exists(paste0("./FP_2021/",fp.files[i])))
   { 
     temp<-read.table(file=paste0("./FP_2021/",fp.files[i]),skip=1,header=TRUE, row.names = NULL,
                      sep = "\t", fill = TRUE)
-    temp$Date.Time=ymd_hms(temp$Date.Time, tz = "America/New_York")
+    temp$Date.Time=ymd_hms(temp$Date.Time, tz = "EST")
     obs<-rbind(obs,temp)}
   if(file.exists(paste0("./FP_2022/",fp.files[i])))
   { 
     temp<-read.table(file=paste0("./FP_2022/",fp.files[i]),skip=1,header=TRUE, row.names = NULL,
                      sep = "\t", fill = TRUE)
-    temp$Date.Time=ymd_hms(temp$Date.Time, tz = "America/New_York")
+    temp$Date.Time=ymd_hms(temp$Date.Time, tz = "EST")
     obs<-rbind(obs,temp)}
 }
 
@@ -82,17 +82,22 @@ for(i in 2:length(fp.files)){
 print(id)
 
 #rename variables for wavelength columns
-header = c("Date.Time","Status_0", seq(200.00, 750.00, 2.50))
+header = c("DateTime","Status", seq(200, 750, 2.50))
 colnames(obs) <- header
 
 #plot some data from the combined file to check that all the data is there
-plot(obs$Date.Time,obs$'725')
+plot(obs$DateTime,obs$'725')
 
 #check for data gaps - this just prints the intervals that are > 10 min. 
 #Can add more code later to fill gaps with 0's or NA's
+
+missing = obs[is.na(obs$DateTime)==TRUE,]
+#fill_031421 = seq.POSIXt(from = as_datetime("2021-03-14 02:01:34",tz="EST"), 
+#                         to = as_datetime("2021-03-14 02:51:34",tz="EST"), by = 600)
+
 for(i in 2:nrow(obs)){
-  time1 = obs$Date.Time[i-1]
-  time2 = obs$Date.Time[i]
+  time1 = obs$DateTime[i-1]
+  time2 = obs$DateTime[i]
   int = interval(time1,time2)
   if(int_length(int) > (24*60*60)){
     print(int)
@@ -100,6 +105,26 @@ for(i in 2:nrow(obs)){
 }
 
 SSCAN = obs
+
+#put the data in long format and filter to every 100nm 
+SSCAN_long=SSCAN%>%
+  pivot_longer(cols=3:223, names_to = "wavelength", values_to = "absorbance")%>%
+  filter(wavelength %in% c("200", "300", "400", "500", "600", "700"))
+
+#Filter by time
+#SSCAN_long = SSCAN_long %>% 
+#  filter(DateTime > "2020-10-01 00:00") %>%
+#  filter(DateTime < "2021-03-01 00:00")
+
+
+#Create a plot of every 100nm wavelengths for a specific depth
+png("SCAN_FP_raw_041122.png",width = 9, height = 4, units = 'in', res = 300) 
+SCAN_plot = ggplot()+
+  geom_point(data=SSCAN_long, aes(x=DateTime, y=absorbance, color=wavelength),size=0.5)
+#geom_vline(data=cleaning, aes(xintercept=DateTime) , linetype="dashed", color="black", size=0.5)
+SCAN_plot
+dev.off()
+
 
 
 #### Load in FP files from GitHub for the MUX ####

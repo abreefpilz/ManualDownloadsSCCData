@@ -1,6 +1,6 @@
 #### Script for exploratory data analysis of MUX predictions and potential covariates ####
 ### Author: Nick Hammond
-### Last Edited: 10/11/2021
+### Last Edited: 05/13/2022
 
 # Set wd, load packages, source code
 library(lubridate)
@@ -29,15 +29,17 @@ catwalk = read_csv(paste0(getwd(),"/Data/Covariate data/FCR_Catwalk_2018_2021.cs
 #met = read.csv(paste0(getwd(),"/Data/Covariate data/Met_final_2015_2020.csv"))
 
 # Read in MUX PLSR predictions
-MUX_preds = read.csv(paste0(getwd(),"/Raw_predictions/MUX21_predictions_boot_020922.csv"))
+MUX_preds = read.csv(paste0(getwd(),"/Raw_predictions/MUX21_predictions_boot_051322.csv"))
 MUX_preds$DateTime = ymd_hms(MUX_preds$DateTime, tz="America/New_York")
 
 
 #### Read in FCR WQ data ####
-dataWQ <- read_csv(paste0(getwd(),"/Raw_predictions/MUX21_dataWQ_021122.csv"))
+dataWQ <- read_csv(paste0(getwd(),"/Raw_predictions/MUX21_dataWQ_051322.csv"))
 dataWQ$DateTime = ymd_hms(dataWQ$DateTime, tz="America/New_York")
 dataWQ = dataWQ %>% select(-c("...1",'ID'))
 
+## Read in schmidt stability data ##
+Schmidt = read_csv(paste0(getwd(),"/Data/Covariate data/FCR_SchmidtStability_MUX21_082322.csv"))
 
 # Select the variables we want
 catwalk_exp = catwalk %>% select(Reservoir,Site,DateTime,RDO_mgL_5_adjusted,
@@ -46,6 +48,9 @@ catwalk_exp = catwalk %>% select(Reservoir,Site,DateTime,RDO_mgL_5_adjusted,
                                  ThermistorTemp_C_4, ThermistorTemp_C_8, ThermistorTemp_C_9,
                                  ThermistorTemp_C_5, ThermistorTemp_C_6, ThermistorTemp_C_7,
                                  EXOfDOM_QSU_1, EXOSpCond_uScm_1, EXOChla_ugL_1)
+
+Schmidt$datetime = ymd_hms(Schmidt$datetime,tz="America/New_York")
+
 
 # Select the variables we want
 #met_exp = met %>% select(Reservoir,Site,DateTime,WindSpeed_Average_m_s,ShortwaveRadiationDown_Average_W_m2,
@@ -110,8 +115,18 @@ colnames(SSS)= c("Date")
 
 
 # for plotting...
-MUX_preds$Depth = as.numeric(MUX_preds$Depth)
+MUX_preds$Depth_m = as.numeric(MUX_preds$Depth_m)
 
+# fill gap with NA's 
+times = MUX_preds
+times[c(1:nrow(times)),c(1:ncol(times))] = NA_real_
+fill = seq.POSIXt(from= as.POSIXct("2021-05-31 12:00:00"), to= as.POSIXct("2021-06-04 12:00:00"), by= "51 min")
+times = times[-c(length(fill)+1:nrow(MUX_preds)),]
+deps = rep_len(c(0.1,1.6,3.8,5.0,6.2,8.0,9.0),length.out = length(fill))
+times$DateTime = fill 
+times$Depth_m = deps
+
+MUX_preds = MUX_preds %>% bind_rows(times) %>% group_by(Depth_m) %>% arrange(-desc(DateTime)) %>% ungroup(Depth_m)
 
   # Convert negative values to zero
 MUX_preds = MUX_preds %>% mutate(TFe_mgL = if_else(TFe_mgL > 0, TFe_mgL, 0),
@@ -127,27 +142,27 @@ MUX_preds = MUX_preds %>% mutate(Fe_ratio = SFe_mgL / TFe_mgL,
                                  Mn_ratio = SMn_mgL / TMn_mgL,
                                  Fe_ratio = if_else(Fe_ratio > 1, 1, Fe_ratio), # If ratios > 1, set to 1
                                  Mn_ratio = if_else(Mn_ratio > 1, 1, Mn_ratio)) %>%
-                         group_by(Depth) %>%                                    # rolling average
+                         group_by(Depth_m) %>%                                    # rolling average
                          mutate(Fe_ratio_ma10 = rollmean(Fe_ratio,k=10,fill = NA),
                                 Mn_ratio_ma10 = rollmean(Mn_ratio,k=10,fill = NA)) %>%
-                         ungroup(Depth)
+                         ungroup(Depth_m)
 
 # Split MUX_preds by depth (for plotting)
-MUX_preds_hypo = MUX_preds %>% filter(Depth > 3.8)
-MUX_preds_epi = MUX_preds %>% filter(Depth <= 3.8)
+MUX_preds_hypo = MUX_preds %>% filter(Depth_m >= 6.2)
+MUX_preds_epi = MUX_preds %>% filter(Depth_m <= 3.8)
 
-dataWQ_hypo = dataWQ %>% filter(Depth_m > 3.8)
+dataWQ_hypo = dataWQ %>% filter(Depth_m >= 6.2)
 dataWQ_epi = dataWQ %>% filter(Depth_m <= 3.8)
 
 # Create variable for BeginTime and EndTime
-Begin_time = as.POSIXct("2021-06-04 00:00:00") # 2021-06-04 starts after data gap
-End_time = as.POSIXct("2021-06-21 14:00:00")
+Begin_time = as.POSIXct("2021-05-26 00:00:00") # 2021-06-04 starts after data gap
+End_time = as.POSIXct("2021-06-21 24:00:00")
 
 
 TFe_plot = ggplot() +
-  geom_path(data=MUX_preds, aes(x=DateTime,y=TFe_mgL, color= as.character(Depth)), size=1.5) +
-  geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
-  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=4) +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TFe_mgL, color= as.character(Depth_m)), size=1.5) +
+  geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth_m)), alpha = 0.2)+
+  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=7) +
   labs(x="Date",y="Total Fe (mg/L)", color = "Depth (m)", fill="90% PI") +
   #ylim(0,1.5) +
   theme(legend.position="right")+
@@ -156,19 +171,20 @@ TFe_plot = ggplot() +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
-                   labels = date_format("%Y-%m-%d")) +
+                   labels = date_format("%b-%d")) +
   theme(
     axis.text.x = element_text(size= 36),
     axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
     axis.title.y = element_text(color = "black", size=37),
-    legend.text = element_text(size = 20),
-    legend.title = element_text(size = 22),
-    legend.box.background = element_rect())
+    legend.text = element_text(size = 24),
+    legend.title = element_text(size = 26),
+    legend.box.background = element_rect(),
+    panel.grid = element_line(color = "dark gray"))
 
 Fe_ratio_plot = ggplot() +
-  geom_point(data=MUX_preds, aes(x=DateTime,y=Fe_ratio_ma10, color= as.character(Depth)), size=6) +
-  #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  geom_point(data=MUX_preds, aes(x=DateTime,y=Fe_ratio_ma10, color= as.character(Depth_m)), size=6) +
+  #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth_m)), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Fe Soluble:Total", color = "Depth (m)") +
   ylim(0,1) +
@@ -191,9 +207,9 @@ Fe_ratio_plot = ggplot() +
   ) 
 
 TMn_plot = ggplot() +
-  geom_path(data=MUX_preds, aes(x=DateTime,y=TMn_mgL, color= as.character(Depth)), size=1.5) +
-  geom_ribbon(data=MUX_preds, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
-  geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgL, colour= as.character(Depth_m)), size=4) +
+  geom_path(data=MUX_preds, aes(x=DateTime,y=TMn_mgL, color= as.character(Depth_m)), size=1.5) +
+  geom_ribbon(data=MUX_preds, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = as.character(Depth_m)), alpha = 0.2)+
+  geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgL, colour= as.character(Depth_m)), size=7) +
   labs(x="Date",y="Total Mn (mg/L)", color = "Depth (m)", fill="90% PI") +
   #ylim(0,1.5) +
   theme(legend.position="right")+
@@ -202,19 +218,20 @@ TMn_plot = ggplot() +
   #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
-                   labels = date_format("%Y-%m-%d")) +
+                   labels = date_format("%b-%d")) +
   theme(
     axis.text.x = element_text(size= 36),
     axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
     axis.title.y = element_text(color = "black", size=37),
-    legend.text = element_text(size = 20),
-    legend.title = element_text(size = 22),
-    legend.box.background = element_rect())
+    legend.text = element_text(size = 24),
+    legend.title = element_text(size = 26),
+    legend.box.background = element_rect(),
+    panel.grid = element_line(color = "dark gray"))
 
 Mn_ratio_plot = ggplot() +
-  geom_point(data=MUX_preds, aes(x=DateTime,y=Mn_ratio_ma10, color= as.character(Depth)), size=6) +
-  #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  geom_point(data=MUX_preds, aes(x=DateTime,y=Mn_ratio_ma10, color= as.character(Depth_m)), size=6) +
+  #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth_m)), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Mn Soluble:Total", color = "Depth (m)") +
   ylim(0,1) +
@@ -237,8 +254,8 @@ Mn_ratio_plot = ggplot() +
   ) 
 
 SFe_plot = ggplot() +
-  geom_path(data=MUX_preds, aes(x=DateTime,y=SFe_mgL, color= as.character(Depth)), size=1) +
-  geom_ribbon(data=MUX_preds, aes(ymin=uncerSFe_min, ymax=uncerSFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
+  geom_path(data=MUX_preds, aes(x=DateTime,y=SFe_mgL, color= as.character(Depth_m)), size=1) +
+  geom_ribbon(data=MUX_preds, aes(ymin=uncerSFe_min, ymax=uncerSFe_max, x=DateTime, fill = as.character(Depth_m)), alpha = 0.2)+
   geom_point(data=dataWQ, aes(x=DateTime, y=SFe_mgL, colour= as.character(Depth_m)), size=3.5) +
   labs(x="Date",y="Soluble Fe (mg/L)", color = "Depth (m)", fill="90% PI") +
   #ylim(0,1.5) +
@@ -261,23 +278,23 @@ SFe_plot = ggplot() +
 
 
 DO_plot = ggplot() +
-  geom_path(data=DO_long, aes(x=DateTime, y=DO_mgL, color = as.character(depth_m)), size=1) +
+  geom_path(data=DO_long, aes(x=DateTime, y=DO_mgL, color = as.character(depth_m)), size=1.5) +
   labs(x="Date",y="DO (mg/L)",color="Depth (m)") +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
-                   labels = date_format("%Y-%m-%d")) +
+                   labels = date_format("%b-%d")) +
   theme(legend.position="right")+
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8) +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   #theme_ipsum() +
   theme(
-    axis.text.x = element_text(size= 22),
-    axis.text.y.left = element_text(size= 22),
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
     axis.title.x = element_blank(),
-    axis.title.y = element_text(color = "black", size=25),
-    legend.text = element_text(size = 18),
-    legend.title = element_text(size = 20),
-    legend.box.background = element_rect()
-  ) 
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
+    legend.box.background = element_rect(),
+    panel.grid = element_line(color = "dark gray"))
 
 Cond_plot = ggplot() +
   geom_path(data=catwalk_exp, aes(x=DateTime, y=EXOSpCond_uScm_1), size=1, color="blue") +
@@ -315,7 +332,7 @@ Temp_plot = ggplot() +
   #theme_ipsum() +
   #theme(legend.position=c(0.95,0.95))+
   scale_x_datetime(date_minor_breaks = "1 day", limits = c(Begin_time,End_time),
-                   labels = date_format("%Y-%m-%d")) +
+                   labels = date_format("%b-%d")) +
   geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
   theme(
     axis.text.x = element_text(size= 36),
@@ -324,7 +341,26 @@ Temp_plot = ggplot() +
     axis.title.y = element_text(color = "black", size=37),
     legend.text = element_text(size = 32),
     legend.title = element_text(size = 34),
-    legend.box.background = element_rect())
+    legend.box.background = element_rect(),
+    panel.grid = element_line(color = "dark gray"))
+
+schmidt_plot = ggplot() +
+  geom_path(data=Schmidt, aes(x=datetime, y=schmidt.stability), size=2, color = "black") +
+  labs(x="Date", y="Schmidt Stability (J/m^2)")+
+  #theme_ipsum() +
+  #theme(legend.position=c(0.95,0.95))+
+  scale_x_datetime(date_minor_breaks = "1 day", limits = c(Begin_time,End_time),
+                   labels = date_format("%b-%d")) +
+  geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
+  theme(
+    axis.text.x = element_text(size= 36),
+    axis.text.y.left = element_text(size= 36),
+    axis.title.x = element_blank(),
+    axis.title.y = element_text(color = "black", size=37),
+    legend.text = element_text(size = 32),
+    legend.title = element_text(size = 34),
+    legend.box.background = element_rect(),
+    panel.grid = element_line(color = "dark gray")) 
 
 
 SW_plot = ggplot() +
@@ -391,9 +427,9 @@ AirTemp_plot = ggplot() +
     legend.box.background = element_rect()
   ) 
 
-png('MUX21_Temp_TFe_TMn_FullDepths_FullTS_032122.png', width = 28, height = 20, units = 'in', res = 300)
+jpeg('MUX21_Schmidt_Temp_DO_TFe_TMn_FullDepths_FullTS_090822.jpeg', width = 34, height = 36, units = 'in', res = 600)
 
-Temp_plot / TFe_plot / TMn_plot
+schmidt_plot / Temp_plot / DO_plot / TFe_plot / TMn_plot
 
 dev.off()
 
@@ -402,14 +438,14 @@ dev.off()
 
 #### code for plotting Sol:Tot Fe and Mn on same plot (at 9m depth only) ####
 mux_preds_ratios = MUX_preds_hypo %>% rename(Fe = Fe_ratio_ma10, Mn = Mn_ratio_ma10) %>% 
-  pivot_longer(cols = c(18:19),names_to = "variable", values_to = "ratio") %>% 
-  filter(Depth ==9)
+  pivot_longer(cols = c(18:19),names_to = "variable", values_to = "ratio")# %>% 
+  #filter(Depth ==9)
 
 Fe_Mn_ratio_plot = ggplot() +
-  geom_path(data=mux_preds_ratios, aes(x=DateTime,y=ratio, color= variable), size=3) +
+  geom_path(data=mux_preds_ratios, aes(x=DateTime,y=ratio, color= as.factor(Depth_m)), size=3) +
   #geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth)), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=3.5) +
-  labs(x="Date",y="Soluble:Total", title = "2021 Oxygen-On Deployment", color = "Variable") +
+  labs(x="Date",y="Soluble:Total", title = "2021 Oxygen-On Deployment", color = "Depth (m)") +
   ylim(0,1) +
   theme(legend.position="right")+
   geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
@@ -417,6 +453,7 @@ Fe_Mn_ratio_plot = ggplot() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%Y-%m-%d")) +
+  facet_wrap(~variable, nrow = 2) +
   theme(
     axis.text.x = element_text(size= 36),
     axis.text.y.left = element_text(size= 36),
@@ -425,10 +462,11 @@ Fe_Mn_ratio_plot = ggplot() +
     legend.text = element_text(size = 32),
     legend.title = element_text(size = 34),
     legend.box.background = element_rect(),
-    title = element_text(size = 40)
+    title = element_text(size = 40),
+    strip.text = element_text(size=36)
   )
 
-png('MUX21_TFe_TMn_Ratios_9m_FullTS_032122.png', width = 28, height = 12, units = 'in', res = 300)
+png('MUX21_TFe_TMn_Ratios_hypo_FullTS_051922.png', width = 28, height = 12, units = 'in', res = 300)
 
 Fe_Mn_ratio_plot
 

@@ -1,6 +1,6 @@
 # PLSR Script for 2021 MUX Predictions of Fe and Mn with bootstrap predictive intervals
 # Authors: Nick Hammond
-# Last Updated: 10/11/2021
+# Last Updated: 05/12/2022
 
 
 
@@ -18,6 +18,7 @@ library(readxl)
 library(pls) 
 library(scales)
 library(ggpubr)
+library(enpls)
 
 #data path and working directory locations
 pathD<-"C:/Users/hammo/Documents/Magic Sensor PLSR/Data/" #EDIT: Specify folder where data is located
@@ -28,13 +29,14 @@ source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_function.R')
 source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_function_boot.R')
 source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_data_prep_function_2021.R')
 source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_num_components_function.R')
+source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_function_enpls.R')
 
 
 #### Specify input files, depths, date ranges, and parameters ####
 
 #Specify files for WQ data, FP overlaps, and the entire FP time series
-WQ_name<-"Metals_2021.xlsx"
-FPcaldata_name<-"MUX_FP_Overlaps_2021_old.csv"
+WQ_name<-"Metals_2014_2021.csv"
+FPcaldata_name<-"MUX_FP_Overlaps_2021.csv"
 TimeSeriesFP_name<-"MUX_FP_TS_2021.csv"
 
 #Select Desired Depths
@@ -60,47 +62,7 @@ WQparam <- c("TFe_mgL","TMn_mgL","SFe_mgL","SMn_mgL")
 
 #### Run function to clean/prep data for PLSR ####
 data_prep(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam)
-# May want to add code to check that this worked properly! 
 
-
-# Remove outliers #  (don't run this code every time!!!!)
-# Remove last sample data from 9m at 2021-06-07 14:49:59 because it is an outlier
-# Doing this manually for now #
-# 
-mean_TFe = mean(dataWQ$TFe_mgL)
-mean_SFe = mean(dataWQ$SFe_mgL)
-mean_TMn = mean(dataWQ$TMn_mgL)
-mean_SMn = mean(dataWQ$SMn_mgL)
-sd_TFe = sd(dataWQ$TFe_mgL)
-sd_SFe = sd(dataWQ$SFe_mgL)
-sd_TMn = sd(dataWQ$TMn_mgL)
-sd_SMn = sd(dataWQ$SMn_mgL)
-
-dataWQ = dataWQ %>% mutate(TFe_mgL = if_else(TFe_mgL < mean_TFe+3*sd_TFe & 
-                                                 TFe_mgL > mean_TFe-3*sd_TFe, TFe_mgL, NA_real_),
-                             SFe_mgL = if_else(SFe_mgL < mean_SFe+3*sd_SFe & 
-                                                 SFe_mgL > mean_SFe-3*sd_SFe, SFe_mgL, NA_real_),
-                             TMn_mgL = if_else(TMn_mgL < mean_TMn+3*sd_TMn & 
-                                                 TMn_mgL > mean_TMn-3*sd_TMn, TMn_mgL, NA_real_),
-                             SMn_mgL = if_else(SMn_mgL < mean_SMn+3*sd_SMn & 
-                                                 SMn_mgL > mean_SMn-3*sd_SMn, SMn_mgL, NA_real_))
-
-#dataWQ= dataWQ[-c(15),]
-#dataCalFP = dataCalFP[-c(15),]
-
-#Remove the really low 9m sample from 2021-06-04 16:27:59
-
-#dataWQ= dataWQ[-c(12),]
-#dataCalFP = dataCalFP[-c(12),]
-
-#Remove outlier 9m sample from 2021-05-26 15:06:44
-
-#dataWQ= dataWQ[-c(4),]
-#dataCalFP = dataCalFP[-c(4),]
-
-# Remove the 24 hr sampling data (except first sample) # 
-#dataWQ= dataWQ[-c(19:36),]
-#dataCalFP = dataCalFP[-c(19:36),]
 
 
 #### Remove lower wavelengths to correct fouling ####
@@ -108,38 +70,56 @@ dataCalFP = dataCalFP[,-c(1:20)] # 20 = < 250nm; 40 = < 300nm
 TS_FP = TS_FP[,-c(1:20)]
 
 
-#### Use the PLSR model to identify the correct number of components for each param using RMSE ####
-# code addapted from CCC original PLSR script
-num_comps(param="SMn_mgL",dataWQ,dataCalFP,TS_FP)
 
-#### Run the function for a single parameter ####
-param<-"SMn_mgL"
+# Variable indicating parameter to be modeled
+param = "TFe_mgL" 
+
+# Identify Outliers #
+maxcomp = 5 # set the maximum number of components for the enpls fit function (which automatically determines components)
+reps = 50 # set the number of Monte Carlo repetitions 
+
+# Run enpls function and look at outlier plot to identify values that 
+# should potentially be deleted
+
+PLSR_enpls(param,dataCalFP,dataWQ,maxcomp=maxcomp,reptimes=reps)
+
+# If there are any outliers that should be deleted, set them to
+# NA in the dataWQ dataframe (columns: 3. Tot Fe, 4. Tot Mn, 5. Sol Fe, 6. Sol Mn)
+
+dataWQ[c(12,15),param] = NA_real_
+
+
+
+
+
+#### Identify number of components ####
+##   Run the function for a single parameter and look at RMSEP curve ##
+param<-"TFe_mgL"
 ncomp=15
 PLSR_SCAN(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
 plot(RMSEP(fit), legendpos = "topright")
 
-png("RMSEP21_SMn_epi_6comp_1out_020922.png",width = 9, height = 4, units = 'in', res = 300)
-plot(RMSEP(fit), legendpos = "topright")
+png("RMSEP21_TFe_epi_4comp_1out_051322.png",width = 9, height = 4, units = 'in', res = 300)
+plot(RMSEP(fit), legendpos = "topright",main = param)
 dev.off()
 
 #############
 #Choose the number that is at the bottom of the curve, plus 1. 
 ############
 
-ncomp.onesigma <- selectNcomp(fit, method = "onesigma", plot = TRUE)
-ncomp.permut <- selectNcomp(fit, method = "randomization", plot = TRUE)
 
-#### Run the function for a single parameter ####
-param<-"SMn_mgL"
+#### Run the function for a single parameter to generate predictions and PI ####
+param<-"TFe_mgL"
 ncomp=4
 PLSR_SCAN_boot(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
+
 # Bi-plot of pred vs. obs
-png("Biplot21_SMn_epi_6comp_1out_020922.png",width = 9, height = 4, units = 'in', res = 300)
+png("Biplot21_TFe_epi_4comp_1out_051322.png",width = 9, height = 4, units = 'in', res = 300)
 plot(WQ,as.matrix(WQP),
      xlab=paste("measured",param),
-     ylab=c("PLSR_predicted"),
+     ylab=paste("PLSR Predicted",param),
      xlim = c(0,max(WQ,as.matrix(WQP))),
      ylim = c(0,max(WQ,as.matrix(WQP))))
 fit2<-lm(WQ~as.matrix(WQP)) #Linear regression of predicted and lab NO3-N values
@@ -147,43 +127,33 @@ abline(a=0,b=1)
 dev.off()
 
 # loading plot
-png("Loading21_SMn_epi_6comp_1out_020922.png",width = 9, height = 5, units = 'in', res = 300)
-plot(fit, "loading", comps = 1:4, legendpos = "topright")
+png("Loading21_TFe_epi_4comp_1out_051322.png",width = 9, height = 5, units = 'in', res = 300)
+plot(fit, "loading", comps = 1:ncomp, legendpos = "topright")
 abline(h = 0)
 dev.off()
 
-#If there are obvious outliers, run whats in the PLSR loop, then click on the points.
-#This will give you a location of which datapoints are outliers, and you can then 
-#remove them from the WQ and dataCalFP dataframes.
-
-out <- sapply(list(WQ,as.matrix(WQP)),"[",identify(WQ,as.matrix(WQP)))
-out
 
 #Make sure that your datetimes are formatted correctly before plotting
 TS_conc$DateTime <- as.POSIXct(TS_conc$DateTime, format="%Y-%m-%d %H:%M:%S")
 dataWQ$DateTime <- as.POSIXct(dataWQ$DateTime, format="%m/%d/%y %H:%M")
-colnames(dataWQ)[2] <- "Depth"   #rename this column for plotting
 
 # assign the predictions to the correct column in the TS_conc matrix. This portion of the script will
 # change for each parameter. change number in "sd(as.numeric(fit$residuals[,,X]))" to match number of components,
 #  change column names (i.e. "TS_conc$uncerNO2_max") to match parameter.
-TS_conc$uncerSMn_max <- NA
-TS_conc$uncerSMn_min <- NA
-TS_conc$uncerSMn_max <- WQP_TS + pred_int[2,] #max uncert
-TS_conc$uncerSMn_min <- WQP_TS + pred_int[1,] #min uncert
-TS_conc$uncerSMn_max <- unlist(TS_conc$uncerSMn_max)
-TS_conc$uncerSMn_min <- unlist(TS_conc$uncerSMn_min)
+TS_conc$uncerTFe_max <- NA
+TS_conc$uncerTFe_min <- NA
+TS_conc$uncerTFe_max <- WQP_TS + pred_int[2,] #max uncert
+TS_conc$uncerTFe_min <- WQP_TS + pred_int[1,] #min uncert
+TS_conc$uncerTFe_max <- unlist(TS_conc$uncerTFe_max)
+TS_conc$uncerTFe_min <- unlist(TS_conc$uncerTFe_min)
 
 # Assign WQP_TS to correct parameter column in TS_conc dataframe.
-TS_conc[,(3)]<-WQP_TS #for Tot Fe
-TS_conc[,(4)]<-WQP_TS  #for Tot Mn
-TS_conc[,(5)]<-WQP_TS #for Sol Fe
-TS_conc[,(6)]<-WQP_TS #for Sol Mn
+TS_conc[,(param)]<-WQP_TS 
 
 #### Statistics ####
 
 # Plot residuals
-png("Resid21_SMn_epi_6comp_1out_020922.png",width = 9, height = 4, units = 'in', res = 300)
+png("Resid21_TFe_epi_4comp_1out_051322.png",width = 9, height = 4, units = 'in', res = 300)
 par(mfrow=c(1,2))
 hist(fit$residuals[,,ncomp],main = "Residuals model")
 qqnorm(fit$residuals[,,ncomp], pch = 1, frame = FALSE)
@@ -206,23 +176,23 @@ summary(R2_run)
 SSS = as.data.frame(ymd_hm(c("2021-06-11 11:00")))
 colnames(SSS)= c("Date")
 
-TS_conc$Depth = as.numeric(TS_conc$Depth)
+TS_conc$Depth_m = as.numeric(TS_conc$Depth_m)
 #TS_conc_all$Depth = as.numeric(TS_conc_all$Depth)
 
 # Plot all depths 
-png("Pred21_SMn_epi_6comp_1out_020922.png",width = 9, height = 4, units = 'in', res = 300) 
-SMn_plot <- ggplot() +
-  geom_path(data=TS_conc, aes(x=DateTime,y=SMn_mgL, color= as.character(Depth)), size=0.5) +
-  geom_ribbon(data=TS_conc, aes(ymin=uncerSMn_min, ymax=uncerSMn_max, x=DateTime, fill = as.character(Depth)), alpha = 0.3)+
-  geom_point(data=dataWQ, aes(x=DateTime, y=SMn_mgL, colour= as.character(Depth))) +
-  #geom_path(data=WQ_all, aes(x=DateTime, y=SMn_mgL, colour= as.character(Depth))) +
+png("Pred21_TFe_epi_4comp_1out_051322.png",width = 9, height = 4, units = 'in', res = 300) 
+TFe_plot <- ggplot() +
+  geom_path(data=TS_conc, aes(x=DateTime,y=TFe_mgL, color= as.character(Depth_m)), size=0.5) +
+  geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth_m)), alpha = 0.3)+
+  geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m))) +
+  #geom_path(data=WQ_all, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m))) +
   #ylim(0,7)+
-  labs(x="Date", y = "Total Mn (mg/L)", title = "PLSR Preds w/ bootstrap PI") +
+  labs(x="Date", y = "TFe (mg/L)", title = "PLSR Preds w/ bootstrap PI") +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
   theme(legend.position="right")+
   labs(color= "Depth (m)",fill="90% PI")+
 geom_vline(data=SSS, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
-SMn_plot
+TFe_plot
 dev.off()
 
 
@@ -234,11 +204,11 @@ epi_results = TS_conc
 hypo_results = TS_conc
 
 TS_conc_all = rbind(epi_results,hypo_results)
-TS_conc_all = TS_conc_all %>% group_by(Depth) %>% arrange(-desc(DateTime)) %>%
-  ungroup(Depth)
+TS_conc_all = TS_conc_all %>% group_by(Depth_m) %>% arrange(-desc(DateTime)) %>%
+  ungroup(Depth_m)
 
 #write csv of predictions
-write.csv(TS_conc_all,"MUX21_predictions_boot_020922.csv")
+write.csv(TS_conc_all,"MUX21_predictions_boot_051322.csv")
 
 
 
@@ -252,7 +222,7 @@ WQ_all = rbind(hypo_WQ, epi_WQ)
 WQ_all = WQ_all %>% group_by(Depth_m) %>% arrange(-desc(DateTime)) %>% ungroup(Depth_m)
 
 #write csv of dataWQ
-write.csv(WQ_all,"MUX21_dataWQ_021122.csv")
+write.csv(WQ_all,"MUX21_dataWQ_051322.csv")
 
 
 
@@ -268,7 +238,7 @@ SFe_plot <- ggplot() +
   #geom_ribbon(data=TS_conc, aes(ymin=uncerSFe_min, ymax=uncerSFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
   #geom_point(data=dataWQ, aes(x=DateTime, y=SFe_mgL, colour= as.factor(Depth))) +
   ylim(0, 8)+
-  labs(x="Date", y = "Total Fe (mg/L)", title = "Total Iron Pre- and Post-Turnover 2020 (Weekly Sampling)") +
+  labs(x="Date", y = "TMn (mg/L)", title = "Total Iron Pre- and Post-Turnover 2020 (Weekly Sampling)") +
   scale_x_datetime(labels = date_format("%Y-%m-%d"))+
   theme(legend.position="right")+
   labs(color= "Depth (m)")+
