@@ -73,7 +73,68 @@ dataWQ_20$Depth_m = as.character(dataWQ_20$Depth_m)
 dataWQ_21$Depth_m = as.character(dataWQ_21$Depth_m)
 
 
-### 2020 ###
+# Pivot Longer for plotting
+dataWQ_20 = dataWQ_20 %>% select(DateTime, Depth_m,  TFe_mgL, TMn_mgL, SFe_mgL,  SMn_mgL) %>% rename("Total Fe" = TFe_mgL,
+                                                                                                     "Total Mn" = TMn_mgL,
+                                                                                                     "Soluble Fe" = SFe_mgL,
+                                                                                                     "Soluble Mn" = SMn_mgL)
+dataWQ_21 = dataWQ_21 %>% select(DateTime, Depth_m,  TFe_mgL, TMn_mgL, SFe_mgL,  SMn_mgL) %>% rename("Total Fe" = TFe_mgL,
+                                                                                                     "Total Mn" = TMn_mgL,
+                                                                                                     "Soluble Fe" = SFe_mgL,
+                                                                                                     "Soluble Mn" = SMn_mgL)
+dataWQ_20 = dataWQ_20 %>% pivot_longer(cols = c(3:6), names_to = "Variable", values_to = "Concentration")
+dataWQ_21 = dataWQ_21 %>% pivot_longer(cols = c(3:6), names_to = "Variable", values_to = "Concentration")
+
+
+### Make plots ###
+box_20 = ggplot() +
+  geom_boxplot(data = dataWQ_20, aes(Depth_m, Concentration, colour = Depth_m), size=2) +
+  geom_point(data = dataWQ_20, aes(Depth_m, Concentration, colour = Depth_m), size=4) +
+  labs(x = "Depth (m)", y = "Concentration (mg/L)") +
+  ggtitle("Turnover Deployment") +
+  theme_bw() +
+  theme(legend.position = "none") +
+  theme(
+    title = element_text(size=28),
+    axis.text.x = element_text(size= 30),
+    axis.text.y.left = element_text(size= 30),
+    axis.title.x = element_text(size=30),
+    axis.title.y = element_text(color = "black", size=34),
+    strip.text = element_text(size = 26)) +
+  facet_wrap(~Variable,nrow = 2,scales = "free_y")
+
+box_21 = ggplot() +
+  geom_boxplot(data = dataWQ_21, aes(Depth_m, Concentration, colour = Depth_m), size=2) +
+  geom_point(data = dataWQ_21, aes(Depth_m, Concentration, colour = Depth_m), size=4) +
+  labs(x = "Depth (m)", y = "Concentration (mg/L)") +
+  ggtitle("Oxygen On Deployment") +
+  theme_bw() +
+  theme(legend.position = "none") +
+  theme(
+    title = element_text(size=28),
+    axis.text.x = element_text(size= 30),
+    axis.text.y.left = element_text(size= 30),
+    axis.title.x = element_text(size=30),
+    axis.title.y = element_text(color = "black", size=34),
+    strip.text = element_text(size = 26)) +
+  facet_wrap(~Variable,nrow = 2,scales = "free_y")
+
+
+png('MUX_WQ_boxplots_092022.png', width = 24, height = 26, units = 'in', res = 300)
+
+box_20 / box_21 
+
+dev.off()
+
+
+
+
+
+
+
+
+#### Old Code ####
+
 TFe_box = ggplot() +
   geom_boxplot(data = dataWQ_20, aes(Depth_m,TFe_mgL,colour = Depth_m),size=2) +
   geom_point(data = dataWQ_20, aes(Depth_m,TFe_mgL,colour = Depth_m),size=4) +
