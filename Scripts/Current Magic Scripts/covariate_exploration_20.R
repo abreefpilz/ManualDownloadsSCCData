@@ -1,6 +1,6 @@
 #### Script for exploratory data analysis of MUX predictions and potential covariates ####
 ### Author: Nick Hammond
-### Last Edited: 08/23/2022
+### Last Edited: 09/21/2022
 
 # Set wd, load packages, source code
 library(lubridate)
@@ -23,7 +23,7 @@ setwd("C:/Users/hammo/Documents/Magic Sensor PLSR/")
 
 
 # Read in catwalk data
-catwalk = read.csv(paste0(getwd(),"/Data/Covariate data/Catwalk_EDI_2020.csv"))
+catwalk = read.csv(paste0(getwd(),"/Data/Covariate data/FCR_Catwalk_2018_2021.csv"))
 
 # Read in met data
   #met = read.csv(paste0(getwd(),"/Data/Covariate data/Met_final_2015_2020.csv"))
@@ -56,7 +56,7 @@ catwalk_exp = catwalk %>% select(Reservoir,Site,DateTime,RDO_mgL_5_adjusted,
    #                          Rain_Total_mm, AirTemp_Average_C)
 
 # Convert DateTime to PosixCT
-catwalk_exp$DateTime = mdy_hm(catwalk_exp$DateTime, tz="America/New_York") # Sensors are on EST (GMT+5) but converting to
+catwalk_exp$DateTime = ymd_hms(catwalk_exp$DateTime, tz="America/New_York") # Sensors are on EST (GMT+5) but converting to
 #met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="America/New_York")        # EDT (GMT+4) to match MUX data
 ThermoDepths$datetime = ymd_hms(ThermoDepths$datetime,tz="America/New_York")
 Schmidt$datetime = ymd_hms(Schmidt$datetime,tz="America/New_York")
@@ -163,11 +163,9 @@ TFe_plot = ggplot() +
   geom_ribbon(data=MUX_preds, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = as.character(Depth_m)), alpha = 0.2)+
   geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.character(Depth_m)), size=7) +
   labs(x="Date",y="Total Fe (mg/L)", color = "Depth (m)", fill="90% PI") +
-  #ylim(0,1.5) +
+  theme_bw() +
     theme(legend.position="right")+
-  #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
   geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
-  #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%b-%d")) +
@@ -179,7 +177,7 @@ TFe_plot = ggplot() +
     legend.text = element_text(size = 24),
     legend.title = element_text(size = 26),
     legend.box.background = element_rect(),
-    panel.grid = element_line(color = "dark gray"))  
+    panel.grid = element_line(color = "black"))  
 
 
 Fe_ratio_plot = ggplot() +
@@ -212,11 +210,9 @@ TMn_plot = ggplot() +
   geom_ribbon(data=MUX_preds, aes(ymin=uncerTMn_min, ymax=uncerTMn_max, x=DateTime, fill = as.character(Depth_m)), alpha = 0.2)+
   geom_point(data=dataWQ, aes(x=DateTime, y=TMn_mgL, colour= as.character(Depth_m)), size=7) +
   labs(x="Date",y="Total Mn (mg/L)", color = "Depth (m)", fill="90% PI") +
-  #ylim(0,1.5) +
+  theme_bw() +
   theme(legend.position="right")+
-  #ggtitle("Predicted Total Fe and Sensor Data at 1.6m") +
   geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
-  #theme_ipsum() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%b-%d")) +
@@ -228,7 +224,7 @@ TMn_plot = ggplot() +
     legend.text = element_text(size = 24),
     legend.title = element_text(size = 26),
     legend.box.background = element_rect(),
-    panel.grid = element_line(color = "dark gray"))  
+    panel.grid = element_line(color = "black"))  
   
 
 Mn_ratio_plot = ggplot() +
@@ -273,8 +269,8 @@ thermocline_plot = ggplot() +
 
 schmidt_plot = ggplot() +
   geom_path(data=Schmidt, aes(x=datetime, y=schmidt.stability), size=2, color = "black") +
-  labs(x="Date", y="Schmidt Stability (J/m^2)")+
-  #theme_ipsum() +
+  labs(x="Date", y= expression("Schmidt Stability (J/"*"m"^2*")"))+
+  theme_bw() +
   #theme(legend.position=c(0.95,0.95))+
   scale_x_datetime(date_minor_breaks = "1 day", limits = c(Begin_time,End_time),
                    labels = date_format("%b-%d")) +
@@ -287,7 +283,7 @@ schmidt_plot = ggplot() +
     legend.text = element_text(size = 32),
     legend.title = element_text(size = 34),
     legend.box.background = element_rect(),
-    panel.grid = element_line(color = "dark gray")) 
+    panel.grid = element_line(color = "black")) 
 
 
 SFe_plot = ggplot() +
@@ -308,9 +304,9 @@ DO_plot = ggplot() +
   scale_x_datetime(date_minor_breaks = "1 day", 
                    limits = c(Begin_time,End_time),
                    labels = date_format("%b-%d")) +
+  theme_bw() +
   theme(legend.position="right")+
   geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=2) +
-  #theme_ipsum() +
   theme(
     axis.text.x = element_text(size= 36),
     axis.text.y.left = element_text(size= 36),
@@ -319,7 +315,7 @@ DO_plot = ggplot() +
     legend.text = element_text(size = 32),
     legend.title = element_text(size = 34),
     legend.box.background = element_rect(),
-    panel.grid = element_line(color = "dark gray"))
+    panel.grid = element_line(color = "black"))
 
 
 
@@ -358,7 +354,7 @@ fdom_plot = ggplot() +
 Temp_plot = ggplot() +
   geom_path(data=catwalk_exp_long, aes(x=DateTime, y=temperature, color = as.factor(depth_m)), size=1) +
   labs(x="Date", y="Temp. (deg C)", color= "Depth (m)")+
-  #theme_ipsum() +
+  theme_bw() +
   #theme(legend.position=c(0.95,0.95))+
   scale_x_datetime(date_minor_breaks = "1 day", limits = c(Begin_time,End_time),
                    labels = date_format("%b-%d")) +
@@ -371,7 +367,7 @@ Temp_plot = ggplot() +
     legend.text = element_text(size = 32),
     legend.title = element_text(size = 34),
     legend.box.background = element_rect(),
-    panel.grid = element_line(color = "dark gray"))
+    panel.grid = element_line(color = "black"))
 
 
 SW_plot = ggplot() +
@@ -442,9 +438,11 @@ AirTemp_plot = ggplot() +
 
 #### Create png file of multipanel plots ####
 
-jpeg('MUX20_Schmidt_Temp_DO_TFe_TMn_FullDepths_FullTS_082422.jpeg', width = 34, height = 36, units = 'in', res = 600)
+jpeg('MUX20_Schmidt_Temp_DO_TFe_TMn_FullDepths_FullTS_092122.jpeg', width = 34, height = 36, units = 'in', res = 600)
 
-schmidt_plot / Temp_plot / DO_plot / TFe_plot / TMn_plot 
+schmidt_plot / Temp_plot / DO_plot / TFe_plot / TMn_plot + 
+  plot_annotation(tag_levels = "A") & 
+  theme(plot.tag = element_text(size = 42, hjust = 0, vjust = 0))
  
 dev.off()
 

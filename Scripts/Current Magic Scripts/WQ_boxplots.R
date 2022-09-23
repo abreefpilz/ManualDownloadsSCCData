@@ -1,6 +1,6 @@
 # Make Box & Whisker Plots of Sampling Data used for Calibrating PLSR Models
 # Author: Nick Hammond
-# Last Edited: 10/15/2021
+# Last Edited: 09/21/2022
 
 # Set wd, load packages, source code
 library(lubridate)
@@ -120,7 +120,7 @@ box_21 = ggplot() +
   facet_wrap(~Variable,nrow = 2,scales = "free_y")
 
 
-png('MUX_WQ_boxplots_092022.png', width = 24, height = 26, units = 'in', res = 300)
+png('MUX_WQ_boxplots_092122.png', width = 18, height = 24, units = 'in', res = 300)
 
 box_20 / box_21 
 
