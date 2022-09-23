@@ -1,14 +1,25 @@
 
-# Script to load in 2020 FP data for the MUX, do a quality check on the data,
-# then match WQ data to FP data and write csv files of FP overlaps and the entire FP time series
-# Authors: Nick Hammond
-# Last Updated: 09/23/2022
+#*****************************************************************
+#* TITLE:   MUX 2020 Data Prep and Overlaps Script
+#*                     
+#* AUTHORS: Nick Hammond                                         
+#* LAST UPDATED: 09/23/2022
+#*                                    
+#* NOTES:  This script combines all MUX FP files from 2020, plots data for QA/QC, 
+#*         matches WQ sampling data to FP data, and creates data files for MUX FP
+#*         Overlaps (for PLSR calibration) plus the entire FP time series (for prediction 
+#*         w/ fitted PLSR models).
+#*         
+#*        The WQ sampling times do not always match up perfectly with a MUX FP
+#*        measurement time. This is because we collected grab samples using the 
+#*        van dorn sampler, not from the MUX itself. We tried to time our grab sampling
+#*        to match that of the MUX, but there are cases when the closest FP measurement
+#*        is up to ~ 4 hr off from the sampling time.
+#*****************************************************************
 
 
 #### Load Packages ####
 
-
-#packages needed
 library(lubridate)
 library(tidyverse)
 library(magrittr)
@@ -38,7 +49,7 @@ setwd('C:/Users/hammo/Documents/Magic Sensor PLSR/ManualDownloadsSCCData/MagicDa
 #   12      DI
 
 # Create a character string of all MUX FP file names 
-muxfiles<-list.files(path="./FP_2020", pattern = ".FP")
+muxfiles<-list.files(path="./MUX/FP File/2020", pattern = ".FP")
 
 # Prepare data frame w/column headers 
 mux_colnames = c("DateTime", "Status", paste0(as.character(c(seq(200,750, by = 2.5)))), "Valve","Measurement time")
@@ -48,8 +59,8 @@ obs2$DateTime=ymd_hms(obs2$DateTime, tz="America/New_York")
 
 #Read in all files within folder in Github
 for(i in 1:length(muxfiles)){
-  if(file.size(paste0("./FP_2020/",muxfiles[i]))>4000){
-    temp<-read.table(file=paste0("./FP_2020/",muxfiles[i]),skip=2,header=FALSE, row.names = NULL, sep = "\t")
+  if(file.size(paste0("./MUX/FP File/2020/",muxfiles[i]))>4000){
+    temp<-read.table(file=paste0("./MUX/FP File/2020/",muxfiles[i]),skip=2,header=FALSE, row.names = NULL, sep = "\t")
     names(temp) <- mux_colnames
     temp$DateTime=ymd_hms(temp$DateTime, tz="America/New_York")
     obs2<-rbind(obs2,temp)
@@ -98,12 +109,15 @@ ggplot() +
 #### Create new df with final dataset ####
 MUX = mux_only
 
-#### Load in 2020 WQ data from local device storage (entire dataset in csv format) ####
+#### Load in 2020 WQ data (entire dataset in csv format) ####
 
-#Change working directory to folder where WQ data is housed
-setwd("C:/Users/hammo/Documents/Magic Sensor PLSR/")
+# Specify directory and file name for data file
 pathWQ = "C:/Users/hammo/Documents/Magic Sensor PLSR/Data/"
 WQ = "Metals_2014_2021.csv"
+#Download EDI metals dataset
+inUrl1  <- "https://pasta.lternet.edu/package/data/eml/edi/455/6/57912981e3e857c85924484806492446" 
+infile1 <- c(paste0(pathWQ,WQ,sep=""))
+download.file(inUrl1,infile1,method="curl")
 
 # Read in dataframe and convert DateTime and Depth variables to proper format
 dataWQ<-read_csv(paste(pathWQ,WQ,sep="")) #Import data as .csv file
@@ -142,10 +156,17 @@ plot(WQtimes$DateTime[which(WQtimes$Depth_m=="9")],MUX_FP_Overlaps_2020$DateTime
      xlab = "Sampling Times", ylab = "MUX times")
 abline(a=0,b=1)
 
+# What's the time difference between the sampling time and MUX FP measurement time?
+plot(MUX_FP_Overlaps_2020$DateTime, MUX_FP_Overlaps_2020$time_diff/3600,
+     xlab = "DateTime", ylab = "time difference (hr)")
+abline(a=1,b=0)
+
+# What's the max time difference, out of all overlaps pairs?
+max(MUX_FP_Overlaps_2020$time_diff)/60/60
 
 MUX_FP_Overlaps_2020 = MUX_FP_Overlaps_2020 %>% select(-c(Depth,time_diff))
 
-#Write to csv
+#Write Overlaps to csv
 write.csv(MUX_FP_Overlaps_2020, file = "MUX_FP_Overlaps_Oct_Nov_2020.csv")
 
 
