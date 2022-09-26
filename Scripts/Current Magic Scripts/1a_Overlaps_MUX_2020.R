@@ -167,7 +167,7 @@ max(MUX_FP_Overlaps_2020$time_diff)/60/60
 MUX_FP_Overlaps_2020 = MUX_FP_Overlaps_2020 %>% select(-c(Depth,time_diff))
 
 #Write Overlaps to csv
-write.csv(MUX_FP_Overlaps_2020, file = "MUX_FP_Overlaps_Oct_Nov_2020.csv")
+write.csv(MUX_FP_Overlaps_2020, file = "MUX_FP_Overlaps_2020.csv")
 
 
 # Write full time series of MUX FP data to csv

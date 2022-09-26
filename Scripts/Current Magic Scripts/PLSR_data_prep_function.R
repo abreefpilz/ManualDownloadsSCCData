@@ -1,11 +1,17 @@
 ####
-#### Function for prepping data for PLSR ####
+#### Function for prepping 2020 data for PLSR ####
 ####
 
 
 data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam){
   
 #### Read in FCR WQ data ####
+  
+  #Download EDI metals dataset
+  inUrl1  <- "https://pasta.lternet.edu/package/data/eml/edi/455/6/57912981e3e857c85924484806492446" 
+  infile1 <- c(paste0(pathD,WQ_name,sep=""))
+  download.file(inUrl1,infile1,method="curl")  
+  
 dataWQ <- read_csv(paste(pathD,WQ_name,sep=""))
 
 dataWQ = dataWQ %>% filter(Reservoir == "FCR" & Site == 50) %>% 
@@ -16,7 +22,7 @@ dataWQ <- dataWQ %>%
 filter(Depth_m %in% as.numeric(Depths))
 
 #Subset to desired date range
-dataWQ$DateTime = ymd_hms(dataWQ$DateTime)
+dataWQ$DateTime = ymd_hms(dataWQ$DateTime,tz="America/New_York")
 dataWQ = dataWQ[dataWQ$DateTime>Begin_time,]
 dataWQ = dataWQ[dataWQ$DateTime<End_time,]
 
