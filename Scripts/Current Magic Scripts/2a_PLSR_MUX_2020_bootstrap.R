@@ -2,7 +2,7 @@
 #* TITLE:   PLSR Analysis Script for 2020 MUX Predictions of Fe and Mn with bootstrap predictive intervals
 #*                     
 #* AUTHORS: Nick Hammond                                         
-#* LAST UPDATED: 09/26/2022
+#* LAST UPDATED: 10/10/2022
 #*                                    
 #* NOTES:  This script utilizes data files from '1b_Overlaps_MUX_2020.R' and metals data from EDI to fit PLSR
 #*        models using MUX FP data (i.e., the time series of absorbance spectra) and FCR Fe and Mn sampling data, 
@@ -29,7 +29,7 @@
 #*             but we only excluded these outliers if it led to a substantial improvement in model fit AND 
 #*             we had a second reason to justify their removal (e.g., measurements collected during heavy fouling, extremely high/low concentration values)
 #*             Details on which outliers were removed and the final sample size of calibration for each model
-#*             can be found in Table 1 of the MUX manuscript and in Nick's 'PLSR Model Assessment' Google Sheets.
+#*             can be found in Table 1 of the MUX manuscript and in Nick's 'PLSR Model Assessment' Google Sheets (https://docs.google.com/spreadsheets/d/1QCNT1cm_9-TcTgFnwmTRoLfQbLxGvEYSnfg7I8iG-yo/edit#gid=0).
 #*        2. Choosing the number of components for each PLSR model
 #*           - This is also a somewhat subjective step, but we are using the RMSEP vs. num. comps
 #*            curve generated from cross-validation to determine how many comps to use
@@ -53,37 +53,32 @@
 #packages needed
 library(lubridate)
 library(tidyverse)
-library(magrittr)
-library(gganimate)
-library(gifski)
-require(transformr)
-library(stringr)
-library(readxl)
 library(pls) 
 library(scales)
-library(ggpubr)
 library(enpls)
 
 # Set working directory
-setwd("C:/Users/hammo/Documents/Magic Sensor PLSR/")
+setwd("./")
 
 #load functions
-source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_function.R')
-source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_function_boot.R')
-source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_data_prep_function.R')
-source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_num_components_function.R')
-source('ManualDownloadsSCCData/Scripts/Current Magic Scripts/PLSR_function_enpls.R')
+source('./Scripts/Current Magic Scripts/PLSR_function.R')
+source('./Scripts/Current Magic Scripts/PLSR_function_boot.R')
+source('./Scripts/Current Magic Scripts/PLSR_data_prep_function.R')
+source('./Scripts/Current Magic Scripts/PLSR_num_components_function.R')
+source('./Scripts/Current Magic Scripts/PLSR_function_enpls.R')
 
 
-#### Specify input files, depths, date ranges, and parameters. Prep data. ####
+#### 1. Read in data files and prepare data for model fitting ####
 
 #Specify files for WQ data, FP overlaps, and the entire FP time series
-pathD<-"C:/Users/hammo/Documents/Magic Sensor PLSR/Data/" # Specify folder where EDI data will be downloaded
+pathD<-"./MagicData/MUX/Modeling Files/" # Specify folder where EDI data will be downloaded
 WQ_name<-"Metals_2014_2021.csv" # Specify name of WQ file
 FPcaldata_name<-"MUX_FP_Overlaps_2020.csv" # Name of FP 'overlaps' file (for calibration)
 TimeSeriesFP_name<-"MUX_FP_TS_2020.csv" # Name of FP time series file (for prediction)
 
-#Select Desired Depths
+# Select Desired Depths
+# For this study, we are dividing PLSR models by the epilimnion (0.1, 1.6, and 3.8m) and 
+# hypolimnion (6.2, 8.0, and 9.0m). Metalimnion data (5.0m) is not included.
 Depths<-c("0.1",
   "1.6",
   "3.8"
@@ -98,7 +93,7 @@ Begin_time<- c("2020-10-15 12:00")    # Joyful Beginning: "2020-10-15 12:00"
 End_time<- c("2020-11-09 15:00:00")  # Bitter End: "2020-11-09 15:00:00" # Turnover: "2020-11-02 12:00:00"
                                     # make sure this is after the last FP *and* sampling times!
 
-#Select WQ parameter (e.g. "TFe_mgL")
+#Select WQ parameters that you want to include at this depth (usually TFe, TMn, SFe, and SMn)
 WQparam <- c("TFe_mgL","TMn_mgL","SFe_mgL","SMn_mgL") 
 
 
@@ -106,30 +101,41 @@ WQparam <- c("TFe_mgL","TMn_mgL","SFe_mgL","SMn_mgL")
 data_prep(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam)
 
 
-#### Remove lower wavelengths to correct fouling ####
+#### 2. Remove lower wavelengths in absorbance spectra to correct for fouling ####
 dataCalFP = dataCalFP[,-c(1:20)] # 20 = < 250nm; 40 = < 300nm
 TS_FP = TS_FP[,-c(1:20)]
 
 
+# Now that your data is prepped, you can begin fitting PLSR models for each variable
+
 # Variable indicating parameter to be modeled
 param = "TFe_mgL" 
 
-# Identify Outliers #
+#### 3. Identify and remove outliers in calibration data using the enpls function ####
 maxcomp = 5 # set the maximum number of components for the enpls fit function (which automatically determines components)
+            # 10%*n = maxcomp (+ 1-2 comps, if desired)
 reps = 50 # set the number of Monte Carlo repetitions 
+          # generally it's better to have more reps (the default is 500), but 50 is more computationally efficient and using > 50 reps
+          # doesn't significantly change the results for this analysis
 
-# Run enpls function and look at outlier plot to identify values that 
-# should potentially be deleted
+# Run enpls function and look at outlier plot to identify values that should potentially be deleted
 
 PLSR_enpls(param,dataCalFP,dataWQ,maxcomp=maxcomp,reptimes=reps)
 
-# If there are any outliers that should be deleted, set them to
-# NA in the dataWQ dataframe (The pls function will automatically remove the rows from the dataCalFP matrix)
+# Cutoffs are based on 3*sd of monte carlo predictive error mean (x-axis) and sd (y-axis)
+# Points in the upper left are x-outliers (blue), points in the lower right are y-outliers (red),
+# and points in the upper right are outliers in both directions (green).
+# Criteria for removing outliers (2 required):
+#  - if the point is far beyond the 3*sd cutoff
+#  - if there is a substantial improvement in model fit when removed
+#  - if there is a secondary justification for removal (e.g., fouling, anomalous samples)
+# If there are any outliers that should be deleted, set them to NA in the dataWQ dataframe 
+# (The pls function will automatically remove the rows from the dataCalFP matrix)
 
 dataWQ[c(12),param] = NA_real_
 
 
-#### Identify number of components ####
+#### 4. Identify the optimal number of components for each PLSR model ####
 
 ##   Run the function for a single parameter and look at RMSEP curve
 ncomp=15 # max number of components to try
@@ -139,14 +145,15 @@ PLSR_SCAN(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 plot(RMSEP(fit), legendpos = "topright",main = param)
 #dev.off()
 
+# Choose the number at the bottom of the curve, +/- 1
 
-#### Run the function for a single parameter to generate predictions and PI ####
+#### 5. Fit PLSR model to data, generate predictions, and calculate 90 % bootstrap predictive intervals for a single parameter ####
 param<-"TFe_mgL"
 ncomp=5
 PLSR_SCAN_boot(param,dataCalFP,dataWQ,TS_FP,ncomp, yesplot=TRUE)
 
 
-#### Model Diagnostics ####
+#### 6. Assess model diagnostics, statistics, and visualize results ####
 
 # Bi-plot of pred vs. obs
 #png("Biplot20_TFe_epi_5comp_1out_050622.png",width = 9, height = 4, units = 'in', res = 300)
@@ -159,10 +166,10 @@ fit2<-lm(WQ~as.matrix(WQP)) #Linear regression of predicted and lab NO3-N values
 abline(a=0,b=1)
 #dev.off()
 
-# loading plot
+# loading plot -- to assess how PLSR assigned coefficients to each x-variable (wavelength)
 #png("Loading20_TFe_epi_5comp_1out_050622.png",width = 9, height = 5, units = 'in', res = 300)
-plot(fit, "loading", comps = 1:ncomp, legendpos = "topright")
-abline(h = 0)
+#plot(fit, "loading", comps = 1:ncomp, legendpos = "topright")
+#abline(h = 0)
 #dev.off()
 
 #Make sure that your datetimes are formatted correctly before plotting
@@ -184,7 +191,7 @@ TS_conc$uncerTFe_min <- unlist(TS_conc$uncerTFe_min)
 TS_conc[,param]<-WQP_TS 
 
 
-#### Statistics ####
+# Statistics
 
 # Plot residuals
 #png("Resid20_TFe_epi_5comp_1out_050622.png",width = 9, height = 4, units = 'in', res = 300)
@@ -196,7 +203,7 @@ shapiro.test(fit$residuals[,,ncomp]) # if p < 0.05, the residuals are NOT normal
 #dev.off()
 
 
-#### Visualize Results ####
+# Visualize Results 
 
 #Create vector of turnover date (for plotting)
 turnover = as.data.frame(ymd_hm(c("2020-11-02 12:00")))
@@ -220,8 +227,13 @@ TFe_plot
 #dev.off()
 
 
+# (Save data before re-running data prep function!)
 
-### SAVE TS_CONC results so you can go back later and re-combine all depths ###
+
+
+#### 7. Create data files for predicted values with 90 % predictive intervals ####
+
+# SAVE TS_CONC results so you can go back later and re-combine all depths
 
 #epi_results = TS_conc
 #hypo_results = TS_conc
@@ -243,95 +255,8 @@ WQ_all = WQ_all %>% group_by(Depth_m) %>% arrange(-desc(DateTime)) %>% ungroup(D
 
 
 #write csv of predictions
-write.csv(TS_conc_all,"MUX20_predictions_boot_050622.csv")
+write.csv(TS_conc_all,"./MagicData/MUX/Modeling Files/MUX20_predictions_boot_101022.csv")
 
 #write csv of dataWQ
-write.csv(WQ_all,"MUX20_dataWQ_050622.csv")
+write.csv(WQ_all,"./MagicData/MUX/Modeling Files/MUX20_dataWQ_101022.csv")
 
-
-
-
-
-
-
-
-
-
-
-
-
-#### Old Code ####
-
-# Remove values from 24 hr sampling (except the first sampling time), just for plotting purposes
-WQ_low_freq = WQ_all[-c(7:40),]
-
-## Plot WQ data (without 24 hr sampling)
-#TFe
-png("MUX_TFe_Oct_Nov_2020_epi_hypo_WQ_022221.png",width = 9, height = 4, units = 'in', res = 300) 
-TFe_plot <- ggplot() +
-  #geom_path(data=WQ_all, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth_m)), size=0.5) +
-  geom_point(data=WQ_all, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth_m)), size=0.8) +
-  #geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
-  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.factor(Depth_m))) +
-  ylim(0, 8)+
-  labs(x="Date", y = "Total Fe (mg/L)", title = "Total Iron Pre- and Post-Turnover 2020 (Weekly Sampling)") +
-  scale_x_datetime(labels = date_format("%Y-%m-%d"))+
-  theme(legend.position="right")+
-  labs(color= "Depth_m (m)")+
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
-TFe_plot
-dev.off()
-
-#TFe
-png("MUX_TFe_Oct_Nov_2020_epi_hypo_WQ_022221.png",width = 9, height = 4, units = 'in', res = 300) 
-TFe_plot <- ggplot() +
-  geom_path(data=WQ_low_freq, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth_m)), size=0.5) +
-  geom_point(data=WQ_low_freq, aes(x=DateTime,y=TFe_mgL, color= as.factor(Depth_m)), size=0.8) +
-  #geom_ribbon(data=TS_conc, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
-  #geom_point(data=dataWQ, aes(x=DateTime, y=TFe_mgL, colour= as.factor(Depth_m))) +
-  ylim(0, 4)+
-  labs(x="Date", y = "Total Mn (mg/L)", title = "Total Manganese Pre- and Post-Turnover 2020 (Weekly Sampling)") +
-  scale_x_datetime(labels = date_format("%Y-%m-%d"))+
-  theme(legend.position="right")+
-  labs(color= "Depth (m)")+
-  geom_vline(data=turnover, aes(xintercept=Date), linetype="dashed", color="black", size=0.8)
-TFe_plot
-dev.off()
-
-
-# Plot a single depth
-
-# First, create a dataframe for each depth's predictions and WQ 
-nine_m = TS_conc %>% filter(Depth_m == '9.0')
-nine_m_WQ = dataWQ %>% filter(Depth_m == 9.0)
-
-eight_m = TS_conc %>% filter(Depth_m == '8.0')
-eight_m_WQ = dataWQ %>% filter(Depth_m == 8.0)
-
-six_m = TS_conc %>% filter(Depth_m == '6.2')
-six_m_WQ = dataWQ %>% filter(Depth_m == 6.2)
-
-five_m = TS_conc %>% filter(Depth_m == '5.0')
-five_m_WQ = dataWQ %>% filter(Depth_m == 5.0)
-
-three_m = TS_conc %>% filter(Depth_m == '3.8')
-three_m_WQ = dataWQ %>% filter(Depth_m == 3.8)
-
-one_m = TS_conc %>% filter(Depth_m == '1.6')
-one_m_WQ = dataWQ %>% filter(Depth_m == 1.6)
-
-surface = TS_conc %>% filter(Depth_m == '0.1')
-surface_WQ = dataWQ %>% filter(Depth_m == 0.1)
-
-# Line plot for a single depth
-png("MUX_TFe_2020_pred_surface_epi_013_9comp.png",width = 9, height = 4, units = 'in', res = 300) 
-TFe_plot <- ggplot() +
-  geom_path(data=surface, aes(x=DateTime,y=TFe_mgL), size=0.5) +
-  geom_ribbon(data=surface, aes(ymin=uncerTFe_min, ymax=uncerTFe_max, x=DateTime, fill = "band"), alpha = 0.2)+
-  geom_point(data=surface_WQ, aes(x=DateTime, y=TFe_mgL), colour="blue") +
-  #ylim(0, 7)+
-  labs(x="Date", y = "TFe_mgL", title = "Predicted TFe at 0.1m, epi only model") +
-  scale_x_datetime(labels = date_format("%Y-%m-%d"))+
-  theme(legend.position="none")
-TFe_plot
-dev.off()
