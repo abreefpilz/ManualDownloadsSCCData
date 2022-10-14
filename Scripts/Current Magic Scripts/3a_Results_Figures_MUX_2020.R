@@ -1,12 +1,9 @@
-#### Script for exploratory data analysis of MUX predictions and potential covariates ####
-### Author: Nick Hammond
-### Last Edited: 09/21/2022
 
 #*****************************************************************
-#* TITLE:  MUx 2020 Results Figures Scripts
+#* TITLE:  MUx 2020 Results Figures Script
 #*                     
 #* AUTHORS: Nick Hammond                                         
-#* LAST UPDATED: 03 Oct 2022
+#* LAST UPDATED: 14 Oct 2022
 #*                                    
 #* NOTES:  This script utilizes data files from '2a_PLSR_MUX_2020.R', 'thermocline_SchmidtStability_calcs_MUX20.R',
 #*         and the EDI catwalk and met station data packages to produce multi-panel plots of:
@@ -23,25 +20,22 @@
 library(lubridate)
 library(tidyverse)
 library(magrittr)
-library(gganimate)
-library(gifski)
 require(transformr)
 library(stringr)
-library(readxl)
-library(pls) 
 library(scales)
 library(ggpubr)
 library(patchwork) # To display 2 charts together
 library(hrbrthemes)
 library(zoo)
 
-setwd("C:/Users/hammo/Documents/Magic Sensor PLSR/")
+# Set working directory
+setwd("./")
 
 
 #### Read and format catwalk data ####
 
 # Specify directory and file name for data file
-path = "C:/Users/hammo/Documents/Magic Sensor PLSR/Data/Covariate data/"
+path = "C:/Users/hammo/Documents/Magic Sensor PLSR/Data/Covariate data/" # Catwalk and Met files are too large for Github, so I'm downloading them to my local directory
 df_name = "FCR_Catwalk_2018_2021.csv"
 #Download EDI catwalk dataset
 inUrl1  <- "https://pasta.lternet.edu/package/data/eml/edi/271/6/23a191c1870a5b18cbc17f2779f719cf"  
@@ -107,7 +101,8 @@ met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="America/New_York")
 
 
 #### Read and format MUX PLSR predictions ####
-MUX_preds = read.csv(paste0(getwd(),"/Raw_predictions/MUX20_predictions_boot_050622.csv"))
+path = "./MagicData/MUX/Figures Files/"
+MUX_preds = read.csv(paste0(path,"MUX20_predictions_boot_050622.csv"))
 MUX_preds$DateTime = ymd_hms(MUX_preds$DateTime, tz="America/New_York")
 # Select date range for MUX predictions
 MUX_preds = MUX_preds %>%
@@ -118,22 +113,22 @@ MUX_preds$Depth_m = as.numeric(MUX_preds$Depth_m)
 
 
 #### Read and format FCR WQ data (from PLSR models) ####
-dataWQ <- read_csv(paste0(getwd(),"/Raw_predictions/MUX20_dataWQ_050622.csv"))
+dataWQ <- read_csv(paste0(path,"MUX20_dataWQ_050622.csv"))
 dataWQ$DateTime = ymd_hms(dataWQ$DateTime, tz="America/New_York")
 dataWQ = dataWQ %>% select(-c('...1','ID'))
 
 
 #### Read in Thermocline depth data ####
-ThermoDepths = read_csv(paste0(getwd(),"/Data/Covariate data/FCR_ThermoDepth_MUX20_013122.csv"))
+#ThermoDepths = read_csv(paste0(getwd(),"/Data/Covariate data/FCR_ThermoDepth_MUX20_013122.csv"))
 # Convert DateTime to PosixCT
-ThermoDepths$datetime = ymd_hms(ThermoDepths$datetime,tz="America/New_York")
+#ThermoDepths$datetime = ymd_hms(ThermoDepths$datetime,tz="America/New_York")
 # Smooth time series using moving average
-ThermoDepths = ThermoDepths %>% 
-  mutate(thermo.depth_roll = rollmean(thermo.depth,k=9,fill = NA))
+#ThermoDepths = ThermoDepths %>% 
+#  mutate(thermo.depth_roll = rollmean(thermo.depth,k=9,fill = NA))
 
 
 #### Read in schmidt stability data ####
-Schmidt = read_csv(paste0(getwd(),"/Data/Covariate data/FCR_SchmidtStability_MUX20_082322.csv"))
+Schmidt = read_csv(paste0(path,"FCR_SchmidtStability_MUX20_082322.csv"))
 #Convert DateTime to PosixCT
 Schmidt$datetime = ymd_hms(Schmidt$datetime,tz="America/New_York")
 
@@ -436,7 +431,7 @@ schmidt_plot / Temp_plot / DO_plot / TFe_plot / TMn_plot +
 dev.off()
 
 
-# Figure SI_MUX_SFe_SMn_predictions
+# Figure SI_MUX20_SFe_SMn_predictions
 jpeg('MUX20_Schmidt_Temp_DO_SFe_SMn_FullDepths_FullTS_100322.jpeg', width = 34, height = 36, units = 'in', res = 600)
 
 schmidt_plot / Temp_plot / DO_plot / SFe_plot / SMn_plot + 
@@ -445,10 +440,10 @@ schmidt_plot / Temp_plot / DO_plot / SFe_plot / SMn_plot +
 
 dev.off()
 
-# Figure SI_met_data
-jpeg('MUX20_Schmidt_SW_AirTemp_Wind_Rain_FullDepths_FullTS_100322.jpeg', width = 34, height = 36, units = 'in', res = 600)
+# Figure SI_MUX20_met_data
+jpeg('MUX20_SW_AirTemp_Wind_Rain_FullDepths_FullTS_100322.jpeg', width = 34, height = 36, units = 'in', res = 600)
 
-schmidt_plot / SW_plot / AirTemp_plot / wind_plot / rain_plot  + 
+ SW_plot / AirTemp_plot / wind_plot / rain_plot  + 
   plot_annotation(tag_levels = "A") & 
   theme(plot.tag = element_text(size = 42, hjust = 0, vjust = 0))
 

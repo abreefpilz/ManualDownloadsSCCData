@@ -255,8 +255,8 @@ WQ_all = WQ_all %>% group_by(Depth_m) %>% arrange(-desc(DateTime)) %>% ungroup(D
 
 
 #write csv of predictions
-write.csv(TS_conc_all,"./MagicData/MUX/Modeling Files/MUX20_predictions_boot_101022.csv")
+write.csv(TS_conc_all,"./MagicData/MUX/Figures Files/MUX20_predictions_boot_101022.csv")
 
 #write csv of dataWQ
-write.csv(WQ_all,"./MagicData/MUX/Modeling Files/MUX20_dataWQ_101022.csv")
+write.csv(WQ_all,"./MagicData/MUX/Figures Files/MUX20_dataWQ_101022.csv")
 

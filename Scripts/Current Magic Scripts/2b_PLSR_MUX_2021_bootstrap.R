@@ -255,8 +255,8 @@ WQ_all = rbind(hypo_WQ, epi_WQ)
 WQ_all = WQ_all %>% group_by(Depth_m) %>% arrange(-desc(DateTime)) %>% ungroup(Depth_m)
 
 #write csv of predictions
-write.csv(TS_conc_all,"./MagicData/MUX/Modeling Files/MUX21_predictions_boot_051322.csv")
+write.csv(TS_conc_all,"./MagicData/MUX/Figures Files/MUX21_predictions_boot_051322.csv")
 
 #write csv of dataWQ
-write.csv(WQ_all,"./MagicData/MUX/Modeling Files/MUX21_dataWQ_051322.csv")
+write.csv(WQ_all,"./MagicData/MUX/Figures Files/MUX21_dataWQ_051322.csv")
 
