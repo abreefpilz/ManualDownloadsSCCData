@@ -1,6 +1,3 @@
-# FCR Heatmaps
-
-# Makes heatmaps of the metals data in Falling Creek reservoir
 
 #*****************************************************************
 #* TITLE:  MUx Manuscript Heat Maps Script
