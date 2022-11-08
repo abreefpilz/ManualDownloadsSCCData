@@ -3,7 +3,7 @@
 ####
 
 
-data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam){
+data_prep_21 = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam){
   
   #### Read in FCR WQ data ####
   
@@ -81,43 +81,29 @@ data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,
   
   
   #### Reading of  FingerPrint (FP) file corresponding to the entire time series (TS) ####
-  # This is the 2020 SCAN data 
-  TS_FP<-read.table(file=paste(pathD,TimeSeriesFP_name,sep=""),sep=",", skip=1)  #Import Time Series data as .csv file
-  colnames(TS_FP)<-c("ID","DateTime","status",seq(200,750,2.5), "Valve", "Measurement Time", "Depth_m") #Add column names
+  # This is the 2021 MUX data 
+  TS_FP<-read.table(file=paste(pathD,TimeSeriesFP_name,sep=""),sep=",",header = T)  #Import Time Series data as .csv file
+  colnames(TS_FP)<-c("DateTime","Valve","Depth_m","wavelength","absorbance") #Add column names
   
   # Filter out the air valve measurements (valve #7)
   TS_FP <- TS_FP %>%
     filter(Valve!=9 | Valve!=10)
   
-  # Remove 'Depth' Column - we'll add this back in later
-  TS_FP = TS_FP %>% select(-c("Depth_m"))
-  
-  # Subset to just include desired depths
-  # First we need to convert valve # to depth
-  Valves = as.data.frame(TS_FP$Valve)
-  colnames(Valves)=c("valve")
-  valve_depth <- data.frame(
-    valve = c (1:7), 
-    Depth= c("0.1","1.6","3.8","5.0","6.2", "8.0", "9.0"),
-    stringsAsFactors = FALSE
-  )
-  Valves = Valves %>% 
-    left_join(valve_depth, by="valve") %>% 
-    select(Depth)
-  TS_FP = cbind(TS_FP,Valves)
   # Now we can subset based on depth
   TS_FP <- TS_FP %>%
-    filter(as.numeric(Depth) %in% as.numeric(Depths))
+    filter(as.numeric(Depth_m) %in% as.numeric(Depths))
   #remove 'Depth' column
   TS_FP <- TS_FP %>% 
-    select(!c(Depth))
+    select(!c(Depth_m))
   
   #Subset to desired date range
   TS_FP = TS_FP[TS_FP$DateTime>Begin_time,]
   TS_FP = TS_FP[TS_FP$DateTime<End_time,]
   
+  # pivot wider
+  TS_FP = TS_FP %>% pivot_wider(names_from = wavelength, values_from = absorbance)
+  
   TS_FP<- TS_FP %>% select(!c(`735`:`750`)) #remove columns for wavelengths above 735nm because those are all NA
-  TS_FP<- TS_FP %>% select(!c(ID)) #remove ID column
   
   TS_FP$DateTime = as.POSIXct(TS_FP$DateTime, format = "%Y-%m-%d %H:%M:%S")
   Dat<-strptime(TS_FP$DateTime, format = "%Y-%m-%d %H:%M:%S") #Create record of date and time
@@ -144,8 +130,7 @@ data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,
   colnames(TS_conc)<-c("Depth_m", "DateTime",WQparam) #Add column names
   
   # Finish cleaning up time series dataframe
-  TS_FP<- TS_FP %>% select(!c(DateTime,status)) #remove 'Date' and 'status' columns
-  TS_FP<- TS_FP %>% select(!c(Valve,`Measurement Time`)) #remove 'valve' and 'measurement time' columns at the end
+  TS_FP<- TS_FP %>% select(!c(DateTime,Valve)) #remove 'Date' and 'status' columns
   TS_FP<-data.matrix(TS_FP) #Convert spectrometer output to matrix
   
   assign("dataCalFP",dataCalFP,env=.GlobalEnv)

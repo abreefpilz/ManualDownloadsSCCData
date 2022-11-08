@@ -3,7 +3,7 @@
 ####
 
 
-data_prep = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam){
+data_prep_20 = function(WQ_name,FPcaldata_name,TimeSeriesFP_name,Depths,Begin_time,End_time,WQparam){
   
 #### Read in FCR WQ data ####
   
