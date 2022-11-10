@@ -155,8 +155,12 @@ theme_black = function(base_size = 12, base_family = "") {
 #Vectors of dates for Hox#
 ON = as.data.frame(ymd(c("2020-06-29", "2021-06-11")))
 colnames(ON) = "Date"
-OFF = as.data.frame(ymd(c("2020-12-02")))
+OFF = as.data.frame(ymd(c("2020-12-02", "2021-12-06")))
 colnames(OFF) = "Date"
+
+# Specify plot limits
+Begin_time = as.Date("2020-01-31")
+End_time = as.Date("2021-12-31")
 
 # For MUX Deployments
 
@@ -176,15 +180,15 @@ p1 <- ggplot()+
   geom_point(data = DateTime_u, aes(x=DateTime, y=-0.1, z=NULL), pch = 25, size = 2, color = "black", fill = "black")+
   scale_fill_gradientn(colours = blue2green2red(10), values = c(0,0.02,0.05,0.1,0.15,0.25,0.4,0.6,0.8,1), na.value="gray")+
   labs(x=NULL, y = "Depth (m)",fill=expression('Tot. Fe (mg/L)'))+
-  scale_x_date(date_breaks = "3 months", date_labels = ("%b %Y"))+
+  scale_x_date(date_breaks = "3 months", date_labels = ("%b %Y"), limits = c(Begin_time,End_time))+
   coord_cartesian(expand = FALSE) +
   geom_vline(data=ON, aes(xintercept=Date), linetype="solid", color="black", size=1)+
   geom_vline(data=OFF, aes(xintercept=Date), linetype="dashed", color="black", size=1)+
-  theme_black() +
-  geom_rect(data = rectangle_TO, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-            fill = "gray", alpha = 0.8) + 
-  geom_rect(data = rectangle_OO, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-            fill = "gray", alpha = 0.8)
+  theme_black()
+  #geom_rect(data = rectangle_TO, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+  #          fill = "gray", alpha = 0.8) + 
+  #geom_rect(data = rectangle_OO, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+  #          fill = "gray", alpha = 0.8)
 
 #Total Mn
 p2 <- ggplot()+
@@ -193,20 +197,20 @@ p2 <- ggplot()+
   geom_point(data = DateTime_u, aes(x=DateTime, y=-0.1, z=NULL), pch = 25, size = 2, color = "black", fill = "black")+
   scale_fill_gradientn(colours = blue2green2red(10), values = c(0,0.02,0.05,0.1,0.15,0.25,0.4,0.6,0.8,1), na.value="gray")+
   labs(x=NULL, y = "Depth (m)",fill=expression('Tot. Mn (mg/L)'))+
-  scale_x_date(date_breaks = "3 months", date_labels = ("%b %Y"))+
+  scale_x_date(date_breaks = "3 months", date_labels = ("%b %Y"), limits = c(Begin_time,End_time))+
   geom_vline(data=ON, aes(xintercept=Date), linetype="solid", size=1)+
   geom_vline(data=OFF, aes(xintercept=Date), linetype="dashed", size=1)+
   coord_cartesian(expand = FALSE) +
-  theme_black()+
-  geom_rect(data = rectangle_TO, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-            fill = "gray", alpha = 0.7) + 
-  geom_rect(data = rectangle_OO, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
-            fill = "gray", alpha = 0.7)
+  theme_black()
+  #geom_rect(data = rectangle_TO, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+  #          fill = "gray", alpha = 0.7) + 
+  #geom_rect(data = rectangle_OO, aes(xmin = xmin, xmax = xmax, ymin = ymin, ymax = ymax),
+  #          fill = "gray", alpha = 0.7)
 
 
 
 # Figure 2
-jpeg('MUX_TFe_TMn_Heatmap_101822.jpeg', width = 190, height =160, units = 'mm', res = 600)
+jpeg('MUX_TFe_TMn_Heatmap_110922.jpeg', width = 190, height =160, units = 'mm', res = 600)
 
 p1 / p2 + 
   plot_annotation(tag_levels = "A") & 

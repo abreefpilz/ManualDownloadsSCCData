@@ -25,17 +25,11 @@ library(tidyverse)
 #Step 1: Create a directory for your dataset, here "EDI_publishing" within the main repo
 setwd("./MagicData/MUX/")
 #Step 2: Move your dataset to the directory
-file.copy('Modeling Files/MUX_FP_TS_2020.csv', 'EDI_publishing/MUX_FP_TS_2020.csv') # Raw FP time series - full
-file.copy('Modeling Files/MUX_FP_TS_2021.csv', 'EDI_publishing/MUX_FP_TS_2021.csv')
-file.copy('Modeling Files/MUX_FP_Overlaps_2020.csv', 'EDI_publishing/MUX_FP_Overlaps_2020.csv') # FP data used for PLSR calibration
-file.copy('Modeling Files/MUX_FP_Overlaps_2021.csv', 'EDI_publishing/MUX_FP_Overlaps_2021.csv')
-file.copy('Figures Files/MUX20_predictions_boot_050622.csv', 'EDI_publishing/MUX20_predictions_boot_050622.csv') # PLSR Predictions
-file.copy('Figures Files/MUX21_predictions_boot_051322.csv', 'EDI_publishing/MUX21_predictions_boot_051322.csv')
-
-#once the nml files are copied over, I put them in a sub-directory called "model_configuration_nml_files"
+# 'EDI Publishing'
 
 #now set files to the correct directory
 setwd("./MagicData/MUX/EDI Publishing/")
+
 #Step 3: Create an intellectual rights license
 #ours is CCBY
 
@@ -44,8 +38,8 @@ setwd("./MagicData/MUX/EDI Publishing/")
 #Step 5: Import the core metadata templates to your local directory
 import_templates(path = "C:/Users/hammo/Documents/Magic Sensor PLSR/ManualDownloadsSCCData/MagicData/MUX/EDI Publishing/",
                  license = "CCBY",
-                 data.files = c("MUX_FP_TS_2020.csv", 
-                                "MUX_FP_TS_2021.csv",
+                 data.files = c("MUX_FP_TS.csv", 
+                                "MUX_predictions_boot.csv",
                                 ))
 
 # Edit each of these imported template files for your current data package upload, by copying and 
