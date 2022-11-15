@@ -138,18 +138,19 @@ make_eml(
   path = "C:/Users/hammo/Documents/Magic Sensor PLSR/ManualDownloadsSCCData/MagicData/MUX/EDI Publishing/",
   data.path = "C:/Users/hammo/Documents/Magic Sensor PLSR/ManualDownloadsSCCData/MagicData/MUX/EDI Publishing/",
   eml.path = "C:/Users/hammo/Documents/Magic Sensor PLSR/ManualDownloadsSCCData/MagicData/MUX/EDI Publishing/",
-  dataset.title = "Time series of in situ Uv-vis absorbance spectra and high-frequency predictions of total and soluble Fe and Mn concentrations measured at multiple depths in Falling Creek Reservoir (Vinton, VA, USA) in 2020-2021",
+  dataset.title = "Time series of in situ Uv-Vis absorbance spectra and high-frequency predictions of total and soluble Fe and Mn concentrations measured at multiple depths in Falling Creek Reservoir (Vinton, VA, USA) in 2020 and 2021",
   temporal.coverage = c("2020-10-16", "2021-06-21"),
   maintenance.description = 'ongoing',
   data.table = c("MUX_FP_TS.csv", 
                  "MUX_predictions_boot.csv"),
   data.table.description = c("time series of uv-vis absorbance spectra",
                              "time series of predicted Fe and Mn concentrations"),
-  other.entity = c("1_Overlaps_MUX.R","2_PLSR_MUX_bootstrap.R"),
-  other.entity.description = c("Data Processing Script","PLSR Analysis Script"),
+  other.entity = c("1_Overlaps_MUX.R","2_PLSR_MUX_bootstrap.R", "PLSR_MUX_functions.R"),
+  other.entity.description = c("Script for aggregating, cleaning, and preparing raw data for PLSR analysis","PLSR Analysis Script",
+                               "Script containing source functions required to run PLSR"),
   user.id = 'mschreib',
   user.domain = 'EDI',
-  package.id = 'edi.974.1')
+  package.id = 'edi.974.2')
 
 ## Step 8: Check your data product! ####
 # Return to the EDI staging environment (https://portal-s.edirepository.org/nis/home.jsp),

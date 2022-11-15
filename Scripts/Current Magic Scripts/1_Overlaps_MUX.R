@@ -3,7 +3,7 @@
 #* TITLE:   MUX Data Prep and Overlaps Script
 #*                     
 #* AUTHORS: Nick Hammond                                         
-#* LAST UPDATED: 11/07/2022
+#* LAST UPDATED: 11/15/2022
 #*                                    
 #* NOTES:  This script combines all MUX FP files from 2020 and 2021, plots data for QA/QC, 
 #*         matches WQ sampling data to FP data, and creates data files for MUX FP
@@ -15,6 +15,9 @@
 #*        van dorn sampler, not from the MUX itself. We tried to time our grab sampling
 #*        to match that of the MUX, but there are cases when the closest FP measurement
 #*        is up to ~ 1 hr off from the sampling time in 2020 and up to ~ 4 hr off from the sampling time in 2021.
+#*        
+#*        The switch from EDT to EST occurred on 2 November 2020. MUX data is always on EDT. Sampling
+#*        data switches from EDT to EST on 2 November 2020. 
 #*****************************************************************
 
 
@@ -36,14 +39,14 @@ muxfiles<-list.files(path="./MagicData/MUX/FP File/2020", pattern = ".FP")
 mux_colnames = c("DateTime", "Status", paste0(as.character(c(seq(200,750, by = 2.5)))), "Valve","Measurement time")
 obs2 <- as.data.frame(matrix(NA,0,length(mux_colnames)))
 names(obs2) <- mux_colnames
-obs2$DateTime=ymd_hms(obs2$DateTime, tz="America/New_York")
+obs2$DateTime=ymd_hms(obs2$DateTime, tz="Etc/GMT+4") # MUX is on DST time
 
 #Read in all files within folder in Github
 for(i in 1:length(muxfiles)){
   if(file.size(paste0("./MagicData/MUX/FP File/2020/",muxfiles[i]))>4000){
     temp<-read.table(file=paste0("./MagicData/MUX/FP File/2020/",muxfiles[i]),skip=2,header=FALSE, row.names = NULL, sep = "\t")
     names(temp) <- mux_colnames
-    temp$DateTime=ymd_hms(temp$DateTime, tz="America/New_York")
+    temp$DateTime=ymd_hms(temp$DateTime, tz="Etc/GMT+4")
     obs2<-rbind(obs2,temp)
     #print(i)
   }
@@ -77,7 +80,7 @@ mux_only_long=mux_only%>%
 
 # Plot data (every 10nm at each depth) to check for completeness and any potential
 # errors in data prep
-ggplot(data = filter(mux_only_long, wavelength %in% c(seq(200,700,10)))) +
+ggplot(data = filter(mux_only_long, wavelength %in% c(seq(200,700,100)))) +
   geom_point(aes(x = DateTime, y = absorbance, color = as.numeric(wavelength))) +
   facet_wrap(~Depth, nrow = 4)
 
@@ -146,8 +149,8 @@ abline(a=0,b=0)
 max(MUX_FP_Overlaps_2020$time_diff)/60/60
 
 # Remove Depth and time_diff columns 
-MUX_FP_Overlaps_2020 = MUX_FP_Overlaps_2020 %>% select(-c(Depth,time_diff))
-
+MUX_FP_Overlaps_2020 = MUX_FP_Overlaps_2020 %>% select(-c(Depth,time_diff)) %>% 
+select(!c(`735`:`750`)) # remove NAs at higher wavelengths
 
 #Write Overlaps to csv
 write.csv(MUX_FP_Overlaps_2020, file = "./MagicData/MUX/Modeling Files/MUX_FP_Overlaps_2020.csv")
@@ -156,7 +159,7 @@ write.csv(MUX_FP_Overlaps_2020, file = "./MagicData/MUX/Modeling Files/MUX_FP_Ov
 # Clean up 'MUX' before writing to csv
 # Remove unnecessary columns and filter out NA's
 MUX20 = MUX20 %>% select(-c(Status,`Measurement time`)) %>% 
-  filter(!is.na(DateTime))
+  filter(!is.na(DateTime), !is.na(absorbance))
 
 # Final plot to check (every 10nm at each depth)
 # before writing to csv
@@ -180,14 +183,14 @@ muxfiles<-list.files(path="./MagicData/MUX/FP File/2021", pattern = ".FP")
 mux_colnames = c("DateTime", "Status", paste0(as.character(c(seq(200,750, by = 2.5)))), "Valve","Measurement time")
 obs2 <- as.data.frame(matrix(NA,0,length(mux_colnames)))
 names(obs2) <- mux_colnames
-obs2$DateTime=ymd_hms(obs2$DateTime, tz="America/New_York")
+obs2$DateTime=ymd_hms(obs2$DateTime, tz="Etc/GMT+4") # MUX is always on EDT
 
 #Read in all files within folder in Github
 for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
   if(file.size(paste0("./MagicData/MUX/FP File/2021/",muxfiles[i]))>4000){
     temp<-read.table(file=paste0("./MagicData/MUX/FP File/2021/",muxfiles[i]),skip=2,header=FALSE, row.names = NULL, sep = "\t")
     names(temp) <- mux_colnames
-    temp$DateTime=ymd_hms(temp$DateTime, tz="America/New_York")
+    temp$DateTime=ymd_hms(temp$DateTime, tz="Etc/GMT+4")
     obs2<-rbind(obs2,temp)
     #print(i)
   }
@@ -195,7 +198,7 @@ for(i in 1:length(muxfiles)){ #reads in all files within folder in Github
 
 
 # Fix timestamp at 05-27-2021 23:43:29 (It didn't get recorded, for some reason)
-obs2[207,1] = mdy_hms("05-27-2021 23:43:29",tz="America/New_York")
+obs2[207,1] = mdy_hms("05-27-2021 23:43:29",tz="Etc/GMT+4")
 
 
 # Ensure data are in chronological order
@@ -224,7 +227,7 @@ mux_only_long=mux_only%>%
 
 # Plot data (every 10nm at each depth) to check for completeness and any potential
 # errors in data prep
-ggplot(data = filter(mux_only_long, wavelength %in% c(seq(200,700,10)))) +
+ggplot(data = filter(mux_only_long, wavelength %in% c(seq(200,700,100)))) +
   geom_point(aes(x = DateTime, y = absorbance, color = as.numeric(wavelength))) +
   facet_wrap(~Depth, nrow = 4, scales = "free_y")
 
@@ -304,7 +307,8 @@ abline(a=0,b=0)
 max(MUX_FP_Overlaps_2021$time_diff)/60/60
 
 # Remove Depth and time_diff columns 
-MUX_FP_Overlaps_2021 = MUX_FP_Overlaps_2021 %>% select(-c(Depth,time_diff))
+MUX_FP_Overlaps_2021 = MUX_FP_Overlaps_2021 %>% select(-c(Depth,time_diff)) %>% 
+  select(!c(`735`:`750`)) #Remove NAs at high wavelengths
 
 
 #Write to csv
@@ -315,7 +319,7 @@ write.csv(MUX_FP_Overlaps_2021, file = "./MagicData/MUX/Modeling Files/MUX_FP_Ov
 # Clean up 'MUX' before writing to csv
 # Remove unnecessary columns and filter out NA's
 MUX21 = MUX21 %>% select(-c(Status,`Measurement time`)) %>% 
-  filter(!is.na(DateTime))
+  filter(!is.na(DateTime) & !is.na(absorbance))
 
 # Final plot to check (every 10nm at each depth)
 # before writing to csv
@@ -329,7 +333,9 @@ write.csv(MUX21, file = "./MagicData/MUX/Modeling Files/MUX_FP_TS_2021.csv", row
 
 # Combine both years 
 MUX = bind_rows(MUX20,MUX21)
+MUX_FP_Overlaps = bind_rows(MUX_FP_Overlaps_2020,MUX_FP_Overlaps_2021)
 
 # write full dataset to csv
 write.csv(MUX, file = "./MagicData/MUX/Modeling Files/MUX_FP_TS.csv", row.names = F)
+write.csv(MUX_FP_Overlaps, file = "./MagicData/MUX/Modeling Files/MUX_FP_Overlaps.csv", row.names = F)
 

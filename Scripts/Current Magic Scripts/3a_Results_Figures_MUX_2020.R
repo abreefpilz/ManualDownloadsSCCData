@@ -40,13 +40,10 @@ df_name = "FCR_Catwalk_2018_2021.csv"
 #Download EDI catwalk dataset
 inUrl1  <- "https://pasta.lternet.edu/package/data/eml/edi/271/6/23a191c1870a5b18cbc17f2779f719cf"  
 infile1 <- c(paste0(path,df_name,sep=""))
-download.file(inUrl1,infile1,method="curl")
+#download.file(inUrl1,infile1,method="curl")
 #Import data as .csv file
 catwalk = read_csv(paste(path,df_name,sep="")) 
-# Select the reservoir, site, and date range we want
-catwalk = catwalk %>% filter(Reservoir=="FCR" & Site==50) %>%
-  filter(DateTime>"2020-10-16 13:10:00") %>%
-  filter(DateTime<"2020-11-09 14:00:00")
+
 #Select the variables we want
 catwalk_exp = catwalk %>% select(Reservoir,Site,DateTime,RDO_mgL_5_adjusted,
                                  RDO_mgL_9_adjusted, EXODO_mgL_1,ThermistorTemp_C_surface,
@@ -55,8 +52,15 @@ catwalk_exp = catwalk %>% select(Reservoir,Site,DateTime,RDO_mgL_5_adjusted,
                                  ThermistorTemp_C_5, ThermistorTemp_C_6, ThermistorTemp_C_7,
                                  EXOfDOM_QSU_1, EXOSpCond_uScm_1, EXOChla_ugL_1)
 #### Convert DateTime to PosixCT
-catwalk_exp$DateTime = ymd_hms(catwalk_exp$DateTime, tz="America/New_York") # Sensors are on EST (GMT+5) but converting to
-                                                                            # EDT (GMT+4) to match MUX data
+catwalk_exp$DateTime = ymd_hms(catwalk_exp$DateTime, tz="Etc/GMT+5") # Sensors are on EST (GMT+5) but converting to
+catwalk_exp$DateTime = with_tz(catwalk_exp$DateTime, tz="Etc/GMT+4") # EDT (GMT+4) to match MUX data
+
+# Select the reservoir, site, and date range we want
+catwalk_exp = catwalk_exp %>% filter(Reservoir=="FCR" & Site==50) %>%
+  filter(DateTime>"2020-10-16 13:10:00") %>%
+  filter(DateTime<"2020-11-09 14:00:00")
+
+
 
 # convert temp and DO to long format for plotting
 therm_depths = data.frame(depth_m = c(0.1,1:9), depth = c("ThermistorTemp_C_surface",
@@ -84,26 +88,28 @@ df_name = "FCR_Met_final_2015_2021.csv"
 #Download EDI met dataset
 inUrl1  <- "https://pasta.lternet.edu/package/data/eml/edi/389/6/a5524c686e2154ec0fd0459d46a7d1eb"  
 infile1 <- c(paste0(path,df_name,sep=""))
-download.file(inUrl1,infile1,method="curl") 
+#download.file(inUrl1,infile1,method="curl") 
 #Import data as .csv file
 met = read_csv(paste(path,df_name,sep=""))
-#Select the reservoir, site, and date range we want
-met = met %>% filter(Reservoir=="FCR" & Site==50) %>%
-    filter(DateTime>"2020-10-16 13:10:00") %>%
-    filter(DateTime<"2020-11-09 14:00:00")
 # Select the variables we want
 met_exp = met %>% select(Reservoir,Site,DateTime,WindSpeed_Average_m_s,ShortwaveRadiationDown_Average_W_m2,
                          Rain_Total_mm, AirTemp_Average_C)
 #Convert DateTime to PosixCT
 # Sensors are on EST (GMT+5) but converting to EDT (GMT+4) to match MUX data
-met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="America/New_York") 
+met_exp$DateTime = ymd_hms(met_exp$DateTime, tz="Etc/GMT+5") 
+met_exp$DateTime = with_tz(met_exp$DateTime, tz="Etc/GMT+4")
+#Select the reservoir, site, and date range we want
+met_exp = met_exp %>% filter(Reservoir=="FCR" & Site==50) %>%
+    filter(DateTime>"2020-10-16 13:10:00") %>%
+    filter(DateTime<"2020-11-09 14:00:00")
+
 
 
 
 #### Read and format MUX PLSR predictions ####
 path = "./MagicData/MUX/Figures Files/"
-MUX_preds = read.csv(paste0(path,"MUX20_predictions_boot_050622.csv"))
-MUX_preds$DateTime = ymd_hms(MUX_preds$DateTime, tz="America/New_York")
+MUX_preds = read.csv(paste0(path,"MUX20_predictions_boot_111522.csv"))
+MUX_preds$DateTime = ymd_hms(MUX_preds$DateTime, tz="Etc/GMT+4")
 # Select date range for MUX predictions
 MUX_preds = MUX_preds %>%
   filter(DateTime>"2020-10-16 13:10:00") %>%
@@ -113,9 +119,10 @@ MUX_preds$Depth_m = as.numeric(MUX_preds$Depth_m)
 
 
 #### Read and format FCR WQ data (from PLSR models) ####
-dataWQ <- read_csv(paste0(path,"MUX20_dataWQ_050622.csv"))
+dataWQ <- read_csv(paste0(path,"MUX20_dataWQ_111522.csv"))
 dataWQ$DateTime = ymd_hms(dataWQ$DateTime, tz="America/New_York")
-dataWQ = dataWQ %>% select(-c('...1','ID'))
+dataWQ$DateTime = with_tz(dataWQ$DateTime, tz = "Etc/GMT+4")
+dataWQ = dataWQ %>% select(-c('...1'))
 
 
 #### Read in Thermocline depth data ####
@@ -130,11 +137,11 @@ dataWQ = dataWQ %>% select(-c('...1','ID'))
 #### Read in schmidt stability data ####
 Schmidt = read_csv(paste0(path,"FCR_SchmidtStability_MUX20_082322.csv"))
 #Convert DateTime to PosixCT
-Schmidt$datetime = ymd_hms(Schmidt$datetime,tz="America/New_York")
-
+Schmidt$datetime = ymd_hms(Schmidt$datetime,tz="Etc/GMT+5")
+Schmidt$datetime = with_tz(Schmidt$datetime, tz="Etc/GMT+4")
 
 # vector to add turnover line
-turnover = as.data.frame(ymd_hm(c("2020-11-02 12:00")))
+turnover = as.data.frame(ymd_hm(c("2020-11-02 12:00"), tz = "Etc/GMT+4"))
 colnames(turnover)= c("Date")
 
 
@@ -143,8 +150,8 @@ colnames(turnover)= c("Date")
 #### Multipanel Plots ####
 
 # Create variable for BeginTime and EndTime
-Begin_time = as.POSIXct("2020-10-16 00:00:00")
-End_time = as.POSIXct("2020-11-09 18:00:00")
+Begin_time = as.POSIXct("2020-10-16 00:00:00", tz = "Etc/GMT+4")
+End_time = as.POSIXct("2020-11-09 18:00:00", tz = "Etc/GMT+4")
 
 # MUX Predictions
 
@@ -456,7 +463,7 @@ AirTemp_plot = ggplot() +
 #### Create png file of multipanel plots ####
 
 # Figure 4
-jpeg('MUX20_Schmidt_Temp_DO_TFe_TMn_FullDepths_FullTS_110922.jpeg', width = 190, height = 240, units = 'mm', res = 600)
+jpeg('MUX20_Schmidt_Temp_DO_TFe_TMn_FullDepths_FullTS_111522.jpeg', width = 190, height = 240, units = 'mm', res = 600)
 
 schmidt_plot / Temp_plot / DO_plot / TFe_plot / TMn_plot + 
   plot_annotation(tag_levels = "A") & 
@@ -466,7 +473,7 @@ dev.off()
 
 
 # Figure SI_MUX20_SFe_SMn_predictions
-jpeg('MUX20_Schmidt_Temp_DO_SFe_SMn_FullDepths_FullTS_100322.jpeg', width = 34, height = 36, units = 'in', res = 600)
+jpeg('MUX20_Schmidt_Temp_DO_SFe_SMn_FullDepths_FullTS_100322.jpeg', width = 190, height = 240, units = 'mm', res = 600)
 
 schmidt_plot / Temp_plot / DO_plot / SFe_plot / SMn_plot + 
   plot_annotation(tag_levels = "A") & 
@@ -475,7 +482,7 @@ schmidt_plot / Temp_plot / DO_plot / SFe_plot / SMn_plot +
 dev.off()
 
 # Figure SI_MUX20_met_data
-jpeg('MUX20_SW_AirTemp_Wind_Rain_FullDepths_FullTS_100322.jpeg', width = 34, height = 36, units = 'in', res = 600)
+jpeg('MUX20_SW_AirTemp_Wind_Rain_FullDepths_FullTS_100322.jpeg', width = 190, height = 240, units = 'mm', res = 600)
 
  SW_plot / AirTemp_plot / wind_plot / rain_plot  + 
   plot_annotation(tag_levels = "A") & 

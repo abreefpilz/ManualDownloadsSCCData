@@ -17,9 +17,9 @@ model_results = tibble(ID = c("TFe_epi_TO","TFe_hypo_TO", "SFe_epi_TO", "SFe_hyp
                               "TFe_epi_OO","TFe_hypo_OO", "SFe_epi_OO", "SFe_hypo_OO",
                               "TMn_epi_OO","TMn_hypo_OO", "SMn_epi_OO", "SMn_hypo_OO"),
                        n = c(35,34,35,34,36,35,35,35,47,46,48,45,47,46,47,46),
-                       RMSEP_med = c(0.26,0.15,0.33,3.0,0.21,0.13,0.4,0.11,0.13,0.43,
+                       RMSEP_med = c(0.26,0.15,0.33,3.0,0.32,0.13,0.6,0.15,0.13,0.43,
                                      0.3,0.75,0.17,0.22,0.4,0.23),
-                       R2 = c(0.95,0.84,0.73,0.07,0.97,0.91,0.96,0.93,0.73,0.65,0.79,
+                       R2 = c(0.97,0.84,0.73,0.06,0.97,0.91,0.96,0.90,0.73,0.65,0.79,
                               0.75,0.61,0.58,0.36,0.57),
                        comps = c(5,3,5,3,5,4,5,3,4,4,4,4,4,4,4,4),
                        cal_sd = c(0.34,1.29,0.02,0.06,0.19,0.54,0.17,0.56,
@@ -30,7 +30,7 @@ model_results = tibble(ID = c("TFe_epi_TO","TFe_hypo_TO", "SFe_epi_TO", "SFe_hyp
                                      0.40, 6.82, 0.57, 7.04, 0.03, 0.93, 0.02, 0.94))
 
 # examine data
-jpeg('MUX_PLSR_performance_assessment_103122.jpeg', width = 190, height =160, units = 'mm', res = 600)
+jpeg('MUX_PLSR_performance_assessment_111522.jpeg', width = 190, height =160, units = 'mm', res = 600)
 pairs(model_results[,2:8], gap=0)
 dev.off()
 cor(model_results[,2:8]) # correlation matrix gives R-values for each variable pair

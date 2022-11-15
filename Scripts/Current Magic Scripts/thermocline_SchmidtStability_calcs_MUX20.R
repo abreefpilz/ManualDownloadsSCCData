@@ -5,6 +5,7 @@
 library(tidyverse)
 library(lubridate)
 library(rLakeAnalyzer)
+library(zoo)
 
 setwd("C:/Users/hammo/Documents/Magic Sensor PLSR/")
 
@@ -59,8 +60,24 @@ plot(t.d$datetime, t.d$thermo.depth, type='l', ylab='Thermocline Depth (m)', xla
 
 # Calculate metalimnion depth
 m.d = ts.meta.depths(catwalk, na.rm = T)
-plot(m.d$datetime, m.d$top, type='l', ylab='Meta Depths (m)', xlab='Date', col='blue')
-lines(m.d$datetime, m.d$bottom, col='red')
+
+# Smooth time series using moving average
+m.d = m.d %>% 
+ mutate(top_roll = rollmean(top,k=36,fill = NA),bot_roll = rollmean(bottom,k=36,fill = NA))
+
+# vector to add turnover line
+turnover = as.data.frame(ymd_hm(c("2020-11-02 12:00")))
+colnames(turnover)= c("Date")
+
+jpeg('MUX20_metadepths_111122.jpeg', width = 100, height = 100, units = 'mm', res = 600)
+plot(m.d$datetime, m.d$top_roll, type='l', ylab='Depth (m)', xlab='Date', col='blue',
+     ylim = c(0,6), main = "Metalimnion Depth")
+lines(m.d$datetime, m.d$bot_roll, col='red')
+legend("topright", bty = 'n' ,legend = c("Top", "Bottom"), col=c("blue", "red"),lty = c(1,1),
+       cex = 0.8)
+abline(v=turnover$Date)
+dev.off()
+
 
 m.d = m.d %>% mutate(diff = bottom - top)
 plot(m.d$datetime, m.d$diff, type='l', ylab='Meta size (m)', xlab='Date', col='blue')
