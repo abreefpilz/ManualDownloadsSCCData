@@ -40,7 +40,7 @@ axs=ggplot(out.file, aes(x=TIMESTAMP, y=CO2_2_Avg, col=CO2_2_Avg)) +
 axs 
 
 axs_2=out.file%>%
-  filter(TIMESTAMP>"2022-01-10 00:00")%>%
+  filter(TIMESTAMP>"2022-07-01 00:00")%>%
   ggplot(., aes(x=TIMESTAMP, y=CO2_2_Avg, col=CO2_2_Avg)) +
   geom_point()
 
