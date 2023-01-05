@@ -452,7 +452,7 @@ Hobo_Compiled_plot
 Hobo_Compiled_Filtered <- Hobo_Compiled %>%    #################### FIX 4-19 issues
   filter(DateTime <= dmy_hms("19-08-2021 00:00:00")) %>% 
   mutate(Date = as.Date(DateTime)) %>% 
-  mutate(Temp_C = ifelse(Date == dmy("19-04-2021"), NA, Temp_C))
+  mutate(Temp_C = ifelse(Date == dmy("19-04-2021"), NA, Temp_C)) 
                         
 
 Hobo_Compiled_colorbydepth <-Hobo_Compiled_Filtered %>% 
@@ -474,7 +474,8 @@ head(Hobo_Compiled_Filtered)
 
 ccr_hobos_final <- Hobo_Compiled_Filtered %>% 
   select(Reservoir, Site, DateTime, Depth_m, Temp_C) %>% 
-  filter(!is.na(Temp_C))
+  filter(!is.na(Temp_C)) %>% 
+  mutate(Flag = 0)
 
 write.csv(ccr_hobos_final, "./CCR_manual_downloads/CCR_HOBOs/CCR_hobos_20_21.csv", row.names = FALSE)  
 
