@@ -1,0 +1,1 @@
+The SCAN did not observe daylight savings this year and is in EST. If anything changes make a note here. -Adrienne Breef-Pilz 23 Jun 23

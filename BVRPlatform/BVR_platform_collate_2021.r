@@ -9,7 +9,7 @@ library(tidyverse)
 
 #put manual data from BVR platform into a file 
 mydir = "BVRPlatform"
-myfiles = list.files(path=mydir, pattern="CR6Series_BVRplatform_bvre*", full.names=TRUE)#list the files from BVR platform
+myfiles = list.files(path=mydir, pattern="CR6Series_BVRplatform_bvre-waterquality_2023", full.names=TRUE)#list the files from BVR platform
 
 #taking out the the Temp Test files
 #myfilesBVR <- myfiles[ !grepl("CR6_BVR_TempTest*", myfiles) ]#exclude the Temp test data
@@ -32,4 +32,7 @@ bvrdata3=bvrdata3%>%
 #taking out the duplicate values  
 obs1=distinct(bvrdata3)
 
-write.csv(obs1, "BVRPlatform/BVR_manual_2021.csv", row.names=FALSE)
+# reorder the from oldest to most recent observation
+obs1<-obs1[order(obs1$TIMESTAMP),]
+
+write.csv(obs1, "BVRPlatform/BVR_manual_2023.csv", row.names=FALSE)
