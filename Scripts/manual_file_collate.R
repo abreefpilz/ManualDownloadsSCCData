@@ -19,7 +19,7 @@ manual_file_collate <- function(raw_files = "../../ManualDownloadsSCCData",
                      year = format(Sys.Date(), "%Y"),
                      just_CCR_EXO = F, 
                      outfile = "../../fileL1"){
-  
+
   # List files based on current year
   
   myfiles = list.files(path=raw_files, pattern=paste0("_",year), full.names=TRUE)
@@ -40,7 +40,7 @@ manual_file_collate <- function(raw_files = "../../ManualDownloadsSCCData",
     #clean up the created file
     CCR_1_5_EXO=CCR%>%
       select(-c("Site Name","Time (Fract. Sec)","ODO % local","Sal psu", 
-                "Vertical Position m", "nLF Cond \xb5S/cm"))%>%
+                "Vertical Position m", "nLF Cond \xb5S/cm"))%>% # take out the observations we don't need
       unite(., col="TIMESTAMP", c("Date (MM/DD/YYYY)","Time (HH:mm:ss)"), sep=" ")
     
     
@@ -68,7 +68,8 @@ manual_file_collate <- function(raw_files = "../../ManualDownloadsSCCData",
     # Now merge them all together
     
     all<-files %>%
-      map_df(~ read_csv(.x, skip = 1))%>%
+      map_df(~ read_csv(.x, skip = 1, col_types = list(
+        TIMESTAMP = "T", .default = "d")))%>%
       filter(grepl("^20", TIMESTAMP))%>% #keep only the right TIMESTAMP rows 
       distinct(TIMESTAMP, .keep_all= TRUE) 
     
@@ -79,8 +80,8 @@ manual_file_collate <- function(raw_files = "../../ManualDownloadsSCCData",
   
 }
 
-# Write out the functions with arguments for all the manual download files
-
+# # Write out the functions with arguments for all the manual download files
+# 
 # # BVR
 # manual_file_collate(raw_files = "./BVRPlatform", year="2023", just_CCR_EXO = F, outfile= "/BVRplatform_L1")
 # 
@@ -90,11 +91,11 @@ manual_file_collate <- function(raw_files = "../../ManualDownloadsSCCData",
 # # FCR Met
 # manual_file_collate(raw_files = "./MetStation", year="2023", just_CCR_EXO = F, outfile= "/FCRMet_L1")
 # 
-# # Weir 
+# # Weir
 # manual_file_collate(raw_files = "./WeirData", year="2023", just_CCR_EXO = F, outfile= "/WeirData_L1")
 # 
 # # CCR
 # manual_file_collate(raw_files = "./CCR_manual_downloads/CCR_dam_downloads/Waterquality", year="2023", just_CCR_EXO = F, outfile= "/CCRWaterquality_L1")
 # manual_file_collate(raw_files = "./CCR_manual_downloads/CCR_dam_downloads/Metstation", year="2023", just_CCR_EXO = F, outfile= "/CCRMetstation_L1")
 # manual_file_collate(raw_files = "./CCR_manual_downloads/CCR_1_5_EXO_downloads", year="2023", just_CCR_EXO = T, outfile= "/CCR_1_5_EXO_L1")
-
+# 
