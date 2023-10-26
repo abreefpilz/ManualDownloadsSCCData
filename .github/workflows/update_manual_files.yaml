@@ -5,7 +5,7 @@ on:
   - cron: "0 2 * * *"
   
 jobs:
-  fluoroprobe:
+  Manual:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
