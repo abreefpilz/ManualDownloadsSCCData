@@ -21,6 +21,7 @@ jobs:
           
       - name: Run automated collation files
         run: |
+          R -e 'remotes::install_version("pacman", version = "0.5.1")'
           Rscript $GITHUB_WORKSPACE/Scripts/manual_file_collate.R
 
       - name: Commit and Push
