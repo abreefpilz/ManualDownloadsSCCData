@@ -76,7 +76,7 @@ manual_file_collate <- function(raw_files = "../../ManualDownloadsSCCData",
   }
   
   # Write to a csv
-  write.csv(all, paste0(raw_files, outfile, ".csv"), row.names = F)
+  write.csv(all, paste0( outfile, ".csv"), row.names = F)
   
 }
 
