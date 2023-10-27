@@ -3,6 +3,8 @@
 
 #sourceYeah
 
+source("./Scripts/manual_file_collate.R")
+
 # Write out the functions with arguments for all the manual download files
 
 # BVR
