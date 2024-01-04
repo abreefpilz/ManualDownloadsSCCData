@@ -1,4 +1,4 @@
-"DateTime","EXOChla_RFU_1","EXOCond_uScm_1","EXODepth_m_1","EXOfDOM_QSU_1","EXOfDOM_RFU_1","EXODOsat_percent_1","EXODO_mgL_1","EXOPressure_psi_1","EXOSpCond_uScm_1","EXOBGAPC_RFU_1","TDS_1","EXOWiper_V_1","EXOTemp_C_1","EXOBattery_V_1","EXOCablepower_V_1"
+"DateTime","EXOChla_RFU_1","EXOCond_uScm_1","EXODepth_m_1","EXOfDOM_QSU_1","EXOfDOM_RFU_1","EXODOsat_percent_1","EXODO_mgL_1","EXOPressure_psi_1","EXOSpCond_uScm_1","EXOBGAPC_RFU_1","EXOTDS_mgL_1","EXOWiper_V_1","EXOTemp_C_1","EXOBattery_V_1","EXOCablepower_V_1"
 2023-07-14 10:10:00,0.26,83.8,1.011,5.34,1.81,104.8,8.29,1.431,80.2,-0.34,52,1.202,27.378,6.08,0
 2023-07-14 10:20:00,0.25,84.2,1.079,5.42,1.84,102.8,8.12,1.527,80.3,-0.23,52,1.202,27.513,6.06,0
 2023-07-14 10:30:00,0.31,84.1,1.097,5.41,1.84,102.7,8.11,1.553,80.2,-0.34,52,1.202,27.53,6.07,0
