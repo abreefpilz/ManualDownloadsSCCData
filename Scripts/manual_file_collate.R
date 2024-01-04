@@ -60,7 +60,7 @@ manual_file_collate <- function(raw_files = "../../ManualDownloadsSCCData",
     
   #Naming the header to match what is on the data logger
     colnames(all)=c("DateTime","EXOChla_RFU_1","EXOCond_uScm_1","EXODepth_m_1","EXOfDOM_QSU_1","EXOfDOM_RFU_1",
-                            "EXODOsat_percent_1","EXODO_mgL_1","EXOPressure_psi_1","EXOSpCond_uScm_1","EXOBGAPC_RFU_1","TDS_1","EXOWiper_V_1",
+                            "EXODOsat_percent_1","EXODO_mgL_1","EXOPressure_psi_1","EXOSpCond_uScm_1","EXOBGAPC_RFU_1","EXOTDS_mgL_1","EXOWiper_V_1",
                             "EXOTemp_C_1","EXOBattery_V_1","EXOCablepower_V_1")
     
     
