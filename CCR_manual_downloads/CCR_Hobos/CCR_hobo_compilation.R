@@ -475,7 +475,8 @@ head(Hobo_Compiled_Filtered)
 ccr_hobos_final <- Hobo_Compiled_Filtered %>% 
   select(Reservoir, Site, DateTime, Depth_m, Temp_C) %>% 
   filter(!is.na(Temp_C)) %>% 
-  mutate(Flag = 0)
+  mutate(Flag = 0) %>% 
+  distinct()
 
 write.csv(ccr_hobos_final, "./CCR_manual_downloads/CCR_HOBOs/CCR_hobos_20_21.csv", row.names = FALSE)  
 
