@@ -1,6 +1,7 @@
 ## Compiling CCR hobos 
 ## DWH and CAG
 ## April 2022
+## This script compiles all the HOBO logger files from 2020-2021, puts them in one file, plots the observations, removes duplicates, and saves the file. 
 
 ##load libraries 
 library(tidyverse)
