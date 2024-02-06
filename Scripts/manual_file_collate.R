@@ -19,7 +19,7 @@ manual_file_collate <- function(raw_files = "../../ManualDownloadsSCCData",
                      year = format(Sys.Date(), "%Y"),
                      just_CCR_EXO = F, 
                      outfile = "../../fileL1"){
-
+  
   # List files based on current year
   
   myfiles = list.files(path=raw_files, pattern=paste0("_",year), full.names=TRUE)
@@ -75,8 +75,15 @@ manual_file_collate <- function(raw_files = "../../ManualDownloadsSCCData",
     
   }
   
+  # order the files
+  
+  all <- all[order(all$TIMESTAMP),]
+  
+  # format the datetime
+  all$TIMESTAMP <- as.character(format(all$TIMESTAMP))
+  
   # Write to a csv
-  write.csv(all, paste0( outfile, ".csv"), row.names = F)
+  write.csv(all, paste0(outfile, ".csv"), row.names = F)
   
 }
 
@@ -93,6 +100,7 @@ manual_file_collate <- function(raw_files = "../../ManualDownloadsSCCData",
 # 
 # # Weir
 # manual_file_collate(raw_files = "./WeirData", year="2023", just_CCR_EXO = F, outfile= "/WeirData_L1")
+# manual_file_collate(raw_files = "./WeirData/downloads", year=NULL, just_CCR_EXO = F, outfile= "./WeirData/WeirData_2019_2023")
 # 
 # # CCR
 # manual_file_collate(raw_files = "./CCR_manual_downloads/CCR_dam_downloads/Waterquality", year="2023", just_CCR_EXO = F, outfile= "/CCRWaterquality_L1")
