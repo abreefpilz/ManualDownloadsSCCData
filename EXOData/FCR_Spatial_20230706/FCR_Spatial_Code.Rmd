@@ -1,0 +1,155 @@
+---
+title: "FCR Spatial Sampling 06 Jul 2023"
+output: html_notebook
+created: "28 Feb 2024"
+edited: "1 Mar 2024"
+
+---
+
+On July 6, 2023, we were collecting bathymetery data with the ADCP and deployed an EXO2 off the side of the boat at about the surface or just under the surface. EXO2 data were collected every second. We also collected time and GPS data which we merge together to create the data frame. This data frame does not get saved (if you want it saved add that line). 
+
+After the data have been compiled, you can create some maps using leaflet to look at spatial trends. 
+
+
+```{r set up}
+
+# Read in packages. Might need to install some. 
+
+pacman::p_load(tidyverse, sf, marmap, leaflet, raster, rgdal)
+
+
+```
+
+```{r Read in EXO file}
+
+# Read in the EXO2 file 
+
+# Create a vecotr of the names of the variables
+
+EXO_names <- c("Date", "Time", "Sec" ,"Site", "Chlorophyll_RFU", "Cond_uScm", "Depth_m", "fDOM_QSU", "fDOM_RFU", "nLFCond_uScm",
+ "ODO_sat","local_ODO_sat" ,"ODO_mgL", "Pressure_psi_g", "Sal_psu", "SpCond_uScm", "PC_RFU", "TDS_mgL", "Turbidity_FNU", "TSS_mgL", "Wiper_Position_V",
+ "Temp_C", "Vertical_Position_m"," Battery_V", "Cable_Pwr_V")
+
+# Read in file and eliminate all the header information
+
+EXO <- read.csv("EXO_FCR_spatial_2023_07_06.csv", skip=19, header = F, skipNul = TRUE)
+
+# Add the column names we defined above
+colnames(EXO) <- EXO_names
+
+# make a datetime column
+
+EXO$Date <- as.Date(EXO$Date, format="%m/%d/%Y")
+
+EXO$DateTime <- ymd_hms(paste0(EXO$Date," ",EXO$Time))
+
+# make ugL from RFU for Chla and Phyco. Relationship from CCR sensor. 
+
+EXO2 <- EXO%>%
+  mutate(
+    Chlorophyll_ugL = (Chlorophyll_RFU*4)-0.63,
+    PC_ugL = (PC_RFU*1)-0.59
+  )%>%
+  select(DateTime, everything()) # put datetime column first
+```
+
+```{r Read in Coords}
+
+# Read in the Coordinates file from the GPS
+
+Cord <- read_csv("FCR_6JUL2023_TimeAndLocation.csv")
+
+# round to the whole second
+Cord$sec2 <- round(Cord$Second, digits = 0)
+
+# Combine the Date and time columns into one column
+Cord$DateTime <-ymd_hms(paste0(Cord$Year,"-" ,0,Cord$Month ,"-",0,Cord$Day," ",Cord$Hour, ":",Cord$Minute, ":", Cord$sec2))
+
+# Take the average of the coordinates over the second. We can decide if that is best or pick the coordinate that is closest to the second
+
+Cords2 <- Cord%>%
+  group_by(DateTime)%>%
+  summarise(across(c(Easting_WGS84_m, Northing_WGS84_m), mean))%>%
+  ungroup()
+
+```
+
+```{r group}
+
+# Merge the data frame by DateTime. There is alot more coordinates than EXO2 observations
+all_df <- merge(EXO2, Cords2, by="DateTime")
+
+# take out observations when the EXO was out of the water. We define this as less than 40 uScm specific conductivity. 
+# Rename the column headers to long and lat
+adcpdata <- all_df%>%
+  filter(SpCond_uScm>40)%>%
+  rename(long = Easting_WGS84_m,
+         lat = Northing_WGS84_m)
+
+```
+
+This code is from the ADPC mapping script by Michael K. 
+
+
+```{r convert coordinate}
+
+# convert coordinates from WGS84 UTM Zone 17 to WGS84 long/lat
+
+# extract UTM coordinates
+adcpdata_coords <- adcpdata[c("long", "lat")]
+
+# assign the coordinates to UTM, WGS84, and zone 17, measured in units of meters
+adcpdata_coords_utm <- SpatialPoints(adcpdata_coords, proj4string=CRS("+proj=utm +zone=17 +datum=WGS84 +units=m"))
+# convert the coordinates to Long/Lat in WGS84
+adcpdata_coords_geo <- spTransform(adcpdata_coords_utm, CRS("+proj=longlat +datum=WGS84"))
+
+# re-insert converted coordinates
+adcpdata_coords <- coordinates(adcpdata_coords_geo)
+adcpdata_coords <- as.data.frame(adcpdata_coords)
+adcpdata$long <- adcpdata_coords$coords.x1
+adcpdata$lat <- adcpdata_coords$coords.x2
+
+```
+
+```{r select the variable you want to map}
+
+
+DO <- adcpdata%>%
+  dplyr::select(long,lat,Chlorophyll_ugL)%>% # select the variable here 
+  filter(Chlorophyll_ugL<50) # might need to filter so very high or very low values
+  
+
+
+```
+
+```{r plot the data}
+  
+reg <- griddify(DO, nlon = 100, nlat = 300) #nlon and nlat set the number of pixels in the map; play around with these values. 
+class(reg) #Returns the class of data
+
+bat <- as.bathy(reg) #Classifies the data as "bathy"
+class(bat) #Returns the class of data
+
+
+bat_map <- plot(bat, image = TRUE, lwd = 0.1) #Creates bathymetric map
+bat_map 
+
+b <- marmap::as.raster(bat)
+pal <- colorNumeric(c("red", "orange", "#FFFFCC", "green",'aquamarine', "blue", "purple"), # change the number of colors you want
+                    domain = DO$Chlorophyll_ugL, # change column name here
+                    na.color = "transparent")
+
+# make the map
+map <- leaflet() %>% 
+  addProviderTiles(providers$CartoDB.Positron) %>%
+  setView(-79.8375,37.3058, zoom = 16) %>%
+  addRasterImage(b, colors = pal) %>%
+  addLegend("bottomright", pal = pal, values = DO$Chlorophyll_ugL, title = "Chla (ugL)") # change the column name here
+map
+
+# Save the map if you want to 
+
+ggsave("plot.jpg", width = 7, height = 5, units = "in")
+
+```
+
